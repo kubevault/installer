@@ -1,9 +1,13 @@
+{{- if .Values.apiserver.enableMutatingWebhook }}
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
 metadata:
   name: admission.vault.soter.ac
   labels:
-    app: vault-operator
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    app: "{{ template "vault-operator.name" . }}"
+    heritage: "{{ .Release.Service }}"
+    release: "{{ .Release.Name }}"
 webhooks:
 - name: deployment.admission.vault.soter.ac
   clientConfig:
@@ -11,7 +15,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/admission.vault.soter.ac/v1alpha1/deployments
-    caBundle: ${KUBE_CA}
+    caBundle: {{ b64enc .Values.apiserver.ca }}
   rules:
   - operations:
     - CREATE
@@ -30,7 +34,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/admission.vault.soter.ac/v1alpha1/daemonsets
-    caBundle: ${KUBE_CA}
+    caBundle: {{ b64enc .Values.apiserver.ca }}
   rules:
   - operations:
     - CREATE
@@ -49,7 +53,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/admission.vault.soter.ac/v1alpha1/statefulsets
-    caBundle: ${KUBE_CA}
+    caBundle: {{ b64enc .Values.apiserver.ca }}
   rules:
   - operations:
     - CREATE
@@ -66,7 +70,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/admission.vault.soter.ac/v1alpha1/replicationcontrollers
-    caBundle: ${KUBE_CA}
+    caBundle: {{ b64enc .Values.apiserver.ca }}
   rules:
   - operations:
     - CREATE
@@ -84,7 +88,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/admission.vault.soter.ac/v1alpha1/replicasets
-    caBundle: ${KUBE_CA}
+    caBundle: {{ b64enc .Values.apiserver.ca }}
   rules:
   - operations:
     - CREATE
@@ -103,7 +107,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/admission.vault.soter.ac/v1alpha1/jobs
-    caBundle: ${KUBE_CA}
+    caBundle: {{ b64enc .Values.apiserver.ca }}
   rules:
   - operations:
     - CREATE
@@ -121,7 +125,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/admission.vault.soter.ac/v1alpha1/cronjobs
-    caBundle: ${KUBE_CA}
+    caBundle: {{ b64enc .Values.apiserver.ca }}
   rules:
   - operations:
     - CREATE
@@ -133,3 +137,4 @@ webhooks:
     resources:
     - cronjobs
   failurePolicy: Fail
+{{ end }}
