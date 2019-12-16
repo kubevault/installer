@@ -300,6 +300,14 @@ unit-tests: $(BUILD_DIRS)
 	        ./hack/test.sh $(SRC_DIRS)                          \
 	    "
 
+TEST_CHARTS ?=
+
+ifeq ($(strip $(TEST_CHARTS)),)
+	CT_ARGS = --all
+else
+	CT_ARGS = --charts=$(TEST_CHARTS)
+endif
+
 .PHONY: ct
 ct: $(BUILD_DIRS)
 	@docker run                                                 \
