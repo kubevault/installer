@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        k8s: [v1.12.10, v1.14.6, v1.16.3, v1.17.0]
+        k8s: [v1.12.10, v1.13.10, v1.14.6, v1.15.3, v1.16.3, v1.17.0]
     steps:
 
     - name: Set up Go 1.13
@@ -26,34 +26,17 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
 
-    - name: Set up Docker Buildx
-      id: buildx
-      uses: crazy-max/ghaction-docker-buildx@v1
-      with:
-        version: latest
-
-    - name: Available platforms
-      run: echo ${{ steps.buildx.outputs.platforms }}
-
     - name: Run checks
       run: |
         sudo apt-get -qq update
         sudo apt-get install -y bzr
         make ci
 
-    - name: Build
-      env:
-        REGISTRY: appscodeci
-        DOCKER_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-        USERNAME: 1gtm
-      run: |
-        docker login --username ${USERNAME} --password ${DOCKER_TOKEN}
-        make push
-
     - name: Create Kubernetes ${{ matrix.k8s }} cluster
       id: kind
       uses: engineerd/setup-kind@v0.1.0
       with:
+        version: v0.6.1
         config: hack/kubernetes/kind.yaml
         image: kindest/node:${{ matrix.k8s }}
 
@@ -90,24 +73,3 @@ jobs:
         kubectl apply -f https://github.com/kubevault/operator/raw/master/api/crds/catalog.kubevault.com_vaultserverversions.yaml --validate=false
         kubectl wait --for=condition=NamesAccepted crds --all --timeout=5m
         make ct TEST_CHARTS=charts/vault-catalog
-
-    - name: Run e2e tests
-      env:
-        REGISTRY: appscodeci
-        REGISTRY_SECRET: regcred
-        TEST_CREDENTIALS: ${{ secrets.TEST_CREDENTIALS }}
-        GOOGLE_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_KEY }}
-      run: |
-        export KUBECONFIG="$(kind get kubeconfig-path)"
-        echo "preparing test credentials"
-        mkdir -p hack/config
-        echo -n "$TEST_CREDENTIALS" > hack/config/.env
-        echo >> hack/config/.env
-        echo "GOOGLE_SERVICE_ACCOUNT_JSON_KEY=$(echo $GOOGLE_SERVICE_ACCOUNT_JSON_KEY)" >> hack/config/.env
-        make install || ( kubectl describe deployment -n kube-system vault-operator; kubectl logs -n kube-system deployment/vault-operator; exit 1; )
-        echo
-        make e2e-tests
-        echo
-        make uninstall
-        echo
-        make purge
