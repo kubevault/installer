@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        k8s: [v1.12.10, v1.13.10, v1.14.6, v1.15.3, v1.16.3, v1.17.0]
+        k8s: [v1.14.6, v1.15.3, v1.16.3, v1.17.0]
     steps:
 
     - name: Set up Go 1.13
@@ -28,7 +28,7 @@ jobs:
 
     - name: Run checks
       run: |
-        sudo apt-get -qq update
+        sudo apt-get -qq update || true
         sudo apt-get install -y bzr
         make ci
 
@@ -73,3 +73,6 @@ jobs:
         kubectl apply -f https://github.com/kubevault/operator/raw/master/api/crds/catalog.kubevault.com_vaultserverversions.yaml --validate=false
         kubectl wait --for=condition=NamesAccepted crds --all --timeout=5m
         make ct TEST_CHARTS=charts/vault-catalog
+        echo
+        kubectl delete crds --all
+        make ct TEST_CHARTS=charts/csi-vault
