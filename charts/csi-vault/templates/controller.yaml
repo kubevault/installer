@@ -178,7 +178,6 @@ spec:
       - name: csi-provisioner
         image: {{ .Values.provisioner.registry}}/{{ .Values.provisioner.repository}}:{{ .Values.provisioner.tag }}
         args:
-        - --provisioner={{ .Values.driverName }}
         - --csi-address={{ .Values.pluginAddress}}
         - --v={{ .Values.logLevel }}
         imagePullPolicy: {{ .Values.provisioner.pullPolicy }}
