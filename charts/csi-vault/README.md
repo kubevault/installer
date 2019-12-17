@@ -78,8 +78,8 @@ The following table lists the configurable parameters of the Stash chart and the
 | `nodeRregistrar.tag`                    | CSI driver node registrar container image tag                      | `v1.0.1`                                   |
 | `nodeRregistrar.pullPolicy`             | CSI driver node registrar container image pull policy              | `IfNotPresent`                             |
 | `driverName`                            | Vault CSI driver name                                              | `com.kubevault.csi.secrets`                |
-| `pluginAddress`                         | Vault CSI driver endpoint address                                  | `/var/lib/csi/sockets/pluginproxy/csi.sock`|
-| `pluginDir`                             | Vault CSI driver plugin directory                                  | `/var/lib/csi/sockets/pluginproxy/`        |
+| `pluginAddress`                         | Vault CSI driver endpoint address                                  | `/csi/csi.sock`                            |
+| `pluginDir`                             | Vault CSI driver plugin directory                                  | `/csi`                                     |
 | `attachRequired`                        | Indicates CSI volume driver requires an attach operation           | `false`                                    |
 | `appbinding.create`                     | If true, AppBinding CRD will be created                            | `true`                                     |
 | `imagePullSecrets`                      | Specify image pull secrets                                         | `nil` (does not add image pull secrets to deployed pods) |

@@ -169,28 +169,21 @@ spec:
         image: {{ .Values.nodeRegistrar.registry}}/{{ .Values.nodeRegistrar.repository }}:{{ .Values.nodeRegistrar.tag }}
         args:
         - --v={{ .Values.logLevel }}
-        - "--csi-address=$(ADDRESS)"
-        - "--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)"
-        env:
-        - name: ADDRESS
-          value: /csi/csi.sock
-        - name: DRIVER_REG_SOCK_PATH
-          value: /var/lib/kubelet/plugins/{{ .Values.driverName }}/csi.sock
-        - name: KUBE_NODE_NAME
-              {{- include "csi-vault.node" . | nindent 10 }}
+        - --csi-address=/csi/csi.sock
+        - --kubelet-registration-path=/var/lib/kubelet/plugins/{{ .Values.driverName }}/csi.sock
         imagePullPolicy: {{ .Values.nodeRegistrar.pullPolicy }}
         resources:
               {{ toYaml .Values.resources | nindent 10 }}
         volumeMounts:
         - name: plugin-dir
-          mountPath: /csi/
+          mountPath: /csi
         - name: registration-dir
-          mountPath: /registration/
+          mountPath: /registration
       - name: csi-vault-plugin
         image: {{ .Values.plugin.registry}}/{{ .Values.plugin.repository }}:{{ .Values.plugin.tag }}
         args :
         - run
-        - "--csi-address=$(CSI_ENDPOINT)"
+        - --csi-address=unix:{{ .Values.pluginAddress }}
         - "--node=$(NODE_NAME)"
         - "--v={{ .Values.logLevel }}"
         - --secure-port=8443
@@ -201,25 +194,19 @@ spec:
         ports:
         - containerPort: 8443
         env:
-        - name: CSI_ENDPOINT
-          value: unix:///csi/csi.sock
         - name: NODE_NAME
-              {{- include "csi-vault.node" . | nindent 10 }}
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
         imagePullPolicy: {{ .Values.plugin.pullPolicy }}
-              {{- if .Values.apiserver.healthcheck.enabled }}
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: 8443
-            scheme: HTTPS
-          initialDelaySeconds: 5
+        {{- if .Values.apiserver.healthcheck.enabled }}
         livenessProbe:
           httpGet:
             path: /healthz
             port: 8443
             scheme: HTTPS
-          initialDelaySeconds: 5
-              {{- end }}
+          initialDelaySeconds: 10
+        {{- end }}
         resources:
               {{ toYaml .Values.resources | indent 10 }}
         securityContext:
@@ -230,7 +217,7 @@ spec:
         volumeMounts:
         - name: plugin-dir
           mountPath: /csi
-        - name: pods-mount-dir
+        - name: kubelet-dir
           mountPath: /var/lib/kubelet
                   # needed so that any mounts setup inside this container are
           # propagated back to the host machine.
@@ -244,14 +231,14 @@ spec:
         hostPath:
           path: /var/lib/kubelet/plugins_registry/
           type: DirectoryOrCreate
-      - name: plugin-dir
-        hostPath:
-          path: /var/lib/kubelet/plugins/{{ .Values.driverName }}
-          type: DirectoryOrCreate
-      - name: pods-mount-dir
+      - name: kubelet-dir
         hostPath:
           path: /var/lib/kubelet
           type: Directory
+      - name: plugin-dir
+        hostPath:
+          path: /var/lib/kubelet/plugins/{{ .Values.driverName }}/
+          type: DirectoryOrCreate
       - name: device-dir
         hostPath:
           path: /dev

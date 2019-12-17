@@ -179,11 +179,8 @@ spec:
         image: {{ .Values.provisioner.registry}}/{{ .Values.provisioner.repository}}:{{ .Values.provisioner.tag }}
         args:
         - --provisioner={{ .Values.driverName }}
-        - "--csi-address=$(ADDRESS)"
+        - --csi-address={{ .Values.pluginAddress}}
         - --v={{ .Values.logLevel }}
-        env:
-        - name: ADDRESS
-          value: {{ .Values.pluginAddress}}
         imagePullPolicy: {{ .Values.provisioner.pullPolicy }}
         resources:
               {{ toYaml .Values.resources | indent 10 }}
@@ -194,10 +191,7 @@ spec:
         image: {{ .Values.attacher.registry}}/{{ .Values.attacher.repository }}:{{ .Values.attacher.tag }}
         args:
         - --v={{ .Values.logLevel }}
-        - "--csi-address=$(csi-address)"
-        env:
-        - name: ADDRESS
-          value: {{ .Values.pluginAddress }}
+        - --csi-address={{ .Values.pluginAddress}}
         imagePullPolicy: {{ .Values.attacher.pullPolicy }}
         resources:
               {{ toYaml .Values.resources | indent 10 }}
@@ -208,9 +202,9 @@ spec:
         image: {{ .Values.plugin.registry }}/{{ .Values.plugin.repository }}:{{ .Values.plugin.tag }}
         args :
         - run
-        - "--csi-address=$(CSI_ENDPOINT)"
-        - "--node=$(NODE_NAME)"
-        - "--v={{ .Values.logLevel }}"
+        - --csi-address=unix:{{ .Values.pluginAddress }}
+        - --node=$(NODE_NAME)
+        - --v={{ .Values.logLevel }}
         - --secure-port=8443
         - --tls-cert-file=/var/serving-cert/tls.crt
         - --tls-private-key-file=/var/serving-cert/tls.key
@@ -219,25 +213,19 @@ spec:
         ports:
         - containerPort: 8443
         env:
-        - name: CSI_ENDPOINT
-          value: unix://{{ .Values.pluginAddress }}
         - name: NODE_NAME
-              {{- include "csi-vault.node" . | nindent 10 }}
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
         imagePullPolicy: {{ .Values.plugin.pullPolicy }}
-              {{- if .Values.apiserver.healthcheck.enabled }}
-        readinessProbe:
-          httpGet:
-            port: 8443
-            path: /healthz
-            scheme: HTTPS
-          initialDelaySeconds: 5
+        {{- if .Values.apiserver.healthcheck.enabled }}
         livenessProbe:
           httpGet:
             port: 8443
             path: /healthz
             scheme: HTTPS
-          initialDelaySeconds: 5
-              {{- end }}
+          initialDelaySeconds: 10
+        {{- end }}
         resources:
               {{ toYaml .Values.resources | indent 10 }}
         volumeMounts:

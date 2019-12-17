@@ -45,8 +45,8 @@ nameOverride: ""
 fullnameOverride: ""
 
 driverName: secrets.csi.kubevault.com
-pluginAddress: /var/lib/csi/sockets/pluginproxy/csi.sock
-pluginDir: /var/lib/csi/sockets/pluginproxy/
+pluginAddress: /csi/csi.sock
+pluginDir: /csi
 
 attachRequired: false
 
