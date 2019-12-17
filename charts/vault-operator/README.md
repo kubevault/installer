@@ -7,7 +7,7 @@
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install appscode/vault-operator --name vault-operator --namespace kube-system
+$ helm install vault-operator appscode/vault-operator --namespace kube-system
 ```
 
 ## Introduction
@@ -16,7 +16,7 @@ This chart bootstraps a [HashiCorp Vault controller](https://github.com/kubevaul
 
 ## Prerequisites
 
-- Kubernetes 1.9+
+- Kubernetes 1.14+
 
 ## Installing the Chart
 

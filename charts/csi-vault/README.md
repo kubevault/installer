@@ -8,7 +8,7 @@
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install appscode/csi-vault --name csi-vault --namespace kube-system
+$ helm install csi-vault appscode/csi-vault --namespace kube-system
 ```
 
 ## Introduction
