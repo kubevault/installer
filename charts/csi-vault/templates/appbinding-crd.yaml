@@ -1,7 +1,7 @@
 # GKE returns Major:"1", Minor:"10+"
 {{- $major := default "0" .Capabilities.KubeVersion.Major | trimSuffix "+" | int64 }}
 {{- $minor := default "0" .Capabilities.KubeVersion.Minor | trimSuffix "+" | int64 }}
-{{- if .Values.appbinding.create -}}
+{{- if .Values.appbinding.create }}
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
