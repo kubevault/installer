@@ -67,34 +67,36 @@ message KubeVaultOperatorSpec {
 
   optional string imagePullPolicy = 4;
 
-  optional bool criticalAddon = 5;
+  repeated string imagePullSecrets = 5;
 
-  optional int32 logLevel = 6;
+  optional bool criticalAddon = 6;
 
-  map<string, string> annotations = 7;
+  optional int32 logLevel = 7;
 
-  map<string, string> nodeSelector = 8;
+  map<string, string> annotations = 8;
+
+  map<string, string> nodeSelector = 9;
 
   // If specified, the pod's tolerations.
   // +optional
-  repeated k8s.io.api.core.v1.Toleration tolerations = 9;
+  repeated k8s.io.api.core.v1.Toleration tolerations = 10;
 
   // If specified, the pod's scheduling constraints
   // +optional
-  optional k8s.io.api.core.v1.Affinity affinity = 10;
+  optional k8s.io.api.core.v1.Affinity affinity = 11;
 
   // Compute Resources required by the sidecar container.
-  optional k8s.io.api.core.v1.ResourceRequirements resources = 11;
+  optional k8s.io.api.core.v1.ResourceRequirements resources = 12;
 
-  optional ServiceAccountSpec serviceAccount = 12;
+  optional ServiceAccountSpec serviceAccount = 13;
 
-  optional WebHookSpec apiserver = 13;
+  optional WebHookSpec apiserver = 14;
 
-  optional bool enableAnalytics = 14;
+  optional bool enableAnalytics = 15;
 
-  optional Monitoring monitoring = 15;
+  optional Monitoring monitoring = 16;
 
-  optional string clusterName = 16;
+  optional string clusterName = 17;
 }
 
 message Monitoring {

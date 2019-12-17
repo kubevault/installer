@@ -6,6 +6,10 @@ metadata:
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
     component: {{ .Values.nodePlugin.name }}
+imagePullSecrets:
+  {{- range $x := .Values.imagePullSecrets }}
+  - name: "{{ $x }}"
+  {{- end }}
 
 ---
 
@@ -160,10 +164,6 @@ spec:
     spec:
       priorityClassName: system-node-critical
       serviceAccount: {{ template "csi-vault.node.fullname" . }}
-            {{- if .Values.imagePullSecrets }}
-      imagePullSecrets:
-            {{ toYaml .Values.imagePullSecrets | indent 6 }}
-            {{- end }}
       containers:
       - name: node-driver-registrar
         image: {{ .Values.nodeRegistrar.registry}}/{{ .Values.nodeRegistrar.repository }}:{{ .Values.nodeRegistrar.tag }}

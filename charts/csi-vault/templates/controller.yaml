@@ -34,6 +34,10 @@ metadata:
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
     component: {{ .Values.controllerPlugin.name }}
+imagePullSecrets:
+  {{- range $x := .Values.imagePullSecrets }}
+  - name: "{{ $x }}"
+  {{- end }}
 
 ---
 
@@ -170,10 +174,6 @@ spec:
         component: {{ .Values.controllerPlugin.name }}
     spec:
       serviceAccount: {{ template "csi-vault.controller.fullname" . }}
-            {{- if .Values.imagePullSecrets }}
-      imagePullSecrets:
-            {{ toYaml .Values.imagePullSecrets | indent 6 }}
-            {{- end }}
       containers:
       - name: csi-provisioner
         image: {{ .Values.provisioner.registry}}/{{ .Values.provisioner.repository}}:{{ .Values.provisioner.tag }}

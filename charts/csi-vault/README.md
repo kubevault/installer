@@ -82,7 +82,7 @@ The following table lists the configurable parameters of the Stash chart and the
 | `pluginDir`                             | Vault CSI driver plugin directory                                  | `/csi`                                     |
 | `attachRequired`                        | Indicates CSI volume driver requires an attach operation           | `false`                                    |
 | `appbinding.create`                     | If true, AppBinding CRD will be created                            | `true`                                     |
-| `imagePullSecrets`                      | Specify image pull secrets                                         | `nil` (does not add image pull secrets to deployed pods) |
+| `imagePullSecrets`                      | Specify image pull secrets                                         | `[]`                                       |
 | `criticalAddon`                         | If true, installs Vault CSI driver as critical addon               | `false`                                    |
 | `logLevel`                              | Log level for CSI driver                                           | `3`                                        |
 | `affinity`                              | Affinity rules for pod assignment                                  | `{}`                                       |

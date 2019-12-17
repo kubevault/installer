@@ -55,6 +55,14 @@ appbinding:
   # Specifies whether AppBinding CRD should be created
   create: true
 
+## Optionally specify an array of imagePullSecrets.
+## Secrets must be manually created in the namespace.
+## ref: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
+## example: helm template charts/csi-vault \
+##            --set imagePullSecrets[0]=abc \
+##            --set imagePullSecrets[1]=xyz
+imagePullSecrets: []
+
 ## Installs pods as critical addon
 ## https://kubernetes.io/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/
 criticalAddon: true
