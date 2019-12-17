@@ -14,10 +14,6 @@ spec:
   template:
     spec:
       serviceAccountName: {{ template "vault-operator.serviceAccountName" . }}
-      {{- if .Values.imagePullSecrets }}
-      imagePullSecrets:
-{{ toYaml .Values.imagePullSecrets | indent 6 }}
-      {{- end }}
       containers:
       - name: kubectl
         image: {{ .Values.cleaner.registry }}/{{ .Values.cleaner.repository }}:{{ .Values.cleaner.tag }}

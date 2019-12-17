@@ -50,27 +50,28 @@ type ImageRef struct {
 
 // KubeVaultOperatorSpec is the spec for redis version
 type KubeVaultOperatorSpec struct {
-	ReplicaCount    int32             `json:"replicaCount" protobuf:"varint,1,opt,name=replicaCount"`
-	Operator        ImageRef          `json:"operator" protobuf:"bytes,2,opt,name=operator"`
-	Cleaner         ImageRef          `json:"cleaner" protobuf:"bytes,3,opt,name=cleaner"`
-	ImagePullPolicy string            `json:"imagePullPolicy" protobuf:"bytes,4,opt,name=imagePullPolicy"`
-	CriticalAddon   bool              `json:"criticalAddon,omitempty" protobuf:"varint,5,opt,name=criticalAddon"`
-	LogLevel        int32             `json:"logLevel" protobuf:"varint,6,opt,name=logLevel"`
-	Annotations     map[string]string `json:"annotations,omitempty" protobuf:"bytes,7,rep,name=annotations"`
-	NodeSelector    map[string]string `json:"nodeSelector,omitempty" protobuf:"bytes,8,rep,name=nodeSelector"`
+	ReplicaCount     int32             `json:"replicaCount" protobuf:"varint,1,opt,name=replicaCount"`
+	Operator         ImageRef          `json:"operator" protobuf:"bytes,2,opt,name=operator"`
+	Cleaner          ImageRef          `json:"cleaner" protobuf:"bytes,3,opt,name=cleaner"`
+	ImagePullPolicy  string            `json:"imagePullPolicy" protobuf:"bytes,4,opt,name=imagePullPolicy"`
+	ImagePullSecrets []string          `json:"imagePullSecrets" protobuf:"bytes,5,rep,name=imagePullSecrets"`
+	CriticalAddon    bool              `json:"criticalAddon,omitempty" protobuf:"varint,6,opt,name=criticalAddon"`
+	LogLevel         int32             `json:"logLevel" protobuf:"varint,7,opt,name=logLevel"`
+	Annotations      map[string]string `json:"annotations,omitempty" protobuf:"bytes,8,rep,name=annotations"`
+	NodeSelector     map[string]string `json:"nodeSelector,omitempty" protobuf:"bytes,9,rep,name=nodeSelector"`
 	// If specified, the pod's tolerations.
 	// +optional
-	Tolerations []core.Toleration `json:"tolerations,omitempty" protobuf:"bytes,9,rep,name=tolerations"`
+	Tolerations []core.Toleration `json:"tolerations,omitempty" protobuf:"bytes,10,rep,name=tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity *core.Affinity `json:"affinity,omitempty" protobuf:"bytes,10,opt,name=affinity"`
+	Affinity *core.Affinity `json:"affinity,omitempty" protobuf:"bytes,11,opt,name=affinity"`
 	// Compute Resources required by the sidecar container.
-	Resources       core.ResourceRequirements `json:"resources,omitempty" protobuf:"bytes,11,opt,name=resources"`
-	ServiceAccount  ServiceAccountSpec        `json:"serviceAccount" protobuf:"bytes,12,opt,name=serviceAccount"`
-	Apiserver       WebHookSpec               `json:"apiserver" protobuf:"bytes,13,opt,name=apiserver"`
-	EnableAnalytics bool                      `json:"enableAnalytics" protobuf:"varint,14,opt,name=enableAnalytics"`
-	Monitoring      Monitoring                `json:"monitoring" protobuf:"bytes,15,opt,name=monitoring"`
-	ClusterName     string                    `json:"clusterName,omitempty" protobuf:"bytes,16,opt,name=clusterName"`
+	Resources       core.ResourceRequirements `json:"resources,omitempty" protobuf:"bytes,12,opt,name=resources"`
+	ServiceAccount  ServiceAccountSpec        `json:"serviceAccount" protobuf:"bytes,13,opt,name=serviceAccount"`
+	Apiserver       WebHookSpec               `json:"apiserver" protobuf:"bytes,14,opt,name=apiserver"`
+	EnableAnalytics bool                      `json:"enableAnalytics" protobuf:"varint,15,opt,name=enableAnalytics"`
+	Monitoring      Monitoring                `json:"monitoring" protobuf:"bytes,16,opt,name=monitoring"`
+	ClusterName     string                    `json:"clusterName,omitempty" protobuf:"bytes,17,opt,name=clusterName"`
 }
 
 type ServiceAccountSpec struct {

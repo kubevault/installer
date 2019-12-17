@@ -122,6 +122,11 @@ func (in *KubeVaultOperatorSpec) DeepCopyInto(out *KubeVaultOperatorSpec) {
 	*out = *in
 	out.Operator = in.Operator
 	out.Cleaner = in.Cleaner
+	if in.ImagePullSecrets != nil {
+		in, out := &in.ImagePullSecrets, &out.ImagePullSecrets
+		*out = make([]string, len(*in))
+		copy(*out, *in)
+	}
 	if in.Annotations != nil {
 		in, out := &in.Annotations, &out.Annotations
 		*out = make(map[string]string, len(*in))

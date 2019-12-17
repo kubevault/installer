@@ -683,6 +683,10 @@ spec:
               type: boolean
             imagePullPolicy:
               type: string
+            imagePullSecrets:
+              items:
+                type: string
+              type: array
             logLevel:
               format: int32
               type: integer
@@ -807,6 +811,7 @@ spec:
           - cleaner
           - enableAnalytics
           - imagePullPolicy
+          - imagePullSecrets
           - logLevel
           - monitoring
           - operator
