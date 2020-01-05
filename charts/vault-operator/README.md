@@ -7,7 +7,7 @@
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install vault-operator appscode/vault-operator --namespace kube-system
+$ helm install vault-operator appscode/vault-operator -n kube-system
 ```
 
 ## Introduction
@@ -16,14 +16,14 @@ This chart bootstraps a [HashiCorp Vault controller](https://github.com/kubevaul
 
 ## Prerequisites
 
-- Kubernetes 1.12+
+- Kubernetes 1.11+
 
 ## Installing the Chart
 
 To install the chart with the release name `vault-operator`:
 
 ```console
-$ helm install vault-operator appscode/vault-operator --namespace kube-system
+$ helm install vault-operator appscode/vault-operator -n kube-system
 ```
 
 The command deploys Vault operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -35,7 +35,7 @@ The command deploys Vault operator on the Kubernetes cluster in the default conf
 To uninstall/delete the `vault-operator`:
 
 ```console
-$ helm uninstall vault-operator --namespace kube-system
+$ helm uninstall vault-operator -n kube-system
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -81,12 +81,12 @@ The following table lists the configurable parameters of the Vault chart and the
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install vault-operator appscode/vault-operator --namespace kube-system --set image.tag=v0.2.0
+$ helm install vault-operator appscode/vault-operator -n kube-system --set image.tag=v0.2.0
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```console
-$ helm install vault-operator appscode/vault-operator --namespace kube-system --values values.yaml
+$ helm install vault-operator appscode/vault-operator -n kube-system --values values.yaml
 ```

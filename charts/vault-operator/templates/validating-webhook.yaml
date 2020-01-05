@@ -65,9 +65,9 @@ webhooks:
     resources:
       - databaseaccessrequests
   failurePolicy: Fail
-  {{- if and (ge $major 1) (ge $minor 12) }}
+{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-  {{- end }}
+{{- end }}
 - name: awsaccesskeyrequests.validators.engine.kubevault.com
   clientConfig:
     service:
@@ -128,7 +128,7 @@ webhooks:
     resources:
     - azureaccesskeyrequests
   failurePolicy: Fail
-  {{- if and (ge $major 1) (ge $minor 12) }}
+{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-  {{- end }}
+{{- end }}
 {{ end }}

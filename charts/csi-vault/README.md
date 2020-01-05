@@ -8,7 +8,7 @@
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install csi-vault appscode/csi-vault --namespace kube-system
+$ helm install csi-vault appscode/csi-vault -n kube-system
 ```
 
 ## Introduction
@@ -28,7 +28,7 @@ This chart bootstraps a [Vault CSI Driver](https://github.com/kubevault/csi-driv
 To install the chart with the release name `csi-vault`
 
 ```console
-$ helm install csi-vault appscode/csi-vault --namespace kube-system
+$ helm install csi-vault appscode/csi-vault -n kube-system
 ```
 
 This command deploys CSI Driver for Vault on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -40,7 +40,7 @@ This command deploys CSI Driver for Vault on the Kubernetes cluster in the defau
 To uninstall/delete the `csi-vault`:
 
 ```console
-$ helm uninstall csi-vault --namespace kube-system
+$ helm uninstall csi-vault -n kube-system
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -101,12 +101,12 @@ The following table lists the configurable parameters of the Stash chart and the
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install csi-vault appscode/csi-vault --namespace kube-system --set plugin.tag=v0.2.0
+$ helm install csi-vault appscode/csi-vault -n kube-system --set plugin.tag=v0.2.0
 
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example:
 
 ```console
-$ helm install csi-vault appscode/csi-vault --namespace kube-system --values values.yaml
+$ helm install csi-vault appscode/csi-vault -n kube-system --values values.yaml
 ```
