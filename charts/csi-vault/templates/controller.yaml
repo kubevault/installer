@@ -228,7 +228,7 @@ spec:
           initialDelaySeconds: 10
         {{- end }}
         resources:
-              {{ toYaml .Values.resources | indent 10 }}
+          {{ toYaml .Values.resources | indent 10 }}
         volumeMounts:
         - name: socket-dir
           mountPath: {{ .Values.pluginDir }}
@@ -241,24 +241,24 @@ spec:
         secret:
           defaultMode: 420
           secretName: {{ template "csi-vault.fullname" . }}-apiserver-cert
-            {{- if or .Values.tolerations (and .Values.criticalAddon (eq .Release.Namespace "kube-system")) }}
+{{- if or .Values.tolerations (and .Values.criticalAddon (eq .Release.Namespace "kube-system")) }}
       tolerations:
-              {{- if .Values.tolerations }}
-              {{ toYaml .Values.tolerations | indent 8 }}
-              {{- end -}}
-              {{- if and .Values.criticalAddon (eq .Release.Namespace "kube-system") }}
+{{- if .Values.tolerations }}
+{{ toYaml .Values.tolerations | indent 8 }}
+{{- end -}}
+{{- if and .Values.criticalAddon (eq .Release.Namespace "kube-system") }}
       - key: CriticalAddonsOnly
         operator: Exists
-            {{- end -}}
-            {{- end -}}
-            {{- if .Values.affinity }}
+{{- end -}}
+{{- end -}}
+{{- if .Values.affinity }}
       affinity:
-            {{ toYaml .Values.affinity | indent 8 }}
-            {{- end -}}
-            {{- if .Values.nodeSelector }}
+{{ toYaml .Values.affinity | indent 8 }}
+{{- end -}}
+{{- if .Values.nodeSelector }}
       nodeSelector:
-            {{ toYaml .Values.nodeSelector | indent 8 }}
-            {{- end -}}
-            {{- if and .Values.criticalAddon (eq .Release.Namespace "kube-system") }}
+{{ toYaml .Values.nodeSelector | indent 8 }}
+{{- end -}}
+{{- if and .Values.criticalAddon (eq .Release.Namespace "kube-system") }}
       priorityClassName: system-cluster-critical
-        {{- end -}}
+{{- end -}}
