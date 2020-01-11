@@ -84,7 +84,7 @@ jobs:
         kubectl delete crds --all
 
     - name: Test csi-vault chart
-      if: (matrix.cluster.version != 'v1.11.10') || (matrix.cluster.version != 'v1.12.10') || (matrix.cluster.version != 'v1.13.10')
+      if: (matrix.cluster.version != 'v1.11.10') && (matrix.cluster.version != 'v1.12.10') && (matrix.cluster.version != 'v1.13.10')
       run: |
         export KUBECONFIG="$(kind get kubeconfig-path)"
         make ct TEST_CHARTS=charts/csi-vault
