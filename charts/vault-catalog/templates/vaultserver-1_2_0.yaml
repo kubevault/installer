@@ -12,4 +12,4 @@ spec:
   unsealer:
     image: "{{ .Values.dockerRegistry }}/vault-unsealer:v0.3.0"
   exporter:
-    image: "{{ .Values.dockerRegistry }}/vault-exporter:0.1.0"
+    image: "{{ .Values.dockerRegistry }}/vault-exporter-linux-amd64:v0.3.0"
