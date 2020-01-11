@@ -14,7 +14,7 @@ plugin:
   name: plugin
   registry: kubevault
   repository: csi-vault
-  tag: 0.2.0
+  tag: v0.3.0
   pullPolicy: IfNotPresent
 provisioner:
   name: provisioner

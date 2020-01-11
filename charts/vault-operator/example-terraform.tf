@@ -98,7 +98,7 @@ resource "helm_release" "kubevault" {
   # executing from published chart
   #   repository = data.helm_repository.appscode.metadata[0].name
   #   chart = "vault-operator"
-  #   version    = "0.2.0"
+  #   version    = "v0.3.0"
 
   set {
     name  = "apiserver.servingCerts.generate"

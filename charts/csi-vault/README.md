@@ -62,7 +62,7 @@ The following table lists the configurable parameters of the Stash chart and the
 | `plugin.name`                           | Name of the plugin component                                       | `plugin`                                   |
 | `plugin.registry`                       | Docker registry used to pull Vault CSI driver image                | `kubevault`                                |
 | `plugin.repository`                     | Vault CSI driver container image                                   | `csi-vault`                                |
-| `plugin.tag`                            | Vault CSI driver container image tag                               | `0.2.0`                                    |
+| `plugin.tag`                            | Vault CSI driver container image tag                               | `v0.3.0`                                    |
 | `plugin.pullPolicy`                     | Vault CSI driver container image pull policy                       | `IfNotPresent`                             |
 | `provisioner.name`                      | Name of the provisioner component                                  | `provisioner`                              |
 | `provisioner.registry`                  | Docker registry used to pull CSI provisioner image                 | `quay.io/k8scsi`                           |
@@ -101,7 +101,7 @@ The following table lists the configurable parameters of the Stash chart and the
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install csi-vault appscode/csi-vault -n kube-system --set plugin.tag=v0.2.0
+$ helm install csi-vault appscode/csi-vault -n kube-system --set plugin.tag=v0.3.0
 
 ```
 
