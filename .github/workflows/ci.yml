@@ -14,7 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        k8s: [v1.14.6, v1.15.3, v1.16.3, v1.17.0]
+        cluster:
+        - {"version": "v1.11.10", "config": "kind-1.11.yaml"}
+        - {"version": "v1.12.10", "config": "kind.yaml"}
+        - {"version": "v1.13.10", "config": "kind.yaml"}
+        - {"version": "v1.14.6", "config": "kind.yaml"}
+        - {"version": "v1.15.3", "config": "kind.yaml"}
+        - {"version": "v1.16.3", "config": "kind.yaml"}
+        - {"version": "v1.17.0", "config": "kind.yaml"}
     steps:
 
     - name: Set up Go 1.13
@@ -32,13 +39,13 @@ jobs:
         sudo apt-get install -y bzr
         make ci
 
-    - name: Create Kubernetes ${{ matrix.k8s }} cluster
+    - name: Create Kubernetes ${{ matrix.cluster.version }} cluster
       id: kind
       uses: engineerd/setup-kind@v0.1.0
       with:
         version: v0.6.1
-        config: hack/kubernetes/kind.yaml
-        image: kindest/node:${{ matrix.k8s }}
+        config: hack/kubernetes/${{ matrix.cluster.config }}
+        image: kindest/node:${{ matrix.cluster.version }}
 
     - name: Prepare cluster for testing
       id: local-path
@@ -64,7 +71,7 @@ jobs:
         echo "create docker-registry secret"
         kubectl create secret docker-registry ${REGISTRY_SECRET} --namespace=kube-system --docker-server=https://index.docker.io/v1/ --docker-username=${USERNAME} --docker-password=${DOCKER_TOKEN}
 
-    - name: Test charts
+    - name: Test vault-operator chart
       run: |
         export KUBECONFIG="$(kind get kubeconfig-path)"
         make ct TEST_CHARTS=charts/vault-operator
@@ -75,4 +82,9 @@ jobs:
         make ct TEST_CHARTS=charts/vault-catalog
         echo
         kubectl delete crds --all
+
+    - name: Test csi-vault chart
+      if: (matrix.cluster.version != 'v1.11.10') || (matrix.cluster.version != 'v1.12.10') || (matrix.cluster.version != 'v1.13.10')
+      run: |
+        export KUBECONFIG="$(kind get kubeconfig-path)"
         make ct TEST_CHARTS=charts/csi-vault
