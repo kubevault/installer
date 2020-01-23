@@ -95,7 +95,7 @@ apiserver:
   servingCerts:
     # If true, generate on install/upgrade the certs that allow the kube-apiserver (and potentially ServiceMonitor) to authenticate vault-operator pods.
     # Otherwise specify in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.
-    # See also: [example terraform](https://github.com/kubevault/operator/blob/master/charts/vault-operator/example-terraform.tf)
+    # See also: [example terraform](https://github.com/kubevault/installer/blob/master/charts/vault-operator/example-terraform.tf)
     generate: true
     caCrt:
     serverCrt: ""
