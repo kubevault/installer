@@ -1192,11 +1192,8 @@
         "operator",
         "cleaner",
         "imagePullPolicy",
-        "imagePullSecrets",
-        "logLevel",
         "serviceAccount",
         "apiserver",
-        "enableAnalytics",
         "monitoring"
       ],
       "properties": {
@@ -1274,7 +1271,6 @@
       "type": "object",
       "required": [
         "agent",
-        "operator",
         "prometheus",
         "serviceMonitor"
       ],
@@ -1295,9 +1291,6 @@
     },
     "dev.kubevault.installer.apis.installer.v1alpha1.PrometheusSpec": {
       "type": "object",
-      "required": [
-        "namespace"
-      ],
       "properties": {
         "namespace": {
           "type": "string"
@@ -1307,8 +1300,7 @@
     "dev.kubevault.installer.apis.installer.v1alpha1.ServiceAccountSpec": {
       "type": "object",
       "required": [
-        "create",
-        "name"
+        "create"
       ],
       "properties": {
         "create": {
@@ -1321,9 +1313,6 @@
     },
     "dev.kubevault.installer.apis.installer.v1alpha1.ServiceMonitorLabels": {
       "type": "object",
-      "required": [
-        "labels"
-      ],
       "properties": {
         "labels": {
           "type": "object",

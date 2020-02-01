@@ -15740,7 +15740,7 @@ func schema_installer_apis_installer_v1alpha1_KubeVaultOperatorSpec(ref common.R
 						},
 					},
 				},
-				Required: []string{"replicaCount", "operator", "cleaner", "imagePullPolicy", "imagePullSecrets", "logLevel", "serviceAccount", "apiserver", "enableAnalytics", "monitoring"},
+				Required: []string{"replicaCount", "operator", "cleaner", "imagePullPolicy", "serviceAccount", "apiserver", "monitoring"},
 			},
 		},
 		Dependencies: []string{
@@ -15777,7 +15777,7 @@ func schema_installer_apis_installer_v1alpha1_Monitoring(ref common.ReferenceCal
 						},
 					},
 				},
-				Required: []string{"agent", "operator", "prometheus", "serviceMonitor"},
+				Required: []string{"agent", "prometheus", "serviceMonitor"},
 			},
 		},
 		Dependencies: []string{
@@ -15798,7 +15798,6 @@ func schema_installer_apis_installer_v1alpha1_PrometheusSpec(ref common.Referenc
 						},
 					},
 				},
-				Required: []string{"namespace"},
 			},
 		},
 	}
@@ -15823,7 +15822,7 @@ func schema_installer_apis_installer_v1alpha1_ServiceAccountSpec(ref common.Refe
 						},
 					},
 				},
-				Required: []string{"create", "name"},
+				Required: []string{"create"},
 			},
 		},
 	}
@@ -15850,7 +15849,6 @@ func schema_installer_apis_installer_v1alpha1_ServiceMonitorLabels(ref common.Re
 						},
 					},
 				},
-				Required: []string{"labels"},
 			},
 		},
 	}

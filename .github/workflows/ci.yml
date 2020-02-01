@@ -12,16 +12,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        cluster:
-        - {"version": "v1.11.10", "config": "kind-1.11.yaml"}
-        - {"version": "v1.12.10", "config": "kind.yaml"}
-        - {"version": "v1.13.10", "config": "kind.yaml"}
-        - {"version": "v1.14.6", "config": "kind.yaml"}
-        - {"version": "v1.15.3", "config": "kind.yaml"}
-        - {"version": "v1.16.3", "config": "kind.yaml"}
-        - {"version": "v1.17.0", "config": "kind.yaml"}
     steps:
 
     - name: Set up Go 1.13
@@ -39,11 +29,30 @@ jobs:
         sudo apt-get install -y bzr
         make ci
 
+  kubernetes:
+    name: Kubernetes
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        cluster:
+        - {"version": "v1.11.10", "config": "kind-1.11.yaml"}
+        - {"version": "v1.12.10", "config": "kind.yaml"}
+        - {"version": "v1.13.10", "config": "kind.yaml"}
+        - {"version": "v1.14.6", "config": "kind.yaml"}
+        - {"version": "v1.15.3", "config": "kind.yaml"}
+        - {"version": "v1.16.3", "config": "kind.yaml"}
+        - {"version": "v1.17.0", "config": "kind.yaml"}
+    steps:
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v1
+
     - name: Create Kubernetes ${{ matrix.cluster.version }} cluster
       id: kind
       uses: engineerd/setup-kind@v0.1.0
       with:
-        version: v0.6.1
+        version: v0.7.0
         config: hack/kubernetes/${{ matrix.cluster.config }}
         image: kindest/node:${{ matrix.cluster.version }}
 
@@ -54,8 +63,6 @@ jobs:
         USERNAME: 1gtm
         REGISTRY_SECRET: regcred
       run: |
-        export KUBECONFIG="$(kind get kubeconfig-path)"
-        echo
         echo "waiting for nodes to be ready ..."
         kubectl wait --for=condition=Ready nodes --all --timeout=5m
         kubectl get nodes
@@ -64,7 +71,7 @@ jobs:
         echo
         echo "installing local-path provisioner ..."
         kubectl delete storageclass --all
-        kubectl apply -f https://github.com/rancher/local-path-provisioner/raw/v0.0.11/deploy/local-path-storage.yaml
+        kubectl apply -f https://github.com/rancher/local-path-provisioner/raw/v0.0.12/deploy/local-path-storage.yaml
         kubectl wait --for=condition=Ready pods -n local-path-storage --all --timeout=5m
         kubectl apply -f hack/kubernetes/storageclass/standard.yaml
         echo
@@ -73,7 +80,7 @@ jobs:
 
     - name: Test vault-operator chart
       run: |
-        export KUBECONFIG="$(kind get kubeconfig-path)"
+        export KUBECONFIG="${HOME}/.kube/config"
         make ct TEST_CHARTS=charts/vault-operator
         echo
         kubectl delete crds --all
@@ -86,5 +93,5 @@ jobs:
     - name: Test csi-vault chart
       if: (matrix.cluster.version != 'v1.11.10') && (matrix.cluster.version != 'v1.12.10') && (matrix.cluster.version != 'v1.13.10')
       run: |
-        export KUBECONFIG="$(kind get kubeconfig-path)"
+        export KUBECONFIG="${HOME}/.kube/config"
         make ct TEST_CHARTS=charts/csi-vault

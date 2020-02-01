@@ -56,7 +56,7 @@ nodeSelector:
 ## Tolerations for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
-tolerations: {}
+tolerations: []
 
 ## Affinity for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
@@ -97,7 +97,7 @@ apiserver:
     # Otherwise specify in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.
     # See also: [example terraform](https://github.com/kubevault/installer/blob/master/charts/vault-operator/example-terraform.tf)
     generate: true
-    caCrt:
+    caCrt: ""
     serverCrt: ""
     serverKey: ""
 
