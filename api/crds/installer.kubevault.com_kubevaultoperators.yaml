@@ -700,8 +700,6 @@ spec:
                   properties:
                     namespace:
                       type: string
-                  required:
-                  - namespace
                   type: object
                 serviceMonitor:
                   properties:
@@ -709,12 +707,9 @@ spec:
                       additionalProperties:
                         type: string
                       type: object
-                  required:
-                  - labels
                   type: object
               required:
               - agent
-              - operator
               - prometheus
               - serviceMonitor
               type: object
@@ -764,7 +759,6 @@ spec:
                   type: string
               required:
               - create
-              - name
               type: object
             tolerations:
               description: If specified, the pod's tolerations.
@@ -809,10 +803,7 @@ spec:
           required:
           - apiserver
           - cleaner
-          - enableAnalytics
           - imagePullPolicy
-          - imagePullSecrets
-          - logLevel
           - monitoring
           - operator
           - replicaCount

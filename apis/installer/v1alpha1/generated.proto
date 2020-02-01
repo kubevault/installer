@@ -30,6 +30,7 @@ import "k8s.io/apimachinery/pkg/runtime/schema/generated.proto";
 option go_package = "v1alpha1";
 
 message HealthcheckSpec {
+  // +optional
   optional bool enabled = 1;
 }
 
@@ -67,14 +68,19 @@ message KubeVaultOperatorSpec {
 
   optional string imagePullPolicy = 4;
 
+  // +optional
   repeated string imagePullSecrets = 5;
 
+  // +optional
   optional bool criticalAddon = 6;
 
+  // +optional
   optional int32 logLevel = 7;
 
+  // +optional
   map<string, string> annotations = 8;
 
+  // +optional
   map<string, string> nodeSelector = 9;
 
   // If specified, the pod's tolerations.
@@ -86,22 +92,26 @@ message KubeVaultOperatorSpec {
   optional k8s.io.api.core.v1.Affinity affinity = 11;
 
   // Compute Resources required by the sidecar container.
+  // +optional
   optional k8s.io.api.core.v1.ResourceRequirements resources = 12;
 
   optional ServiceAccountSpec serviceAccount = 13;
 
   optional WebHookSpec apiserver = 14;
 
+  // +optional
   optional bool enableAnalytics = 15;
 
   optional Monitoring monitoring = 16;
 
+  // +optional
   optional string clusterName = 17;
 }
 
 message Monitoring {
   optional string agent = 1;
 
+  // +optional
   optional bool operator = 2;
 
   optional PrometheusSpec prometheus = 3;
@@ -110,26 +120,32 @@ message Monitoring {
 }
 
 message PrometheusSpec {
+  // +optional
   optional string namespace = 1;
 }
 
 message ServiceAccountSpec {
   optional bool create = 1;
 
+  // +optional
   optional string name = 2;
 }
 
 message ServiceMonitorLabels {
+  // +optional
   map<string, string> labels = 1;
 }
 
 message ServingCerts {
   optional bool generate = 1;
 
+  // +optional
   optional string caCrt = 2;
 
+  // +optional
   optional string serverCrt = 3;
 
+  // +optional
   optional string serverKey = 4;
 }
 
@@ -144,6 +160,7 @@ message WebHookSpec {
 
   optional string ca = 5;
 
+  // +optional
   optional bool bypassValidatingWebhookXray = 6;
 
   optional bool useKubeapiserverFqdnForAks = 7;
