@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ template "vault-operator.fullname" . }}-cleaner
+  name: {{ include "vault-operator.fullname" . }}-cleaner
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "vault-operator.labels" . | nindent 4 }}
@@ -13,7 +13,7 @@ spec:
   activeDeadlineSeconds: 120
   template:
     spec:
-      serviceAccountName: {{ template "vault-operator.serviceAccountName" . }}
+      serviceAccountName: {{ include "vault-operator.serviceAccountName" . }}
       containers:
       - name: kubectl
         image: {{ .Values.cleaner.registry }}/{{ .Values.cleaner.repository }}:{{ .Values.cleaner.tag }}

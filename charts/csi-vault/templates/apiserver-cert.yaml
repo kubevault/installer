@@ -8,7 +8,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ template "csi-vault.fullname" . }}-apiserver-cert
+  name: {{ include "csi-vault.fullname" . }}-apiserver-cert
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
@@ -24,7 +24,7 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ template "csi-vault.fullname" . }}-apiserver-cert
+  name: {{ include "csi-vault.fullname" . }}-apiserver-cert
   namespace: {{ $promNamespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}

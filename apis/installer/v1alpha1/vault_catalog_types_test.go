@@ -30,8 +30,8 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func TestKubeVaultOperatorDefaultValues(t *testing.T) {
-	diffstring, err := compareKubeVaultOperatorDefaultValues()
+func TestVaultCatalogDefaultValues(t *testing.T) {
+	diffstring, err := compareVaultCatalogDefaultValues()
 	if err != nil {
 		t.Error(err)
 	}
@@ -40,8 +40,8 @@ func TestKubeVaultOperatorDefaultValues(t *testing.T) {
 	}
 }
 
-func compareKubeVaultOperatorDefaultValues() (string, error) {
-	data, err := ioutil.ReadFile("../../../charts/vault-operator/values.yaml")
+func compareVaultCatalogDefaultValues() (string, error) {
+	data, err := ioutil.ReadFile("../../../charts/vault-catalog/values.yaml")
 	if err != nil {
 		return "", err
 	}
@@ -56,7 +56,7 @@ func compareKubeVaultOperatorDefaultValues() (string, error) {
 		return "", err
 	}
 
-	var spec v1alpha1.KubeVaultOperatorSpec
+	var spec v1alpha1.VaultCatalogSpec
 	err = yaml.Unmarshal(data, &spec)
 	if err != nil {
 		return "", err

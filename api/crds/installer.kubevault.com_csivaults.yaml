@@ -4,17 +4,17 @@ metadata:
   creationTimestamp: null
   labels:
     app: vault
-  name: kubevaultoperators.installer.kubevault.com
+  name: csivaults.installer.kubevault.com
 spec:
   group: installer.kubevault.com
   names:
     categories:
     - kubevault
     - appscode
-    kind: KubeVaultOperator
-    listKind: KubeVaultOperatorList
-    plural: kubevaultoperators
-    singular: kubevaultoperator
+    kind: CSIVault
+    listKind: CSIVaultList
+    plural: csivaults
+    singular: csivault
   preserveUnknownFields: false
   scope: Namespaced
   validation:
@@ -31,15 +31,9 @@ spec:
             submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
           type: string
         metadata:
-          properties:
-            name:
-              maxLength: 63
-              pattern: ^[a-z]([-a-z0-9]*[a-z0-9])?$
-              type: string
           type: object
         spec:
-          description: KubeVaultOperatorSpec is the schema for KubeVault operator
-            values file
+          description: CSIVaultSpec is the schema for CSI Vault Driver values file
           properties:
             affinity:
               description: If specified, the pod's scheduling constraints
@@ -619,111 +613,23 @@ spec:
               type: object
             apiserver:
               properties:
-                bypassValidatingWebhookXray:
-                  type: boolean
-                ca:
-                  type: string
-                enableMutatingWebhook:
-                  type: boolean
-                enableValidatingWebhook:
-                  type: boolean
-                groupPriorityMinimum:
-                  format: int32
-                  type: integer
                 healthcheck:
                   properties:
                     enabled:
                       type: boolean
                   type: object
-                servingCerts:
-                  properties:
-                    caCrt:
-                      type: string
-                    generate:
-                      type: boolean
-                    serverCrt:
-                      type: string
-                    serverKey:
-                      type: string
-                  required:
-                  - generate
-                  type: object
                 useKubeapiserverFqdnForAks:
                   type: boolean
-                versionPriority:
-                  format: int32
-                  type: integer
               required:
-              - ca
-              - enableMutatingWebhook
-              - enableValidatingWebhook
-              - groupPriorityMinimum
               - healthcheck
-              - servingCerts
               - useKubeapiserverFqdnForAks
-              - versionPriority
               type: object
-            cleaner:
+            attacher:
               properties:
-                registry:
+                name:
                   type: string
-                repository:
+                pullPolicy:
                   type: string
-                tag:
-                  type: string
-              required:
-              - registry
-              - repository
-              - tag
-              type: object
-            clusterName:
-              type: string
-            criticalAddon:
-              type: boolean
-            enableAnalytics:
-              type: boolean
-            fullnameOverride:
-              type: string
-            imagePullPolicy:
-              type: string
-            imagePullSecrets:
-              items:
-                type: string
-              type: array
-            logLevel:
-              format: int32
-              type: integer
-            monitoring:
-              properties:
-                agent:
-                  type: string
-                operator:
-                  type: boolean
-                prometheus:
-                  properties:
-                    namespace:
-                      type: string
-                  type: object
-                serviceMonitor:
-                  properties:
-                    labels:
-                      additionalProperties:
-                        type: string
-                      type: object
-                  type: object
-              required:
-              - agent
-              - prometheus
-              - serviceMonitor
-              type: object
-            nameOverride:
-              type: string
-            nodeSelector:
-              additionalProperties:
-                type: string
-              type: object
-            operator:
-              properties:
                 registry:
                   type: string
                 repository:
@@ -872,10 +778,394 @@ spec:
                 tag:
                   type: string
               required:
+              - name
+              - pullPolicy
               - registry
               - repository
               - tag
               type: object
+            components:
+              properties:
+                controller:
+                  type: string
+                node:
+                  type: string
+              required:
+              - controller
+              - node
+              type: object
+            criticalAddon:
+              type: boolean
+            driverName:
+              type: string
+            enableAnalytics:
+              type: boolean
+            fullnameOverride:
+              type: string
+            imagePullSecrets:
+              items:
+                type: string
+              type: array
+            logLevel:
+              format: int32
+              type: integer
+            monitoring:
+              properties:
+                agent:
+                  type: string
+                controller:
+                  type: boolean
+                node:
+                  type: boolean
+                prometheus:
+                  properties:
+                    namespace:
+                      type: string
+                  type: object
+                serviceMonitor:
+                  properties:
+                    labels:
+                      additionalProperties:
+                        type: string
+                      type: object
+                  type: object
+              required:
+              - agent
+              - controller
+              - node
+              - prometheus
+              - serviceMonitor
+              type: object
+            nameOverride:
+              type: string
+            nodeRegistrar:
+              properties:
+                name:
+                  type: string
+                pullPolicy:
+                  type: string
+                registry:
+                  type: string
+                repository:
+                  type: string
+                resources:
+                  description: Compute Resources required by the sidecar container.
+                  properties:
+                    limits:
+                      additionalProperties:
+                        type: string
+                      description: 'Limits describes the maximum amount of compute
+                        resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                    requests:
+                      additionalProperties:
+                        type: string
+                      description: 'Requests describes the minimum amount of compute
+                        resources required. If Requests is omitted for a container,
+                        it defaults to Limits if that is explicitly specified, otherwise
+                        to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                  type: object
+                securityContext:
+                  description: Security options the pod should run with.
+                  properties:
+                    allowPrivilegeEscalation:
+                      description: 'AllowPrivilegeEscalation controls whether a process
+                        can gain more privileges than its parent process. This bool
+                        directly controls if the no_new_privs flag will be set on
+                        the container process. AllowPrivilegeEscalation is true always
+                        when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN'
+                      type: boolean
+                    capabilities:
+                      description: The capabilities to add/drop when running containers.
+                        Defaults to the default set of capabilities granted by the
+                        container runtime.
+                      properties:
+                        add:
+                          description: Added capabilities
+                          items:
+                            description: Capability represent POSIX capabilities type
+                            type: string
+                          type: array
+                        drop:
+                          description: Removed capabilities
+                          items:
+                            description: Capability represent POSIX capabilities type
+                            type: string
+                          type: array
+                      type: object
+                    privileged:
+                      description: Run container in privileged mode. Processes in
+                        privileged containers are essentially equivalent to root on
+                        the host. Defaults to false.
+                      type: boolean
+                    procMount:
+                      description: procMount denotes the type of proc mount to use
+                        for the containers. The default is DefaultProcMount which
+                        uses the container runtime defaults for readonly paths and
+                        masked paths. This requires the ProcMountType feature flag
+                        to be enabled.
+                      type: string
+                    readOnlyRootFilesystem:
+                      description: Whether this container has a read-only root filesystem.
+                        Default is false.
+                      type: boolean
+                    runAsGroup:
+                      description: The GID to run the entrypoint of the container
+                        process. Uses runtime default if unset. May also be set in
+                        PodSecurityContext.  If set in both SecurityContext and PodSecurityContext,
+                        the value specified in SecurityContext takes precedence.
+                      format: int64
+                      type: integer
+                    runAsNonRoot:
+                      description: Indicates that the container must run as a non-root
+                        user. If true, the Kubelet will validate the image at runtime
+                        to ensure that it does not run as UID 0 (root) and fail to
+                        start the container if it does. If unset or false, no such
+                        validation will be performed. May also be set in PodSecurityContext.  If
+                        set in both SecurityContext and PodSecurityContext, the value
+                        specified in SecurityContext takes precedence.
+                      type: boolean
+                    runAsUser:
+                      description: The UID to run the entrypoint of the container
+                        process. Defaults to user specified in image metadata if unspecified.
+                        May also be set in PodSecurityContext.  If set in both SecurityContext
+                        and PodSecurityContext, the value specified in SecurityContext
+                        takes precedence.
+                      format: int64
+                      type: integer
+                    seLinuxOptions:
+                      description: The SELinux context to be applied to the container.
+                        If unspecified, the container runtime will allocate a random
+                        SELinux context for each container.  May also be set in PodSecurityContext.  If
+                        set in both SecurityContext and PodSecurityContext, the value
+                        specified in SecurityContext takes precedence.
+                      properties:
+                        level:
+                          description: Level is SELinux level label that applies to
+                            the container.
+                          type: string
+                        role:
+                          description: Role is a SELinux role label that applies to
+                            the container.
+                          type: string
+                        type:
+                          description: Type is a SELinux type label that applies to
+                            the container.
+                          type: string
+                        user:
+                          description: User is a SELinux user label that applies to
+                            the container.
+                          type: string
+                      type: object
+                    windowsOptions:
+                      description: The Windows specific settings applied to all containers.
+                        If unspecified, the options from the PodSecurityContext will
+                        be used. If set in both SecurityContext and PodSecurityContext,
+                        the value specified in SecurityContext takes precedence.
+                      properties:
+                        gmsaCredentialSpec:
+                          description: GMSACredentialSpec is where the GMSA admission
+                            webhook (https://github.com/kubernetes-sigs/windows-gmsa)
+                            inlines the contents of the GMSA credential spec named
+                            by the GMSACredentialSpecName field. This field is alpha-level
+                            and is only honored by servers that enable the WindowsGMSA
+                            feature flag.
+                          type: string
+                        gmsaCredentialSpecName:
+                          description: GMSACredentialSpecName is the name of the GMSA
+                            credential spec to use. This field is alpha-level and
+                            is only honored by servers that enable the WindowsGMSA
+                            feature flag.
+                          type: string
+                        runAsUserName:
+                          description: The UserName in Windows to run the entrypoint
+                            of the container process. Defaults to the user specified
+                            in image metadata if unspecified. May also be set in PodSecurityContext.
+                            If set in both SecurityContext and PodSecurityContext,
+                            the value specified in SecurityContext takes precedence.
+                            This field is alpha-level and it is only honored by servers
+                            that enable the WindowsRunAsUserName feature flag.
+                          type: string
+                      type: object
+                  type: object
+                tag:
+                  type: string
+              required:
+              - name
+              - pullPolicy
+              - registry
+              - repository
+              - tag
+              type: object
+            nodeSelector:
+              additionalProperties:
+                type: string
+              type: object
+            plugin:
+              properties:
+                name:
+                  type: string
+                pullPolicy:
+                  type: string
+                registry:
+                  type: string
+                repository:
+                  type: string
+                resources:
+                  description: Compute Resources required by the sidecar container.
+                  properties:
+                    limits:
+                      additionalProperties:
+                        type: string
+                      description: 'Limits describes the maximum amount of compute
+                        resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                    requests:
+                      additionalProperties:
+                        type: string
+                      description: 'Requests describes the minimum amount of compute
+                        resources required. If Requests is omitted for a container,
+                        it defaults to Limits if that is explicitly specified, otherwise
+                        to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                  type: object
+                securityContext:
+                  description: Security options the pod should run with.
+                  properties:
+                    allowPrivilegeEscalation:
+                      description: 'AllowPrivilegeEscalation controls whether a process
+                        can gain more privileges than its parent process. This bool
+                        directly controls if the no_new_privs flag will be set on
+                        the container process. AllowPrivilegeEscalation is true always
+                        when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN'
+                      type: boolean
+                    capabilities:
+                      description: The capabilities to add/drop when running containers.
+                        Defaults to the default set of capabilities granted by the
+                        container runtime.
+                      properties:
+                        add:
+                          description: Added capabilities
+                          items:
+                            description: Capability represent POSIX capabilities type
+                            type: string
+                          type: array
+                        drop:
+                          description: Removed capabilities
+                          items:
+                            description: Capability represent POSIX capabilities type
+                            type: string
+                          type: array
+                      type: object
+                    privileged:
+                      description: Run container in privileged mode. Processes in
+                        privileged containers are essentially equivalent to root on
+                        the host. Defaults to false.
+                      type: boolean
+                    procMount:
+                      description: procMount denotes the type of proc mount to use
+                        for the containers. The default is DefaultProcMount which
+                        uses the container runtime defaults for readonly paths and
+                        masked paths. This requires the ProcMountType feature flag
+                        to be enabled.
+                      type: string
+                    readOnlyRootFilesystem:
+                      description: Whether this container has a read-only root filesystem.
+                        Default is false.
+                      type: boolean
+                    runAsGroup:
+                      description: The GID to run the entrypoint of the container
+                        process. Uses runtime default if unset. May also be set in
+                        PodSecurityContext.  If set in both SecurityContext and PodSecurityContext,
+                        the value specified in SecurityContext takes precedence.
+                      format: int64
+                      type: integer
+                    runAsNonRoot:
+                      description: Indicates that the container must run as a non-root
+                        user. If true, the Kubelet will validate the image at runtime
+                        to ensure that it does not run as UID 0 (root) and fail to
+                        start the container if it does. If unset or false, no such
+                        validation will be performed. May also be set in PodSecurityContext.  If
+                        set in both SecurityContext and PodSecurityContext, the value
+                        specified in SecurityContext takes precedence.
+                      type: boolean
+                    runAsUser:
+                      description: The UID to run the entrypoint of the container
+                        process. Defaults to user specified in image metadata if unspecified.
+                        May also be set in PodSecurityContext.  If set in both SecurityContext
+                        and PodSecurityContext, the value specified in SecurityContext
+                        takes precedence.
+                      format: int64
+                      type: integer
+                    seLinuxOptions:
+                      description: The SELinux context to be applied to the container.
+                        If unspecified, the container runtime will allocate a random
+                        SELinux context for each container.  May also be set in PodSecurityContext.  If
+                        set in both SecurityContext and PodSecurityContext, the value
+                        specified in SecurityContext takes precedence.
+                      properties:
+                        level:
+                          description: Level is SELinux level label that applies to
+                            the container.
+                          type: string
+                        role:
+                          description: Role is a SELinux role label that applies to
+                            the container.
+                          type: string
+                        type:
+                          description: Type is a SELinux type label that applies to
+                            the container.
+                          type: string
+                        user:
+                          description: User is a SELinux user label that applies to
+                            the container.
+                          type: string
+                      type: object
+                    windowsOptions:
+                      description: The Windows specific settings applied to all containers.
+                        If unspecified, the options from the PodSecurityContext will
+                        be used. If set in both SecurityContext and PodSecurityContext,
+                        the value specified in SecurityContext takes precedence.
+                      properties:
+                        gmsaCredentialSpec:
+                          description: GMSACredentialSpec is where the GMSA admission
+                            webhook (https://github.com/kubernetes-sigs/windows-gmsa)
+                            inlines the contents of the GMSA credential spec named
+                            by the GMSACredentialSpecName field. This field is alpha-level
+                            and is only honored by servers that enable the WindowsGMSA
+                            feature flag.
+                          type: string
+                        gmsaCredentialSpecName:
+                          description: GMSACredentialSpecName is the name of the GMSA
+                            credential spec to use. This field is alpha-level and
+                            is only honored by servers that enable the WindowsGMSA
+                            feature flag.
+                          type: string
+                        runAsUserName:
+                          description: The UserName in Windows to run the entrypoint
+                            of the container process. Defaults to the user specified
+                            in image metadata if unspecified. May also be set in PodSecurityContext.
+                            If set in both SecurityContext and PodSecurityContext,
+                            the value specified in SecurityContext takes precedence.
+                            This field is alpha-level and it is only honored by servers
+                            that enable the WindowsRunAsUserName feature flag.
+                          type: string
+                      type: object
+                  type: object
+                tag:
+                  type: string
+              required:
+              - name
+              - pullPolicy
+              - registry
+              - repository
+              - tag
+              type: object
+            pluginAddress:
+              type: string
+            pluginDir:
+              type: string
             podSecurityContext:
               description: 'PodSecurityContext holds pod-level security attributes
                 and common container settings. Optional: Defaults to empty.  See type
@@ -995,19 +1285,170 @@ spec:
                       type: string
                   type: object
               type: object
-            replicaCount:
-              format: int32
-              type: integer
-            serviceAccount:
+            provisioner:
               properties:
-                annotations:
-                  additionalProperties:
-                    type: string
-                  type: object
-                create:
-                  type: boolean
                 name:
                   type: string
+                pullPolicy:
+                  type: string
+                registry:
+                  type: string
+                repository:
+                  type: string
+                resources:
+                  description: Compute Resources required by the sidecar container.
+                  properties:
+                    limits:
+                      additionalProperties:
+                        type: string
+                      description: 'Limits describes the maximum amount of compute
+                        resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                    requests:
+                      additionalProperties:
+                        type: string
+                      description: 'Requests describes the minimum amount of compute
+                        resources required. If Requests is omitted for a container,
+                        it defaults to Limits if that is explicitly specified, otherwise
+                        to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                  type: object
+                securityContext:
+                  description: Security options the pod should run with.
+                  properties:
+                    allowPrivilegeEscalation:
+                      description: 'AllowPrivilegeEscalation controls whether a process
+                        can gain more privileges than its parent process. This bool
+                        directly controls if the no_new_privs flag will be set on
+                        the container process. AllowPrivilegeEscalation is true always
+                        when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN'
+                      type: boolean
+                    capabilities:
+                      description: The capabilities to add/drop when running containers.
+                        Defaults to the default set of capabilities granted by the
+                        container runtime.
+                      properties:
+                        add:
+                          description: Added capabilities
+                          items:
+                            description: Capability represent POSIX capabilities type
+                            type: string
+                          type: array
+                        drop:
+                          description: Removed capabilities
+                          items:
+                            description: Capability represent POSIX capabilities type
+                            type: string
+                          type: array
+                      type: object
+                    privileged:
+                      description: Run container in privileged mode. Processes in
+                        privileged containers are essentially equivalent to root on
+                        the host. Defaults to false.
+                      type: boolean
+                    procMount:
+                      description: procMount denotes the type of proc mount to use
+                        for the containers. The default is DefaultProcMount which
+                        uses the container runtime defaults for readonly paths and
+                        masked paths. This requires the ProcMountType feature flag
+                        to be enabled.
+                      type: string
+                    readOnlyRootFilesystem:
+                      description: Whether this container has a read-only root filesystem.
+                        Default is false.
+                      type: boolean
+                    runAsGroup:
+                      description: The GID to run the entrypoint of the container
+                        process. Uses runtime default if unset. May also be set in
+                        PodSecurityContext.  If set in both SecurityContext and PodSecurityContext,
+                        the value specified in SecurityContext takes precedence.
+                      format: int64
+                      type: integer
+                    runAsNonRoot:
+                      description: Indicates that the container must run as a non-root
+                        user. If true, the Kubelet will validate the image at runtime
+                        to ensure that it does not run as UID 0 (root) and fail to
+                        start the container if it does. If unset or false, no such
+                        validation will be performed. May also be set in PodSecurityContext.  If
+                        set in both SecurityContext and PodSecurityContext, the value
+                        specified in SecurityContext takes precedence.
+                      type: boolean
+                    runAsUser:
+                      description: The UID to run the entrypoint of the container
+                        process. Defaults to user specified in image metadata if unspecified.
+                        May also be set in PodSecurityContext.  If set in both SecurityContext
+                        and PodSecurityContext, the value specified in SecurityContext
+                        takes precedence.
+                      format: int64
+                      type: integer
+                    seLinuxOptions:
+                      description: The SELinux context to be applied to the container.
+                        If unspecified, the container runtime will allocate a random
+                        SELinux context for each container.  May also be set in PodSecurityContext.  If
+                        set in both SecurityContext and PodSecurityContext, the value
+                        specified in SecurityContext takes precedence.
+                      properties:
+                        level:
+                          description: Level is SELinux level label that applies to
+                            the container.
+                          type: string
+                        role:
+                          description: Role is a SELinux role label that applies to
+                            the container.
+                          type: string
+                        type:
+                          description: Type is a SELinux type label that applies to
+                            the container.
+                          type: string
+                        user:
+                          description: User is a SELinux user label that applies to
+                            the container.
+                          type: string
+                      type: object
+                    windowsOptions:
+                      description: The Windows specific settings applied to all containers.
+                        If unspecified, the options from the PodSecurityContext will
+                        be used. If set in both SecurityContext and PodSecurityContext,
+                        the value specified in SecurityContext takes precedence.
+                      properties:
+                        gmsaCredentialSpec:
+                          description: GMSACredentialSpec is where the GMSA admission
+                            webhook (https://github.com/kubernetes-sigs/windows-gmsa)
+                            inlines the contents of the GMSA credential spec named
+                            by the GMSACredentialSpecName field. This field is alpha-level
+                            and is only honored by servers that enable the WindowsGMSA
+                            feature flag.
+                          type: string
+                        gmsaCredentialSpecName:
+                          description: GMSACredentialSpecName is the name of the GMSA
+                            credential spec to use. This field is alpha-level and
+                            is only honored by servers that enable the WindowsGMSA
+                            feature flag.
+                          type: string
+                        runAsUserName:
+                          description: The UserName in Windows to run the entrypoint
+                            of the container process. Defaults to the user specified
+                            in image metadata if unspecified. May also be set in PodSecurityContext.
+                            If set in both SecurityContext and PodSecurityContext,
+                            the value specified in SecurityContext takes precedence.
+                            This field is alpha-level and it is only honored by servers
+                            that enable the WindowsRunAsUserName feature flag.
+                          type: string
+                      type: object
+                  type: object
+                tag:
+                  type: string
+              required:
+              - name
+              - pullPolicy
+              - registry
+              - repository
+              - tag
+              type: object
+            rbac:
+              properties:
+                create:
+                  type: boolean
               required:
               - create
               type: object
@@ -1053,12 +1494,18 @@ spec:
               type: array
           required:
           - apiserver
-          - cleaner
-          - imagePullPolicy
+          - attacher
+          - components
+          - driverName
+          - fullnameOverride
           - monitoring
-          - operator
-          - replicaCount
-          - serviceAccount
+          - nameOverride
+          - nodeRegistrar
+          - plugin
+          - pluginAddress
+          - pluginDir
+          - provisioner
+          - rbac
           type: object
       type: object
   version: v1alpha1

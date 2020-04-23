@@ -53,7 +53,6 @@ The following table lists the configurable parameters of the Stash chart and the
 
 | Parameter                               | Description                                                        | Default                                    |
 | --------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------|
-| `replicaCount`                          | Number of Vault operator replicas to create (only 1 is supported)  | `1`                                        |
 | `attacher.name`                         | Name of the attacher component                                     | `attacher`                                 |
 | `attacher.registry`                     | Docker registry used to pull CSI attacher image                    | `quay.io/k8scsi`                           |
 | `attacher.repository`                   | CSI attacher container image                                       | `csi-attacher`                             |

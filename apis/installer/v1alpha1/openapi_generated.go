@@ -330,17 +330,29 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"k8s.io/apimachinery/pkg/runtime.Unknown":                               schema_k8sio_apimachinery_pkg_runtime_Unknown(ref),
 		"k8s.io/apimachinery/pkg/util/intstr.IntOrString":                       schema_apimachinery_pkg_util_intstr_IntOrString(ref),
 		"k8s.io/apimachinery/pkg/version.Info":                                  schema_k8sio_apimachinery_pkg_version_Info(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.CSIDriverAPIServer":    schema_installer_apis_installer_v1alpha1_CSIDriverAPIServer(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.CSIDriverMonitoring":   schema_installer_apis_installer_v1alpha1_CSIDriverMonitoring(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.CSIDriverRBAC":         schema_installer_apis_installer_v1alpha1_CSIDriverRBAC(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.CSIVault":              schema_installer_apis_installer_v1alpha1_CSIVault(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.CSIVaultList":          schema_installer_apis_installer_v1alpha1_CSIVaultList(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.CSIVaultSpec":          schema_installer_apis_installer_v1alpha1_CSIVaultSpec(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.ComponentList":         schema_installer_apis_installer_v1alpha1_ComponentList(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.Container":             schema_installer_apis_installer_v1alpha1_Container(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.DriverComponent":       schema_installer_apis_installer_v1alpha1_DriverComponent(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.HealthcheckSpec":       schema_installer_apis_installer_v1alpha1_HealthcheckSpec(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.ImageRef":              schema_installer_apis_installer_v1alpha1_ImageRef(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.KubeVaultOperator":     schema_installer_apis_installer_v1alpha1_KubeVaultOperator(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.KubeVaultOperatorList": schema_installer_apis_installer_v1alpha1_KubeVaultOperatorList(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.KubeVaultOperatorSpec": schema_installer_apis_installer_v1alpha1_KubeVaultOperatorSpec(ref),
-		"kubevault.dev/installer/apis/installer/v1alpha1.Monitoring":            schema_installer_apis_installer_v1alpha1_Monitoring(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.OperatorMonitoring":    schema_installer_apis_installer_v1alpha1_OperatorMonitoring(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.OperatorWebhookServer": schema_installer_apis_installer_v1alpha1_OperatorWebhookServer(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.PrometheusSpec":        schema_installer_apis_installer_v1alpha1_PrometheusSpec(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec":    schema_installer_apis_installer_v1alpha1_ServiceAccountSpec(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.ServiceMonitorLabels":  schema_installer_apis_installer_v1alpha1_ServiceMonitorLabels(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.ServingCerts":          schema_installer_apis_installer_v1alpha1_ServingCerts(ref),
-		"kubevault.dev/installer/apis/installer/v1alpha1.WebHookSpec":           schema_installer_apis_installer_v1alpha1_WebHookSpec(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.VaultCatalog":          schema_installer_apis_installer_v1alpha1_VaultCatalog(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.VaultCatalogList":      schema_installer_apis_installer_v1alpha1_VaultCatalogList(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.VaultCatalogSpec":      schema_installer_apis_installer_v1alpha1_VaultCatalogSpec(ref),
 	}
 }
 
@@ -15471,6 +15483,476 @@ func schema_k8sio_apimachinery_pkg_version_Info(ref common.ReferenceCallback) co
 	}
 }
 
+func schema_installer_apis_installer_v1alpha1_CSIDriverAPIServer(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"useKubeapiserverFqdnForAks": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"healthcheck": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.HealthcheckSpec"),
+						},
+					},
+				},
+				Required: []string{"useKubeapiserverFqdnForAks", "healthcheck"},
+			},
+		},
+		Dependencies: []string{
+			"kubevault.dev/installer/apis/installer/v1alpha1.HealthcheckSpec"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_CSIDriverMonitoring(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"agent": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"node": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"controller": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"prometheus": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.PrometheusSpec"),
+						},
+					},
+					"serviceMonitor": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.ServiceMonitorLabels"),
+						},
+					},
+				},
+				Required: []string{"agent", "node", "controller", "prometheus", "serviceMonitor"},
+			},
+		},
+		Dependencies: []string{
+			"kubevault.dev/installer/apis/installer/v1alpha1.PrometheusSpec", "kubevault.dev/installer/apis/installer/v1alpha1.ServiceMonitorLabels"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_CSIDriverRBAC(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"create": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"create"},
+			},
+		},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_CSIVault(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.CSIVaultSpec"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubevault.dev/installer/apis/installer/v1alpha1.CSIVaultSpec"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_CSIVaultList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "CSIVaultList is a list of CSIVaults",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Items is a list of CSIVault CRD objects",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.CSIVault"),
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubevault.dev/installer/apis/installer/v1alpha1.CSIVault"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_CSIVaultSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "CSIVaultSpec is the schema for CSI Vault Driver values file",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"nameOverride": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"fullnameOverride": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"attacher": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.DriverComponent"),
+						},
+					},
+					"plugin": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.DriverComponent"),
+						},
+					},
+					"provisioner": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.DriverComponent"),
+						},
+					},
+					"nodeRegistrar": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.DriverComponent"),
+						},
+					},
+					"components": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.ComponentList"),
+						},
+					},
+					"driverName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"pluginAddress": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"pluginDir": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"imagePullSecrets": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"criticalAddon": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"logLevel": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"annotations": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"nodeSelector": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"tolerations": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If specified, the pod's tolerations.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/api/core/v1.Toleration"),
+									},
+								},
+							},
+						},
+					},
+					"affinity": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If specified, the pod's scheduling constraints",
+							Ref:         ref("k8s.io/api/core/v1.Affinity"),
+						},
+					},
+					"rbac": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.CSIDriverRBAC"),
+						},
+					},
+					"podSecurityContext": {
+						SchemaProps: spec.SchemaProps{
+							Description: "PodSecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.",
+							Ref:         ref("k8s.io/api/core/v1.PodSecurityContext"),
+						},
+					},
+					"apiserver": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.CSIDriverAPIServer"),
+						},
+					},
+					"enableAnalytics": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"monitoring": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.CSIDriverMonitoring"),
+						},
+					},
+				},
+				Required: []string{"nameOverride", "fullnameOverride", "attacher", "plugin", "provisioner", "nodeRegistrar", "components", "driverName", "pluginAddress", "pluginDir", "rbac", "apiserver", "monitoring"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.PodSecurityContext", "k8s.io/api/core/v1.Toleration", "kubevault.dev/installer/apis/installer/v1alpha1.CSIDriverAPIServer", "kubevault.dev/installer/apis/installer/v1alpha1.CSIDriverMonitoring", "kubevault.dev/installer/apis/installer/v1alpha1.CSIDriverRBAC", "kubevault.dev/installer/apis/installer/v1alpha1.ComponentList", "kubevault.dev/installer/apis/installer/v1alpha1.DriverComponent"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_ComponentList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"controller": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"node": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"controller", "node"},
+			},
+		},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_Container(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"registry": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"repository": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"tag": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"resources": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Compute Resources required by the sidecar container.",
+							Ref:         ref("k8s.io/api/core/v1.ResourceRequirements"),
+						},
+					},
+					"securityContext": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Security options the pod should run with.",
+							Ref:         ref("k8s.io/api/core/v1.SecurityContext"),
+						},
+					},
+				},
+				Required: []string{"registry", "repository", "tag"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.SecurityContext"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_DriverComponent(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"registry": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"repository": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"tag": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"pullPolicy": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"resources": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Compute Resources required by the sidecar container.",
+							Ref:         ref("k8s.io/api/core/v1.ResourceRequirements"),
+						},
+					},
+					"securityContext": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Security options the pod should run with.",
+							Ref:         ref("k8s.io/api/core/v1.SecurityContext"),
+						},
+					},
+				},
+				Required: []string{"name", "registry", "repository", "tag", "pullPolicy"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.SecurityContext"},
+	}
+}
+
 func schema_installer_apis_installer_v1alpha1_HealthcheckSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -15609,9 +16091,21 @@ func schema_installer_apis_installer_v1alpha1_KubeVaultOperatorSpec(ref common.R
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "KubeVaultOperatorSpec is the spec for redis version",
+				Description: "KubeVaultOperatorSpec is the schema for KubeVault operator values file",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
+					"nameOverride": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"fullnameOverride": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"replicaCount": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"integer"},
@@ -15620,7 +16114,7 @@ func schema_installer_apis_installer_v1alpha1_KubeVaultOperatorSpec(ref common.R
 					},
 					"operator": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.ImageRef"),
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.Container"),
 						},
 					},
 					"cleaner": {
@@ -15706,10 +16200,10 @@ func schema_installer_apis_installer_v1alpha1_KubeVaultOperatorSpec(ref common.R
 							Ref:         ref("k8s.io/api/core/v1.Affinity"),
 						},
 					},
-					"resources": {
+					"podSecurityContext": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Compute Resources required by the sidecar container.",
-							Ref:         ref("k8s.io/api/core/v1.ResourceRequirements"),
+							Description: "PodSecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.",
+							Ref:         ref("k8s.io/api/core/v1.PodSecurityContext"),
 						},
 					},
 					"serviceAccount": {
@@ -15719,7 +16213,7 @@ func schema_installer_apis_installer_v1alpha1_KubeVaultOperatorSpec(ref common.R
 					},
 					"apiserver": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.WebHookSpec"),
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.OperatorWebhookServer"),
 						},
 					},
 					"enableAnalytics": {
@@ -15730,7 +16224,7 @@ func schema_installer_apis_installer_v1alpha1_KubeVaultOperatorSpec(ref common.R
 					},
 					"monitoring": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.Monitoring"),
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.OperatorMonitoring"),
 						},
 					},
 					"clusterName": {
@@ -15744,11 +16238,11 @@ func schema_installer_apis_installer_v1alpha1_KubeVaultOperatorSpec(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.Toleration", "kubevault.dev/installer/apis/installer/v1alpha1.ImageRef", "kubevault.dev/installer/apis/installer/v1alpha1.Monitoring", "kubevault.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec", "kubevault.dev/installer/apis/installer/v1alpha1.WebHookSpec"},
+			"k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.PodSecurityContext", "k8s.io/api/core/v1.Toleration", "kubevault.dev/installer/apis/installer/v1alpha1.Container", "kubevault.dev/installer/apis/installer/v1alpha1.ImageRef", "kubevault.dev/installer/apis/installer/v1alpha1.OperatorMonitoring", "kubevault.dev/installer/apis/installer/v1alpha1.OperatorWebhookServer", "kubevault.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec"},
 	}
 }
 
-func schema_installer_apis_installer_v1alpha1_Monitoring(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_installer_apis_installer_v1alpha1_OperatorMonitoring(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -15782,6 +16276,73 @@ func schema_installer_apis_installer_v1alpha1_Monitoring(ref common.ReferenceCal
 		},
 		Dependencies: []string{
 			"kubevault.dev/installer/apis/installer/v1alpha1.PrometheusSpec", "kubevault.dev/installer/apis/installer/v1alpha1.ServiceMonitorLabels"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_OperatorWebhookServer(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"groupPriorityMinimum": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"versionPriority": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"enableMutatingWebhook": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"enableValidatingWebhook": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"ca": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"bypassValidatingWebhookXray": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"useKubeapiserverFqdnForAks": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"healthcheck": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.HealthcheckSpec"),
+						},
+					},
+					"servingCerts": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.ServingCerts"),
+						},
+					},
+				},
+				Required: []string{"groupPriorityMinimum", "versionPriority", "enableMutatingWebhook", "enableValidatingWebhook", "ca", "useKubeapiserverFqdnForAks", "healthcheck", "servingCerts"},
+			},
+		},
+		Dependencies: []string{
+			"kubevault.dev/installer/apis/installer/v1alpha1.HealthcheckSpec", "kubevault.dev/installer/apis/installer/v1alpha1.ServingCerts"},
 	}
 }
 
@@ -15819,6 +16380,20 @@ func schema_installer_apis_installer_v1alpha1_ServiceAccountSpec(ref common.Refe
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"annotations": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
 				},
@@ -15891,69 +16466,119 @@ func schema_installer_apis_installer_v1alpha1_ServingCerts(ref common.ReferenceC
 	}
 }
 
-func schema_installer_apis_installer_v1alpha1_WebHookSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_installer_apis_installer_v1alpha1_VaultCatalog(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"groupPriorityMinimum": {
+					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Type:   []string{"integer"},
-							Format: "int32",
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
-					"versionPriority": {
+					"apiVersion": {
 						SchemaProps: spec.SchemaProps{
-							Type:   []string{"integer"},
-							Format: "int32",
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
-					"enableMutatingWebhook": {
+					"metadata": {
 						SchemaProps: spec.SchemaProps{
-							Type:   []string{"boolean"},
-							Format: "",
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
 						},
 					},
-					"enableValidatingWebhook": {
+					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Type:   []string{"boolean"},
-							Format: "",
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.VaultCatalogSpec"),
 						},
 					},
-					"ca": {
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubevault.dev/installer/apis/installer/v1alpha1.VaultCatalogSpec"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_VaultCatalogList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "VaultCatalogList is a list of VaultCatalogs",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Items is a list of VaultCatalog CRD objects",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.VaultCatalog"),
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubevault.dev/installer/apis/installer/v1alpha1.VaultCatalog"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_VaultCatalogSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "VaultCatalogSpec is the schema for Vault Catalog values file",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"nameOverride": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
 						},
 					},
-					"bypassValidatingWebhookXray": {
+					"fullnameOverride": {
 						SchemaProps: spec.SchemaProps{
-							Type:   []string{"boolean"},
+							Type:   []string{"string"},
 							Format: "",
 						},
 					},
-					"useKubeapiserverFqdnForAks": {
+					"dockerRegistry": {
 						SchemaProps: spec.SchemaProps{
-							Type:   []string{"boolean"},
+							Type:   []string{"string"},
 							Format: "",
-						},
-					},
-					"healthcheck": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.HealthcheckSpec"),
-						},
-					},
-					"servingCerts": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.ServingCerts"),
 						},
 					},
 				},
-				Required: []string{"groupPriorityMinimum", "versionPriority", "enableMutatingWebhook", "enableValidatingWebhook", "ca", "useKubeapiserverFqdnForAks", "healthcheck", "servingCerts"},
+				Required: []string{"dockerRegistry"},
 			},
 		},
-		Dependencies: []string{
-			"kubevault.dev/installer/apis/installer/v1alpha1.HealthcheckSpec", "kubevault.dev/installer/apis/installer/v1alpha1.ServingCerts"},
 	}
 }
