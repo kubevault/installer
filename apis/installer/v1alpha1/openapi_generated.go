@@ -16558,6 +16558,18 @@ func schema_installer_apis_installer_v1alpha1_VaultCatalogSpec(ref common.Refere
 				Description: "VaultCatalogSpec is the schema for Vault Catalog values file",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
+					"nameOverride": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"fullnameOverride": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 					"dockerRegistry": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},

@@ -330,6 +330,12 @@ message VaultCatalogList {
 
 // VaultCatalogSpec is the schema for Vault Catalog values file
 message VaultCatalogSpec {
-  optional string dockerRegistry = 1;
+  // +optional
+  optional string nameOverride = 1;
+
+  // +optional
+  optional string fullnameOverride = 2;
+
+  optional string dockerRegistry = 3;
 }
 

@@ -37,6 +37,10 @@ spec:
           properties:
             dockerRegistry:
               type: string
+            fullnameOverride:
+              type: string
+            nameOverride:
+              type: string
           required:
           - dockerRegistry
           type: object

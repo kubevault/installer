@@ -43,7 +43,11 @@ type VaultCatalog struct {
 
 // VaultCatalogSpec is the schema for Vault Catalog values file
 type VaultCatalogSpec struct {
-	DockerRegistry string `json:"dockerRegistry" protobuf:"bytes,1,opt,name=dockerRegistry"`
+	//+optional
+	NameOverride string `json:"nameOverride" protobuf:"bytes,1,opt,name=nameOverride"`
+	//+optional
+	FullnameOverride string `json:"fullnameOverride" protobuf:"bytes,2,opt,name=fullnameOverride"`
+	DockerRegistry   string `json:"dockerRegistry" protobuf:"bytes,3,opt,name=dockerRegistry"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
