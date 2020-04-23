@@ -1235,7 +1235,7 @@
           }
         },
         "apiserver": {
-          "$ref": "#/definitions/dev.kubevault.installer.apis.installer.v1alpha1.WebHookSpec"
+          "$ref": "#/definitions/dev.kubevault.installer.apis.installer.v1alpha1.OperatorWebhookServer"
         },
         "cleaner": {
           "$ref": "#/definitions/dev.kubevault.installer.apis.installer.v1alpha1.ImageRef"
@@ -1266,7 +1266,7 @@
           "format": "int32"
         },
         "monitoring": {
-          "$ref": "#/definitions/dev.kubevault.installer.apis.installer.v1alpha1.Monitoring"
+          "$ref": "#/definitions/dev.kubevault.installer.apis.installer.v1alpha1.OperatorMonitoring"
         },
         "nameOverride": {
           "type": "string"
@@ -1300,7 +1300,7 @@
         }
       }
     },
-    "dev.kubevault.installer.apis.installer.v1alpha1.Monitoring": {
+    "dev.kubevault.installer.apis.installer.v1alpha1.OperatorMonitoring": {
       "type": "object",
       "required": [
         "agent",
@@ -1319,6 +1319,50 @@
         },
         "serviceMonitor": {
           "$ref": "#/definitions/dev.kubevault.installer.apis.installer.v1alpha1.ServiceMonitorLabels"
+        }
+      }
+    },
+    "dev.kubevault.installer.apis.installer.v1alpha1.OperatorWebhookServer": {
+      "type": "object",
+      "required": [
+        "groupPriorityMinimum",
+        "versionPriority",
+        "enableMutatingWebhook",
+        "enableValidatingWebhook",
+        "ca",
+        "useKubeapiserverFqdnForAks",
+        "healthcheck",
+        "servingCerts"
+      ],
+      "properties": {
+        "bypassValidatingWebhookXray": {
+          "type": "boolean"
+        },
+        "ca": {
+          "type": "string"
+        },
+        "enableMutatingWebhook": {
+          "type": "boolean"
+        },
+        "enableValidatingWebhook": {
+          "type": "boolean"
+        },
+        "groupPriorityMinimum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "healthcheck": {
+          "$ref": "#/definitions/dev.kubevault.installer.apis.installer.v1alpha1.HealthcheckSpec"
+        },
+        "servingCerts": {
+          "$ref": "#/definitions/dev.kubevault.installer.apis.installer.v1alpha1.ServingCerts"
+        },
+        "useKubeapiserverFqdnForAks": {
+          "type": "boolean"
+        },
+        "versionPriority": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -1378,50 +1422,6 @@
         },
         "serverKey": {
           "type": "string"
-        }
-      }
-    },
-    "dev.kubevault.installer.apis.installer.v1alpha1.WebHookSpec": {
-      "type": "object",
-      "required": [
-        "groupPriorityMinimum",
-        "versionPriority",
-        "enableMutatingWebhook",
-        "enableValidatingWebhook",
-        "ca",
-        "useKubeapiserverFqdnForAks",
-        "healthcheck",
-        "servingCerts"
-      ],
-      "properties": {
-        "bypassValidatingWebhookXray": {
-          "type": "boolean"
-        },
-        "ca": {
-          "type": "string"
-        },
-        "enableMutatingWebhook": {
-          "type": "boolean"
-        },
-        "enableValidatingWebhook": {
-          "type": "boolean"
-        },
-        "groupPriorityMinimum": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "healthcheck": {
-          "$ref": "#/definitions/dev.kubevault.installer.apis.installer.v1alpha1.HealthcheckSpec"
-        },
-        "servingCerts": {
-          "$ref": "#/definitions/dev.kubevault.installer.apis.installer.v1alpha1.ServingCerts"
-        },
-        "useKubeapiserverFqdnForAks": {
-          "type": "boolean"
-        },
-        "versionPriority": {
-          "type": "integer",
-          "format": "int32"
         }
       }
     },

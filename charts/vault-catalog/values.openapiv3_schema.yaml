@@ -1,0 +1,6 @@
+properties:
+  dockerRegistry:
+    type: string
+required:
+- dockerRegistry
+type: object

@@ -6,7 +6,7 @@ metadata:
   namespace: {{ default .Release.Namespace .Values.monitoring.prometheus.namespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
-    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.components.controller }}
     {{- if .Values.monitoring.serviceMonitor.labels }}
     {{- range $key, $val := .Values.monitoring.serviceMonitor.labels }}
     {{ $key }}: {{ $val }}
@@ -19,7 +19,7 @@ spec:
   selector:
     matchLabels:
       {{- include "csi-vault.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
+      app.kubernetes.io/component: {{ .Values.components.controller }}
   endpoints:
   - port: api
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -37,7 +37,7 @@ metadata:
   namespace: {{ default .Release.Namespace .Values.monitoring.prometheus.namespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
-    app.kubernetes.io/component: {{ .Values.nodePlugin.name }}
+    app.kubernetes.io/component: {{ .Values.components.node }}
     {{- if .Values.monitoring.serviceMonitor.labels }}
     {{- range $key, $val := .Values.monitoring.serviceMonitor.labels }}
     {{ $key }}: {{ $val }}
@@ -50,7 +50,7 @@ spec:
   selector:
     matchLabels:
       {{- include "csi-vault.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: {{ .Values.nodePlugin.name }}
+      app.kubernetes.io/component: {{ .Values.components.node }}
   endpoints:
   - port: api
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token

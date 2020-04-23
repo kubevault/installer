@@ -60,11 +60,9 @@ nodeRegistrar:
     # runAsNonRoot: true
     # runAsUser: 1000
 
-controllerPlugin:
-  name: controller
-
-nodePlugin:
-  name: node
+components:
+  controller: controller
+  node: node
 
 logLevel: 3
 
@@ -75,13 +73,6 @@ annotations: {}
 driverName: secrets.csi.kubevault.com
 pluginAddress: /csi/csi.sock
 pluginDir: /csi
-
-attachRequired: false
-
-## Install AppBinding CRD
-appbinding:
-  # Specifies whether AppBinding CRD should be created
-  create: true
 
 ## Optionally specify an array of imagePullSecrets.
 ## Secrets must be manually created in the namespace.
@@ -111,6 +102,11 @@ tolerations: []
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ##
 affinity: {}
+
+## Install Default RBAC roles and bindings
+rbac:
+  # Specifies whether RBAC resources should be created
+  create: true
 
 podSecurityContext: {}
   # fsGroup: 2000

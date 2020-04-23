@@ -89,10 +89,10 @@ type KubeVaultOperatorSpec struct {
 	// +optional
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext" protobuf:"bytes,14,opt,name=podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount" protobuf:"bytes,15,opt,name=serviceAccount"`
-	Apiserver          WebHookSpec              `json:"apiserver" protobuf:"bytes,16,opt,name=apiserver"`
+	Apiserver          OperatorWebhookServer    `json:"apiserver" protobuf:"bytes,16,opt,name=apiserver"`
 	//+optional
-	EnableAnalytics bool       `json:"enableAnalytics" protobuf:"varint,17,opt,name=enableAnalytics"`
-	Monitoring      Monitoring `json:"monitoring" protobuf:"bytes,18,opt,name=monitoring"`
+	EnableAnalytics bool               `json:"enableAnalytics" protobuf:"varint,17,opt,name=enableAnalytics"`
+	Monitoring      OperatorMonitoring `json:"monitoring" protobuf:"bytes,18,opt,name=monitoring"`
 	//+optional
 	ClusterName *string `json:"clusterName" protobuf:"bytes,19,opt,name=clusterName"`
 }
@@ -105,7 +105,7 @@ type ServiceAccountSpec struct {
 	Annotations map[string]string `json:"annotations" protobuf:"bytes,3,rep,name=annotations"`
 }
 
-type WebHookSpec struct {
+type OperatorWebhookServer struct {
 	GroupPriorityMinimum    int32  `json:"groupPriorityMinimum" protobuf:"varint,1,opt,name=groupPriorityMinimum"`
 	VersionPriority         int32  `json:"versionPriority" protobuf:"varint,2,opt,name=versionPriority"`
 	EnableMutatingWebhook   bool   `json:"enableMutatingWebhook" protobuf:"varint,3,opt,name=enableMutatingWebhook"`
@@ -133,7 +133,7 @@ type ServingCerts struct {
 	ServerKey string `json:"serverKey" protobuf:"bytes,4,opt,name=serverKey"`
 }
 
-type Monitoring struct {
+type OperatorMonitoring struct {
 	Agent string `json:"agent" protobuf:"bytes,1,opt,name=agent"`
 	//+optional
 	Operator       bool                  `json:"operator" protobuf:"varint,2,opt,name=operator"`

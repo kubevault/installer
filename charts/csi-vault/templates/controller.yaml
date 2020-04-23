@@ -6,7 +6,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4}}
-    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.components.controller }}
   {{- if and (eq .Values.monitoring.agent "prometheus.io/builtin") .Values.monitoring.controller }}
   annotations:
     prometheus.io/scrape: "true"
@@ -17,7 +17,7 @@ metadata:
 spec:
   selector:
     {{- include "csi-vault.selectorLabels" . | nindent 4 }}
-    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.components.controller }}
   ports:
   - name: api
     port: 443
@@ -32,7 +32,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
-    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.components.controller }}
 
 ---
 
@@ -42,7 +42,7 @@ metadata:
   name: {{ include "csi-vault.controller.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
-    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.components.controller }}
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
@@ -85,7 +85,7 @@ metadata:
   name: {{ include "csi-vault.controller.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
-    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.components.controller }}
 subjects:
 - kind: ServiceAccount
   name: {{ include "csi-vault.controller.fullname" . }}
@@ -104,7 +104,7 @@ metadata:
   name: {{ include "csi-vault.attacher.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
-    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.components.controller }}
 rules:
 - apiGroups: [""]
   resources: ["persistentvolumes"]
@@ -136,7 +136,7 @@ metadata:
   name: {{ include "csi-vault.attacher.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
-    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.components.controller }}
 subjects:
 - kind: ServiceAccount
   name: {{ include "csi-vault.controller.fullname" . }}
@@ -158,19 +158,19 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
-    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.components.controller }}
 spec:
   serviceName: {{ include "csi-vault.controller.fullname" . }}
   replicas: 1
   selector:
     matchLabels:
       {{- include "csi-vault.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
+      app.kubernetes.io/component: {{ .Values.components.controller }}
   template:
     metadata:
       labels:
         {{- include "csi-vault.selectorLabels" . | nindent 8 }}
-        app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
+        app.kubernetes.io/component: {{ .Values.components.controller }}
     {{- if or .Values.annotations $criticalAddon }}
       annotations:
       {{- if $criticalAddon }}
