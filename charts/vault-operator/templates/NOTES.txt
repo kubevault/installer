@@ -1,6 +1,6 @@
 To verify that Vault operator has started, run:
 
-  kubectl --namespace={{ .Release.Namespace }} get deployments -l "release={{ .Release.Name }}, app={{ include "vault-operator.name" . }}"
+  kubectl get deployments --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "vault-operator.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
 
 Now install/upgrade appscode/vault-catalog chart.
 
