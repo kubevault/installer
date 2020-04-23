@@ -40,7 +40,7 @@ metadata:
   name: validators.engine.kubevault.com
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-    app: "{{ template "vault-operator.name" . }}"
+    app: "{{ include "vault-operator.name" . }}"
     heritage: "{{ .Release.Service }}"
     release: "{{ .Release.Name }}"
   annotations:

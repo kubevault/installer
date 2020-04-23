@@ -32,7 +32,7 @@ Create the name of the service account to use
 
 {{- define "vault-operator.labels" -}}
 chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-app: "{{ template "vault-operator.name" . }}"
+app: "{{ include "vault-operator.name" . }}"
 release: {{ .Release.Name | quote}}
 heritage: "{{ .Release.Service }}"
 {{- end -}}

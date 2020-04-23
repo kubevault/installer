@@ -28,7 +28,7 @@ spec:
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}
-    name: {{ template "vault-operator.fullname" . }}
+    name: {{ include "vault-operator.fullname" . }}
   caBundle: {{ $caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
@@ -45,7 +45,7 @@ spec:
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}
-    name: {{ template "vault-operator.fullname" . }}
+    name: {{ include "vault-operator.fullname" . }}
   caBundle: {{ $caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
@@ -62,7 +62,7 @@ spec:
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}
-    name: {{ template "vault-operator.fullname" . }}
+    name: {{ include "vault-operator.fullname" . }}
   caBundle: {{ $caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
@@ -71,7 +71,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ template "vault-operator.fullname" . }}-apiserver-cert
+  name: {{ include "vault-operator.fullname" . }}-apiserver-cert
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "vault-operator.labels" . | nindent 4 }}
@@ -87,7 +87,7 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ template "vault-operator.fullname" . }}-apiserver-cert
+  name: {{ include "vault-operator.fullname" . }}-apiserver-cert
   namespace: {{ $promNamespace }}
   labels:
     {{- include "vault-operator.labels" . | nindent 4 }}
@@ -101,7 +101,7 @@ data:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ template "vault-operator.fullname" . }}-apiserver-extension-server-authentication-reader
+  name: {{ include "vault-operator.fullname" . }}-apiserver-extension-server-authentication-reader
   namespace: kube-system
   labels:
     {{- include "vault-operator.labels" . | nindent 4 }}
@@ -111,14 +111,14 @@ roleRef:
   name: extension-apiserver-authentication-reader
 subjects:
 - kind: ServiceAccount
-  name: {{ template "vault-operator.serviceAccountName" . }}
+  name: {{ include "vault-operator.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
 ---
 # to delegate authentication and authorization
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ template "vault-operator.fullname" . }}-apiserver-auth-delegator
+  name: {{ include "vault-operator.fullname" . }}-apiserver-auth-delegator
   labels:
     {{- include "vault-operator.labels" . | nindent 4 }}
 roleRef:
@@ -127,5 +127,5 @@ roleRef:
   name: system:auth-delegator
 subjects:
 - kind: ServiceAccount
-  name: {{ template "vault-operator.serviceAccountName" . }}
+  name: {{ include "vault-operator.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}

@@ -2,7 +2,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ template "csi-vault.controller.fullname" . }}
+  name: {{ include "csi-vault.controller.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4}}
@@ -16,7 +16,7 @@ metadata:
 {{- end }}
 spec:
   selector:
-    app: {{ template "csi-vault.name" .}}
+    app: {{ include "csi-vault.name" .}}
     component: {{ .Values.controllerPlugin.name }}
     release: "{{ .Release.Name }}"
   ports:
@@ -29,7 +29,7 @@ spec:
 kind: ServiceAccount
 apiVersion: v1
 metadata:
-  name: {{ template "csi-vault.controller.fullname". }}
+  name: {{ include "csi-vault.controller.fullname". }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
@@ -44,7 +44,7 @@ imagePullSecrets:
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ template "csi-vault.controller.fullname" . }}
+  name: {{ include "csi-vault.controller.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
     component: {{ .Values.controllerPlugin.name }}
@@ -87,17 +87,17 @@ rules:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ template "csi-vault.controller.fullname" . }}
+  name: {{ include "csi-vault.controller.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
     component: {{ .Values.controllerPlugin.name }}
 subjects:
 - kind: ServiceAccount
-  name: {{ template "csi-vault.controller.fullname" . }}
+  name: {{ include "csi-vault.controller.fullname" . }}
   namespace: {{ .Release.Namespace }}
 roleRef:
     kind: ClusterRole
-    name: {{ template "csi-vault.controller.fullname" . }}
+    name: {{ include "csi-vault.controller.fullname" . }}
     apiGroup: rbac.authorization.k8s.io
 
 ---
@@ -106,7 +106,7 @@ roleRef:
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ template "csi-vault.attacher.fullname" . }}
+  name: {{ include "csi-vault.attacher.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
     component: {{ .Values.controllerPlugin.name }}
@@ -138,17 +138,17 @@ rules:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ template "csi-vault.attacher.fullname" . }}
+  name: {{ include "csi-vault.attacher.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
     component: {{ .Values.controllerPlugin.name }}
 subjects:
 - kind: ServiceAccount
-  name: {{ template "csi-vault.controller.fullname" . }}
+  name: {{ include "csi-vault.controller.fullname" . }}
   namespace: {{ .Release.Namespace }}
 roleRef:
     kind: ClusterRole
-    name: {{ template "csi-vault.attacher.fullname" . }}
+    name: {{ include "csi-vault.attacher.fullname" . }}
     apiGroup: rbac.authorization.k8s.io
 
 ---
@@ -156,17 +156,17 @@ roleRef:
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:
-  name: {{ template "csi-vault.controller.fullname" . }}
+  name: {{ include "csi-vault.controller.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
           {{- include "csi-vault.labels" . | nindent 4 }}
     component: {{ .Values.controllerPlugin.name }}
 spec:
-  serviceName: {{ template "csi-vault.controller.fullname" . }}
+  serviceName: {{ include "csi-vault.controller.fullname" . }}
   replicas: 1
   selector:
     matchLabels:
-      app: {{ template "csi-vault.name" . }}
+      app: {{ include "csi-vault.name" . }}
       component: {{ .Values.controllerPlugin.name }}
       release: "{{ .Release.Name }}"
   template:
@@ -175,7 +175,7 @@ spec:
               {{- include "csi-vault.labels" . | nindent 8 }}
         component: {{ .Values.controllerPlugin.name }}
     spec:
-      serviceAccount: {{ template "csi-vault.controller.fullname" . }}
+      serviceAccount: {{ include "csi-vault.controller.fullname" . }}
       containers:
       - name: csi-provisioner
         image: {{ .Values.provisioner.registry}}/{{ .Values.provisioner.repository}}:{{ .Values.provisioner.tag }}
@@ -240,7 +240,7 @@ spec:
       - name: serving-cert
         secret:
           defaultMode: 420
-          secretName: {{ template "csi-vault.fullname" . }}-apiserver-cert
+          secretName: {{ include "csi-vault.fullname" . }}-apiserver-cert
 {{- if or .Values.tolerations (and .Values.criticalAddon (eq .Release.Namespace "kube-system")) }}
       tolerations:
 {{- if .Values.tolerations }}

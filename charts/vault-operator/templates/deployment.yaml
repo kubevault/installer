@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "vault-operator.fullname" . }}
+  name: {{ include "vault-operator.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "vault-operator.labels" . | nindent 4 }}
@@ -13,7 +13,7 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: "{{ template "vault-operator.name" . }}"
+      app: "{{ include "vault-operator.name" . }}"
       release: "{{ .Release.Name }}"
   template:
     metadata:
@@ -29,7 +29,7 @@ spec:
 {{- end }}
 {{- end }}
     spec:
-      serviceAccountName: {{ template "vault-operator.serviceAccountName" . }}
+      serviceAccountName: {{ include "vault-operator.serviceAccountName" . }}
       securityContext:
         # ensure that s/a token is readable xref: https://issues.k8s.io/70679
         fsGroup: 65535
@@ -84,7 +84,7 @@ spec:
       - name: serving-cert
         secret:
           defaultMode: 420
-          secretName: {{ template "vault-operator.fullname" . }}-apiserver-cert
+          secretName: {{ include "vault-operator.fullname" . }}-apiserver-cert
 {{- if or .Values.tolerations (and .Values.criticalAddon (eq .Release.Namespace "kube-system")) }}
       tolerations:
 {{- if .Values.tolerations }}

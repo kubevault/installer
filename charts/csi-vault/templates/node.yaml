@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: {{ template "csi-vault.node.fullname" . }}
+  name: {{ include "csi-vault.node.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
@@ -16,7 +16,7 @@ imagePullSecrets:
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ template "csi-vault.node.fullname" . }}
+  name: {{ include "csi-vault.node.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
     component: {{ .Values.nodePlugin.name }}
@@ -33,17 +33,17 @@ rules:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ template "csi-vault.node.fullname" . }}
+  name: {{ include "csi-vault.node.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
     component: {{ .Values.nodePlugin.name }}
 subjects:
 - kind: ServiceAccount
-  name: {{ template "csi-vault.node.fullname" . }}
+  name: {{ include "csi-vault.node.fullname" . }}
   namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
-  name: {{ template "csi-vault.node.fullname" . }}
+  name: {{ include "csi-vault.node.fullname" . }}
   apiGroup: rbac.authorization.k8s.io
 
 ---
@@ -51,7 +51,7 @@ roleRef:
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ template "csi-vault.node-registrar.fullname" . }}
+  name: {{ include "csi-vault.node-registrar.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
     component: {{ .Values.nodePlugin.name }}
@@ -95,7 +95,7 @@ rules:
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ template "csi-vault.node.fullname" . }}
+  name: {{ include "csi-vault.node.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
@@ -109,7 +109,7 @@ metadata:
   {{- end }}
 spec:
   selector:
-    app: {{ template "csi-vault.name" . }}
+    app: {{ include "csi-vault.name" . }}
     component: {{ .Values.nodePlugin.name }}
   ports:
   - name: api
@@ -121,17 +121,17 @@ spec:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ template "csi-vault.node-registrar.fullname" . }}
+  name: {{ include "csi-vault.node-registrar.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
     component: {{ .Values.nodePlugin.name }}
 subjects:
 - kind: ServiceAccount
-  name: {{ template "csi-vault.node.fullname" . }}
+  name: {{ include "csi-vault.node.fullname" . }}
   namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
-  name: {{ template "csi-vault.node-registrar.fullname" . }}
+  name: {{ include "csi-vault.node-registrar.fullname" . }}
   apiGroup: rbac.authorization.k8s.io
 
 ---
@@ -139,7 +139,7 @@ roleRef:
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
-  name: {{ template "csi-vault.node.fullname" . }}
+  name: {{ include "csi-vault.node.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
@@ -147,7 +147,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: {{ template "csi-vault.name" . }}
+      app: {{ include "csi-vault.name" . }}
       component: {{ .Values.nodePlugin.name }}
       release: "{{ .Release.Name }}"
   template:
@@ -165,7 +165,7 @@ spec:
 {{- end }}
 {{- end }}
     spec:
-      serviceAccount: {{ template "csi-vault.node.fullname" . }}
+      serviceAccount: {{ include "csi-vault.node.fullname" . }}
       containers:
       - name: node-driver-registrar
         image: {{ .Values.nodeRegistrar.registry}}/{{ .Values.nodeRegistrar.repository }}:{{ .Values.nodeRegistrar.tag }}
@@ -247,7 +247,7 @@ spec:
       - name: serving-cert
         secret:
           defaultMode: 420
-          secretName: {{ template "csi-vault.fullname" . }}-apiserver-cert
+          secretName: {{ include "csi-vault.fullname" . }}-apiserver-cert
 {{- if or .Values.tolerations (and .Values.criticalAddon (eq .Release.Namespace "kube-system")) }}
       tolerations:
 {{- if .Values.tolerations }}

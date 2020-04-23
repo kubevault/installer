@@ -2,7 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ template "vault-operator.fullname" . }}
+  name: {{ include "vault-operator.fullname" . }}
   namespace: {{ default .Release.Namespace  .Values.monitoring.prometheus.namespace }}
   labels:
     {{- if .Values.monitoring.serviceMonitor.labels }}
@@ -10,7 +10,7 @@ metadata:
     {{ $key }}: {{ $val }}
     {{- end }}
     {{- else }}
-    app: "{{ template "vault-operator.name" . }}"
+    app: "{{ include "vault-operator.name" . }}"
     release: "{{ .Release.Name }}"
     {{- end }}
 spec:
@@ -19,13 +19,13 @@ spec:
     - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app: "{{ template "vault-operator.name" . }}"
+      app: "{{ include "vault-operator.name" . }}"
       release: "{{ .Release.Name }}"
   endpoints:
   - port: api
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     scheme: https
     tlsConfig:
-      caFile: /etc/prometheus/secrets/{{ template "vault-operator.fullname" . }}-apiserver-cert/tls.crt
-      serverName: "{{ template "vault-operator.fullname" . }}.{{ .Release.Namespace }}.svc"
+      caFile: /etc/prometheus/secrets/{{ include "vault-operator.fullname" . }}-apiserver-cert/tls.crt
+      serverName: "{{ include "vault-operator.fullname" . }}.{{ .Release.Namespace }}.svc"
 {{- end }}
