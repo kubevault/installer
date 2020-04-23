@@ -6,7 +6,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4}}
-    component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
   {{- if and (eq .Values.monitoring.agent "prometheus.io/builtin") .Values.monitoring.controller }}
   annotations:
     prometheus.io/scrape: "true"
@@ -16,9 +16,8 @@ metadata:
 {{- end }}
 spec:
   selector:
-    app: {{ include "csi-vault.name" .}}
-    component: {{ .Values.controllerPlugin.name }}
-    release: "{{ .Release.Name }}"
+    {{- include "csi-vault.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
   ports:
   - name: api
     port: 443
@@ -29,15 +28,11 @@ spec:
 kind: ServiceAccount
 apiVersion: v1
 metadata:
-  name: {{ include "csi-vault.controller.fullname". }}
+  name: {{ include "csi-vault.controller.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
-    component: {{ .Values.controllerPlugin.name }}
-imagePullSecrets:
-  {{- range $x := .Values.imagePullSecrets }}
-  - name: "{{ $x }}"
-  {{- end }}
+    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
 
 ---
 
@@ -47,7 +42,7 @@ metadata:
   name: {{ include "csi-vault.controller.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
-    component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
@@ -90,7 +85,7 @@ metadata:
   name: {{ include "csi-vault.controller.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
-    component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
 subjects:
 - kind: ServiceAccount
   name: {{ include "csi-vault.controller.fullname" . }}
@@ -109,7 +104,7 @@ metadata:
   name: {{ include "csi-vault.attacher.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
-    component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
 rules:
 - apiGroups: [""]
   resources: ["persistentvolumes"]
@@ -141,7 +136,7 @@ metadata:
   name: {{ include "csi-vault.attacher.fullname" . }}
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
-    component: {{ .Values.controllerPlugin.name }}
+    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
 subjects:
 - kind: ServiceAccount
   name: {{ include "csi-vault.controller.fullname" . }}
@@ -153,31 +148,48 @@ roleRef:
 
 ---
 
+{{- $major := default "0" .Capabilities.KubeVersion.Major | trimSuffix "+" | int64 }}
+{{- $minor := default "0" .Capabilities.KubeVersion.Minor | trimSuffix "+" | int64 }}
+{{- $criticalAddon := and .Values.criticalAddon (or (eq .Release.Namespace "kube-system") (and (ge $major 1) (ge $minor 17))) -}}
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: {{ include "csi-vault.controller.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-          {{- include "csi-vault.labels" . | nindent 4 }}
-    component: {{ .Values.controllerPlugin.name }}
+    {{- include "csi-vault.labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
 spec:
   serviceName: {{ include "csi-vault.controller.fullname" . }}
   replicas: 1
   selector:
     matchLabels:
-      app: {{ include "csi-vault.name" . }}
-      component: {{ .Values.controllerPlugin.name }}
-      release: "{{ .Release.Name }}"
+      {{- include "csi-vault.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
   template:
     metadata:
       labels:
-              {{- include "csi-vault.labels" . | nindent 8 }}
-        component: {{ .Values.controllerPlugin.name }}
+        {{- include "csi-vault.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: {{ .Values.controllerPlugin.name }}
+    {{- if or .Values.annotations $criticalAddon }}
+      annotations:
+      {{- if $criticalAddon }}
+        scheduler.alpha.kubernetes.io/critical-pod: ''
+      {{- end }}
+      {{- with .Values.annotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- end }}
     spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       serviceAccount: {{ include "csi-vault.controller.fullname" . }}
       containers:
       - name: csi-provisioner
+        securityContext:
+          {{- toYaml .Values.provisioner.securityContext | nindent 10 }}
         image: {{ .Values.provisioner.registry}}/{{ .Values.provisioner.repository}}:{{ .Values.provisioner.tag }}
         args:
         - --csi-address={{ .Values.pluginAddress}}
@@ -185,21 +197,27 @@ spec:
         imagePullPolicy: {{ .Values.provisioner.pullPolicy }}
         resources:
               {{ toYaml .Values.resources | indent 10 }}
+        resources:
+          {{- toYaml .Values.provisioner.resources | nindent 10 }}
         volumeMounts:
         - name: socket-dir
           mountPath: {{ .Values.pluginDir }}
       - name: csi-attacher
+        securityContext:
+          {{- toYaml .Values.attacher.securityContext | nindent 10 }}
         image: {{ .Values.attacher.registry}}/{{ .Values.attacher.repository }}:{{ .Values.attacher.tag }}
         args:
         - --v={{ .Values.logLevel }}
         - --csi-address={{ .Values.pluginAddress}}
         imagePullPolicy: {{ .Values.attacher.pullPolicy }}
         resources:
-              {{ toYaml .Values.resources | indent 10 }}
+          {{- toYaml .Values.attacher.resources | nindent 10 }}
         volumeMounts:
         - name: socket-dir
           mountPath: {{ .Values.pluginDir }}
       - name: csi-vault-plugin
+        securityContext:
+          {{- toYaml .Values.plugin.securityContext | nindent 10 }}
         image: {{ .Values.plugin.registry }}/{{ .Values.plugin.repository }}:{{ .Values.plugin.tag }}
         args :
         - run
@@ -219,16 +237,16 @@ spec:
             fieldRef:
               fieldPath: spec.nodeName
         imagePullPolicy: {{ .Values.plugin.pullPolicy }}
-        {{- if .Values.apiserver.healthcheck.enabled }}
+      {{- if .Values.apiserver.healthcheck.enabled }}
         livenessProbe:
           httpGet:
             port: 8443
             path: /healthz
             scheme: HTTPS
           initialDelaySeconds: 10
-        {{- end }}
+      {{- end }}
         resources:
-          {{ toYaml .Values.resources | indent 10 }}
+          {{- toYaml .Values.plugin.resources | nindent 10 }}
         volumeMounts:
         - name: socket-dir
           mountPath: {{ .Values.pluginDir }}
@@ -241,24 +259,26 @@ spec:
         secret:
           defaultMode: 420
           secretName: {{ include "csi-vault.fullname" . }}-apiserver-cert
-{{- if or .Values.tolerations (and .Values.criticalAddon (eq .Release.Namespace "kube-system")) }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+    {{- if or .Values.tolerations $criticalAddon }}
       tolerations:
-{{- if .Values.tolerations }}
-{{ toYaml .Values.tolerations | indent 8 }}
-{{- end -}}
-{{- if and .Values.criticalAddon (eq .Release.Namespace "kube-system") }}
-      - key: CriticalAddonsOnly
-        operator: Exists
-{{- end -}}
-{{- end -}}
-{{- if .Values.affinity }}
+      {{- with .Values.tolerations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if $criticalAddon }}
+        - key: CriticalAddonsOnly
+          operator: Exists
+      {{- end -}}
+    {{- end -}}
+    {{- with .Values.affinity }}
       affinity:
-{{ toYaml .Values.affinity | indent 8 }}
-{{- end -}}
-{{- if .Values.nodeSelector }}
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.nodeSelector }}
       nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
-{{- end -}}
-{{- if and .Values.criticalAddon (eq .Release.Namespace "kube-system") }}
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- if $criticalAddon }}
       priorityClassName: system-cluster-critical
-{{- end -}}
+    {{- end -}}

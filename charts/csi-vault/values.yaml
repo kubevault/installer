@@ -2,7 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+nameOverride: ""
+fullnameOverride: ""
 
 attacher:
   name: attacher
@@ -10,24 +11,54 @@ attacher:
   repository: csi-attacher
   tag: v1.2.0
   pullPolicy: IfNotPresent
+  resources: {}
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 plugin:
   name: plugin
   registry: kubevault
   repository: csi-vault
   tag: v0.3.0
   pullPolicy: IfNotPresent
+  resources: {}
+  securityContext:
+    privileged: true
+    capabilities:
+      add: ["SYS_ADMIN"]
+    allowPrivilegeEscalation: true
 provisioner:
   name: provisioner
   registry: quay.io/k8scsi
   repository: csi-provisioner
   tag: v1.3.0
   pullPolicy: IfNotPresent
+  resources: {}
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 nodeRegistrar:
   name: node-registrar
   registry: quay.io/k8scsi
   repository: csi-node-driver-registrar
   tag: v1.1.0
   pullPolicy: IfNotPresent
+  resources: {}
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 
 controllerPlugin:
   name: controller
@@ -40,9 +71,6 @@ logLevel: 3
 ## Annotations passed to operator pod(s).
 ##
 annotations: {}
-
-nameOverride: ""
-fullnameOverride: ""
 
 driverName: secrets.csi.kubevault.com
 pluginAddress: /csi/csi.sock
@@ -67,37 +95,25 @@ imagePullSecrets: []
 ## https://kubernetes.io/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/
 criticalAddon: true
 
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
-  # requests:
-  #  cpu: 100m
-  #  memory: 128Mi
-
 ## Node labels for pod assignment
 ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
-nodeSelector: {}
+nodeSelector:
+  beta.kubernetes.io/os: linux
+  beta.kubernetes.io/arch: amd64
 
 ## Tolerations for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
-tolerations: {}
+tolerations: []
 
 ## Affinity for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ##
 affinity: {}
 
-## Install Default RBAC roles and bindings
-rbac:
-  # Specifies whether RBAC resources should be created
-  create: true
+podSecurityContext: {}
+  # fsGroup: 2000
 
 apiserver:
   # If true, uses kube-apiserver FQDN for AKS cluster to workaround https://github.com/Azure/AKS/issues/522 (default true)
