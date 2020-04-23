@@ -1,6 +1,6 @@
 To verify that CSI driver has installed successfully, run:
 
-  $ kubectl --namespace={{ .Release.Namespace }} get pods -l "release={{ .Release.Name }}"
+  kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "csi-vault.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
 
 If all pods are running, then run:
 
