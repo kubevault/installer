@@ -19,5 +19,4 @@ spec:
     port: 443
     targetPort: 8443
   selector:
-    app: "{{ include "vault-operator.name" . }}"
-    release: "{{ .Release.Name }}"
+    {{- include "vault-operator.selectorLabels" . | nindent 4 }}

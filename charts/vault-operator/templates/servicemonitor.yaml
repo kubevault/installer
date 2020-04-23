@@ -10,8 +10,7 @@ metadata:
     {{ $key }}: {{ $val }}
     {{- end }}
     {{- else }}
-    app: "{{ include "vault-operator.name" . }}"
-    release: "{{ .Release.Name }}"
+      {{- include "vault-operator.selectorLabels" . | nindent 4 }}
     {{- end }}
 spec:
   namespaceSelector:
@@ -19,8 +18,7 @@ spec:
     - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app: "{{ include "vault-operator.name" . }}"
-      release: "{{ .Release.Name }}"
+      {{- include "vault-operator.selectorLabels" . | nindent 6 }}
   endpoints:
   - port: api
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
