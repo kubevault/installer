@@ -43,7 +43,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        k8s: [v1.11.10, v1.12.10, v1.13.10, v1.14.6, v1.15.3, v1.16.3, v1.17.0, v1.18.0]
+        k8s: [v1.11.10, v1.12.10, v1.13.12, v1.14.10, v1.15.7, v1.16.4, v1.17.2, v1.18.0]
     steps:
 
     - name: Check out code into the Go module directory
@@ -92,7 +92,7 @@ jobs:
         kubectl delete crds --all
 
     - name: Test csi-vault chart
-      if: (matrix.k8s != 'v1.11.10') && (matrix.k8s != 'v1.12.10') && (matrix.k8s != 'v1.13.10')
+      if: (matrix.k8s != 'v1.11.10') && (matrix.k8s != 'v1.12.10') && (matrix.k8s != 'v1.13.12')
       run: |
         export KUBECONFIG="${HOME}/.kube/config"
         make ct TEST_CHARTS=charts/csi-vault
