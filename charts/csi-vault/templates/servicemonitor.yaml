@@ -1,4 +1,4 @@
-{{- if and (eq .Values.monitoring.agent "prometheus.io/coreos-operator") .Values.monitoring.controller }}
+{{- if and (eq .Values.monitoring.agent "prometheus.io/operator") .Values.monitoring.controller }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -29,7 +29,7 @@ spec:
       serverName: "{{ include "csi-vault.controller.fullname" . }}.{{ .Release.Namespace }}.svc"
 ---
 {{- end }}
-{{- if and (eq .Values.monitoring.agent "prometheus.io/coreos-operator") .Values.monitoring.node }}
+{{- if and (eq .Values.monitoring.agent "prometheus.io/operator") .Values.monitoring.node }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
