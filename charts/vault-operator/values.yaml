@@ -117,7 +117,7 @@ apiserver:
 enableAnalytics: true
 
 monitoring:
-  # specify monitoring agent (either "prometheus.io/builtin" or "prometheus.io/coreos-operator")
+  # specify monitoring agent (either "prometheus.io/builtin" or "prometheus.io/operator")
   agent: "none"
   # specify whether to monitor Vault operator
   operator: false
