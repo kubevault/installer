@@ -221,30 +221,33 @@ message KubeVaultOperatorSpec {
   // +optional
   map<string, string> nodeSelector = 11;
 
+  // +optional
+  map<string, string> podAnnotations = 12;
+
   // If specified, the pod's tolerations.
   // +optional
-  repeated k8s.io.api.core.v1.Toleration tolerations = 12;
+  repeated k8s.io.api.core.v1.Toleration tolerations = 13;
 
   // If specified, the pod's scheduling constraints
   // +optional
-  optional k8s.io.api.core.v1.Affinity affinity = 13;
+  optional k8s.io.api.core.v1.Affinity affinity = 14;
 
   // PodSecurityContext holds pod-level security attributes and common container settings.
   // Optional: Defaults to empty.  See type description for default values of each field.
   // +optional
-  optional k8s.io.api.core.v1.PodSecurityContext podSecurityContext = 14;
+  optional k8s.io.api.core.v1.PodSecurityContext podSecurityContext = 15;
 
-  optional ServiceAccountSpec serviceAccount = 15;
+  optional ServiceAccountSpec serviceAccount = 16;
 
-  optional OperatorWebhookServer apiserver = 16;
-
-  // +optional
-  optional bool enableAnalytics = 17;
-
-  optional OperatorMonitoring monitoring = 18;
+  optional OperatorWebhookServer apiserver = 17;
 
   // +optional
-  optional string clusterName = 19;
+  optional bool enableAnalytics = 18;
+
+  optional OperatorMonitoring monitoring = 19;
+
+  // +optional
+  optional string clusterName = 20;
 }
 
 message OperatorMonitoring {

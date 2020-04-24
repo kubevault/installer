@@ -60,19 +60,13 @@ nodeRegistrar:
     # runAsNonRoot: true
     # runAsUser: 1000
 
-components:
-  controller: controller
-  node: node
-
-logLevel: 3
-
-## Annotations passed to operator pod(s).
-##
-annotations: {}
-
 driverName: secrets.csi.kubevault.com
 pluginAddress: /csi/csi.sock
 pluginDir: /csi
+
+components:
+  controller: controller
+  node: node
 
 ## Optionally specify an array of imagePullSecrets.
 ## Secrets must be manually created in the namespace.
@@ -85,6 +79,16 @@ imagePullSecrets: []
 ## Installs pods as critical addon
 ## https://kubernetes.io/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/
 criticalAddon: true
+
+logLevel: 3
+
+## Annotations passed to operator deployment.
+##
+annotations: {}
+
+## Annotations passed to operator pod(s).
+##
+podAnnotations: {}
 
 ## Node labels for pod assignment
 ## Ref: https://kubernetes.io/docs/user-guide/node-selection/

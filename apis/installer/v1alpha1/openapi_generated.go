@@ -16181,6 +16181,20 @@ func schema_installer_apis_installer_v1alpha1_KubeVaultOperatorSpec(ref common.R
 							},
 						},
 					},
+					"podAnnotations": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
 					"tolerations": {
 						SchemaProps: spec.SchemaProps{
 							Description: "If specified, the pod's tolerations.",
