@@ -80,22 +80,24 @@ type CSIVaultSpec struct {
 	//+optional
 	Annotations map[string]string `json:"annotations" protobuf:"bytes,14,rep,name=annotations"`
 	//+optional
-	NodeSelector map[string]string `json:"nodeSelector" protobuf:"bytes,15,rep,name=nodeSelector"`
+	PodAnnotations map[string]string `json:"podAnnotations" protobuf:"bytes,15,rep,name=podAnnotations"`
+	//+optional
+	NodeSelector map[string]string `json:"nodeSelector" protobuf:"bytes,16,rep,name=nodeSelector"`
 	// If specified, the pod's tolerations.
 	// +optional
-	Tolerations []core.Toleration `json:"tolerations" protobuf:"bytes,16,rep,name=tolerations"`
+	Tolerations []core.Toleration `json:"tolerations" protobuf:"bytes,17,rep,name=tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity *core.Affinity `json:"affinity" protobuf:"bytes,17,opt,name=affinity"`
-	RBAC     CSIDriverRBAC  `json:"rbac" protobuf:"bytes,18,opt,name=rbac"`
+	Affinity *core.Affinity `json:"affinity" protobuf:"bytes,18,opt,name=affinity"`
+	RBAC     CSIDriverRBAC  `json:"rbac" protobuf:"bytes,19,opt,name=rbac"`
 	// PodSecurityContext holds pod-level security attributes and common container settings.
 	// Optional: Defaults to empty.  See type description for default values of each field.
 	// +optional
-	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext" protobuf:"bytes,19,opt,name=podSecurityContext"`
-	Apiserver          CSIDriverAPIServer       `json:"apiserver" protobuf:"bytes,20,opt,name=apiserver"`
+	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext" protobuf:"bytes,20,opt,name=podSecurityContext"`
+	Apiserver          CSIDriverAPIServer       `json:"apiserver" protobuf:"bytes,21,opt,name=apiserver"`
 	//+optional
-	EnableAnalytics bool                `json:"enableAnalytics" protobuf:"varint,21,opt,name=enableAnalytics"`
-	Monitoring      CSIDriverMonitoring `json:"monitoring" protobuf:"bytes,22,opt,name=monitoring"`
+	EnableAnalytics bool                `json:"enableAnalytics" protobuf:"varint,22,opt,name=enableAnalytics"`
+	Monitoring      CSIDriverMonitoring `json:"monitoring" protobuf:"bytes,23,opt,name=monitoring"`
 }
 
 type CSIDriverRBAC struct {

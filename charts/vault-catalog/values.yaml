@@ -5,4 +5,5 @@
 nameOverride: ""
 fullnameOverride: ""
 
-dockerRegistry: kubevault
+image:
+  registry: kubevault

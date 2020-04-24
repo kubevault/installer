@@ -46,8 +46,12 @@ type VaultCatalogSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride" protobuf:"bytes,1,opt,name=nameOverride"`
 	//+optional
-	FullnameOverride string `json:"fullnameOverride" protobuf:"bytes,2,opt,name=fullnameOverride"`
-	DockerRegistry   string `json:"dockerRegistry" protobuf:"bytes,3,opt,name=dockerRegistry"`
+	FullnameOverride string      `json:"fullnameOverride" protobuf:"bytes,2,opt,name=fullnameOverride"`
+	Image            RegistryRef `json:"image" protobuf:"bytes,3,opt,name=image"`
+}
+
+type RegistryRef struct {
+	Registry string `json:"registry" protobuf:"bytes,1,opt,name=registry"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

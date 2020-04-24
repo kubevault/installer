@@ -347,6 +347,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubevault.dev/installer/apis/installer/v1alpha1.OperatorMonitoring":    schema_installer_apis_installer_v1alpha1_OperatorMonitoring(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.OperatorWebhookServer": schema_installer_apis_installer_v1alpha1_OperatorWebhookServer(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.PrometheusSpec":        schema_installer_apis_installer_v1alpha1_PrometheusSpec(ref),
+		"kubevault.dev/installer/apis/installer/v1alpha1.RegistryRef":           schema_installer_apis_installer_v1alpha1_RegistryRef(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec":    schema_installer_apis_installer_v1alpha1_ServiceAccountSpec(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.ServiceMonitorLabels":  schema_installer_apis_installer_v1alpha1_ServiceMonitorLabels(ref),
 		"kubevault.dev/installer/apis/installer/v1alpha1.ServingCerts":          schema_installer_apis_installer_v1alpha1_ServingCerts(ref),
@@ -15757,6 +15758,20 @@ func schema_installer_apis_installer_v1alpha1_CSIVaultSpec(ref common.ReferenceC
 							},
 						},
 					},
+					"podAnnotations": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
 					"nodeSelector": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"object"},
@@ -16378,6 +16393,25 @@ func schema_installer_apis_installer_v1alpha1_PrometheusSpec(ref common.Referenc
 	}
 }
 
+func schema_installer_apis_installer_v1alpha1_RegistryRef(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"registry": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"registry"},
+			},
+		},
+	}
+}
+
 func schema_installer_apis_installer_v1alpha1_ServiceAccountSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -16584,15 +16618,16 @@ func schema_installer_apis_installer_v1alpha1_VaultCatalogSpec(ref common.Refere
 							Format: "",
 						},
 					},
-					"dockerRegistry": {
+					"image": {
 						SchemaProps: spec.SchemaProps{
-							Type:   []string{"string"},
-							Format: "",
+							Ref: ref("kubevault.dev/installer/apis/installer/v1alpha1.RegistryRef"),
 						},
 					},
 				},
-				Required: []string{"dockerRegistry"},
+				Required: []string{"image"},
 			},
 		},
+		Dependencies: []string{
+			"kubevault.dev/installer/apis/installer/v1alpha1.RegistryRef"},
 	}
 }
