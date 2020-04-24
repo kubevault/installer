@@ -78,23 +78,25 @@ type KubeVaultOperatorSpec struct {
 	Annotations map[string]string `json:"annotations" protobuf:"bytes,10,rep,name=annotations"`
 	//+optional
 	NodeSelector map[string]string `json:"nodeSelector" protobuf:"bytes,11,rep,name=nodeSelector"`
+	//+optional
+	PodAnnotations map[string]string `json:"podAnnotations" protobuf:"bytes,12,rep,name=podAnnotations"`
 	// If specified, the pod's tolerations.
 	// +optional
-	Tolerations []core.Toleration `json:"tolerations" protobuf:"bytes,12,rep,name=tolerations"`
+	Tolerations []core.Toleration `json:"tolerations" protobuf:"bytes,13,rep,name=tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity *core.Affinity `json:"affinity" protobuf:"bytes,13,opt,name=affinity"`
+	Affinity *core.Affinity `json:"affinity" protobuf:"bytes,14,opt,name=affinity"`
 	// PodSecurityContext holds pod-level security attributes and common container settings.
 	// Optional: Defaults to empty.  See type description for default values of each field.
 	// +optional
-	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext" protobuf:"bytes,14,opt,name=podSecurityContext"`
-	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount" protobuf:"bytes,15,opt,name=serviceAccount"`
-	Apiserver          OperatorWebhookServer    `json:"apiserver" protobuf:"bytes,16,opt,name=apiserver"`
+	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext" protobuf:"bytes,15,opt,name=podSecurityContext"`
+	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount" protobuf:"bytes,16,opt,name=serviceAccount"`
+	Apiserver          OperatorWebhookServer    `json:"apiserver" protobuf:"bytes,17,opt,name=apiserver"`
 	//+optional
-	EnableAnalytics bool               `json:"enableAnalytics" protobuf:"varint,17,opt,name=enableAnalytics"`
-	Monitoring      OperatorMonitoring `json:"monitoring" protobuf:"bytes,18,opt,name=monitoring"`
+	EnableAnalytics bool               `json:"enableAnalytics" protobuf:"varint,18,opt,name=enableAnalytics"`
+	Monitoring      OperatorMonitoring `json:"monitoring" protobuf:"bytes,19,opt,name=monitoring"`
 	//+optional
-	ClusterName *string `json:"clusterName" protobuf:"bytes,19,opt,name=clusterName"`
+	ClusterName *string `json:"clusterName" protobuf:"bytes,20,opt,name=clusterName"`
 }
 
 type ServiceAccountSpec struct {
