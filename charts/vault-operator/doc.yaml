@@ -1,0 +1,18 @@
+project:
+  name: Vault Operator by AppsCode
+  shortName: Vault Operator
+  url: https://github.com/kubevault/operator
+  description: HashiCorp Vault Operator for Kubernetes
+  app: a HashiCorp Vault operator
+repository:
+  url: https://charts.appscode.com/stable/
+  name: appscode
+chart:
+  name: vault-operator
+  values: "-- generate from values file --"
+  valuesExample: "-- generate from values file --"
+prerequisites:
+- Kubernetes 1.11+
+release:
+  name: vault-operator
+  namespace: kube-system

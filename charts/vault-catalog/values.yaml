@@ -2,8 +2,11 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# Overrides name template
 nameOverride: ""
+# Overrides fullname template
 fullnameOverride: ""
 
 image:
+  # Docker registry used to pull Vault server image
   registry: kubevault
