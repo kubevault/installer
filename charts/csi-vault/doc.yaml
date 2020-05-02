@@ -1,0 +1,21 @@
+project:
+  name: CSI Vault by AppsCode
+  shortName: CSI Vault
+  url: https://github.com/kubevault/csi-driver
+  description: Kubernetes CSI Driver for HashiCorp Vault
+  app: a Vault CSI Driver
+repository:
+  url: https://charts.appscode.com/stable/
+  name: appscode
+chart:
+  name: csi-vault
+  values: "-- generate from values file --"
+  valuesExample: "-- generate from values file --"
+prerequisites:
+- "Kubernetes v1.14+"
+- "`--allow-privileged` flag must be set to true for both the API server and the kubelet"
+- "(If you use Docker) The Docker daemon of the cluster nodes must allow shared mounts"
+- "Pre-installed HashiCorp Vault server."
+release:
+  name: csi-vault
+  namespace: kube-system
