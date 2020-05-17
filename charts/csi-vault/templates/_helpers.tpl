@@ -55,6 +55,10 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- printf "%s-%s" (include "csi-vault.fullname" .) .Values.attacher.name | trunc 63 | trimSuffix "-" -}}
 {{ end }}
 
+{{- define "csi-vault.provisioner.fullname" -}}
+{{- printf "%s-%s" (include "csi-vault.fullname" .) .Values.provisioner.name | trunc 63 | trimSuffix "-" -}}
+{{ end }}
+
 {{- define "csi-vault.node-registrar.fullname" -}}
 {{- printf "%s-%s" (include "csi-vault.fullname" .) .Values.nodeRegistrar.name | trunc 63 | trimSuffix "-" -}}
 {{ end }}
