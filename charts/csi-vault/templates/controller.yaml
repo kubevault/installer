@@ -65,8 +65,8 @@ rules:
 - apiGroups: ["snapshot.storage.k8s.io"]
   resources: ["volumesnapshotcontents"]
   verbs: ["get", "list"]
-- apiGroups: ["csi.storage.k8s.io"]
-  resources: ["csidrivers", "csinodeinfos"]
+- apiGroups: ["storage.k8s.io"]
+  resources: ["csidrivers", "csinodes"]
   verbs: ["get", "watch", "list", "update", "patch", "create"]
 - apiGroups: ["authorization.k8s.io"]
   resources: ["subjectaccessreviews"]
@@ -77,6 +77,12 @@ rules:
 - apiGroups: ["apiextensions.k8s.io"]
   resources: ["customresourcedefinitions"]
   verbs: ["*"]
+- apiGroups: ["appcatalog.appscode.com"]
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list"]
 ---
 
 kind: ClusterRoleBinding
@@ -108,26 +114,16 @@ metadata:
 rules:
 - apiGroups: [""]
   resources: ["persistentvolumes"]
-  verbs: ["get", "list", "watch", "update"]
+  verbs: ["get", "list", "watch", "patch", "update"]
 - apiGroups: [""]
   resources: ["nodes"]
   verbs: ["get", "list", "watch"]
-- apiGroups: ["csi.storage.k8s.io"]
-  resources: ["csidrivers", "csinodeinfos"]
-  verbs: ["get", "watch", "list", "update", "patch", "create"]
 - apiGroups: ["storage.k8s.io"]
   resources: ["volumeattachments"]
-  verbs: ["get", "list", "watch", "update"]
-- apiGroups: ["apiextensions.k8s.io"]
-  resources: ["customresourcedefinitions"]
-  verbs: ["create", "list", "watch", "delete"]
-- apiGroups: ["appcatalog.appscode.com"]
-  resources: ["*"]
-  verbs: ["*"]
+  verbs: ["get", "list", "watch", "patch", "update"]
 - apiGroups: [""]
-  resources: ["configmaps"]
-  verbs: ["get", "list"]
-
+  resources: ["events"]
+  verbs: ["create", "get", "list", "patch", "update", "watch"]
 ---
 
 kind: ClusterRoleBinding
@@ -145,6 +141,54 @@ roleRef:
     kind: ClusterRole
     name: {{ include "csi-vault.attacher.fullname" . }}
     apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Provisioner must be able to work with PVCs, storageClasses, nodes and csiNodes
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "csi-vault.provisioner.fullname" . }}
+  labels:
+    {{- include "csi-vault.labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ .Values.components.controller }}
+rules:
+- apiGroups: [""]
+  resources: ["persistentvolumes"]
+  verbs: ["create", "delete", "get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["persistentvolumeclaims"]
+  verbs: ["get", "list", "patch", "update", "watch"]
+- apiGroups: ["storage.k8s.io"]
+  resources: ["storageclasses"]
+  verbs: ["list", "watch"]
+- apiGroups: [""]
+  resources: ["events"]
+  verbs: ["create", "get", "list", "patch", "update", "watch"]
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["storage.k8s.io"]
+  resources: ["csinodes"]
+  verbs: ["get", "list", "watch"]
+
+---
+
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "csi-vault.provisioner.fullname" . }}
+  labels:
+    {{- include "csi-vault.labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ .Values.components.controller }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "csi-vault.controller.fullname" . }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: {{ include "csi-vault.provisioner.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
 
 ---
 
