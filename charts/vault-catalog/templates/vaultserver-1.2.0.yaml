@@ -1,14 +1,13 @@
 apiVersion: catalog.kubevault.com/v1alpha1
 kind: VaultServerVersion
 metadata:
-  name: "1.2.3"
+  name: "1.2.0"
   labels:
     {{- include "vault-catalog.labels" . | nindent 4 }}
 spec:
-  version: "1.2.3"
-  deprecated: false
+  version: "1.2.0"
   vault:
-    image: "vault:1.2.3"
+    image: "vault:1.2.0"
   unsealer:
     image: "{{ .Values.image.registry }}/vault-unsealer:v0.3.0"
   exporter:
