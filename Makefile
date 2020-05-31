@@ -20,7 +20,7 @@ REPO     := $(notdir $(shell pwd))
 BIN      := installer
 
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
-CRD_OPTIONS          ?= "crd:trivialVersions=true,preserveUnknownFields=false"
+CRD_OPTIONS          ?= "crd:trivialVersions=true,preserveUnknownFields=false,crdVersions={v1beta1,v1}"
 # https://github.com/appscodelabs/gengo-builder
 CODE_GENERATOR_IMAGE ?= appscode/gengo:release-1.18
 API_GROUPS           ?= installer:v1alpha1
@@ -225,11 +225,11 @@ gen-bindata:
 
 .PHONY: gen-values-schema
 gen-values-schema:
-	@yq r api/crds/installer.kubevault.com_csivaults.yaml spec.validation.openAPIV3Schema.properties.spec > /tmp/csi-vault-values.openapiv3_schema.yaml
+	@yq r api/crds/installer.kubevault.com_csivaults.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/csi-vault-values.openapiv3_schema.yaml
 	@yq d /tmp/csi-vault-values.openapiv3_schema.yaml description > charts/csi-vault/values.openapiv3_schema.yaml
-	@yq r api/crds/installer.kubevault.com_kubevaultoperators.yaml spec.validation.openAPIV3Schema.properties.spec > /tmp/vault-operator-values.openapiv3_schema.yaml
+	@yq r api/crds/installer.kubevault.com_kubevaultoperators.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/vault-operator-values.openapiv3_schema.yaml
 	@yq d /tmp/vault-operator-values.openapiv3_schema.yaml description > charts/vault-operator/values.openapiv3_schema.yaml
-	@yq r api/crds/installer.kubevault.com_vaultcatalogs.yaml spec.validation.openAPIV3Schema.properties.spec > /tmp/vault-catalog-values.openapiv3_schema.yaml
+	@yq r api/crds/installer.kubevault.com_vaultcatalogs.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/vault-catalog-values.openapiv3_schema.yaml
 	@yq d /tmp/vault-catalog-values.openapiv3_schema.yaml description > charts/vault-catalog/values.openapiv3_schema.yaml
 
 .PHONY: gen-chart-doc
