@@ -303,12 +303,12 @@ type bintree struct {
 }
 
 var _bintree = &bintree{nil, map[string]*bintree{
-	"installer.kubevault.com_csivaults.v1.yaml":          {installerKubevaultCom_csivaultsV1Yaml, map[string]*bintree{}},
-	"installer.kubevault.com_csivaults.yaml":             {installerKubevaultCom_csivaultsYaml, map[string]*bintree{}},
-	"installer.kubevault.com_kubevaultoperators.v1.yaml": {installerKubevaultCom_kubevaultoperatorsV1Yaml, map[string]*bintree{}},
-	"installer.kubevault.com_kubevaultoperators.yaml":    {installerKubevaultCom_kubevaultoperatorsYaml, map[string]*bintree{}},
-	"installer.kubevault.com_vaultcatalogs.v1.yaml":      {installerKubevaultCom_vaultcatalogsV1Yaml, map[string]*bintree{}},
-	"installer.kubevault.com_vaultcatalogs.yaml":         {installerKubevaultCom_vaultcatalogsYaml, map[string]*bintree{}},
+	"installer.kubevault.com_csivaults.v1.yaml":          &bintree{installerKubevaultCom_csivaultsV1Yaml, map[string]*bintree{}},
+	"installer.kubevault.com_csivaults.yaml":             &bintree{installerKubevaultCom_csivaultsYaml, map[string]*bintree{}},
+	"installer.kubevault.com_kubevaultoperators.v1.yaml": &bintree{installerKubevaultCom_kubevaultoperatorsV1Yaml, map[string]*bintree{}},
+	"installer.kubevault.com_kubevaultoperators.yaml":    &bintree{installerKubevaultCom_kubevaultoperatorsYaml, map[string]*bintree{}},
+	"installer.kubevault.com_vaultcatalogs.v1.yaml":      &bintree{installerKubevaultCom_vaultcatalogsV1Yaml, map[string]*bintree{}},
+	"installer.kubevault.com_vaultcatalogs.yaml":         &bintree{installerKubevaultCom_vaultcatalogsYaml, map[string]*bintree{}},
 }}
 
 // RestoreAsset restores an asset under the given directory
