@@ -234,7 +234,7 @@ gen-values-schema:
 	@yq d /tmp/vault-catalog-values.openapiv3_schema.yaml description > charts/vault-catalog/values.openapiv3_schema.yaml
 
 .PHONY: gen-chart-doc
-gen-chart-doc: gen-chart-doc-vault-operator gen-chart-doc-vault-catalog gen-chart-doc-csi-vault
+gen-chart-doc: $(shell find $$(pwd)/charts -maxdepth 1 -mindepth 1 -type d -printf 'gen-chart-doc-%f ')
 
 gen-chart-doc-%:
 	@echo "Generate $* chart docs"
@@ -253,6 +253,28 @@ manifests: gen-crds patch-crds label-crds gen-bindata gen-values-schema gen-char
 
 .PHONY: gen
 gen: clientset gen-crd-protos manifests openapi
+
+CHART_VERSION    ?=
+APP_VERSION      ?= $(CHART_VERSION)
+
+.PHONY: update-chart
+update-chart: $(shell find $$(pwd)/charts -maxdepth 1 -mindepth 1 -type d -printf 'update-chart-%f gen-chart-doc-%f ')
+
+update-chart-%:
+	@if [ ! -z "$(CHART_VERSION)" ]; then                                \
+		yq w -i ./charts/$*/Chart.yaml version $(CHART_VERSION);         \
+	fi
+	@if [ ! -z "$(APP_VERSION)" ]; then                                  \
+		yq w -i ./charts/$*/Chart.yaml appVersion $(APP_VERSION);        \
+		case "$*" in                                                     \
+		  csi-vault)                                                     \
+		    yq w -i ./charts/$*/values.yaml plugin.tag $(APP_VERSION);   \
+		    ;;                                                           \
+		  vault-operator)                                                \
+		    yq w -i ./charts/$*/values.yaml operator.tag $(APP_VERSION); \
+		    ;;                                                           \
+		esac;                                                            \
+	fi
 
 fmt: $(BUILD_DIRS)
 	@docker run                                                 \

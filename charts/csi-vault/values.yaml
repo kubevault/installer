@@ -6,7 +6,6 @@
 nameOverride: ""
 # Overrides fullname template
 fullnameOverride: ""
-
 attacher:
   # Name of the attacher container
   name: attacher
@@ -22,13 +21,12 @@ attacher:
   resources: {}
   # Security options the CSI attacher container should run with
   securityContext: {}
-    # capabilities:
-    #   drop:
-    #   - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
-    # runAsUser: 1000
-
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
 plugin:
   # Name of the CSI driver container
   name: plugin
@@ -43,12 +41,11 @@ plugin:
   # Compute Resources required by the CSI driver container
   resources: {}
   # Security options the CSI driver container should run with
-  securityContext:  # +doc-gen:break
+  securityContext: # +doc-gen:break
     privileged: true
     capabilities:
       add: ["SYS_ADMIN"]
     allowPrivilegeEscalation: true
-
 provisioner:
   # Name of the provisioner container
   name: provisioner
@@ -64,13 +61,12 @@ provisioner:
   resources: {}
   # Security options the CSI provisioner container should run with
   securityContext: {}
-    # capabilities:
-    #   drop:
-    #   - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
-    # runAsUser: 1000
-
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
 nodeRegistrar:
   # Name of the CSI driver node registrar container
   name: node-registrar
@@ -86,26 +82,23 @@ nodeRegistrar:
   resources: {}
   # Security options the CSI driver node registrar container should run with
   securityContext: {}
-    # capabilities:
-    #   drop:
-    #   - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
-    # runAsUser: 1000
-
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
 # Vault CSI driver name
 driverName: secrets.csi.kubevault.com
 # Vault CSI driver endpoint address
 pluginAddress: /csi/csi.sock
 # Vault CSI driver plugin directory
 pluginDir: /csi
-
 components:
   # Name of controller driver component
   controller: controller
   # Name of node driver component
   node: node
-
 # Specify an array of imagePullSecrets.
 # Secrets must be manually created in the namespace.
 #
@@ -114,37 +107,28 @@ components:
 #   --set imagePullSecrets[0].name=sec0 \
 #   --set imagePullSecrets[1].name=sec1
 imagePullSecrets: []
-
 # If true, installs CSI driver as critical addon
 criticalAddon: false
-
 # Log level for operator
 logLevel: 3
-
 # Annotations applied to CSI driver deployment
 annotations: {}
-
 # Annotations passed to CSI driver pod(s).
 podAnnotations: {}
-
 # Node labels for pod assignment
-nodeSelector:  # +doc-gen:break
+nodeSelector: # +doc-gen:break
   beta.kubernetes.io/os: linux
   beta.kubernetes.io/arch: amd64
-
 # Tolerations for pod assignment
 tolerations: []
-
 # Affinity rules for pod assignment
 affinity: {}
-
 rbac:
   # Specifies whether RBAC resources should be created
   create: true
-
 # Security options the CSI driver pod should run with.
 podSecurityContext: {}
-  # fsGroup: 2000
+# fsGroup: 2000
 
 apiserver:
   # If true, uses kube-apiserver FQDN for AKS cluster to workaround https://github.com/Azure/AKS/issues/522 (default true)
@@ -152,10 +136,8 @@ apiserver:
   healthcheck:
     # healthcheck configures the readiness and liveliness probes for the CSI driver pod.
     enabled: true
-
 # If true, sends usage analytics
 enableAnalytics: true
-
 monitoring:
   # Name of monitoring agent (either "prometheus.io/operator" or "prometheus.io/builtin")
   agent: "none"
