@@ -257,10 +257,13 @@ gen: clientset gen-crd-protos manifests openapi
 CHART_VERSION    ?=
 APP_VERSION      ?= $(CHART_VERSION)
 
-.PHONY: update-chart
-update-chart: $(shell find $$(pwd)/charts -maxdepth 1 -mindepth 1 -type d -printf 'update-chart-%f gen-chart-doc-%f ')
+.PHONY: update-charts
+update-charts: $(shell find $$(pwd)/charts -maxdepth 1 -mindepth 1 -type d -printf 'chart-%f ')
 
-update-chart-%:
+chart-%:
+	@$(MAKE) chart-contents-$* gen-chart-doc-$* --no-print-directory
+
+chart-contents-%:
 	@if [ ! -z "$(CHART_VERSION)" ]; then                                \
 		yq w -i ./charts/$*/Chart.yaml version $(CHART_VERSION);         \
 	fi
