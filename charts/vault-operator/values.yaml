@@ -6,10 +6,8 @@
 nameOverride: ""
 # Overrides fullname template
 fullnameOverride: ""
-
 # Number of Vault operator replicas to create (only 1 is supported)
 replicaCount: 1
-
 operator:
   # Docker registry used to pull Vault operator image
   registry: kubevault
@@ -18,18 +16,17 @@ operator:
   # Vault operator container image tag
   tag: v0.3.0
   # Compute Resources required by the operator container
-  resources:  # +doc-gen:break
+  resources: # +doc-gen:break
     requests:
       cpu: "100m"
   # Security options the operator container should run with
   securityContext: {}
-    # capabilities:
-    #   drop:
-    #   - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
-    # runAsUser: 1000
-
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
 cleaner:
   # Docker registry used to pull Webhook cleaner image
   registry: appscode
@@ -37,7 +34,6 @@ cleaner:
   repository: kubectl
   # Webhook cleaner container image tag
   tag: v1.16
-
 # Specify an array of imagePullSecrets.
 # Secrets must be manually created in the namespace.
 #
@@ -46,38 +42,28 @@ cleaner:
 #   --set imagePullSecrets[0].name=sec0 \
 #   --set imagePullSecrets[1].name=sec1
 imagePullSecrets: []
-
 # Container image pull policy
 imagePullPolicy: IfNotPresent
-
 # If true, installs Vault operator as critical addon
 criticalAddon: false
-
 # Log level for operator
 logLevel: 3
-
 # Annotations applied to operator deployment
 annotations: {}
-
 # Annotations passed to operator pod(s).
 podAnnotations: {}
-
 # Node labels for pod assignment
-nodeSelector:  # +doc-gen:break
+nodeSelector: # +doc-gen:break
   beta.kubernetes.io/os: linux
   beta.kubernetes.io/arch: amd64
-
 # Tolerations for pod assignment
 tolerations: []
-
 # Affinity rules for pod assignment
 affinity: {}
-
 # Security options the operator pod should run with.
-podSecurityContext:  # +doc-gen:break
+podSecurityContext: # +doc-gen:break
   # ensure that s/a token is readable xref: https://issues.k8s.io/70679
   fsGroup: 65535
-
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
@@ -86,7 +72,6 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
-
 apiserver:
   # The minimum priority the webhook api group should have at least. Please see
   # https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L58-L64
@@ -120,10 +105,8 @@ apiserver:
     serverCrt: ""
     # Private key for the serving certificate used by webhook server.
     serverKey: ""
-
 # If true, sends usage analytics
 enableAnalytics: true
-
 monitoring:
   # Name of monitoring agent (either "prometheus.io/operator" or "prometheus.io/builtin")
   agent: "none"
@@ -137,6 +120,5 @@ monitoring:
     # Prometheus crd will select ServiceMonitor using these labels.
     # Only usable when monitoring agent is `prometheus.io/operator`.
     labels: {}
-
 # Name of cluster used in a multi-cluster setup
 clusterName:
