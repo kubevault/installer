@@ -3,10 +3,10 @@ description: 'Vault Catalog by AppsCode - Catalog for Vault versions'
 name: vault-catalog
 version: v0.3.0
 appVersion: v0.3.0
-home: https://github.com/kubevault/operator
+home: https://kubevault.com
 icon: https://cdn.appscode.com/images/products/kubevault/icons/android-icon-192x192.png
 sources:
-  - https://github.com/kubevault/operator
+  - https://github.com/kubevault
 maintainers:
   - name: appscode
-    email: kubevault@appscode.com
+    email: support@appscode.com
