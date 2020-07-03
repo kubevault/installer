@@ -43,10 +43,14 @@ rules:
 - apiGroups:
   - ""
   resources:
-  - secrets
-  - services
   - serviceaccounts
   verbs: ["create", "get", "patch"]
+- apiGroups:
+    - ""
+  resources:
+    - secrets
+    - services
+  verbs: ["create", "get", "patch", "delete"]
 - apiGroups:
   - ""
   resources:
