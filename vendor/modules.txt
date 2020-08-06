@@ -651,7 +651,7 @@ k8s.io/utils/net
 k8s.io/utils/path
 k8s.io/utils/pointer
 k8s.io/utils/trace
-# kmodules.xyz/client-go v0.0.0-20200730042423-9c59c231fe96
+# kmodules.xyz/client-go v0.0.0-20200805154632-5bf10f227624
 kmodules.xyz/client-go/openapi
 # kmodules.xyz/crd-schema-fuzz v0.0.0-20200521005638-2433a187de95
 kmodules.xyz/crd-schema-fuzz
