@@ -40,7 +40,7 @@ rules:
   resources:
   - deployments
   - statefulsets
-  verbs: ["create","get", "update", "patch"]
+  verbs: ["create","get", "update", "patch", "delete"]
 - apiGroups:
   - ""
   resources:
@@ -49,8 +49,8 @@ rules:
 - apiGroups:
     - ""
   resources:
-    - secrets
-    - services
+  - secrets
+  - services
   verbs: ["create", "get", "patch", "delete"]
 - apiGroups:
   - ""
