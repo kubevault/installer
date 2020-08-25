@@ -34,6 +34,13 @@ cleaner:
   repository: kubectl
   # Webhook cleaner container image tag
   tag: v1.16
+
+# enable host networking mode for use with a CNI or on EKS
+hostNetwork: false
+
+# allow customizing the dns policy
+dnsPolicy: ClusterFirst
+
 # Specify an array of imagePullSecrets.
 # Secrets must be manually created in the namespace.
 #
