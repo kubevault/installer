@@ -17,7 +17,7 @@
 {{- end }}
 {{- if or .Values.apiserver.enableMutatingWebhook .Values.apiserver.enableValidatingWebhook }}
 # register as aggregated apiserver
-apiVersion: apiregistration.k8s.io/v1beta1
+apiVersion: apiregistration.k8s.io/v1
 kind: APIService
 metadata:
   name: v1alpha1.mutators.kubevault.com
@@ -34,7 +34,7 @@ spec:
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
 # register as aggregated apiserver
-apiVersion: apiregistration.k8s.io/v1beta1
+apiVersion: apiregistration.k8s.io/v1
 kind: APIService
 metadata:
   name: v1alpha1.validators.kubevault.com
@@ -51,7 +51,7 @@ spec:
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
 # register as aggregated apiserver
-apiVersion: apiregistration.k8s.io/v1beta1
+apiVersion: apiregistration.k8s.io/v1
 kind: APIService
 metadata:
   name: v1alpha1.validators.engine.kubevault.com
