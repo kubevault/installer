@@ -22,12 +22,12 @@ import (
 )
 
 const (
-	ResourceKindCSIVault = "CSIVault"
-	ResourceCSIVault     = "csivault"
-	ResourceCSIVaults    = "csivaults"
+	ResourceKindCsiVault = "CsiVault"
+	ResourceCsiVault     = "csivault"
+	ResourceCsiVaults    = "csivaults"
 )
 
-// CSIVault defines the schama for Vault CSI Driver Installer.
+// CsiVault defines the schama for Vault CSI Driver Installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -36,93 +36,93 @@ const (
 
 // +kubebuilder:object:root=true
 // +kubebuilder:resource:path=csivaults,singular=csivault,categories={kubevault,appscode}
-type CSIVault struct {
+type CsiVault struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
-	metav1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
-	Spec              CSIVaultSpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+	Spec              CsiVaultSpec `json:"spec,omitempty"`
 }
 
 type DriverComponent struct {
-	Name       string `json:"name" protobuf:"bytes,1,opt,name=name"`
-	ImageRef   `json:",inline" protobuf:"bytes,2,opt,name=imageRef"`
-	PullPolicy string `json:"pullPolicy" protobuf:"bytes,3,opt,name=pullPolicy"`
+	Name       string `json:"name"`
+	ImageRef   `json:",inline"`
+	PullPolicy string `json:"pullPolicy"`
 	// Compute Resources required by the sidecar container.
 	// +optional
-	Resources core.ResourceRequirements `json:"resources" protobuf:"bytes,4,opt,name=resources"`
+	Resources core.ResourceRequirements `json:"resources"`
 	// Security options the pod should run with.
 	// +optional
-	SecurityContext *core.SecurityContext `json:"securityContext" protobuf:"bytes,5,opt,name=securityContext"`
+	SecurityContext *core.SecurityContext `json:"securityContext"`
 }
 
 type ComponentList struct {
-	Controller string `json:"controller" protobuf:"bytes,1,opt,name=controller"`
-	Node       string `json:"node" protobuf:"bytes,2,opt,name=node"`
+	Controller string `json:"controller"`
+	Node       string `json:"node"`
 }
 
-// CSIVaultSpec is the schema for CSI Vault Driver values file
-type CSIVaultSpec struct {
-	NameOverride     string          `json:"nameOverride" protobuf:"bytes,1,opt,name=nameOverride"`
-	FullnameOverride string          `json:"fullnameOverride" protobuf:"bytes,2,opt,name=fullnameOverride"`
-	Attacher         DriverComponent `json:"attacher" protobuf:"bytes,3,opt,name=attacher"`
-	Plugin           DriverComponent `json:"plugin" protobuf:"bytes,4,opt,name=plugin"`
-	Provisioner      DriverComponent `json:"provisioner" protobuf:"bytes,5,opt,name=provisioner"`
-	NodeRegistrar    DriverComponent `json:"nodeRegistrar" protobuf:"bytes,6,opt,name=nodeRegistrar"`
-	Components       ComponentList   `json:"components" protobuf:"bytes,7,opt,name=components"`
-	DriverName       string          `json:"driverName" protobuf:"bytes,8,opt,name=driverName"`
-	PluginAddress    string          `json:"pluginAddress" protobuf:"bytes,9,opt,name=pluginAddress"`
-	PluginDir        string          `json:"pluginDir" protobuf:"bytes,10,opt,name=pluginDir"`
+// CsiVaultSpec is the schema for CSI Vault Driver values file
+type CsiVaultSpec struct {
+	NameOverride     string          `json:"nameOverride"`
+	FullnameOverride string          `json:"fullnameOverride"`
+	Attacher         DriverComponent `json:"attacher"`
+	Plugin           DriverComponent `json:"plugin"`
+	Provisioner      DriverComponent `json:"provisioner"`
+	NodeRegistrar    DriverComponent `json:"nodeRegistrar"`
+	Components       ComponentList   `json:"components"`
+	DriverName       string          `json:"driverName"`
+	PluginAddress    string          `json:"pluginAddress"`
+	PluginDir        string          `json:"pluginDir"`
 	//+optional
-	ImagePullSecrets []string `json:"imagePullSecrets" protobuf:"bytes,11,rep,name=imagePullSecrets"`
+	ImagePullSecrets []string `json:"imagePullSecrets"`
 	//+optional
-	CriticalAddon bool `json:"criticalAddon" protobuf:"varint,12,opt,name=criticalAddon"`
+	CriticalAddon bool `json:"criticalAddon"`
 	//+optional
-	LogLevel int32 `json:"logLevel" protobuf:"varint,13,opt,name=logLevel"`
+	LogLevel int32 `json:"logLevel"`
 	//+optional
-	Annotations map[string]string `json:"annotations" protobuf:"bytes,14,rep,name=annotations"`
+	Annotations map[string]string `json:"annotations"`
 	//+optional
-	PodAnnotations map[string]string `json:"podAnnotations" protobuf:"bytes,15,rep,name=podAnnotations"`
+	PodAnnotations map[string]string `json:"podAnnotations"`
 	//+optional
-	NodeSelector map[string]string `json:"nodeSelector" protobuf:"bytes,16,rep,name=nodeSelector"`
+	NodeSelector map[string]string `json:"nodeSelector"`
 	// If specified, the pod's tolerations.
 	// +optional
-	Tolerations []core.Toleration `json:"tolerations" protobuf:"bytes,17,rep,name=tolerations"`
+	Tolerations []core.Toleration `json:"tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity *core.Affinity `json:"affinity" protobuf:"bytes,18,opt,name=affinity"`
-	RBAC     CSIDriverRBAC  `json:"rbac" protobuf:"bytes,19,opt,name=rbac"`
+	Affinity *core.Affinity `json:"affinity"`
+	RBAC     CSIDriverRBAC  `json:"rbac"`
 	// PodSecurityContext holds pod-level security attributes and common container settings.
 	// Optional: Defaults to empty.  See type description for default values of each field.
 	// +optional
-	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext" protobuf:"bytes,20,opt,name=podSecurityContext"`
-	Apiserver          CSIDriverAPIServer       `json:"apiserver" protobuf:"bytes,21,opt,name=apiserver"`
+	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
+	Apiserver          CSIDriverAPIServer       `json:"apiserver"`
 	//+optional
-	EnableAnalytics bool                `json:"enableAnalytics" protobuf:"varint,22,opt,name=enableAnalytics"`
-	Monitoring      CSIDriverMonitoring `json:"monitoring" protobuf:"bytes,23,opt,name=monitoring"`
+	EnableAnalytics bool                `json:"enableAnalytics"`
+	Monitoring      CSIDriverMonitoring `json:"monitoring"`
 }
 
 type CSIDriverRBAC struct {
-	Create bool `json:"create" protobuf:"varint,1,opt,name=create"`
+	Create bool `json:"create"`
 }
 
 type CSIDriverAPIServer struct {
-	UseKubeapiserverFqdnForAks bool            `json:"useKubeapiserverFqdnForAks" protobuf:"varint,1,opt,name=useKubeapiserverFqdnForAks"`
-	Healthcheck                HealthcheckSpec `json:"healthcheck" protobuf:"bytes,2,opt,name=healthcheck"`
+	UseKubeapiserverFqdnForAks bool            `json:"useKubeapiserverFqdnForAks"`
+	Healthcheck                HealthcheckSpec `json:"healthcheck"`
 }
 
 type CSIDriverMonitoring struct {
-	Agent          string                `json:"agent" protobuf:"bytes,1,opt,name=agent"`
-	Node           bool                  `json:"node" protobuf:"varint,2,opt,name=node"`
-	Controller     bool                  `json:"controller" protobuf:"varint,3,opt,name=controller"`
-	Prometheus     *PrometheusSpec       `json:"prometheus" protobuf:"bytes,4,opt,name=prometheus"`
-	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor" protobuf:"bytes,5,opt,name=serviceMonitor"`
+	Agent          string                `json:"agent"`
+	Node           bool                  `json:"node"`
+	Controller     bool                  `json:"controller"`
+	Prometheus     *PrometheusSpec       `json:"prometheus"`
+	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// CSIVaultList is a list of CSIVaults
-type CSIVaultList struct {
+// CsiVaultList is a list of CsiVaults
+type CsiVaultList struct {
 	metav1.TypeMeta `json:",inline"`
-	metav1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
-	// Items is a list of CSIVault CRD objects
-	Items []CSIVault `json:"items,omitempty" protobuf:"bytes,2,rep,name=items"`
+	metav1.ListMeta `json:"metadata,omitempty"`
+	// Items is a list of CsiVault CRD objects
+	Items []CsiVault `json:"items,omitempty"`
 }

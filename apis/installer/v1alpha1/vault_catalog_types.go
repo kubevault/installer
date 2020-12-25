@@ -37,21 +37,21 @@ const (
 // +kubebuilder:resource:path=vaultcatalogs,singular=vaultcatalog,categories={kubevault,appscode}
 type VaultCatalog struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
-	metav1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
-	Spec              VaultCatalogSpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+	Spec              VaultCatalogSpec `json:"spec,omitempty"`
 }
 
 // VaultCatalogSpec is the schema for Vault Catalog values file
 type VaultCatalogSpec struct {
 	//+optional
-	NameOverride string `json:"nameOverride" protobuf:"bytes,1,opt,name=nameOverride"`
+	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride string      `json:"fullnameOverride" protobuf:"bytes,2,opt,name=fullnameOverride"`
-	Image            RegistryRef `json:"image" protobuf:"bytes,3,opt,name=image"`
+	FullnameOverride string      `json:"fullnameOverride"`
+	Image            RegistryRef `json:"image"`
 }
 
 type RegistryRef struct {
-	Registry string `json:"registry" protobuf:"bytes,1,opt,name=registry"`
+	Registry string `json:"registry"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -59,7 +59,7 @@ type RegistryRef struct {
 // VaultCatalogList is a list of VaultCatalogs
 type VaultCatalogList struct {
 	metav1.TypeMeta `json:",inline"`
-	metav1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+	metav1.ListMeta `json:"metadata,omitempty"`
 	// Items is a list of VaultCatalog CRD objects
-	Items []VaultCatalog `json:"items,omitempty" protobuf:"bytes,2,rep,name=items"`
+	Items []VaultCatalog `json:"items,omitempty"`
 }
