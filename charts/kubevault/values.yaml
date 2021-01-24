@@ -1,0 +1,124 @@
+# Default values for kubevault.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Overrides name template
+nameOverride: ""
+# Overrides fullname template
+fullnameOverride: ""
+# Number of Vault operator replicas to create (only 1 is supported)
+replicaCount: 1
+operator:
+  # Docker registry used to pull Vault operator image
+  registry: kubevault
+  # Vault operator container image
+  repository: kubevault
+  # Vault operator container image tag
+  tag: v0.4.0-beta.0
+  # Compute Resources required by the operator container
+  resources: # +doc-gen:break
+    requests:
+      cpu: "100m"
+  # Security options the operator container should run with
+  securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+cleaner:
+  # Docker registry used to pull Webhook cleaner image
+  registry: appscode
+  # Webhook cleaner container image
+  repository: kubectl
+  # Webhook cleaner container image tag
+  tag: v1.16
+# Specify an array of imagePullSecrets.
+# Secrets must be manually created in the namespace.
+#
+# Example:
+# helm template charts/kubevault \
+#   --set imagePullSecrets[0].name=sec0 \
+#   --set imagePullSecrets[1].name=sec1
+imagePullSecrets: []
+# Container image pull policy
+imagePullPolicy: IfNotPresent
+# If true, installs Vault operator as critical addon
+criticalAddon: false
+# Log level for operator
+logLevel: 3
+# Annotations applied to operator deployment
+annotations: {}
+# Annotations passed to operator pod(s).
+podAnnotations: {}
+# Node labels for pod assignment
+nodeSelector: # +doc-gen:break
+  beta.kubernetes.io/os: linux
+  beta.kubernetes.io/arch: amd64
+# Tolerations for pod assignment
+tolerations: []
+# Affinity rules for pod assignment
+affinity: {}
+# Security options the operator pod should run with.
+podSecurityContext: # +doc-gen:break
+  # ensure that s/a token is readable xref: https://issues.k8s.io/70679
+  fsGroup: 65535
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+apiserver:
+  # The minimum priority the webhook api group should have at least. Please see
+  # https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L58-L64
+  # for more information on proper values of this field.
+  groupPriorityMinimum: 10000
+  # The ordering of the webhook api inside of the group. Please see
+  # https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L66-L70
+  # for more information on proper values of this field
+  versionPriority: 15
+  # If true, mutating webhook is configured for KubeVault CRDss
+  enableMutatingWebhook: true
+  # If true, validating webhook is configured for KubeVault CRDss
+  enableValidatingWebhook: true
+  # CA certificate used by the Kubernetes api server. This field is automatically assigned by the operator.
+  ca: not-ca-cert
+  # If true, bypasses checks that validating webhook is actually enabled in the Kubernetes cluster.
+  bypassValidatingWebhookXray: false
+  # If true, uses kube-apiserver FQDN for AKS cluster to workaround https://github.com/Azure/AKS/issues/522 (default true)
+  useKubeapiserverFqdnForAks: true
+  healthcheck:
+    # healthcheck configures the readiness and liveliness probes for the operator pod.
+    enabled: false
+  servingCerts:
+    # If true, generates on install/upgrade the certs that allow the kube-apiserver (and potentially ServiceMonitor)
+    # to authenticate operators pods. Otherwise specify certs in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.
+    # See also: [example terraform](https://github.com/kubevault/installer/blob/master/charts/kubevault/example-terraform.tf)
+    generate: true
+    # CA certficate used by serving certificate of webhook server.
+    caCrt: ""
+    # Serving certficate used by webhook server.
+    serverCrt: ""
+    # Private key for the serving certificate used by webhook server.
+    serverKey: ""
+# If true, sends usage analytics
+enableAnalytics: true
+monitoring:
+  # Name of monitoring agent (either "prometheus.io/operator" or "prometheus.io/builtin")
+  agent: "none"
+  # specify whether to monitor Vault operator
+  operator: false
+  prometheus:
+    # Specify the namespace where Prometheus server is running or will be deployed.
+    namespace: ""
+  serviceMonitor:
+    # Specify the labels for ServiceMonitor.
+    # Prometheus crd will select ServiceMonitor using these labels.
+    # Only usable when monitoring agent is `prometheus.io/operator`.
+    labels: {}
+# Name of cluster used in a multi-cluster setup
+clusterName:
