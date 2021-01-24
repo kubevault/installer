@@ -38,8 +38,8 @@ rules:
 - apiGroups:
   - apps
   resources:
-  - deployments
-  verbs: ["create","get", "update", "patch"]
+  - statefulsets
+  verbs: ["create","get", "list", "update", "patch", "delete"]
 - apiGroups:
   - ""
   resources:
