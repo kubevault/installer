@@ -22,12 +22,12 @@ import (
 )
 
 const (
-	ResourceKindKubevault = "Kubevault"
-	ResourceKubevault     = "kubevault"
-	ResourceKubevaults    = "kubevaults"
+	ResourceKindKubevaultCommunity = "KubevaultCommunity"
+	ResourceKubevaultCommunity     = "kubevaultcommunity"
+	ResourceKubevaultCommunitys    = "kubevaultcommunitys"
 )
 
-// Kubevault defines the schama for KubeVault Operator Installer.
+// KubevaultCommunity defines the schama for Kubevault Community Operator Installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -35,36 +35,15 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubevaults,singular=kubevault,categories={kubevault,appscode}
-type Kubevault struct {
+// +kubebuilder:resource:path=kubevaultcommunitys,singular=kubevaultcommunity,categories={kubevault,appscode}
+type KubevaultCommunity struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubevaultSpec `json:"spec,omitempty"`
+	Spec              KubevaultCommunitySpec `json:"spec,omitempty"`
 }
 
-type ImageRef struct {
-	Registry   string `json:"registry"`
-	Repository string `json:"repository"`
-	Tag        string `json:"tag"`
-}
-
-type Container struct {
-	ImageRef `json:",inline"`
-	// Compute Resources required by the sidecar container.
-	// +optional
-	Resources core.ResourceRequirements `json:"resources"`
-	// Security options the pod should run with.
-	// +optional
-	SecurityContext *core.SecurityContext `json:"securityContext"`
-}
-
-type CleanerRef struct {
-	ImageRef `json:",inline"`
-	Skip     bool `json:"skip"`
-}
-
-// KubevaultSpec is the schema for KubeVault operator values file
-type KubevaultSpec struct {
+// KubevaultCommunitySpec is the schema for KubevaultCommunity operator values file
+type KubevaultCommunitySpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -160,10 +139,10 @@ type ServiceMonitorLabels struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubevaultList is a list of Kubevaults
-type KubevaultList struct {
+// KubevaultCommunityList is a list of KubevaultCommunitys
+type KubevaultCommunityList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of Kubevault CRD objects
-	Items []Kubevault `json:"items,omitempty"`
+	// Items is a list of KubevaultCommunity CRD objects
+	Items []KubevaultCommunity `json:"items,omitempty"`
 }

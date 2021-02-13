@@ -77,7 +77,7 @@ jobs:
       - name: Test kubevault chart
         run: |
           export KUBECONFIG="${HOME}/.kube/config"
-          make ct TEST_CHARTS=charts/kubevault
+          make ct TEST_CHARTS=charts/kubevault-community
           echo
           kubectl delete crds --all
           kubectl apply -f https://github.com/kubevault/operator/raw/master/api/crds/catalog.kubevault.com_vaultserverversions.yaml --validate=false

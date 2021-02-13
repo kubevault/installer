@@ -14,7 +14,7 @@ locals {
 locals {
   kubevault_chart_name = "kubevault"
 
-  # re-implement: https://github.com/kubevault/operator/blob/0.3.0/charts/kubevault/templates/_helpers.tpl#L9-L20
+  # re-implement: https://github.com/kubevault/operator/blob/0.3.0/charts/kubevault-community/templates/_helpers.tpl#L9-L20
   # in hcl
   kubevault_release_fullname = length(regexall("\\Q${local.kubevault_chart_name}\\E", local.kubevault_release_name)) != 0 ? trimsuffix(substr(local.kubevault_release_name, 0, 63), "-") : trimsuffix(substr("${local.kubevault_release_name}-${local.kubevault_chart_name}", 0, 63), "-")
 }

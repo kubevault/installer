@@ -4,17 +4,17 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   creationTimestamp: null
-  name: kubevaults.installer.kubevault.com
+  name: kubevaultcommunitys.installer.kubevault.com
 spec:
   group: installer.kubevault.com
   names:
     categories:
     - kubevault
     - appscode
-    kind: Kubevault
-    listKind: KubevaultList
-    plural: kubevaults
-    singular: kubevault
+    kind: KubevaultCommunity
+    listKind: KubevaultCommunityList
+    plural: kubevaultcommunitys
+    singular: kubevaultcommunity
   scope: Namespaced
   versions:
   - name: v1alpha1
@@ -34,8 +34,8 @@ spec:
           metadata:
             type: object
           spec:
-            description: KubevaultSpec is the schema for KubeVault operator values
-              file
+            description: KubevaultCommunitySpec is the schema for KubevaultCommunity
+              operator values file
             properties:
               affinity:
                 description: If specified, the pod's scheduling constraints
