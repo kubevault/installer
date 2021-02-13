@@ -278,7 +278,7 @@ chart-contents-%:
 		  csi-vault)                                                                   \
 		    yq w -i ./charts/$*/values.yaml plugin.tag --tag '!!str' $(APP_VERSION);   \
 		    ;;                                                                         \
-		  kubevault)                                                                   \
+		  kubevault-community)                                                         \
 		    yq w -i ./charts/$*/values.yaml operator.tag --tag '!!str' $(APP_VERSION); \
 		    ;;                                                                         \
 		esac;                                                                          \

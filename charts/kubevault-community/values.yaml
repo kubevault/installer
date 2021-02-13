@@ -40,7 +40,7 @@ cleaner:
 # Secrets must be manually created in the namespace.
 #
 # Example:
-# helm template charts/kubevault \
+# helm template charts/kubevault-community \
 #   --set imagePullSecrets[0].name=sec0 \
 #   --set imagePullSecrets[1].name=sec1
 imagePullSecrets: []
@@ -99,7 +99,7 @@ apiserver:
   servingCerts:
     # If true, generates on install/upgrade the certs that allow the kube-apiserver (and potentially ServiceMonitor)
     # to authenticate operators pods. Otherwise specify certs in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.
-    # See also: [example terraform](https://github.com/kubevault/installer/blob/master/charts/kubevault/example-terraform.tf)
+    # See also: [example terraform](https://github.com/kubevault/installer/blob/master/charts/kubevault-community/example-terraform.tf)
     generate: true
     # CA certficate used by serving certificate of webhook server.
     caCrt: ""

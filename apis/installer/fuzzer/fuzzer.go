@@ -29,7 +29,7 @@ var Funcs = func(codecs runtimeserializer.CodecFactory) []interface{} {
 		func(s *v1alpha1.CsiVault, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
-		func(s *v1alpha1.Kubevault, c fuzz.Continue) {
+		func(s *v1alpha1.KubevaultCommunity, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
 		func(s *v1alpha1.KubevaultCatalog, c fuzz.Continue) {
