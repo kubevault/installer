@@ -12,7 +12,7 @@ operator:
   # Docker registry used to pull Vault operator image
   registry: kubevault
   # Vault operator container image
-  repository: vault-operator
+  repository: kubevault
   # Vault operator container image tag
   tag: v0.4.0-beta.0
   # Compute Resources required by the operator container
