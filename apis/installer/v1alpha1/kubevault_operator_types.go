@@ -22,12 +22,12 @@ import (
 )
 
 const (
-	ResourceKindKubevaultCommunity = "KubevaultCommunity"
-	ResourceKubevaultCommunity     = "kubevaultcommunity"
-	ResourceKubevaultCommunitys    = "kubevaultcommunitys"
+	ResourceKindKubevaultOperator = "KubevaultOperator"
+	ResourceKubevaultOperator     = "kubevaultoperator"
+	ResourceKubevaultOperators    = "kubevaultoperators"
 )
 
-// KubevaultCommunity defines the schama for Kubevault Community Operator Installer.
+// KubevaultOperator defines the schama for KubeVault Operator Installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -35,15 +35,15 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubevaultcommunitys,singular=kubevaultcommunity,categories={kubevault,appscode}
-type KubevaultCommunity struct {
+// +kubebuilder:resource:path=kubevaultoperators,singular=kubevaultoperator,categories={kubevault,appscode}
+type KubevaultOperator struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubevaultCommunitySpec `json:"spec,omitempty"`
+	Spec              KubevaultOperatorSpec `json:"spec,omitempty"`
 }
 
-// KubevaultCommunitySpec is the schema for KubevaultCommunity operator values file
-type KubevaultCommunitySpec struct {
+// KubevaultOperatorSpec is the schema for KubevaultOperator operator values file
+type KubevaultOperatorSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -139,10 +139,10 @@ type ServiceMonitorLabels struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubevaultCommunityList is a list of KubevaultCommunitys
-type KubevaultCommunityList struct {
+// KubevaultOperatorList is a list of KubevaultOperators
+type KubevaultOperatorList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubevaultCommunity CRD objects
-	Items []KubevaultCommunity `json:"items,omitempty"`
+	// Items is a list of KubevaultOperator CRD objects
+	Items []KubevaultOperator `json:"items,omitempty"`
 }

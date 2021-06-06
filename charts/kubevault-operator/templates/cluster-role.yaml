@@ -1,9 +1,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "kubevault.fullname" . }}
+  name: {{ include "kubevault-operator.fullname" . }}
   labels:
-    {{- include "kubevault.labels" . | nindent 4 }}
+    {{- include "kubevault-operator.labels" . | nindent 4 }}
 rules:
 - apiGroups:
   - ""

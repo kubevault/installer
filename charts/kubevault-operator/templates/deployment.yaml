@@ -4,10 +4,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "kubevault.fullname" . }}
+  name: {{ include "kubevault-operator.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "kubevault.labels" . | nindent 4 }}
+    {{- include "kubevault-operator.labels" . | nindent 4 }}
   {{- with .Values.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -16,11 +16,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "kubevault.selectorLabels" . | nindent 6 }}
+      {{- include "kubevault-operator.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "kubevault.selectorLabels" . | nindent 8 }}
+        {{- include "kubevault-operator.selectorLabels" . | nindent 8 }}
       annotations:
         checksum/apiregistration.yaml: {{ include (print $.Template.BasePath "/apiregistration.yaml") . | sha256sum }}
       {{- if $criticalAddon }}
@@ -34,7 +34,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      serviceAccountName: {{ include "kubevault.serviceAccountName" . }}
+      serviceAccountName: {{ include "kubevault-operator.serviceAccountName" . }}
       containers:
       - name: operator
         securityContext:
@@ -54,6 +54,9 @@ spec:
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         - --enable-analytics={{ .Values.enableAnalytics }}
         - --cluster-name={{ .Values.clusterName }}
+        {{- if .Values.license }}
+        - --license-file=/var/run/secrets/byte.builders/license/key.txt
+        {{- end }}
         ports:
         - containerPort: 8443
         env:
@@ -84,11 +87,21 @@ spec:
         volumeMounts:
         - mountPath: /var/serving-cert
           name: serving-cert
+        {{- if .Values.license }}
+        - mountPath: /var/run/secrets/byte.builders/license
+          name: license
+        {{- end }}
       volumes:
       - name: serving-cert
         secret:
           defaultMode: 420
-          secretName: {{ include "kubevault.fullname" . }}-apiserver-cert
+          secretName: {{ include "kubevault-operator.fullname" . }}-apiserver-cert
+      {{- if .Values.license }}
+      - name: license
+        secret:
+          defaultMode: 420
+          secretName: {{ include "kubevault-operator.fullname" . }}-license
+      {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
     {{- if or .Values.tolerations $criticalAddon }}

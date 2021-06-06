@@ -1,4 +1,4 @@
-# Default values for kubevault.
+# Default values for kubevault-operator.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -8,6 +8,17 @@ nameOverride: ""
 fullnameOverride: ""
 # Number of Vault operator replicas to create (only 1 is supported)
 replicaCount: 1
+
+# License for the product.
+# Get a license by following the steps from [here](https://kubevault.com/docs/latest/setup/install#get-a-trial-license).
+# Example:
+# helm install appscode/vault-operator \
+#   --set-file license=/path/to/license/file
+# or
+# helm install appscode/vault-operator \
+#   --set license=<license file content>
+license: ""
+
 operator:
   # Docker registry used to pull Vault operator image
   registry: kubevault
@@ -40,7 +51,7 @@ cleaner:
 # Secrets must be manually created in the namespace.
 #
 # Example:
-# helm template charts/kubevault-community \
+# helm template charts/kubevault-operator \
 #   --set imagePullSecrets[0].name=sec0 \
 #   --set imagePullSecrets[1].name=sec1
 imagePullSecrets: []
@@ -99,7 +110,7 @@ apiserver:
   servingCerts:
     # If true, generates on install/upgrade the certs that allow the kube-apiserver (and potentially ServiceMonitor)
     # to authenticate operators pods. Otherwise specify certs in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.
-    # See also: [example terraform](https://github.com/kubevault/installer/blob/master/charts/kubevault-community/example-terraform.tf)
+    # See also: [example terraform](https://github.com/kubevault/installer/blob/master/charts/kubevault-operator/example-terraform.tf)
     generate: true
     # CA certficate used by serving certificate of webhook server.
     caCrt: ""

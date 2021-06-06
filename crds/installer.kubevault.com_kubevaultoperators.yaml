@@ -4,17 +4,17 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   creationTimestamp: null
-  name: kubevaultcommunitys.installer.kubevault.com
+  name: kubevaultoperators.installer.kubevault.com
 spec:
   group: installer.kubevault.com
   names:
     categories:
     - kubevault
     - appscode
-    kind: KubevaultCommunity
-    listKind: KubevaultCommunityList
-    plural: kubevaultcommunitys
-    singular: kubevaultcommunity
+    kind: KubevaultOperator
+    listKind: KubevaultOperatorList
+    plural: kubevaultoperators
+    singular: kubevaultoperator
   scope: Namespaced
   versions:
   - name: v1alpha1
@@ -34,7 +34,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: KubevaultCommunitySpec is the schema for KubevaultCommunity
+            description: KubevaultOperatorSpec is the schema for KubevaultOperator
               operator values file
             properties:
               affinity:
