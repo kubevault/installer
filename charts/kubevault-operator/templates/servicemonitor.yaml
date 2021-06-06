@@ -2,7 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "kubevault.fullname" . }}
+  name: {{ include "kubevault-operator.fullname" . }}
   namespace: {{ default .Release.Namespace  .Values.monitoring.prometheus.namespace }}
   labels:
     {{- if .Values.monitoring.serviceMonitor.labels }}
@@ -10,7 +10,7 @@ metadata:
     {{ $key }}: {{ $val }}
     {{- end }}
     {{- else }}
-      {{- include "kubevault.selectorLabels" . | nindent 4 }}
+      {{- include "kubevault-operator.selectorLabels" . | nindent 4 }}
     {{- end }}
 spec:
   namespaceSelector:
@@ -18,12 +18,12 @@ spec:
     - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      {{- include "kubevault.selectorLabels" . | nindent 6 }}
+      {{- include "kubevault-operator.selectorLabels" . | nindent 6 }}
   endpoints:
   - port: api
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     scheme: https
     tlsConfig:
-      caFile: /etc/prometheus/secrets/{{ include "kubevault.fullname" . }}-apiserver-cert/tls.crt
-      serverName: "{{ include "kubevault.fullname" . }}.{{ .Release.Namespace }}.svc"
+      caFile: /etc/prometheus/secrets/{{ include "kubevault-operator.fullname" . }}-apiserver-cert/tls.crt
+      serverName: "{{ include "kubevault-operator.fullname" . }}.{{ .Release.Namespace }}.svc"
 {{- end }}

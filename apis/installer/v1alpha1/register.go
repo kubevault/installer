@@ -56,8 +56,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
 		&CsiVault{},
 		&CsiVaultList{},
-		&KubevaultCommunity{},
-		&KubevaultCommunityList{},
+		&KubevaultOperator{},
+		&KubevaultOperatorList{},
 		&KubevaultCatalog{},
 		&KubevaultCatalogList{},
 	)

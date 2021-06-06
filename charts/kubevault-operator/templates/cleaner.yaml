@@ -2,10 +2,10 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "kubevault.fullname" . }}-cleaner
+  name: {{ include "kubevault-operator.fullname" . }}-cleaner
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "kubevault.labels" . | nindent 4 }}
+    {{- include "kubevault-operator.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": pre-delete
     "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
@@ -14,7 +14,7 @@ spec:
   activeDeadlineSeconds: 120
   template:
     spec:
-      serviceAccountName: {{ include "kubevault.serviceAccountName" . }}
+      serviceAccountName: {{ include "kubevault-operator.serviceAccountName" . }}
       containers:
       - name: kubectl
         image: {{ .Values.cleaner.registry }}/{{ .Values.cleaner.repository }}:{{ .Values.cleaner.tag }}
