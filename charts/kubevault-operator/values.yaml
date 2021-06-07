@@ -23,9 +23,9 @@ operator:
   # Docker registry used to pull Vault operator image
   registry: kubevault
   # Vault operator container image
-  repository: kubevault
+  repository: vault-operator
   # Vault operator container image tag
-  tag: v0.4.0-beta.0
+  tag: v0.4.0-beta.0-71-g0d895890_linux_amd64
   # Compute Resources required by the operator container
   resources: # +doc-gen:break
     requests:

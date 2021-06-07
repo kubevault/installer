@@ -1,6 +1,6 @@
 # Vault Catalog
 
-[Vault Catalog by AppsCode](https://github.com/kubevault/operator) - Catalog for Vault versions supported by KubeVault
+[Vault Catalog by AppsCode](https://github.com/kubevault/operator) - Catalog for KubeVault supported versions supported by KubeVault
 
 ## TL;DR;
 
