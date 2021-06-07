@@ -2,7 +2,7 @@ project:
   name: Vault Catalog by AppsCode
   shortName: Vault Catalog
   url: https://github.com/kubevault/operator
-  description: Catalog for Vault versions supported by KubeVault
+  description: Catalog for KubeVault supported versions supported by KubeVault
   app: HashiCorp Vault Catalog
 repository:
   url: https://charts.appscode.com/stable/
