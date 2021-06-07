@@ -1,6 +1,6 @@
-# Vault Catalog
+# KubeVault Catalog
 
-[Vault Catalog by AppsCode](https://github.com/kubevault/operator) - Catalog for KubeVault supported versions supported by KubeVault
+[KubeVault Catalog by AppsCode](https://github.com/kubevault/operator) - Catalog for KubeVault supported versions supported by KubeVault
 
 ## TL;DR;
 
@@ -12,7 +12,7 @@ $ helm install kubevault-catalog appscode/kubevault-catalog -n kube-system
 
 ## Introduction
 
-This chart deploys HashiCorp Vault Catalog on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart deploys HashiCorp KubeVault Catalog on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ To install the chart with the release name `kubevault-catalog`:
 $ helm install kubevault-catalog appscode/kubevault-catalog -n kube-system
 ```
 
-The command deploys HashiCorp Vault Catalog on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
+The command deploys HashiCorp KubeVault Catalog on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
