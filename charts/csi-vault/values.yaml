@@ -35,7 +35,7 @@ plugin:
   # CSI driver container image
   repository: csi-vault
   # CSI driver container image tag
-  tag: v0.4.0-beta.0
+  tag: v0.4.0-alpha.0
   # CSI driver container image pull policy
   pullPolicy: IfNotPresent
   # Compute Resources required by the CSI driver container
