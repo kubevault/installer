@@ -1,0 +1,13 @@
+apiVersion: v2
+name: kubevault-metrics
+description: KubeVault Prometheus Metrics
+type: application
+version: v2021.04.16
+appVersion: v2021.04.16
+home: https://kubevault.com
+icon: https://cdn.appscode.com/images/products/kubevault/kubevault-community-icon.png
+sources:
+- https://github.com/kubevault
+maintainers:
+- name: appscode
+  email: support@appscode.com
