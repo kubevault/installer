@@ -1,3 +1,0 @@
-Get the KubeVault crds by running the following command:
-
-  kubectl get crds --selector=app.kubernetes.io/name=kubevault
