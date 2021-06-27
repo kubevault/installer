@@ -7,7 +7,7 @@
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install kubevault-metrics appscode/kubevault-metrics -n kube-system
+$ helm install kubevault-metrics appscode/kubevault-metrics -n kubevault
 ```
 
 ## Introduction
@@ -23,7 +23,7 @@ This chart deploys KubeVault metrics on a [Kubernetes](http://kubernetes.io) clu
 To install the chart with the release name `kubevault-metrics`:
 
 ```console
-$ helm install kubevault-metrics appscode/kubevault-metrics -n kube-system
+$ helm install kubevault-metrics appscode/kubevault-metrics -n kubevault
 ```
 
 The command deploys KubeVault metrics on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -35,7 +35,7 @@ The command deploys KubeVault metrics on the Kubernetes cluster in the default c
 To uninstall/delete the `kubevault-metrics`:
 
 ```console
-$ helm delete kubevault-metrics -n kube-system
+$ helm delete kubevault-metrics -n kubevault
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.

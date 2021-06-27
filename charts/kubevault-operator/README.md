@@ -7,7 +7,7 @@
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install kubevault-operator appscode/kubevault-operator -n kube-system
+$ helm install kubevault-operator appscode/kubevault-operator -n kubevault
 ```
 
 ## Introduction
@@ -23,7 +23,7 @@ This chart deploys a HashiCorp Vault operator on a [Kubernetes](http://kubernete
 To install the chart with the release name `kubevault-operator`:
 
 ```console
-$ helm install kubevault-operator appscode/kubevault-operator -n kube-system
+$ helm install kubevault-operator appscode/kubevault-operator -n kubevault
 ```
 
 The command deploys a HashiCorp Vault operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -35,7 +35,7 @@ The command deploys a HashiCorp Vault operator on the Kubernetes cluster in the 
 To uninstall/delete the `kubevault-operator`:
 
 ```console
-$ helm delete kubevault-operator -n kube-system
+$ helm delete kubevault-operator -n kubevault
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -50,6 +50,7 @@ The following table lists the configurable parameters of the `kubevault-operator
 | fullnameOverride                      | Overrides fullname template                                                                                                                                                                                                                                                                                                                                        | `""`                                                                  |
 | replicaCount                          | Number of Vault operator replicas to create (only 1 is supported)                                                                                                                                                                                                                                                                                                  | `1`                                                                   |
 | license                               | License for the product. Get a license by following the steps from [here](https://kubevault.com/docs/latest/setup/install#get-a-trial-license). <br> Example: <br> `helm install appscode/vault-operator \` <br> `--set-file license=/path/to/license/file` <br> `or` <br> `helm install appscode/vault-operator \` <br> `--set license=<license file content>`    | `""`                                                                  |
+| registryFQDN                          | Docker registry fqdn used to pull Stash related images. Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}                                                                                                                                                                                                                             | `""`                                                                  |
 | operator.registry                     | Docker registry used to pull Vault operator image                                                                                                                                                                                                                                                                                                                  | `kubevault`                                                           |
 | operator.repository                   | Vault operator container image                                                                                                                                                                                                                                                                                                                                     | `vault-operator`                                                      |
 | operator.tag                          | Vault operator container image tag                                                                                                                                                                                                                                                                                                                                 | `v0.4.0-beta.0-71-g0d895890_linux_amd64`                              |
@@ -95,12 +96,12 @@ The following table lists the configurable parameters of the `kubevault-operator
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install kubevault-operator appscode/kubevault-operator -n kube-system --set replicaCount=1
+$ helm install kubevault-operator appscode/kubevault-operator -n kubevault --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```console
-$ helm install kubevault-operator appscode/kubevault-operator -n kube-system --values values.yaml
+$ helm install kubevault-operator appscode/kubevault-operator -n kubevault --values values.yaml
 ```
