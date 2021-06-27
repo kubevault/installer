@@ -15,4 +15,4 @@ prerequisites:
 - Kubernetes 1.14+
 release:
   name: kubevault-catalog
-  namespace: kube-system
+  namespace: kubevault

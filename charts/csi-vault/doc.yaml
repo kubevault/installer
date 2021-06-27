@@ -18,4 +18,4 @@ prerequisites:
 - "Pre-installed HashiCorp Vault server."
 release:
   name: csi-vault
-  namespace: kube-system
+  namespace: kubevault

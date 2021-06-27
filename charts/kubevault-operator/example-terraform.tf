@@ -8,7 +8,7 @@ provider "helm" {
 
 locals {
   kubevault_release_name = "kubevault"
-  kubevault_namespace    = "kube-system"
+  kubevault_namespace    = "kubevault"
 }
 
 locals {
