@@ -16,7 +16,7 @@ This chart deploys a Vault CSI Driver on a [Kubernetes](http://kubernetes.io) cl
 
 ## Prerequisites
 
-- Kubernetes v1.14+
+- Kubernetes v1.16+
 - `--allow-privileged` flag must be set to true for both the API server and the kubelet
 - (If you use Docker) The Docker daemon of the cluster nodes must allow shared mounts
 - Pre-installed HashiCorp Vault server.

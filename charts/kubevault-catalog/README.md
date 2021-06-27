@@ -16,7 +16,7 @@ This chart deploys HashiCorp KubeVault Catalog on a [Kubernetes](http://kubernet
 
 ## Prerequisites
 
-- Kubernetes 1.14+
+- Kubernetes 1.16+
 
 ## Installing the Chart
 

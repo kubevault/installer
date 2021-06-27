@@ -16,7 +16,7 @@ This chart deploys a HashiCorp Vault operator on a [Kubernetes](http://kubernete
 
 ## Prerequisites
 
-- Kubernetes 1.14+
+- Kubernetes 1.16+
 
 ## Installing the Chart
 
