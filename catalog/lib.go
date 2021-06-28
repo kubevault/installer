@@ -14,13 +14,29 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package templates
+package catalog
 
 import (
-	_ "embed"
+	"embed"
+	"encoding/json"
 )
 
-var (
-	//go:embed appver.yaml
-	AppVersion string
-)
+//go:embed raw
+var raw embed.FS
+
+//go:embed active_versions.json
+var activeVersions []byte
+
+func FS() embed.FS {
+	return raw
+}
+
+func ActiveVersions() map[string][]string {
+	out := map[string][]string{}
+
+	err := json.Unmarshal(activeVersions, &out)
+	if err != nil {
+		panic(err)
+	}
+	return out
+}

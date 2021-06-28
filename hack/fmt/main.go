@@ -46,7 +46,7 @@ import (
 
 const registryKubeVault = "kubevault"
 
-type DbVersion struct {
+type AppVersion struct {
 	Group   string
 	Kind    string
 	Version string
@@ -116,14 +116,10 @@ func main() {
 		panic(err)
 	}
 
-	dbStore := map[DbVersion][]*unstructured.Unstructured{}
+	appStore := map[AppVersion][]*unstructured.Unstructured{}
 
 	// active versions
-	activeDBVersions := map[string][]FullVersion{}
-	// backupTask -> db version
-	backupTaskStore := map[string][]string{}
-	// recoveryTask -> db version
-	restoreTaskStore := map[string][]string{}
+	activeAppVersions := map[string][]FullVersion{}
 
 	for _, obj := range resources {
 		// remove labels
@@ -145,73 +141,26 @@ func main() {
 			panic(err)
 		}
 		if gv.Group == "catalog.kubevault.com" {
-			dbKind := strings.TrimSuffix(obj.GetKind(), "Version")
+			appKind := strings.TrimSuffix(obj.GetKind(), "Version")
 			deprecated, _, _ := unstructured.NestedBool(obj.Object, "spec", "deprecated")
 
 			distro, _, _ := unstructured.NestedString(obj.Object, "spec", "distribution")
-			if dbKind == "Elasticsearch" {
-				authPlugin, _, _ := unstructured.NestedString(obj.Object, "spec", "authPlugin")
-				if distro == "" {
-					distro = authPlugin
-					if authPlugin == "X-Pack" {
-						distro = "ElasticStack"
-					}
-					err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
-					if err != nil {
-						panic(err)
-					}
-				}
-			} else if dbKind == "Postgres" {
-				if distro == "" {
 
-					distro = "PostgreSQL"
-					if strings.Contains(strings.ToLower(obj.GetName()), "timescale") {
-						distro = "TimescaleDB"
-					}
-					err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
-					if err != nil {
-						panic(err)
-					}
-				}
-			} else if dbKind == "MySQL" {
-				if distro == "" {
-					distro = "Oracle"
-					if strings.Contains(strings.ToLower(obj.GetName()), "percona") {
-						distro = "Percona"
-					}
-					err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
-					if err != nil {
-						panic(err)
-					}
-				}
-			} else if dbKind == "MongoDB" {
-				if distro == "" {
-					distro = "MongoDB"
-					if strings.Contains(strings.ToLower(obj.GetName()), "percona") {
-						distro = "Percona"
-					}
-					err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
-					if err != nil {
-						panic(err)
-					}
-				}
-			}
-
-			dbVersion, _, err := unstructured.NestedString(obj.Object, "spec", "version")
+			appVersion, _, err := unstructured.NestedString(obj.Object, "spec", "version")
 			if err != nil {
 				panic(err)
 			}
-			dbverKey := DbVersion{
+			appverKey := AppVersion{
 				Group:   gv.Group,
 				Kind:    obj.GetKind(),
-				Version: dbVersion,
+				Version: appVersion,
 				Distro:  distro,
 			}
-			dbStore[dbverKey] = append(dbStore[dbverKey], obj)
+			appStore[appverKey] = append(appStore[appverKey], obj)
 
 			if !deprecated {
-				activeDBVersions[dbKind] = append(activeDBVersions[dbKind], FullVersion{
-					Version:     dbVersion,
+				activeAppVersions[appKind] = append(activeAppVersions[appKind], FullVersion{
+					Version:     appVersion,
 					CatalogName: obj.GetName(),
 				})
 			}
@@ -221,9 +170,9 @@ func main() {
 	{
 		activeVers := map[string][]string{}
 
-		for k, v := range activeDBVersions {
+		for k, v := range activeAppVersions {
 			sort.Sort(sort.Reverse(FullverCollection(v)))
-			activeDBVersions[k] = v
+			activeAppVersions[k] = v
 
 			for _, e := range v {
 				activeVers[k] = append(activeVers[k], e.CatalogName)
@@ -247,57 +196,7 @@ func main() {
 		}
 	}
 
-	{
-		for k, v := range backupTaskStore {
-			versions := semvers.SortVersions(v, func(vi, vj string) bool {
-				return !Compare(vi, vj)
-			})
-			backupTaskStore[k] = versions
-		}
-
-		data, err := json.MarshalIndent(backupTaskStore, "", "  ")
-		if err != nil {
-			panic(err)
-		}
-
-		filename := filepath.Join(dir, "catalog", "backup_tasks.json")
-		err = os.MkdirAll(filepath.Dir(filename), 0755)
-		if err != nil {
-			panic(err)
-		}
-
-		err = ioutil.WriteFile(filename, data, 0644)
-		if err != nil {
-			panic(err)
-		}
-	}
-
-	{
-		for k, v := range restoreTaskStore {
-			versions := semvers.SortVersions(v, func(vi, vj string) bool {
-				return !Compare(vi, vj)
-			})
-			restoreTaskStore[k] = versions
-		}
-
-		data, err := json.MarshalIndent(restoreTaskStore, "", "  ")
-		if err != nil {
-			panic(err)
-		}
-
-		filename := filepath.Join(dir, "catalog", "restore_tasks.json")
-		err = os.MkdirAll(filepath.Dir(filename), 0755)
-		if err != nil {
-			panic(err)
-		}
-
-		err = ioutil.WriteFile(filename, data, 0644)
-		if err != nil {
-			panic(err)
-		}
-	}
-
-	for k, v := range dbStore {
+	for k, v := range appStore {
 		sort.Slice(v, func(i, j int) bool {
 			di, _, _ := unstructured.NestedBool(v[i].Object, "spec", "deprecated")
 			dj, _, _ := unstructured.NestedBool(v[j].Object, "spec", "deprecated")
@@ -308,7 +207,7 @@ func main() {
 			}
 			return dj // or !di
 		})
-		dbStore[k] = v
+		appStore[k] = v
 
 		var buf bytes.Buffer
 		for i, obj := range v {
@@ -322,17 +221,17 @@ func main() {
 			buf.Write(data)
 		}
 
-		dbKind := strings.TrimSuffix(k.Kind, "Version")
+		appKind := strings.TrimSuffix(k.Kind, "Version")
 
 		var filenameparts []string
 		if allDeprecated(v) {
 			filenameparts = append(filenameparts, "deprecated")
 		}
-		filenameparts = append(filenameparts, strings.ToLower(dbKind), k.Version)
+		filenameparts = append(filenameparts, strings.ToLower(appKind), k.Version)
 		if k.Distro != "" {
 			filenameparts = append(filenameparts, strings.ToLower(k.Distro))
 		}
-		filename := filepath.Join(dir, "catalog", "new_raw", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
+		filename := filepath.Join(dir, "catalog", "new_raw", strings.ToLower(appKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
 		err = os.MkdirAll(filepath.Dir(filename), 0755)
 		if err != nil {
 			panic(err)
@@ -358,8 +257,8 @@ func main() {
 
 	// GENERATE CHART
 	{
-		for k, v := range dbStore {
-			dbKind := strings.TrimSuffix(k.Kind, "Version")
+		for k, v := range appStore {
+			appKind := strings.TrimSuffix(k.Kind, "Version")
 			var buf bytes.Buffer
 
 			for i, obj := range v {
@@ -404,13 +303,13 @@ func main() {
 				}
 
 				data := map[string]interface{}{
-					"key":    strings.ToLower(dbKind),
+					"key":    strings.ToLower(appKind),
 					"object": obj.Object,
 				}
 				funcMap := sprig.TxtFuncMap()
 				funcMap["toYaml"] = toYAML
 				funcMap["toJson"] = toJSON
-				tpl := template.Must(template.New("").Funcs(funcMap).Parse(templates.DBVersion))
+				tpl := template.Must(template.New("").Funcs(funcMap).Parse(templates.AppVersion))
 				err = tpl.Execute(&buf, &data)
 				if err != nil {
 					panic(err)
@@ -421,11 +320,11 @@ func main() {
 			if allDeprecated(v) {
 				filenameparts = append(filenameparts, "deprecated")
 			}
-			filenameparts = append(filenameparts, strings.ToLower(dbKind), k.Version)
+			filenameparts = append(filenameparts, strings.ToLower(appKind), k.Version)
 			if k.Distro != "" {
 				filenameparts = append(filenameparts, strings.ToLower(k.Distro))
 			}
-			filename := filepath.Join(dir, "charts", "kubevault-catalog", "new_templates", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
+			filename := filepath.Join(dir, "charts", "kubevault-catalog", "new_templates", strings.ToLower(appKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
 			err = os.MkdirAll(filepath.Dir(filename), 0755)
 			if err != nil {
 				panic(err)
