@@ -49,7 +49,7 @@ endif
 ###
 
 SRC_PKGS := apis # directories which hold app source (not vendored)
-SRC_DIRS := $(SRC_PKGS)
+SRC_DIRS := $(SRC_PKGS) hack/fmt
 
 DOCKER_PLATFORMS := linux/amd64 linux/arm linux/arm64
 BIN_PLATFORMS    := $(DOCKER_PLATFORMS)
@@ -301,6 +301,8 @@ fmt: $(BUILD_DIRS)
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
 	    $(BUILD_IMAGE)                                          \
 	    /bin/bash -c "                                          \
+	        set -eou pipefail;                                  \
+	        go run ./hack/fmt/main.go;                          \
 	        REPO_PKG=$(GO_PKG)                                  \
 	        ./hack/fmt.sh $(SRC_DIRS)                           \
 	    "

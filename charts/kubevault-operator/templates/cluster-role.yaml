@@ -9,7 +9,7 @@ rules:
   - ""
   resources:
   - persistentvolumeclaims
-  verbs: ["create", "patch"]
+  verbs: ["create", "patch", "list", "get"]
 - apiGroups:
   - apiextensions.k8s.io
   resources:
@@ -50,7 +50,7 @@ rules:
   resources:
     - secrets
     - services
-  verbs: ["create", "get", "patch", "delete"]
+  verbs: ["create", "get", "patch", "delete", "list"]
 - apiGroups:
   - ""
   resources:

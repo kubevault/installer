@@ -50,3 +50,32 @@ Selector labels
 app.kubernetes.io/name: {{ include "kubevault-catalog.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "kubevault-catalog.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "kubevault-catalog.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{/*
+Returns the registry used for catalog docker images
+*/}}
+{{- define "catalog.registry" -}}
+{{- list .Values.registryFQDN .Values.image.registry | compact | join "/" }}
+{{- end }}
+
+{{/*
+Returns the registry used for official docker images
+*/}}
+{{- define "official.registry" -}}
+{{- if .image.overrideOfficialRegistry -}}
+{{- list .registryFQDN .image.registry (last .officialRegistry) | compact | join "/" }}
+{{- else -}}
+{{- prepend .officialRegistry .registryFQDN | compact | join "/" }}
+{{- end }}
+{{- end }}

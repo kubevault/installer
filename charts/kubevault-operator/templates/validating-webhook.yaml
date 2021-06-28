@@ -23,6 +23,7 @@ webhooks:
   - operations:
     - CREATE
     - UPDATE
+    - DELETE
     apiGroups:
     - kubevault.com
     apiVersions:
