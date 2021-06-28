@@ -47,11 +47,14 @@ type KubevaultCatalogSpec struct {
 	NameOverride string `json:"nameOverride"`
 	//+optional
 	FullnameOverride string      `json:"fullnameOverride"`
+	RegistryFQDN     string      `json:"registryFQDN"`
 	Image            RegistryRef `json:"image"`
+	SkipDeprecated   bool        `json:"skipDeprecated"`
 }
 
 type RegistryRef struct {
-	Registry string `json:"registry"`
+	Registry                 string `json:"registry"`
+	OverrideOfficialRegistry bool   `json:"overrideOfficialRegistry"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

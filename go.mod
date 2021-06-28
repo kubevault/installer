@@ -1,14 +1,24 @@
 module kubevault.dev/installer
 
-go 1.15
+go 1.16
 
 require (
+	github.com/Masterminds/semver/v3 v3.1.1
+	github.com/Masterminds/sprig/v3 v3.2.2
 	github.com/gogo/protobuf v1.3.2
 	github.com/google/gofuzz v1.1.0
-	k8s.io/api v0.21.0
-	k8s.io/apimachinery v0.21.0
+	github.com/spf13/pflag v1.0.5
+	github.com/yudai/gojsondiff v1.0.0
+	gomodules.xyz/go-sh v0.1.0
+	gomodules.xyz/semvers v0.0.0-20210603205601-45dfbb5326a4
+	k8s.io/api v0.21.1
+	k8s.io/apimachinery v0.21.1
+	kmodules.xyz/client-go v0.0.0-20210617233340-13d22e91512b
 	kmodules.xyz/schema-checker v0.1.2
+	sigs.k8s.io/yaml v1.2.0
 )
+
+replace gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.3.0
 
 replace bitbucket.org/ww/goautoneg => gomodules.xyz/goautoneg v0.0.0-20120707110453-a547fc61f48d
 
