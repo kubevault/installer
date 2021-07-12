@@ -10,11 +10,11 @@ attacher:
   # Name of the attacher container
   name: attacher
   # Docker registry used to pull CSI attacher image
-  registry: quay.io/k8scsi
+  registry: k8s.gcr.io/sig-storage
   # CSI attacher container image
   repository: csi-attacher
   # CSI attacher container image tag
-  tag: v1.2.0
+  tag: v3.1.0
   # CSI attacher container image pull policy
   pullPolicy: IfNotPresent
   # Compute Resources required by the CSI attacher container
@@ -50,11 +50,11 @@ provisioner:
   # Name of the provisioner container
   name: provisioner
   # Docker registry used to pull CSI provisioner image
-  registry: quay.io/k8scsi
+  registry: k8s.gcr.io/sig-storage
   # CSI provisioner container image
   repository: csi-provisioner
   # CSI provisioner container image tag
-  tag: v1.3.0
+  tag: v2.2.0
   # CSI provisioner container image pull policy
   pullPolicy: IfNotPresent
   # Compute Resources required by the CSI provisioner container
@@ -71,11 +71,11 @@ nodeRegistrar:
   # Name of the CSI driver node registrar container
   name: node-registrar
   # Docker registry used to pull CSI driver node registrar image
-  registry: quay.io/k8scsi
+  registry: k8s.gcr.io/sig-storage
   # CSI driver node registrar container image
   repository: csi-node-driver-registrar
   # CSI driver node registrar container image tag
-  tag: v1.1.0
+  tag: v2.1.0
   # CSI driver node registrar container image pull policy
   pullPolicy: IfNotPresent
   # Compute Resources required by the CSI driver node registrar container
