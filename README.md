@@ -1,7 +1,6 @@
 [![Go Report Card](https://goreportcard.com/badge/kubevault.dev/installer)](https://goreportcard.com/report/kubevault.dev/installer)
 [![Build Status](https://github.com/kubevault/installer/workflows/CI/badge.svg)](https://github.com/kubevault/installer/actions?workflow=CI)
-[![Docker Pulls](https://img.shields.io/docker/pulls/kubevault/vault-operator.svg)](https://hub.docker.com/r/kubevault/vault-operator/)
-[![Slack](https://slack.appscode.com/badge.svg)](https://slack.appscode.com)
+[![Slack](https://shields.io/badge/Join_Slack-salck?color=4A154B&logo=slack)](https://slack.appscode.com)
 [![Twitter](https://img.shields.io/twitter/follow/kubevault.svg?style=social&logo=twitter&label=Follow)](https://twitter.com/intent/follow?screen_name=KubeVault)
 
 # KubeVault installer
