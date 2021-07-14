@@ -23,6 +23,7 @@ _testmain.go
 /bin
 /.go
 
+/.crds
 /.idea
 /.markdownlint.json
 /.vscode
