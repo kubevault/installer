@@ -29,8 +29,8 @@ rules:
 - apiGroups:
   - kubevault.com
   - catalog.kubevault.com
-  - policy.kubevault.com
   - engine.kubevault.com
+  - policy.kubevault.com
   - appcatalog.appscode.com
   resources:
   - "*"
@@ -39,17 +39,17 @@ rules:
   - apps
   resources:
   - statefulsets
-  verbs: ["create","get", "list", "update", "patch", "delete"]
+  verbs: ["create", "get", "list", "watch", "patch", "delete"]
 - apiGroups:
   - ""
   resources:
   - serviceaccounts
   verbs: ["create", "get", "patch"]
 - apiGroups:
-    - ""
+  - ""
   resources:
-    - secrets
-    - services
+  - secrets
+  - services
   verbs: ["create", "get", "patch", "delete", "list"]
 - apiGroups:
   - ""

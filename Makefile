@@ -379,6 +379,7 @@ ct: $(BUILD_DIRS)
 	@docker run                                                 \
 	    -i                                                      \
 	    --rm                                                    \
+	    -u $$(id -u):$$(id -g)                                  \
 	    -v $$(pwd):/src                                         \
 	    -w /src                                                 \
 	    --net=host                                              \
@@ -392,7 +393,10 @@ ct: $(BUILD_DIRS)
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
 	    --env KUBECONFIG=$(subst $(HOME),,$(KUBECONFIG))        \
 	    $(CHART_TEST_IMAGE)                                     \
-	    ct $(CT_COMMAND) --debug $(CT_ARGS)
+	    /bin/sh -c "                                            \
+	        kubectl delete crds --selector=app.kubernetes.io/name=kubevault; \
+	        ct $(CT_COMMAND) --debug --validate-maintainers=false $(CT_ARGS) \
+	    "
 
 ADDTL_LINTERS   := goconst,gofmt,goimports,unparam
 
