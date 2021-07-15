@@ -1,15 +1,15 @@
 dependencies:
 - name: kubevault-crds
   repository: file://../kubevault-crds
-  version: v0.4.0-rc.0
+  version: v2021.07.14-rc.0
 - name: kubevault-catalog
   repository: file://../kubevault-catalog
-  version: v0.4.0-rc.0
+  version: v2021.07.14-rc.0
 - name: kubevault-operator
   repository: file://../kubevault-operator
   version: v0.4.0-rc.0
 - name: csi-vault
   repository: file://../csi-vault
   version: v0.4.0-rc.0
-digest: sha256:9340f495f07e673ffed2f4675ba23efbfcc81e17e6b26b6370b21eae0e7ea5a5
-generated: "2021-07-14T23:09:19.682353187-07:00"
+digest: sha256:21f89fe3db97f58ac0e646b6edc156bedd02fa2f9863ea318025245a96cdf96f
+generated: "2021-07-15T09:42:03.483671329Z"

@@ -8,7 +8,6 @@ nameOverride: ""
 fullnameOverride: ""
 # Number of Vault operator replicas to create (only 1 is supported)
 replicaCount: 1
-
 # License for the product.
 # Get a license by following the steps from [here](https://kubevault.com/docs/latest/setup/install#get-a-trial-license).
 # Example:
