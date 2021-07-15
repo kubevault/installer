@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Helm 3
         run: |
-          curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash -s -- -v v3.6.2
+          curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
       - name: Clone charts repository
         env:
