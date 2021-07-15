@@ -96,8 +96,8 @@ type CsiVaultSpec struct {
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	Apiserver          CSIDriverAPIServer       `json:"apiserver"`
 	//+optional
-	EnableAnalytics bool                `json:"enableAnalytics"`
-	Monitoring      CSIDriverMonitoring `json:"monitoring"`
+	EnableAnalytics bool       `json:"enableAnalytics"`
+	Monitoring      Monitoring `json:"monitoring"`
 }
 
 type CSIDriverRBAC struct {
@@ -107,14 +107,6 @@ type CSIDriverRBAC struct {
 type CSIDriverAPIServer struct {
 	UseKubeapiserverFqdnForAks bool            `json:"useKubeapiserverFqdnForAks"`
 	Healthcheck                HealthcheckSpec `json:"healthcheck"`
-}
-
-type CSIDriverMonitoring struct {
-	Agent          string                `json:"agent"`
-	Node           bool                  `json:"node"`
-	Controller     bool                  `json:"controller"`
-	Prometheus     *PrometheusSpec       `json:"prometheus"`
-	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

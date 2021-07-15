@@ -16,20 +16,3 @@ type: kubernetes.io/tls
 data:
   tls.crt: {{ b64enc $cert.Cert }}
   tls.key: {{ b64enc $cert.Key }}
----
-{{ $promNamespace:= default .Release.Namespace .Values.monitoring.prometheus.namespace }}
-{{- if  (ne $promNamespace .Release.Namespace) }}
-# if operator monitoring is enabled and prometheus namespace is different than operator
-# create the above secret in prometheus namespace too.
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ include "csi-vault.fullname" . }}-apiserver-cert
-  namespace: {{ $promNamespace }}
-  labels:
-    {{- include "csi-vault.labels" . | nindent 4 }}
-type: kubernetes.io/tls
-data:
-  tls.crt: {{ b64enc $cert.Cert }}
-  tls.key: {{ b64enc $cert.Key }}
-{{- end }}

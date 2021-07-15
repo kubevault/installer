@@ -85,9 +85,6 @@ The following table lists the configurable parameters of the `csi-vault` chart a
 | apiserver.healthcheck.enabled        | healthcheck configures the readiness and liveliness probes for the CSI driver pod.                                     | `true`                                                                                     |
 | enableAnalytics                      | If true, sends usage analytics                                                                                         | `true`                                                                                     |
 | monitoring.agent                     | Name of monitoring agent (either "prometheus.io/operator" or "prometheus.io/builtin")                                  | `"none"`                                                                                   |
-| monitoring.node                      | Specify whether to monitor Vault CSI driver node plugin                                                                | `false`                                                                                    |
-| monitoring.controller                | Specify whether to monitor Vault CSI driver controller plugin                                                          | `false`                                                                                    |
-| monitoring.prometheus.namespace      | Specify the namespace where Prometheus server is running or will be deployed.                                          | `""`                                                                                       |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:

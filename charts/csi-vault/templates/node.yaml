@@ -96,7 +96,7 @@ metadata:
   labels:
     {{- include "csi-vault.labels" . | nindent 4 }}
     app.kubernetes.io/component: {{ .Values.components.node }}
-  {{- if and (eq .Values.monitoring.agent "prometheus.io/builtin") .Values.monitoring.node }}
+  {{- if eq .Values.monitoring.agent "prometheus.io/builtin" }}
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/path: "/metrics"

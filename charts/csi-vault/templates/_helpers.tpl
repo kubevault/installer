@@ -63,7 +63,6 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- printf "%s-%s" (include "csi-vault.fullname" .) .Values.nodeRegistrar.name | trunc 63 | trimSuffix "-" -}}
 {{ end }}
 
-
 {{- define "csi-vault.controller.fullname" -}}
 {{- printf "%s-%s" (include "csi-vault.fullname" .) "controller" | trunc 63 | trimSuffix "-" -}}
 {{ end }}
@@ -85,3 +84,28 @@ valueFrom:
   fieldRef:
     fieldPath: spec.nodeName
 {{- end -}}
+
+{{/*
+Returns the enabled monitoring agent name
+*/}}
+{{- define "monitoring.agent" -}}
+{{- if .Values.monitoring.enabled -}}
+{{- .Values.monitoring.agent }}
+{{- end }}
+{{- end }}
+
+{{/*
+Returns whether the ServiceMonitor will be labeled with custom label
+*/}}
+{{- define "monitoring.apply-servicemonitor-label" -}}
+{{- ternary "false" "true" ( empty .Values.monitoring.serviceMonitor.labels ) -}}
+{{- end }}
+
+{{/*
+Returns the ServiceMonitor labels
+*/}}
+{{- define "monitoring.servicemonitor-label" -}}
+{{- range $key, $val := .Values.monitoring.serviceMonitor.labels }}
+{{ $key }}: {{ $val }}
+{{- end }}
+{{- end }}

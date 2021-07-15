@@ -1,9 +1,9 @@
-{{- if and (eq .Values.monitoring.agent "prometheus.io/operator") .Values.monitoring.operator }}
+{{- if eq "prometheus.io/operator" ( include "monitoring.agent" . ) }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ include "kubevault-operator.fullname" . }}
-  namespace: {{ default .Release.Namespace  .Values.monitoring.prometheus.namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- if .Values.monitoring.serviceMonitor.labels }}
     {{- range $key, $val := .Values.monitoring.serviceMonitor.labels }}
@@ -20,10 +20,13 @@ spec:
     matchLabels:
       {{- include "kubevault-operator.selectorLabels" . | nindent 6 }}
   endpoints:
-  - port: api
+  - port: operator
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     scheme: https
     tlsConfig:
-      caFile: /etc/prometheus/secrets/{{ include "kubevault-operator.fullname" . }}-apiserver-cert/tls.crt
+      ca:
+        secret:
+          name: {{ include "kubevault-operator.fullname" . }}-apiserver-cert
+          key: tls.crt
       serverName: "{{ include "kubevault-operator.fullname" . }}.{{ .Release.Namespace }}.svc"
 {{- end }}

@@ -6,7 +6,7 @@ metadata:
     {{- include "kubevault-catalog.labels" . | nindent 4 }}
 spec:
   exporter:
-    image: '{{ include "catalog.registry" . }}/vault-exporter-linux-amd64:v0.3.0'
+    image: '{{ include "catalog.registry" . }}/vault-exporter:v0.1.0'
   unsealer:
     image: '{{ include "catalog.registry" . }}/vault-unsealer:v0.3.0'
   vault:

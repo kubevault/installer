@@ -141,13 +141,6 @@ enableAnalytics: true
 monitoring:
   # Name of monitoring agent (either "prometheus.io/operator" or "prometheus.io/builtin")
   agent: "none"
-  # Specify whether to monitor Vault CSI driver node plugin
-  node: false
-  # Specify whether to monitor Vault CSI driver controller plugin
-  controller: false
-  prometheus:
-    # Specify the namespace where Prometheus server is running or will be deployed.
-    namespace: ""
   serviceMonitor:
     # Specify the labels for ServiceMonitor.
     # Prometheus crd will select ServiceMonitor using these labels.

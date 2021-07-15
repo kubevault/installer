@@ -966,15 +966,6 @@ properties:
     properties:
       agent:
         type: string
-      controller:
-        type: boolean
-      node:
-        type: boolean
-      prometheus:
-        properties:
-          namespace:
-            type: string
-        type: object
       serviceMonitor:
         properties:
           labels:
@@ -984,9 +975,6 @@ properties:
         type: object
     required:
     - agent
-    - controller
-    - node
-    - prometheus
     - serviceMonitor
     type: object
   nameOverride:
