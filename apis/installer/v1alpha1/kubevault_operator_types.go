@@ -78,8 +78,8 @@ type KubevaultOperatorSpec struct {
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	Apiserver          OperatorWebhookServer    `json:"apiserver"`
 	//+optional
-	EnableAnalytics bool               `json:"enableAnalytics"`
-	Monitoring      OperatorMonitoring `json:"monitoring"`
+	EnableAnalytics bool       `json:"enableAnalytics"`
+	Monitoring      Monitoring `json:"monitoring"`
 	//+optional
 	ClusterName *string `json:"clusterName"`
 }
@@ -118,24 +118,6 @@ type ServingCerts struct {
 	ServerCrt string `json:"serverCrt"`
 	//+optional
 	ServerKey string `json:"serverKey"`
-}
-
-type OperatorMonitoring struct {
-	Agent string `json:"agent"`
-	//+optional
-	Operator       bool                  `json:"operator"`
-	Prometheus     *PrometheusSpec       `json:"prometheus"`
-	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
-}
-
-type PrometheusSpec struct {
-	//+optional
-	Namespace string `json:"namespace"`
-}
-
-type ServiceMonitorLabels struct {
-	//+optional
-	Labels map[string]string `json:"labels"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "kubevault-operator.labels" . | nindent 4 }}
-  {{- if and (eq .Values.monitoring.agent "prometheus.io/builtin") .Values.monitoring.operator }}
+  {{- if eq .Values.monitoring.agent "prometheus.io/builtin" }}
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/path: "/metrics"

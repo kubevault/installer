@@ -31,7 +31,7 @@ jobs:
           chmod +x yq
           sudo mv yq /usr/local/bin/yq
           # install kubectl
-          curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl
+          curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.21.1/bin/linux/amd64/kubectl
           chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
 
@@ -98,4 +98,5 @@ jobs:
       - name: Test charts
         run: |
           export KUBECONFIG="${HOME}/.kube/config"
+          ./hack/scripts/update-chart-dependencies.sh
           ./hack/scripts/ct.sh

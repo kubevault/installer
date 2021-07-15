@@ -40,3 +40,13 @@ type CleanerRef struct {
 	ImageRef `json:",inline"`
 	Skip     bool `json:"skip"`
 }
+
+type Monitoring struct {
+	Agent          string                `json:"agent"`
+	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
+}
+
+type ServiceMonitorLabels struct {
+	//+optional
+	Labels map[string]string `json:"labels"`
+}
