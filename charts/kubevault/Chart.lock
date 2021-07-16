@@ -11,5 +11,5 @@ dependencies:
 - name: csi-vault
   repository: file://../csi-vault
   version: v0.4.0-rc.0
-digest: sha256:21f89fe3db97f58ac0e646b6edc156bedd02fa2f9863ea318025245a96cdf96f
-generated: "2021-07-15T09:42:03.483671329Z"
+digest: sha256:318168c492f81731f698e9a8f3332ebf8a4050f0063e0f3946a6609aa39e565b
+generated: "2021-07-15T16:15:28.976466046-07:00"
