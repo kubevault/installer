@@ -9,8 +9,8 @@ repository:
   name: appscode
 chart:
   name: kubevault
-  values: "-- generate from values file --"
-  valuesExample: "global.registry=kubevault"
+  values: -- generate from values file --
+  valuesExample: global.registry=kubevault
 prerequisites:
 - Kubernetes 1.16+
 release:
