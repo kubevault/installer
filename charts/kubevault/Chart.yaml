@@ -1,6 +1,6 @@
 apiVersion: v2
 name: kubevault
-description: 'KubeVault by AppsCode - HashiCorp Vault operator for Kubernetes'
+description: KubeVault by AppsCode - HashiCorp Vault operator for Kubernetes
 type: application
 version: v2021.07.14-rc.0
 appVersion: v2021.07.14-rc.0
@@ -24,7 +24,3 @@ dependencies:
   repository: file://../kubevault-operator
   version: v0.4.0-rc.0
   condition: kubevault-operator.enabled
-- name: csi-vault
-  repository: file://../csi-vault
-  version: v0.4.0-rc.0
-  condition: csi-vault.enabled

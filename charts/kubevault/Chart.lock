@@ -8,8 +8,5 @@ dependencies:
 - name: kubevault-operator
   repository: file://../kubevault-operator
   version: v0.4.0-rc.0
-- name: csi-vault
-  repository: file://../csi-vault
-  version: v0.4.0-rc.0
-digest: sha256:318168c492f81731f698e9a8f3332ebf8a4050f0063e0f3946a6609aa39e565b
-generated: "2021-07-15T16:15:28.976466046-07:00"
+digest: sha256:4be2cd2a6fc5217a1700b46a9f4f1c4ed47ae564ff888efdf8412208c7b0f6a7
+generated: "2021-07-17T16:31:40.311594439-07:00"
