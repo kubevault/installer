@@ -22,7 +22,7 @@ license: ""
 registryFQDN: ""
 operator:
   # Docker registry used to pull Vault operator image
-  registry: kubevault
+  registry: registry.byte.builders/kubevault
   # Vault operator container image
   repository: vault-operator
   # Vault operator container image tag

@@ -6,9 +6,9 @@ metadata:
     {{- include "kubevault-catalog.labels" . | nindent 4 }}
 spec:
   exporter:
-    image: '{{ include "catalog.registry" . }}/vault-exporter:v0.1.0'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "registry.byte.builders" "kubevault/vault-exporter")) }}:v0.1.0'
   unsealer:
-    image: '{{ include "catalog.registry" . }}/vault-unsealer:v0.4.0-rc.0'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "registry.byte.builders" "kubevault/vault-unsealer")) }}:v0.4.0-rc.0'
   vault:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "vault")) }}:1.5.9'
   version: 1.5.9

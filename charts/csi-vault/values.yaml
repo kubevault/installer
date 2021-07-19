@@ -31,7 +31,7 @@ plugin:
   # Name of the CSI driver container
   name: plugin
   # Docker registry used to pull CSI driver image
-  registry: kubevault
+  registry: registry.byte.builders/kubevault
   # CSI driver container image
   repository: csi-vault
   # CSI driver container image tag

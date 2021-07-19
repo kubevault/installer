@@ -4,9 +4,9 @@ metadata:
   name: 1.6.5
 spec:
   exporter:
-    image: kubevault/vault-exporter:v0.1.0
+    image: registry.byte.builders/kubevault/vault-exporter:v0.1.0
   unsealer:
-    image: kubevault/vault-unsealer:v0.4.0-rc.0
+    image: registry.byte.builders/kubevault/vault-unsealer:v0.4.0-rc.0
   vault:
     image: vault:1.6.5
   version: 1.6.5

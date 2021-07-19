@@ -44,20 +44,20 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubevault-catalog` chart and their default values.
 
-|           Parameter            |                                                                Description                                                                |   Default   |
-|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-------------|
-| nameOverride                   | Overrides name template                                                                                                                   | `""`        |
-| fullnameOverride               | Overrides fullname template                                                                                                               | `""`        |
-| registryFQDN                   | Docker registry fqdn used to pull KubeVault related images Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image} | `""`        |
-| image.registry                 | Docker registry used to pull Vault server image                                                                                           | `kubevault` |
-| image.overrideOfficialRegistry | If true, uses image registry for pulling official docker images. This can be used to pull images from a private registry                  | `false`     |
-| skipDeprecated                 | Set true to avoid deploying deprecated versions                                                                                           | `true`      |
+|           Parameter            |                                                                Description                                                                |              Default               |
+|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------|
+| nameOverride                   | Overrides name template                                                                                                                   | `""`                               |
+| fullnameOverride               | Overrides fullname template                                                                                                               | `""`                               |
+| registryFQDN                   | Docker registry fqdn used to pull KubeVault related images Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image} | `""`                               |
+| image.registry                 | Docker registry used to pull Vault server image                                                                                           | `registry.byte.builders/kubevault` |
+| image.overrideOfficialRegistry | If true, uses image registry for pulling official docker images. This can be used to pull images from a private registry                  | `false`                            |
+| skipDeprecated                 | Set true to avoid deploying deprecated versions                                                                                           | `true`                             |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install kubevault-catalog appscode/kubevault-catalog -n kubevault --set image.registry=kubevault
+$ helm install kubevault-catalog appscode/kubevault-catalog -n kubevault --set image.registry=registry.byte.builders/kubevault
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while

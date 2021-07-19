@@ -13,7 +13,7 @@ registryFQDN: ""
 
 image:
   # Docker registry used to pull Vault server image
-  registry: kubevault
+  registry: registry.byte.builders/kubevault
 
   # If true, uses image registry for pulling official docker images.
   # This can be used to pull images from a private registry
