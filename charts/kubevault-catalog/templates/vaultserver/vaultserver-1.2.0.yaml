@@ -8,7 +8,7 @@ spec:
   exporter:
     image: '{{ include "catalog.registry" . }}/vault-exporter:v0.1.0'
   unsealer:
-    image: '{{ include "catalog.registry" . }}/vault-unsealer:v0.3.0'
+    image: '{{ include "catalog.registry" . }}/vault-unsealer:v0.4.0-rc.0'
   vault:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "vault")) }}:1.2.0'
   version: 1.2.0
