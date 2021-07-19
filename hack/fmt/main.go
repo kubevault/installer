@@ -106,7 +106,7 @@ func main() {
 	specUpdates := map[string]string{}
 
 	flag.StringVar(&dir, "dir", dir, "Path to directory where the kubevault/installer project resides (default is set o current directory)")
-	flag.StringToStringVar(&specUpdates, "update-spec", specUpdates, "Key/Value map used to update pg-coordinator and replication mode detector image")
+	flag.StringToStringVar(&specUpdates, "update-spec", specUpdates, "Key/Value map used to update unsealer image")
 
 	flag.CommandLine.AddGoFlagSet(goflag.CommandLine)
 	flag.Parse()
