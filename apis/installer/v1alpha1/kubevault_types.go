@@ -53,9 +53,6 @@ type KubevaultSpec struct {
 
 	//+optional
 	Operator KubevaultOperatorSpec `json:"kubevault-operator"`
-
-	//+optional
-	CSI CsiVaultSpec `json:"csi-vault"`
 }
 
 type GlobalValues struct {
