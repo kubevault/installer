@@ -26,7 +26,6 @@ import (
 
 func TestDefaultValues(t *testing.T) {
 	checker := schemachecker.New("../../..", []interface{}{
-		v1alpha1.CsiVaultSpec{},
 		v1alpha1.KubevaultCatalogSpec{},
 		v1alpha1.KubevaultOperatorSpec{},
 		v1alpha1.KubevaultSpec{},
