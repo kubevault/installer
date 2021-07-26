@@ -277,9 +277,6 @@ chart-contents-%:
 	@if [ -n "$(APP_VERSION)" ]; then                                                 \
 		yq -y --indentless -i '.appVersion="$(APP_VERSION)"' ./charts/$*/Chart.yaml;    \
 		case "$*" in                                                                    \
-		  csi-vault)                                                                    \
-		    yqq w -i ./charts/$*/values.yaml plugin.tag --tag '!!str' $(APP_VERSION);   \
-		    ;;                                                                          \
 		  kubevault-operator)                                                           \
 		    yqq w -i ./charts/$*/values.yaml operator.tag --tag '!!str' $(APP_VERSION); \
 		    ;;                                                                          \

@@ -52,6 +52,3 @@ kubevault-catalog:
 kubevault-operator:
   # If enabled, installs the kubevault-operator chart
   enabled: true
-csi-vault:
-  # If enabled, installs the csi-vault chart
-  enabled: false
