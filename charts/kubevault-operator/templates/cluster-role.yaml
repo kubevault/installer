@@ -84,4 +84,4 @@ rules:
   - clusterrolebindings
   - roles
   - rolebindings
-  verbs: ["get", "update", "create", "patch", "list", "delete"]
+  verbs: ["get", "update", "create", "patch", "delete"]
