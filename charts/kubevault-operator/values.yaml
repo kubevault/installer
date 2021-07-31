@@ -26,7 +26,7 @@ operator:
   # Vault operator container image
   repository: vault-operator
   # Vault operator container image tag
-  tag: v0.4.0-rc.0
+  tag: v0.4.0
   # Compute Resources required by the operator container
   resources: # +doc-gen:break
     requests:
