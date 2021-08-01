@@ -84,7 +84,7 @@ spec:
         volumeMounts:
         - mountPath: /var/serving-cert
           name: serving-cert
-        {{- if .Values.license }}
+        {{- if include "appscode.license" . }}
         - mountPath: /var/run/secrets/appscode/license
           name: license
         {{- end }}
@@ -93,7 +93,7 @@ spec:
         secret:
           defaultMode: 420
           secretName: {{ include "kubevault-operator.fullname" . }}-apiserver-cert
-      {{- if .Values.license }}
+      {{- if include "appscode.license" . }}
       - name: license
         secret:
           defaultMode: 420
