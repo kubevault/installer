@@ -49,4 +49,35 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutators.engine.kubevault.com
+  labels:
+    {{- include "kubevault-operator.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+webhooks:
+- name: secretaccessrequests.mutators.engine.kubevault.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.engine.kubevault.com/v1alpha1/secretaccessrequestmutators
+    caBundle: {{ b64enc .Values.apiserver.ca }}
+  rules:
+  - operations:
+    - CREATE
+    - UPDATE
+    apiGroups:
+    - engine.kubevault.com
+    apiVersions:
+    - "*"
+    resources:
+    - secretaccessrequests
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
 {{ end }}

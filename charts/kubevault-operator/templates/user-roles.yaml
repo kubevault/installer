@@ -43,16 +43,13 @@ rules:
   - engine.kubevault.com
   resources:
   - secretengines
-  - databaseaccessrequests
   - mongodbroles
   - mysqlroles
   - postgresroles
   - awsroles
-  - awsaccesskeyrequests
   - gcproles
-  - gcpaccesskeyrequests
   - azureroles
-  - azureaccesskeyrequests
+  - secretaccessrequests
   verbs: ["*"]
 - apiGroups:
   - appcatalog.appscode.com
@@ -90,16 +87,13 @@ rules:
   - engine.kubevault.com
   resources:
   - secretengines
-  - databaseaccessrequests
   - mongodbroles
   - mysqlroles
   - postgresroles
   - awsroles
-  - awsaccesskeyrequests
   - gcproles
-  - gcpaccesskeyrequests
   - azureroles
-  - azureaccesskeyrequests
+  - secretaccessrequests
   verbs: ["get", "list", "watch"]
 - apiGroups:
   - appcatalog.appscode.com

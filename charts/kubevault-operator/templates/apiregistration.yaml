@@ -68,6 +68,23 @@ spec:
   versionPriority: {{ .Values.apiserver.versionPriority }}
 {{ end }}
 ---
+# register as aggregated apiserver
+apiVersion: apiregistration.k8s.io/v1
+kind: APIService
+metadata:
+  name: v1alpha1.mutators.engine.kubevault.com
+  labels:
+    {{- include "kubevault-operator.labels" . | nindent 4 }}
+spec:
+  group: mutators.engine.kubevault.com
+  version: v1alpha1
+  service:
+    namespace: {{ .Release.Namespace }}
+    name: {{ include "kubevault-operator.fullname" . }}
+  caBundle: {{ $caCrt }}
+  groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
+  versionPriority: {{ .Values.apiserver.versionPriority }}
+---
 apiVersion: v1
 kind: Secret
 metadata:
