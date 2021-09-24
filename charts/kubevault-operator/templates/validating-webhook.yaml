@@ -41,32 +41,12 @@ metadata:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
 webhooks:
-- name: databaseaccessrequests.validators.engine.kubevault.com
+- name: secretaccessrequests.validators.engine.kubevault.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/validators.engine.kubevault.com/v1alpha1/databaseaccessrequestvalidators
-    caBundle: {{ b64enc .Values.apiserver.ca }}
-  rules:
-  - operations:
-      - CREATE
-      - UPDATE
-    apiGroups:
-      - engine.kubevault.com
-    apiVersions:
-      - "*"
-    resources:
-      - databaseaccessrequests
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: Fail
-  sideEffects: None
-- name: awsaccesskeyrequests.validators.engine.kubevault.com
-  clientConfig:
-    service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.engine.kubevault.com/v1alpha1/awsaccesskeyrequestvalidators
+      path: /apis/validators.engine.kubevault.com/v1alpha1/secretaccessrequestvalidators
     caBundle: {{ b64enc .Values.apiserver.ca }}
   rules:
   - operations:
@@ -77,47 +57,7 @@ webhooks:
     apiVersions:
     - "*"
     resources:
-    - awsaccesskeyrequests
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: Fail
-  sideEffects: None
-- name: gcpaccesskeyrequests.validators.engine.kubevault.com
-  clientConfig:
-    service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.engine.kubevault.com/v1alpha1/gcpaccesskeyrequestvalidators
-    caBundle: {{ b64enc .Values.apiserver.ca }}
-  rules:
-  - operations:
-    - CREATE
-    - UPDATE
-    apiGroups:
-    - engine.kubevault.com
-    apiVersions:
-    - "*"
-    resources:
-    - gcpaccesskeyrequests
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: Fail
-  sideEffects: None
-- name: azureaccesskeyrequests.validators.engine.kubevault.com
-  clientConfig:
-    service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.engine.kubevault.com/v1alpha1/azureaccesskeyrequestvalidators
-    caBundle: {{ b64enc .Values.apiserver.ca }}
-  rules:
-  - operations:
-    - CREATE
-    - UPDATE
-    apiGroups:
-    - engine.kubevault.com
-    apiVersions:
-    - "*"
-    resources:
-    - azureaccesskeyrequests
+    - secretaccessrequests
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
