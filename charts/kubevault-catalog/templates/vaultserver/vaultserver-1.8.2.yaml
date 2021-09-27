@@ -1,0 +1,14 @@
+apiVersion: catalog.kubevault.com/v1alpha1
+kind: VaultServerVersion
+metadata:
+  name: '1.8.2'
+  labels:
+    {{- include "kubevault-catalog.labels" . | nindent 4 }}
+spec:
+  exporter:
+    image: '{{ include "catalog.registry" . }}/vault-exporter:v0.1.0'
+  unsealer:
+    image: '{{ include "catalog.registry" . }}/vault-unsealer:v0.4.0'
+  vault:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "vault")) }}:1.8.2'
+  version: 1.8.2
