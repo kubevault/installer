@@ -64,10 +64,6 @@ spec:
                   TTL are capped to max_sts_ttl). Valid only when credential_type
                   is one of assumed_role or federation_token
                 type: string
-              path:
-                description: 'Path defines the path of the AWS secret engine default:
-                  aws More info: https://www.vaultproject.io/docs/auth/aws.html#via-the-cli'
-                type: string
               policy:
                 description: Specifies the IAM policy in JSON format.
                 type: object
@@ -95,9 +91,8 @@ spec:
                 items:
                   type: string
                 type: array
-              vaultRef:
-                description: VaultRef is the name of a AppBinding referencing to a
-                  Vault Server
+              secretEngineRef:
+                description: SecretEngineRef is the name of a Secret Engine
                 properties:
                   name:
                     description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -106,12 +101,12 @@ spec:
                 type: object
             required:
             - credentialType
-            - vaultRef
+            - secretEngineRef
             type: object
           status:
             properties:
               conditions:
-                description: Represents the latest available observations of a AWSRole
+                description: Represents the latest available observations of a MySQLRole
                   current state.
                 items:
                   properties:
@@ -160,12 +155,25 @@ spec:
                 type: array
               observedGeneration:
                 description: ObservedGeneration is the most recent generation observed
-                  for this AWSRole. It corresponds to the AWSRole's generation, which
-                  is updated on mutation by the API Server.
+                  for this MySQLRole. It corresponds to the MySQLRole's generation,
+                  which is updated on mutation by the API Server.
                 format: int64
                 type: integer
               phase:
                 type: string
+              policyRef:
+                description: ObjectReference contains enough information to let you
+                  inspect or modify the referred object.
+                properties:
+                  name:
+                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                    type: string
+                  namespace:
+                    description: 'Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/'
+                    type: string
+                required:
+                - name
+                type: object
             type: object
         type: object
     served: true

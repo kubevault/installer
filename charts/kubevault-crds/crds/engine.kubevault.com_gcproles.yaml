@@ -57,6 +57,14 @@ spec:
                 description: Name of the GCP project that this roleset's service account
                   will belong to. Cannot be updated.
                 type: string
+              secretEngineRef:
+                description: SecretEngineRef is the name of a Secret Engine
+                properties:
+                  name:
+                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                      TODO: Add other useful fields. apiVersion, kind, uid?'
+                    type: string
+                type: object
               secretType:
                 description: Specifies the type of secret generated for this role
                   set
@@ -70,25 +78,16 @@ spec:
                 items:
                   type: string
                 type: array
-              vaultRef:
-                description: VaultRef is the name of a AppBinding referencing to a
-                  Vault Server
-                properties:
-                  name:
-                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                      TODO: Add other useful fields. apiVersion, kind, uid?'
-                    type: string
-                type: object
             required:
             - bindings
             - project
+            - secretEngineRef
             - secretType
-            - vaultRef
             type: object
           status:
             properties:
               conditions:
-                description: Represents the latest available observations of a GCPRole
+                description: Represents the latest available observations of a MySQLRole
                   current state.
                 items:
                   properties:
@@ -137,12 +136,25 @@ spec:
                 type: array
               observedGeneration:
                 description: ObservedGeneration is the most recent generation observed
-                  for this GCPRole. It corresponds to the GCPRole's generation, which
-                  is updated on mutation by the API Server.
+                  for this MySQLRole. It corresponds to the MySQLRole's generation,
+                  which is updated on mutation by the API Server.
                 format: int64
                 type: integer
               phase:
                 type: string
+              policyRef:
+                description: ObjectReference contains enough information to let you
+                  inspect or modify the referred object.
+                properties:
+                  name:
+                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                    type: string
+                  namespace:
+                    description: 'Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/'
+                    type: string
+                required:
+                - name
+                type: object
             type: object
         type: object
     served: true
