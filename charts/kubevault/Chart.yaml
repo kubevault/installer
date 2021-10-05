@@ -24,3 +24,7 @@ dependencies:
   repository: file://../kubevault-operator
   version: v0.5.0
   condition: kubevault-operator.enabled
+- name: kubevault-metrics
+  repository: file://../kubevault-metrics
+  condition: kubevault-metrics.enabled
+  version: v2021.09.27

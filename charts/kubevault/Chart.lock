@@ -8,5 +8,8 @@ dependencies:
 - name: kubevault-operator
   repository: file://../kubevault-operator
   version: v0.5.0
-digest: sha256:715cec0e01778cc020d3fb69daacc05ecd42a6178ed2fb7cd08d7710fca3c0e7
-generated: "2021-09-27T17:28:57.195415677Z"
+- name: kubevault-metrics
+  repository: file://../kubevault-metrics
+  version: v2021.09.27
+digest: sha256:55268efc808dcd7d5b7924f9ca287926f5e9801b589a932bbf84f8ce57457963
+generated: "2021-10-05T01:15:43.221162432-07:00"

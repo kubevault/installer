@@ -52,3 +52,6 @@ kubevault-catalog:
 kubevault-operator:
   # If enabled, installs the kubevault-operator chart
   enabled: true
+kubevault-metrics:
+  # If enabled, installs the kubevault-metrics chart
+  enabled: false
