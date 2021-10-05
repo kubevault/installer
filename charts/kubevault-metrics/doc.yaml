@@ -1,0 +1,18 @@
+project:
+  name: KubeVault Metrics
+  shortName: KubeVault Metrics
+  url: https://github.com/kubevault
+  description: KubeVault State Metrics
+  app: KubeVault metrics configurations
+repository:
+  url: https://charts.appscode.com/stable/
+  name: appscode
+chart:
+  name: kubevault-metrics
+  values: -- generate from values file --
+  valuesExample: -- generate from values file --
+prerequisites:
+- Kubernetes 1.16+
+release:
+  name: kubevault-metrics
+  namespace: kube-system
