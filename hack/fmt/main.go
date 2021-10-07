@@ -393,21 +393,21 @@ func main() {
 			panic(err)
 		}
 
-		for _, obj := range helmout {
-			obj.SetNamespace("")
-			obj.SetLabels(nil)
-			obj.SetAnnotations(nil)
+		for _, ri := range helmout {
+			ri.Object.SetNamespace("")
+			ri.Object.SetLabels(nil)
+			ri.Object.SetAnnotations(nil)
 
 			key := ObjectKey{
-				APIVersion: obj.GetAPIVersion(),
-				Kind:       obj.GetKind(),
-				Name:       obj.GetName(),
+				APIVersion: ri.Object.GetAPIVersion(),
+				Kind:       ri.Object.GetKind(),
+				Name:       ri.Object.GetName(),
 			}
 			if _, ok := dm[key]; !ok {
 				failed = true
 				_, _ = fmt.Fprintf(os.Stderr, "missing object is raw apiVersion=%s kind=%s name=%s", key.APIVersion, key.Kind, key.Name)
 			} else {
-				dm[key].B = obj
+				dm[key].B = ri.Object
 			}
 		}
 
@@ -476,11 +476,11 @@ func ParseImage(s string) (reg, bin, tag string) {
 func ListResources(dir string) ([]*unstructured.Unstructured, error) {
 	var resources []*unstructured.Unstructured
 
-	err := parser.ProcessDir(dir, func(obj *unstructured.Unstructured) error {
-		if obj.GetNamespace() == "" {
-			obj.SetNamespace(core.NamespaceDefault)
+	err := parser.ProcessPath(dir, func(ri parser.ResourceInfo) error {
+		if ri.Object.GetNamespace() == "" {
+			ri.Object.SetNamespace(core.NamespaceDefault)
 		}
-		resources = append(resources, obj)
+		resources = append(resources, ri.Object)
 		return nil
 	})
 	if err != nil {
