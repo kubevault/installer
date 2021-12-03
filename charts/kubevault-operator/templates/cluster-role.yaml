@@ -85,3 +85,8 @@ rules:
   - roles
   - rolebindings
   verbs: ["get", "update", "create", "patch", "delete"]
+- apiGroups:
+  - cert-manager.io
+  resources:
+  - "*"
+  verbs: ["*"]
