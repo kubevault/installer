@@ -50,7 +50,7 @@ rules:
   resources:
   - secrets
   - services
-  verbs: ["create", "get", "patch", "delete", "list"]
+  verbs: ["watch", "create", "get", "patch", "delete", "list"]
 - apiGroups:
   - ""
   resources:
@@ -85,3 +85,8 @@ rules:
   - roles
   - rolebindings
   verbs: ["get", "update", "create", "patch", "delete"]
+- apiGroups:
+  - cert-manager.io
+  resources:
+  - "*"
+  verbs: ["*"]
