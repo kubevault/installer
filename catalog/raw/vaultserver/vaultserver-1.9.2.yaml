@@ -6,7 +6,7 @@ spec:
   exporter:
     image: kubevault/vault-exporter:v0.1.1
   unsealer:
-    image: kubevault/vault-unsealer:v0.5.1
+    image: kubevault/vault-unsealer:v0.6.0
   vault:
     image: vault:1.9.2
   version: 1.9.2
