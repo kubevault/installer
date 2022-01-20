@@ -11,7 +11,7 @@ rules:
   - ""
   resources:
   - namespaces
-  verbs: ["get"]
+  verbs: ["get", "list"]
 # Detect workload/owner of operator pod
 - apiGroups:
   - ""
