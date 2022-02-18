@@ -1,15 +1,15 @@
 dependencies:
 - name: kubevault-crds
   repository: file://../kubevault-crds
-  version: v2022.01.11
+  version: v2022.02.22
 - name: kubevault-catalog
   repository: file://../kubevault-catalog
-  version: v2022.01.11
+  version: v2022.02.22
 - name: kubevault-operator
   repository: file://../kubevault-operator
-  version: v0.6.0
+  version: v0.7.0
 - name: kubevault-metrics
   repository: file://../kubevault-metrics
-  version: v2022.01.11
-digest: sha256:62e4885cb252a6c77cac4e587313c376ef92f6be347d6ff008f6cff3907cada9
-generated: "2022-01-11T12:53:30.199599707Z"
+  version: v2022.02.22
+digest: sha256:2d0c4df601f747ddb9b3d3bf3d25216b560a8f2847c745ebd08ea95769d52ffe
+generated: "2022-02-18T06:17:34.889930472Z"
