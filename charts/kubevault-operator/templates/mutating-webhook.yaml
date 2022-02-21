@@ -1,4 +1,6 @@
 {{- if .Values.apiserver.enableMutatingWebhook }}
+{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" .Release.Namespace "kube-root-ca.crt") | b64enc }}
+
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
@@ -9,13 +11,13 @@ metadata:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
 webhooks:
-- name: vaultpolicybindings.mutators.kubevault.com
+- name: vaultpolicybindingwebhook.mutators.kubevault.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/mutators.kubevault.com/v1alpha1/vaultpolicybindingmutators
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+      path: /apis/mutators.kubevault.com/v1alpha1/vaultpolicybindingwebhooks
+    caBundle: {{ $caCrt }}
   rules:
   - operations:
     - CREATE
@@ -29,13 +31,13 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-- name: vaultservers.mutators.kubevault.com
+- name: vaultserverwebhook.mutators.kubevault.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/mutators.kubevault.com/v1alpha1/vaultservermutators
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+      path: /apis/mutators.kubevault.com/v1alpha1/vaultserverwebhooks
+    caBundle: {{ $caCrt }}
   rules:
   - operations:
     - CREATE
@@ -60,13 +62,13 @@ metadata:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
 webhooks:
-- name: secretaccessrequests.mutators.engine.kubevault.com
+- name: secretaccessrequestwebhook.mutators.engine.kubevault.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/mutators.engine.kubevault.com/v1alpha1/secretaccessrequestmutators
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+      path: /apis/mutators.engine.kubevault.com/v1alpha1/secretaccessrequestwebhooks
+    caBundle: {{ $caCrt }}
   rules:
   - operations:
     - CREATE
