@@ -1,4 +1,6 @@
 {{- if .Values.apiserver.enableValidatingWebhook }}
+{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" .Release.Namespace "kube-root-ca.crt") | b64enc }}
+
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
@@ -9,13 +11,13 @@ metadata:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
 webhooks:
-- name: vaultservers.validators.kubevault.com
+- name: vaultserverwebhook.validators.kubevault.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/validators.kubevault.com/v1alpha1/vaultservervalidators
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+      path: /apis/validators.kubevault.com/v1alpha1/vaultserverwebhooks
+    caBundle: {{ $caCrt }}
   rules:
   - operations:
     - CREATE
@@ -41,13 +43,13 @@ metadata:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
 webhooks:
-- name: secretaccessrequests.validators.engine.kubevault.com
+- name: secretaccessrequestwebhook.validators.engine.kubevault.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/validators.engine.kubevault.com/v1alpha1/secretaccessrequestvalidators
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+      path: /apis/validators.engine.kubevault.com/v1alpha1/secretaccessrequestwebhooks
+    caBundle: {{ $caCrt }}
   rules:
   - operations:
     - CREATE
