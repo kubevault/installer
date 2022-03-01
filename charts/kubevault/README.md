@@ -4,10 +4,11 @@
 
 ## TL;DR;
 
-```console
+```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install kubevault appscode/kubevault -n kubevault
+$ helm search repo appscode/kubevault --version=v2022.02.22
+$ helm upgrade -i kubevault appscode/kubevault -n kubevault --create-namespace --version=v2022.02.22
 ```
 
 ## Introduction
@@ -20,10 +21,10 @@ This chart deploys a KubeVault operator on a [Kubernetes](http://kubernetes.io) 
 
 ## Installing the Chart
 
-To install the chart with the release name `kubevault`:
+To install/upgrade the chart with the release name `kubevault`:
 
-```console
-$ helm install kubevault appscode/kubevault -n kubevault
+```bash
+$ helm upgrade -i kubevault appscode/kubevault -n kubevault --create-namespace --version=v2022.02.22
 ```
 
 The command deploys a KubeVault operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -32,10 +33,10 @@ The command deploys a KubeVault operator on the Kubernetes cluster in the defaul
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `kubevault`:
+To uninstall the `kubevault`:
 
-```console
-$ helm delete kubevault -n kubevault
+```bash
+$ helm uninstall kubevault -n kubevault
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -60,15 +61,15 @@ The following table lists the configurable parameters of the `kubevault` chart a
 | kubevault-metrics.enabled               | If enabled, installs the kubevault-metrics chart                                                                                                                                                                                                                                                                                                                               | <code>false</code> |
 
 
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
+Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
-```console
-$ helm install kubevault appscode/kubevault -n kubevault --set global.registry=kubevault
+```bash
+$ helm upgrade -i kubevault appscode/kubevault -n kubevault --create-namespace --version=v2022.02.22 --set global.registry=kubevault
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
-```console
-$ helm install kubevault appscode/kubevault -n kubevault --values values.yaml
+```bash
+$ helm upgrade -i kubevault appscode/kubevault -n kubevault --create-namespace --version=v2022.02.22 --values values.yaml
 ```

@@ -4,10 +4,11 @@
 
 ## TL;DR;
 
-```console
+```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install kubevault-crds appscode/kubevault-crds -n kubevault
+$ helm search repo appscode/kubevault-crds --version=v2022.02.22
+$ helm upgrade -i kubevault-crds appscode/kubevault-crds -n kubevault --create-namespace --version=v2022.02.22
 ```
 
 ## Introduction
@@ -20,10 +21,10 @@ This chart deploys KubeVault crds on a [Kubernetes](http://kubernetes.io) cluste
 
 ## Installing the Chart
 
-To install the chart with the release name `kubevault-crds`:
+To install/upgrade the chart with the release name `kubevault-crds`:
 
-```console
-$ helm install kubevault-crds appscode/kubevault-crds -n kubevault
+```bash
+$ helm upgrade -i kubevault-crds appscode/kubevault-crds -n kubevault --create-namespace --version=v2022.02.22
 ```
 
 The command deploys KubeVault crds on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -32,10 +33,10 @@ The command deploys KubeVault crds on the Kubernetes cluster in the default conf
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `kubevault-crds`:
+To uninstall the `kubevault-crds`:
 
-```console
-$ helm delete kubevault-crds -n kubevault
+```bash
+$ helm uninstall kubevault-crds -n kubevault
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.

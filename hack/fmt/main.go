@@ -185,12 +185,12 @@ func main() {
 		}
 
 		filename := filepath.Join(dir, "catalog", "active_versions.json")
-		err = os.MkdirAll(filepath.Dir(filename), 0755)
+		err = os.MkdirAll(filepath.Dir(filename), 0o755)
 		if err != nil {
 			panic(err)
 		}
 
-		err = ioutil.WriteFile(filename, data, 0644)
+		err = ioutil.WriteFile(filename, data, 0o644)
 		if err != nil {
 			panic(err)
 		}
@@ -232,12 +232,12 @@ func main() {
 			filenameparts = append(filenameparts, strings.ToLower(k.Distro))
 		}
 		filename := filepath.Join(dir, "catalog", "new_raw", strings.ToLower(appKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
-		err = os.MkdirAll(filepath.Dir(filename), 0755)
+		err = os.MkdirAll(filepath.Dir(filename), 0o755)
 		if err != nil {
 			panic(err)
 		}
 
-		err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+		err = ioutil.WriteFile(filename, buf.Bytes(), 0o644)
 		if err != nil {
 			panic(err)
 		}
@@ -325,12 +325,12 @@ func main() {
 				filenameparts = append(filenameparts, strings.ToLower(k.Distro))
 			}
 			filename := filepath.Join(dir, "charts", "kubevault-catalog", "new_templates", strings.ToLower(appKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
-			err = os.MkdirAll(filepath.Dir(filename), 0755)
+			err = os.MkdirAll(filepath.Dir(filename), 0o755)
 			if err != nil {
 				panic(err)
 			}
 
-			err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+			err = ioutil.WriteFile(filename, buf.Bytes(), 0o644)
 			if err != nil {
 				panic(err)
 			}
