@@ -20,7 +20,5 @@ import (
 	_ "embed"
 )
 
-var (
-	//go:embed appver.yaml
-	AppVersion string
-)
+//go:embed appver.yaml
+var AppVersion string
