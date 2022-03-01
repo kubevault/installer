@@ -11,26 +11,6 @@ metadata:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
 webhooks:
-- name: vaultpolicybindingwebhook.mutators.kubevault.com
-  clientConfig:
-    service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubevault.com/v1alpha1/vaultpolicybindingwebhooks
-    caBundle: {{ $caCrt }}
-  rules:
-  - operations:
-    - CREATE
-    - UPDATE
-    apiGroups:
-    - policy.kubevault.com
-    apiVersions:
-    - "*"
-    resources:
-    - vaultpolicybindings
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: Fail
-  sideEffects: None
 - name: vaultserverwebhook.mutators.kubevault.com
   clientConfig:
     service:
@@ -48,6 +28,37 @@ webhooks:
     - "*"
     resources:
     - vaultservers
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutators.policy.kubevault.com
+  labels:
+    {{- include "kubevault-operator.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+webhooks:
+- name: vaultpolicybindingwebhook.mutators.policy.kubevault.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.policy.kubevault.com/v1alpha1/vaultpolicybindingwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+  - operations:
+    - CREATE
+    - UPDATE
+    apiGroups:
+    - policy.kubevault.com
+    apiVersions:
+    - "*"
+    resources:
+    - vaultpolicybindings
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None

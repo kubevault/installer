@@ -26,6 +26,8 @@ spec:
           kubectl delete validatingwebhookconfigurations validators.kubevault.com || true; \
           kubectl delete validatingwebhookconfigurations validators.engine.kubevault.com || true; \
           kubectl delete mutatingwebhookconfiguration mutators.kubevault.com || true; \
+          kubectl delete mutatingwebhookconfiguration mutators.engine.kubevault.com || true; \
+          kubectl delete mutatingwebhookconfiguration mutators.policy.kubevault.com || true; \
           kubectl delete apiservice v1alpha1.mutators.kubevault.com || true; \
           kubectl delete apiservice v1alpha1.validators.engine.kubevault.com || true; \
           kubectl delete apiservice v1alpha1.validators.kubevault.com || true;"
