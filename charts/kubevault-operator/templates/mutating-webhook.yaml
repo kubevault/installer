@@ -93,23 +93,4 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-- name: secretenginewebhook.mutators.engine.kubevault.com
-  clientConfig:
-    service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.engine.kubevault.com/v1alpha1/secretenginewebhooks
-    caBundle: {{ $caCrt }}
-  rules:
-  - operations:
-    - DELETE
-    apiGroups:
-    - engine.kubevault.com
-    apiVersions:
-    - "*"
-    resources:
-    - secretengines
-  admissionReviewVersions: [ "v1beta1" ]
-  failurePolicy: Fail
-  sideEffects: None
 {{ end }}
