@@ -45,6 +45,7 @@ rules:
   - secretengines
   - mongodbroles
   - mysqlroles
+  - mariadbroles
   - postgresroles
   - awsroles
   - gcproles
@@ -89,6 +90,7 @@ rules:
   - secretengines
   - mongodbroles
   - mysqlroles
+  - mariadbroles
   - postgresroles
   - awsroles
   - gcproles
