@@ -1,0 +1,18 @@
+project:
+  name: KubeVault Webhook Server by AppsCode
+  shortName: KubeVault Webhook Server
+  url: https://github.com/kubevault
+  description: Kubernetes webhooks for KubeVault by AppsCode
+  app: a KubeVault webhook server
+repository:
+  url: https://charts.appscode.com/stable/
+  name: appscode
+chart:
+  name: kubevault-webhook-server
+  values: -- generate from values file --
+  valuesExample: -- generate from values file --
+prerequisites:
+- Kubernetes 1.16+
+release:
+  name: kubevault-webhook-server
+  namespace: kubevault

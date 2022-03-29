@@ -8,8 +8,8 @@ dependencies:
 - name: kubevault-operator
   repository: file://../kubevault-operator
   version: v0.7.0
-- name: kubevault-metrics
-  repository: file://../kubevault-metrics
-  version: v2022.02.22
-digest: sha256:2d0c4df601f747ddb9b3d3bf3d25216b560a8f2847c745ebd08ea95769d52ffe
-generated: "2022-02-18T06:17:34.889930472Z"
+- name: kubevault-operator
+  repository: file://../kubevault-webhook-server
+  version: v0.7.0
+digest: sha256:062a3c7390943fa8b78859e1385ab1535ce3e325c1e61e83eb1869adededfd67
+generated: "2022-03-29T02:44:14.858348-07:00"

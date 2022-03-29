@@ -16,17 +16,6 @@ rules:
   - customresourcedefinitions
   verbs: ["*"]
 - apiGroups:
-  - apiregistration.k8s.io
-  resources:
-  - apiservices
-  verbs: ["delete", "get", "patch"]
-- apiGroups:
-  - admissionregistration.k8s.io
-  resources:
-  - mutatingwebhookconfigurations
-  - validatingwebhookconfigurations
-  verbs: ["delete", "list", "watch", "patch"]
-- apiGroups:
   - kubevault.com
   - catalog.kubevault.com
   - engine.kubevault.com
@@ -36,10 +25,20 @@ rules:
   - "*"
   verbs: ["*"]
 - apiGroups:
+  - kubevault.com
+  resources:
+  - vaultservers/finalizers
+  verbs: ["update"]
+- apiGroups:
   - apps
   resources:
   - statefulsets
   verbs: ["create", "get", "list", "watch", "patch", "delete"]
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets/finalizers
+  verbs: ["update"]
 - apiGroups:
   - ""
   resources:
@@ -51,6 +50,11 @@ rules:
   - secrets
   - services
   verbs: ["watch", "create", "get", "patch", "delete", "list"]
+- apiGroups:
+  - ""
+  resources:
+  - services/finalizers
+  verbs: ["update"]
 - apiGroups:
   - ""
   resources:

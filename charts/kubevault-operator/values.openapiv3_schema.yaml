@@ -751,71 +751,24 @@ properties:
     type: object
   apiserver:
     properties:
-      bypassValidatingWebhookXray:
-        type: boolean
-      ca:
-        type: string
-      enableMutatingWebhook:
-        type: boolean
-      enableValidatingWebhook:
-        type: boolean
-      groupPriorityMinimum:
-        format: int32
-        type: integer
       healthcheck:
         properties:
           enabled:
             type: boolean
-        type: object
-      servingCerts:
-        properties:
-          caCrt:
-            type: string
-          generate:
-            type: boolean
-          serverCrt:
-            type: string
-          serverKey:
-            type: string
+          probePort:
+            type: integer
         required:
-        - generate
+        - probePort
         type: object
       useKubeapiserverFqdnForAks:
         type: boolean
-      versionPriority:
-        format: int32
-        type: integer
     required:
-    - ca
-    - enableMutatingWebhook
-    - enableValidatingWebhook
-    - groupPriorityMinimum
     - healthcheck
-    - servingCerts
     - useKubeapiserverFqdnForAks
-    - versionPriority
-    type: object
-  cleaner:
-    properties:
-      registry:
-        type: string
-      repository:
-        type: string
-      skip:
-        type: boolean
-      tag:
-        type: string
-    required:
-    - registry
-    - repository
-    - skip
-    - tag
     type: object
   clusterName:
     type: string
   criticalAddon:
-    type: boolean
-  enableAnalytics:
     type: boolean
   fullnameOverride:
     type: string
@@ -823,8 +776,17 @@ properties:
     type: string
   imagePullSecrets:
     items:
-      type: string
+      description: LocalObjectReference contains enough information to let you locate
+        the referenced object inside the same namespace.
+      properties:
+        name:
+          description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+            TODO: Add other useful fields. apiVersion, kind, uid?'
+          type: string
+      type: object
     type: array
+  license:
+    type: string
   logLevel:
     format: int32
     type: integer
@@ -832,6 +794,10 @@ properties:
     properties:
       agent:
         type: string
+      bindPort:
+        type: integer
+      enabled:
+        type: boolean
       serviceMonitor:
         properties:
           labels:
@@ -841,6 +807,7 @@ properties:
         type: object
     required:
     - agent
+    - bindPort
     - serviceMonitor
     type: object
   nameOverride:
@@ -1210,7 +1177,6 @@ properties:
     type: array
 required:
 - apiserver
-- cleaner
 - imagePullPolicy
 - monitoring
 - operator
