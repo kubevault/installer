@@ -5,18 +5,17 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "kubevault-operator.labels" . | nindent 4 }}
-  {{- if eq .Values.monitoring.agent "prometheus.io/builtin" }}
+  {{- if and (eq .Values.monitoring.agent "prometheus.io/builtin") .Values.monitoring.enabled }}
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/path: "/metrics"
-    prometheus.io/port: "8443"
+    prometheus.io/port: {{ .Values.apiserver.port | quote }}
     prometheus.io/scheme: "https"
   {{- end }}
 spec:
   ports:
-  # Port used to expose admission webhook apiserver
-  - name: api
-    port: 443
-    targetPort: 8443
+  - name: metrics
+    port: {{ .Values.monitoring.bindPort }}
+    targetPort: metrics
   selector:
     {{- include "kubevault-operator.selectorLabels" . | nindent 4 }}

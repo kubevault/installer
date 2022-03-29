@@ -24,7 +24,7 @@ dependencies:
   repository: file://../kubevault-operator
   version: v0.7.0
   condition: kubevault-operator.enabled
-- name: kubevault-metrics
-  repository: file://../kubevault-metrics
-  condition: kubevault-metrics.enabled
-  version: v2022.02.22
+- name: kubevault-operator
+  repository: file://../kubevault-webhook-server
+  version: v0.7.0
+  condition: kubevault-webhook-server.enabled

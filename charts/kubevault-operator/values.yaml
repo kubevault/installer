@@ -1,36 +1,39 @@
-# Default values for kubevault-operator.
-# This is a YAML-formatted file.
+##
+## KubeVault chart configuration
+##
 # Declare variables to be passed into your templates.
 
 # Overrides name template
 nameOverride: ""
 # Overrides fullname template
 fullnameOverride: ""
-# Number of Vault operator replicas to create (only 1 is supported)
+# Number of KubeVault operator replicas to create (only 1 is supported)
 replicaCount: 1
 # License for the product.
-# Get a license by following the steps from [here](https://kubevault.com/docs/latest/setup/install#get-a-trial-license).
+# Get a license by following the steps from [here](https://kubevault.com/docs/latest/setup/install/enterprise/#get-a-trial-license).
 # Example:
-# helm install appscode/vault-operator \
+# helm install appscode/kubevault-operator \
 #   --set-file license=/path/to/license/file
 # or
-# helm install appscode/vault-operator \
+# helm install appscode/kubevault-operator \
 #   --set license=<license file content>
 license: ""
-# Docker registry fqdn used to pull Stash related images.
+# Docker registry fqdn used to pull KubeVault related images
 # Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
 registryFQDN: ""
+# Docker registry containing KubeVault images
 operator:
-  # Docker registry used to pull Vault operator image
+  # Docker registry used to pull KubeVault operator image
   registry: kubevault
-  # Vault operator container image
+  # KubeVault operator container image
   repository: vault-operator
-  # Vault operator container image tag
+  # KubeVault operator container image tag
   tag: v0.7.0
   # Compute Resources required by the operator container
-  resources: # +doc-gen:break
-    requests:
-      cpu: "100m"
+  resources: {}
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
   # Security options the operator container should run with
   securityContext: {}
   # capabilities:
@@ -39,15 +42,6 @@ operator:
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
-cleaner:
-  # Docker registry used to pull Webhook cleaner image
-  registry: appscode
-  # Webhook cleaner container image
-  repository: kubectl
-  # Webhook cleaner container image tag
-  tag: v1.16
-  # Skip generating cleaner YAML
-  skip: false
 # Specify an array of imagePullSecrets.
 # Secrets must be manually created in the namespace.
 #
@@ -58,7 +52,7 @@ cleaner:
 imagePullSecrets: []
 # Container image pull policy
 imagePullPolicy: IfNotPresent
-# If true, installs Vault operator as critical addon
+# If true, installs KubeVault operator as critical addon
 criticalAddon: false
 # Log level for operator
 logLevel: 3
@@ -74,9 +68,7 @@ tolerations: []
 # Affinity rules for pod assignment
 affinity: {}
 # Security options the operator pod should run with.
-podSecurityContext: # +doc-gen:break
-  # ensure that s/a token is readable xref: https://issues.k8s.io/70679
-  fsGroup: 65535
+podSecurityContext: {}
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
@@ -86,45 +78,24 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 apiserver:
-  # The minimum priority the webhook api group should have at least. Please see
-  # https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L58-L64
-  # for more information on proper values of this field.
-  groupPriorityMinimum: 10000
-  # The ordering of the webhook api inside of the group. Please see
-  # https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L66-L70
-  # for more information on proper values of this field
-  versionPriority: 15
-  # If true, mutating webhook is configured for KubeVault CRDss
-  enableMutatingWebhook: true
-  # If true, validating webhook is configured for KubeVault CRDss
-  enableValidatingWebhook: true
-  # If true, bypasses checks that validating webhook is actually enabled in the Kubernetes cluster.
-  bypassValidatingWebhookXray: false
   # If true, uses kube-apiserver FQDN for AKS cluster to workaround https://github.com/Azure/AKS/issues/522 (default true)
   useKubeapiserverFqdnForAks: true
   healthcheck:
     # healthcheck configures the readiness and liveliness probes for the operator pod.
-    enabled: false
-  servingCerts:
-    # If true, generates on install/upgrade the certs that allow the kube-apiserver (and potentially ServiceMonitor)
-    # to authenticate operators pods. Otherwise specify certs in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.
-    # See also: [example terraform](https://github.com/kubevault/installer/blob/master/charts/kubevault-operator/example-terraform.tf)
-    generate: true
-    # CA certficate used by serving certificate of webhook server.
-    caCrt: ""
-    # Serving certficate used by webhook server.
-    serverCrt: ""
-    # Private key for the serving certificate used by webhook server.
-    serverKey: ""
-# If true, sends usage analytics
-enableAnalytics: true
+    enabled: true
+    # The port the probe endpoint binds to
+    probePort: 8081
 monitoring:
-  # Name of monitoring agent (either "prometheus.io/operator" or "prometheus.io/builtin")
-  agent: "none"
+  # If true, enables monitoring KubeVault operator
+  enabled: false
+  # The port the metric endpoint binds to
+  bindPort: 8080
+  # Name of monitoring agent ("prometheus.io" or "prometheus.io/operator" or "prometheus.io/builtin")
+  agent: ""
   serviceMonitor:
     # Specify the labels for ServiceMonitor.
     # Prometheus crd will select ServiceMonitor using these labels.
     # Only usable when monitoring agent is `prometheus.io/operator`.
     labels: {}
 # Name of cluster used in a multi-cluster setup
-clusterName:
+clusterName: ""

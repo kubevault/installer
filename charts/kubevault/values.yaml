@@ -29,9 +29,6 @@ global:
   #   --set global.imagePullSecrets[1].name=sec1
   imagePullSecrets: []
 
-  # Skip generating cleaner job YAML
-  skipCleaner: false
-
   monitoring:
     # If true, enables monitoring KubeVault operator
     enabled: false
@@ -52,6 +49,6 @@ kubevault-catalog:
 kubevault-operator:
   # If enabled, installs the kubevault-operator chart
   enabled: true
-kubevault-metrics:
-  # If enabled, installs the kubevault-metrics chart
+kubevault-webhook-server:
+  # If enabled, installs the kubevault-webhook-server chart
   enabled: false

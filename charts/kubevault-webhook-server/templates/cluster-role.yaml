@@ -1,0 +1,48 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "kubevault-webhook-server.fullname" . }}
+  labels:
+    {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
+  verbs: ["get", "list", "watch", "patch"]
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - replicasets
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  verbs: ["get"]
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs: ["create"]
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  - namespaces
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - kubevault.com
+  - catalog.kubevault.com
+  - engine.kubevault.com
+  - policy.kubevault.com
+  resources:
+  - "*"
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - appcatalog.appscode.com
+  resources:
+  - "*"
+  verbs: ["*"]

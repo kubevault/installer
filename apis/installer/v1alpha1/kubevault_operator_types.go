@@ -29,42 +29,38 @@ const (
 
 // KubevaultOperator defines the schama for KubeVault Operator Installer.
 
-// +genclient
-// +genclient:skipVerbs=updateStatus
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
 // +kubebuilder:resource:path=kubevaultoperators,singular=kubevaultoperator,categories={kubevault,appscode}
 type KubevaultOperator struct {
-	metav1.TypeMeta   `json:",inline,omitempty"`
+	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              KubevaultOperatorSpec `json:"spec,omitempty"`
 }
 
-// KubevaultOperatorSpec is the schema for KubevaultOperator operator values file
+// KubevaultOperatorSpec is the schema for kubevault-operator chart values file
 type KubevaultOperatorSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride string     `json:"fullnameOverride"`
-	ReplicaCount     int32      `json:"replicaCount"`
-	RegistryFQDN     string     `json:"registryFQDN"`
-	Operator         Container  `json:"operator"`
-	Cleaner          CleanerRef `json:"cleaner"`
-	ImagePullPolicy  string     `json:"imagePullPolicy"`
+	FullnameOverride string    `json:"fullnameOverride"`
+	ReplicaCount     int32     `json:"replicaCount"`
+	RegistryFQDN     string    `json:"registryFQDN"`
+	Operator         Container `json:"operator"`
+	ImagePullPolicy  string    `json:"imagePullPolicy"`
 	//+optional
-	ImagePullSecrets []string `json:"imagePullSecrets"`
-	//+optional
+	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
+	// +optional
 	CriticalAddon bool `json:"criticalAddon"`
-	//+optional
+	// +optional
 	LogLevel int32 `json:"logLevel"`
-	//+optional
+	// +optional
 	Annotations map[string]string `json:"annotations"`
 	//+optional
-	NodeSelector map[string]string `json:"nodeSelector"`
-	//+optional
 	PodAnnotations map[string]string `json:"podAnnotations"`
+	// +optional
+	NodeSelector map[string]string `json:"nodeSelector"`
 	// If specified, the pod's tolerations.
 	// +optional
 	Tolerations []core.Toleration `json:"tolerations"`
@@ -76,53 +72,17 @@ type KubevaultOperatorSpec struct {
 	// +optional
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
-	Apiserver          OperatorWebhookServer    `json:"apiserver"`
-	//+optional
-	EnableAnalytics bool       `json:"enableAnalytics"`
-	Monitoring      Monitoring `json:"monitoring"`
-	//+optional
-	ClusterName *string `json:"clusterName"`
-}
-
-type ServiceAccountSpec struct {
-	Create bool `json:"create"`
-	//+optional
-	Name *string `json:"name"`
-	//+optional
-	Annotations map[string]string `json:"annotations"`
-}
-
-type OperatorWebhookServer struct {
-	GroupPriorityMinimum    int32  `json:"groupPriorityMinimum"`
-	VersionPriority         int32  `json:"versionPriority"`
-	EnableMutatingWebhook   bool   `json:"enableMutatingWebhook"`
-	EnableValidatingWebhook bool   `json:"enableValidatingWebhook"`
-	CA                      string `json:"ca"`
-	//+optional
-	BypassValidatingWebhookXray bool            `json:"bypassValidatingWebhookXray"`
-	UseKubeapiserverFqdnForAks  bool            `json:"useKubeapiserverFqdnForAks"`
-	Healthcheck                 HealthcheckSpec `json:"healthcheck"`
-	ServingCerts                ServingCerts    `json:"servingCerts"`
-}
-
-type HealthcheckSpec struct {
-	//+optional
-	Enabled bool `json:"enabled"`
-}
-
-type ServingCerts struct {
-	Generate bool `json:"generate"`
-	//+optional
-	CaCrt string `json:"caCrt"`
-	//+optional
-	ServerCrt string `json:"serverCrt"`
-	//+optional
-	ServerKey string `json:"serverKey"`
+	Apiserver          WebHookSpec              `json:"apiserver"`
+	Monitoring         Monitoring               `json:"monitoring"`
+	// +optional
+	License string `json:"license"`
+	// +optional
+	ClusterName string `json:"clusterName"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubevaultOperatorList is a list of KubevaultOperators
+// KubevaultOperatorList is a list of KubevaultOperator-s
 type KubevaultOperatorList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`

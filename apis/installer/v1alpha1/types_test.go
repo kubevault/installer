@@ -29,6 +29,7 @@ func TestDefaultValues(t *testing.T) {
 	checker := schemachecker.New(os.DirFS("../../.."),
 		v1alpha1.KubevaultCatalogSpec{},
 		v1alpha1.KubevaultOperatorSpec{},
+		v1alpha1.KubevaultWebhookServerSpec{},
 		v1alpha1.KubevaultSpec{},
 	)
 	checker.TestAll(t)

@@ -1,0 +1,34 @@
+{{- if .Values.apiserver.enableValidatingWebhook }}
+
+{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" .Release.Namespace "kube-root-ca.crt") | b64enc }}
+
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: validators.kubevault.com
+  labels:
+    app.kubernetes.io/component: kubevault-core
+    {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+webhooks:
+- name: vaultserverwebhook.validators.kubevault.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.kubevault.com/v1alpha1/vaultserverwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+  - operations:
+    - CREATE
+    - UPDATE
+    - DELETE
+    apiGroups:
+    - kubevault.com
+    apiVersions:
+    - "*"
+    resources:
+    - vaultservers
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+{{- end }}

@@ -17,8 +17,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"encoding/json"
-
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -46,13 +44,35 @@ type KubevaultSpec struct {
 	Global GlobalValues `json:"global"`
 
 	//+optional
-	CRDs json.RawMessage `json:"kubevault-crds"`
+	CRDs KubevaultCrdsValues `json:"kubevault-crds"`
 
 	//+optional
-	Catalog KubevaultCatalogSpec `json:"kubevault-catalog"`
+	Catalog KubevaultCatalogValues `json:"kubevault-catalog"`
 
 	//+optional
-	Operator KubevaultOperatorSpec `json:"kubevault-operator"`
+	Operator KubevaultOperatorValues `json:"kubevault-operator"`
+
+	//+optional
+	WebhookServer KubevaultWebhookServerValues `json:"kubevault-webhook-server"`
+}
+
+type KubevaultCrdsValues struct {
+	Enabled bool `json:"enabled"`
+}
+
+type KubevaultCatalogValues struct {
+	Enabled               bool `json:"enabled"`
+	*KubevaultCatalogSpec `json:",inline"`
+}
+
+type KubevaultOperatorValues struct {
+	Enabled                bool `json:"enabled"`
+	*KubevaultOperatorSpec `json:",inline"`
+}
+
+type KubevaultWebhookServerValues struct {
+	Enabled                     bool `json:"enabled"`
+	*KubevaultWebhookServerSpec `json:",inline"`
 }
 
 type GlobalValues struct {
@@ -61,8 +81,7 @@ type GlobalValues struct {
 	RegistryFQDN string `json:"registryFQDN"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
-	SkipCleaner      bool                        `json:"skipCleaner"`
-	Monitoring       Monitoring                  `json:"monitoring"`
+	Monitoring       UIServerMonitoring          `json:"monitoring"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

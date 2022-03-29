@@ -10,5 +10,5 @@ roleRef:
   name: {{ include "kubevault-operator.fullname" . }}
 subjects:
 - kind: ServiceAccount
-  name: {{ include "kubevault-operator.fullname" . }}
+  name: {{ include "kubevault-operator.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
