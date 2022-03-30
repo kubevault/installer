@@ -34,6 +34,11 @@ rules:
   - namespaces
   verbs: ["get", "list", "watch"]
 - apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs: ["get"]
+- apiGroups:
   - kubevault.com
   - catalog.kubevault.com
   - engine.kubevault.com
