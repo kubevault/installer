@@ -65,10 +65,11 @@ type HealthcheckSpec struct {
 	ProbePort int  `json:"probePort"`
 }
 
+// +kubebuilder:validation:Enum=prometheus.io;prometheus.io/operator;prometheus.io/builtin
+type MonitoringAgent string
+
 type Monitoring struct {
-	// +optional
-	Enabled        bool                  `json:"enabled"`
-	Agent          string                `json:"agent"`
+	Agent          MonitoringAgent       `json:"agent"`
 	BindPort       int                   `json:"bindPort"`
 	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
 }

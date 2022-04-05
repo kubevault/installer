@@ -99,9 +99,7 @@ type UIServerHealthcheckSpec struct {
 }
 
 type UIServerMonitoring struct {
-	// +optional
-	Enabled        bool                  `json:"enabled"`
-	Agent          string                `json:"agent"`
+	Agent          MonitoringAgent       `json:"agent"`
 	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
 }
 
