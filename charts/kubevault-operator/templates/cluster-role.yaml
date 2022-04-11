@@ -16,6 +16,11 @@ rules:
   - customresourcedefinitions
   verbs: ["*"]
 - apiGroups:
+  - apiregistration.k8s.io
+  resources:
+  - apiservices
+  verbs: ["get"]
+- apiGroups:
   - kubevault.com
   - catalog.kubevault.com
   - engine.kubevault.com
