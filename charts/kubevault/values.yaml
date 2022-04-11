@@ -38,9 +38,6 @@ global:
       # Only usable when monitoring agent is `prometheus.io/operator`.
       labels: {}
 
-kubevault-crds:
-  # If enabled, installs the kubevault-crds chart
-  enabled: false
 kubevault-catalog:
   # If enabled, installs the kubevault-catalog chart
   enabled: true
@@ -49,4 +46,4 @@ kubevault-operator:
   enabled: true
 kubevault-webhook-server:
   # If enabled, installs the kubevault-webhook-server chart
-  enabled: false
+  enabled: true

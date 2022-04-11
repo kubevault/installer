@@ -97,6 +97,7 @@ jobs:
           export KUBECONFIG="${HOME}/.kube/config"
           CLUSTER_UID=$(kubectl get ns kube-system -o=jsonpath='{.metadata.uid}')
           LICENSE_KEY=$(curl -X POST -d "name=1gtm&email=1gtm@appscode.com&product=kubevault-enterprise&cluster=${CLUSTER_UID}&tos=true&token=${BYTEBUILDERS_LICENSE_TOKEN}" https://license-issuer.appscode.com/issue-license)
+          echo "${LICENSE_KEY}" > /tmp/license.txt
           # ref: https://github.com/mikefarah/yq/issues/230#issuecomment-487458629
           yqq w -i ./charts/kubevault-operator/ci/ci-values.yaml license --tag '!!str' -- "${LICENSE_KEY}"
 
@@ -105,3 +106,22 @@ jobs:
           export KUBECONFIG="${HOME}/.kube/config"
           ./hack/scripts/update-chart-dependencies.sh
           ./hack/scripts/ct.sh
+
+      - name: Test Monitoring
+        run: |
+          export LICENSE_FILE=/tmp/license.txt
+          helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+          helm repo update
+          helm upgrade -i kube-prometheus-stack prometheus-community/kube-prometheus-stack --wait \
+            --namespace monitoring --create-namespace \
+            --set grafana.defaultDashboardsEnabled=false
+          helm upgrade -i kubevault charts/kubevault --wait \
+            --namespace kubevault --create-namespace \
+            --set-file global.license=$LICENSE_FILE \
+            --set global.monitoring.agent=prometheus.io/operator \
+            --set global.monitoring.serviceMonitor.labels.release=kube-prometheus-stack
+          helm delete kubevault --namespace kubevault
+          helm upgrade -i kubevault charts/kubevault --wait \
+            --namespace kubevault --create-namespace \
+            --set-file global.license=$LICENSE_FILE \
+            --set global.monitoring.agent=prometheus.io/builtin

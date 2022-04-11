@@ -44,9 +44,6 @@ type KubevaultSpec struct {
 	Global GlobalValues `json:"global"`
 
 	//+optional
-	CRDs KubevaultCrdsValues `json:"kubevault-crds"`
-
-	//+optional
 	Catalog KubevaultCatalogValues `json:"kubevault-catalog"`
 
 	//+optional
@@ -54,10 +51,6 @@ type KubevaultSpec struct {
 
 	//+optional
 	WebhookServer KubevaultWebhookServerValues `json:"kubevault-webhook-server"`
-}
-
-type KubevaultCrdsValues struct {
-	Enabled bool `json:"enabled"`
 }
 
 type KubevaultCatalogValues struct {
