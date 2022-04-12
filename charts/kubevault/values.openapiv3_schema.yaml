@@ -71,13 +71,6 @@ properties:
     - registryFQDN
     - skipDeprecated
     type: object
-  kubevault-crds:
-    properties:
-      enabled:
-        type: boolean
-    required:
-    - enabled
-    type: object
   kubevault-operator:
     properties:
       affinity:

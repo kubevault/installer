@@ -24,7 +24,7 @@ dependencies:
   repository: file://../kubevault-operator
   version: v0.7.0
   condition: kubevault-operator.enabled
-- name: kubevault-operator
+- name: kubevault-webhook-server
   repository: file://../kubevault-webhook-server
   version: v0.7.0
   condition: kubevault-webhook-server.enabled
