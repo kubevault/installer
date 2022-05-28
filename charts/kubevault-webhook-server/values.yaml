@@ -28,7 +28,7 @@ server:
   # KubeVault webhook server container image
   repository: vault-operator
   # KubeVault webhook server container image tag
-  tag: v0.7.0
+  tag: ""
   # Compute Resources required by the webhook server container
   resources: {}
   # requests:
