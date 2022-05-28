@@ -28,7 +28,7 @@ operator:
   # KubeVault operator container image
   repository: vault-operator
   # KubeVault operator container image tag
-  tag: v0.7.0
+  tag: ""
   # Compute Resources required by the operator container
   resources: {}
   # requests:
