@@ -1231,6 +1231,7 @@ properties:
     type: array
 required:
 - apiserver
+- clusterName
 - imagePullPolicy
 - monitoring
 - registryFQDN
