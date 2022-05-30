@@ -825,6 +825,8 @@ properties:
     - agent
     - serviceMonitor
     type: object
+  clusterName:
+    type: string
   nameOverride:
     type: string
   nodeSelector:
@@ -1227,8 +1229,6 @@ properties:
           type: string
       type: object
     type: array
-  clusterName:
-    type: string
 required:
 - apiserver
 - imagePullPolicy
