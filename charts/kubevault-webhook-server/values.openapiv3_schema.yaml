@@ -791,6 +791,8 @@ properties:
     - useKubeapiserverFqdnForAks
     - versionPriority
     type: object
+  clusterName:
+    type: string
   criticalAddon:
     type: boolean
   fullnameOverride:
