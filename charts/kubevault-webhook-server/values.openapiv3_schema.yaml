@@ -825,8 +825,6 @@ properties:
     - agent
     - serviceMonitor
     type: object
-  clusterName:
-    type: string
   nameOverride:
     type: string
   nodeSelector:
