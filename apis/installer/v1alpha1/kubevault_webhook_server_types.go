@@ -79,6 +79,7 @@ type KubevaultWebhookServerSpec struct {
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	Apiserver          WebhookAPIServerSpec     `json:"apiserver"`
 	Monitoring         UIServerMonitoring       `json:"monitoring"`
+	ClusterName        string                   `json:"clusterName"`
 }
 
 type WebhookAPIServerSpec struct {
