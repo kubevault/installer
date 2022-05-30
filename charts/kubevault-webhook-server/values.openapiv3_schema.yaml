@@ -791,8 +791,6 @@ properties:
     - useKubeapiserverFqdnForAks
     - versionPriority
     type: object
-  clusterName:
-    type: string
   criticalAddon:
     type: boolean
   fullnameOverride:
@@ -1229,6 +1227,8 @@ properties:
           type: string
       type: object
     type: array
+  clusterName:
+    type: string
 required:
 - apiserver
 - imagePullPolicy
