@@ -1227,8 +1227,11 @@ properties:
           type: string
       type: object
     type: array
+  clusterName:
+    type: string
 required:
 - apiserver
+- clusterName
 - imagePullPolicy
 - monitoring
 - registryFQDN
