@@ -44,6 +44,24 @@ type ServiceAccountSpec struct {
 	Annotations map[string]string `json:"annotations"`
 }
 
+type EASSpec struct {
+	GroupPriorityMinimum       int32              `json:"groupPriorityMinimum"`
+	VersionPriority            int32              `json:"versionPriority"`
+	UseKubeapiserverFqdnForAks bool               `json:"useKubeapiserverFqdnForAks"`
+	Healthcheck                EASHealthcheckSpec `json:"healthcheck"`
+	ServingCerts               ServingCerts       `json:"servingCerts"`
+}
+
+type EASHealthcheckSpec struct {
+	// +optional
+	Enabled bool `json:"enabled"`
+}
+
+type EASMonitoring struct {
+	Agent          MonitoringAgent       `json:"agent"`
+	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
+}
+
 type WebHookSpec struct {
 	UseKubeapiserverFqdnForAks bool            `json:"useKubeapiserverFqdnForAks"`
 	Healthcheck                HealthcheckSpec `json:"healthcheck"`
