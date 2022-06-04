@@ -31,6 +31,7 @@ func TestDefaultValues(t *testing.T) {
 		v1alpha1.KubevaultOperatorSpec{},
 		v1alpha1.KubevaultWebhookServerSpec{},
 		v1alpha1.KubevaultSpec{},
+		v1alpha1.SecretsStoreReaderSpec{},
 	)
 	checker.TestAll(t)
 }

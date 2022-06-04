@@ -1,0 +1,18 @@
+project:
+  name: Secrets Store Reader api server by AppsCode
+  shortName: Secrets Store Reader api server
+  url: https://github.com/kubevault/ui-server
+  description: Secrets Store Reader api server for ByteBuilders
+  app: a Secrets Store Reader api server
+repository:
+  url: https://charts.appscode.com/stable/
+  name: appscode
+chart:
+  name: secrets-store-reader
+  values: -- generate from values file --
+  valuesExample: -- generate from values file --
+prerequisites:
+- Kubernetes 1.16+
+release:
+  name: secrets-store-reader
+  namespace: kubevault

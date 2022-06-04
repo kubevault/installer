@@ -4,21 +4,18 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: kubevault
-  name: vaultpolicies.policy.kubevault.com
+  name: mariadbroles.engine.kubevault.com
 spec:
-  group: policy.kubevault.com
+  group: engine.kubevault.com
   names:
     categories:
     - vault
-    - policy
     - appscode
     - all
-    kind: VaultPolicy
-    listKind: VaultPolicyList
-    plural: vaultpolicies
-    shortNames:
-    - vp
-    singular: vaultpolicy
+    kind: MariaDBRole
+    listKind: MariaDBRoleList
+    plural: mariadbroles
+    singular: mariadbrole
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -45,25 +42,34 @@ spec:
           metadata:
             type: object
           spec:
-            description: 'More info: https://www.vaultproject.io/docs/concepts/policies.html'
+            description: MariaDBRoleSpec contains connection information, mariadb
+              role info etc
             properties:
-              policy:
-                description: Policy specifies a vault policy in json format.
-                type: object
-                x-kubernetes-embedded-resource: true
-                x-kubernetes-preserve-unknown-fields: true
-              policyDocument:
-                description: 'PolicyDocument specifies a vault policy in hcl format.
-                  For example: path "secret/*" { capabilities = ["create", "read",
-                  "update", "delete", "list"] }'
+              creationStatements:
+                description: https://www.vaultproject.io/api/secret/databases/mysql-maria.html#creation_statements
+                  Specifies the database statements executed to create and configure
+                  a user.
+                items:
+                  type: string
+                type: array
+              defaultTTL:
+                description: Specifies the TTL for the leases associated with this
+                  role. Accepts time suffixed strings ("1h") or an integer number
+                  of seconds. Defaults to system/engine default TTL time
                 type: string
-              vaultPolicyName:
-                description: 'VaultPolicyName is the policy name set inside Vault.
-                  This defaults to following format: k8s.${cluster}.${metadata.namespace}.${metadata.name}'
+              maxTTL:
+                description: Specifies the maximum TTL for the leases associated with
+                  this role. Accepts time suffixed strings ("1h") or an integer number
+                  of seconds. Defaults to system/engine default TTL time.
                 type: string
-              vaultRef:
-                description: VaultRef is the name of a AppBinding referencing to a
-                  Vault Server
+              revocationStatements:
+                description: https://www.vaultproject.io/api/secret/databases/mysql-maria.html#revocation_statements
+                  Specifies the database statements to be executed to revoke a user.
+                items:
+                  type: string
+                type: array
+              secretEngineRef:
+                description: SecretEngineRef is the name of a Secret Engine
                 properties:
                   name:
                     description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -71,12 +77,14 @@ spec:
                     type: string
                 type: object
             required:
-            - vaultRef
+            - creationStatements
+            - secretEngineRef
             type: object
           status:
             properties:
               conditions:
-                description: Represents the latest available observations of a VaultPolicy.
+                description: Represents the latest available observations of a MySQLRole
+                  current state.
                 items:
                   properties:
                     lastTransitionTime:
@@ -124,17 +132,25 @@ spec:
                 type: array
               observedGeneration:
                 description: ObservedGeneration is the most recent generation observed
-                  for this resource. It corresponds to the resource's generation,
+                  for this MySQLRole. It corresponds to the MySQLRole's generation,
                   which is updated on mutation by the API Server.
                 format: int64
                 type: integer
               phase:
-                description: Phase indicates whether the policy successfully applied
-                  in vault or not or in progress
-                enum:
-                - Success
-                - Failed
                 type: string
+              policyRef:
+                description: ObjectReference contains enough information to let you
+                  inspect or modify the referred object.
+                properties:
+                  name:
+                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                    type: string
+                  namespace:
+                    description: 'Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/'
+                    type: string
+                required:
+                - name
+                type: object
             type: object
         type: object
     served: true

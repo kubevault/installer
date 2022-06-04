@@ -56,12 +56,14 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
 		&KubevaultCatalogList{},
 		&KubevaultCatalog{},
-		&Kubevault{},
 		&KubevaultList{},
-		&KubevaultOperator{},
 		&KubevaultOperatorList{},
-		&KubevaultWebhookServer{},
+		&KubevaultOperator{},
 		&KubevaultWebhookServerList{},
+		&KubevaultWebhookServer{},
+		&Kubevault{},
+		&SecretsStoreReaderList{},
+		&SecretsStoreReader{},
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,
