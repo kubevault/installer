@@ -46,6 +46,7 @@ rules:
   - mongodbroles
   - mysqlroles
   - postgresroles
+  - mariadbroles
   - awsroles
   - gcproles
   - azureroles
@@ -90,6 +91,7 @@ rules:
   - mongodbroles
   - mysqlroles
   - postgresroles
+  - mariadbroles
   - awsroles
   - gcproles
   - azureroles
