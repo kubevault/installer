@@ -1,0 +1,12 @@
+apiVersion: catalog.kubevault.com/v1alpha1
+kind: VaultServerVersion
+metadata:
+  name: 1.10.3
+spec:
+  exporter:
+    image: kubevault/vault-exporter:v0.1.1
+  unsealer:
+    image: kubevault/vault-unsealer:v0.7.0
+  vault:
+    image: vault:1.10.3
+  version: 1.10.3
