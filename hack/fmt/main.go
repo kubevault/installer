@@ -44,8 +44,6 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-const registryKubeVault = "kubevault"
-
 type AppVersion struct {
 	Group   string
 	Kind    string

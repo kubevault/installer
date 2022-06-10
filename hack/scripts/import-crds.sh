@@ -64,6 +64,11 @@ crd-importer --v=v1 \
     --out=. --output-yaml=./crds/kubevault-catalog-crds.yaml \
     --group=catalog.kubevault.com
 
+crd-importer --v=v1 \
+    --input=${crd_dir} \
+    --out=./charts/kubevault-operator/crds \
+    --group=kubevault.com
+
 crd-importer \
     --input=https://github.com/kmodules/custom-resources/raw/kubernetes-1.21.1/crds/metrics.appscode.com_metricsconfigurations.yaml \
     --out=./charts/kubevault-metrics/crds

@@ -6,6 +6,16 @@ metadata:
     {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
 rules:
 - apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs: ["*"]
+- apiGroups:
+  - apiregistration.k8s.io
+  resources:
+  - apiservices
+  verbs: ["get"]
+- apiGroups:
   - admissionregistration.k8s.io
   resources:
   - mutatingwebhookconfigurations
