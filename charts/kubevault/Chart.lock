@@ -1,15 +1,15 @@
 dependencies:
 - name: kubevault-crds
   repository: file://../kubevault-crds
-  version: v2022.02.22
+  version: v2022.06.16
 - name: kubevault-catalog
   repository: file://../kubevault-catalog
-  version: v2022.02.22
+  version: v2022.06.16
 - name: kubevault-operator
   repository: file://../kubevault-operator
-  version: v0.7.0
-- name: kubevault-operator
+  version: v0.8.0
+- name: kubevault-webhook-server
   repository: file://../kubevault-webhook-server
-  version: v0.7.0
-digest: sha256:062a3c7390943fa8b78859e1385ab1535ce3e325c1e61e83eb1869adededfd67
-generated: "2022-03-29T02:44:14.858348-07:00"
+  version: v0.8.0
+digest: sha256:f3b109c6c136f13f6ab5a62bc72967d2c9fd9b63294fd463a3f7b35c68e8bcba
+generated: "2022-06-10T07:48:21.188730444Z"

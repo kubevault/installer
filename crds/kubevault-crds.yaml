@@ -9926,9 +9926,9 @@ spec:
                           type: array
                         jwtValidationPubkeys:
                           description: '(comma-separated string, or array of strings:
-                            <optional>) - A list of PEM-encoded public keys to use
-                            to authenticate signatures locally. Cannot be used with
-                            "jwks_url" or "oidc_discovery_url".'
+                            <optional>) A list of PEM-encoded public keys to use to
+                            authenticate signatures locally. Cannot be used with "jwks_url"
+                            or "oidc_discovery_url".'
                           items:
                             type: string
                           type: array
