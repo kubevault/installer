@@ -276,14 +276,6 @@ contents-%:
 	fi
 	@if [ -n "$(APP_VERSION)" ]; then                                                 \
 		yq -y --indentless -i '.appVersion="$(APP_VERSION)"' ./charts/$*/Chart.yaml;    \
-		case "$*" in                                                                    \
-		  kubevault-operator)                                                           \
-		    yqq w -i ./charts/$*/values.yaml operator.tag --tag '!!str' $(APP_VERSION); \
-		    ;;                                                                          \
-		  kubevault-webhook-server)                                                     \
-		    yqq w -i ./charts/$*/values.yaml server.tag --tag '!!str' $(APP_VERSION);   \
-		    ;;                                                                          \
-		esac;                                                                           \
 	fi
 
 fmt: $(BUILD_DIRS)
