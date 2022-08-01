@@ -1,0 +1,307 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: vaultopsrequests.ops.kubevault.com
+spec:
+  group: ops.kubevault.com
+  names:
+    categories:
+    - security
+    - kubevault
+    - appscode
+    kind: VaultOpsRequest
+    listKind: VaultOpsRequestList
+    plural: vaultopsrequests
+    shortNames:
+    - vsops
+    singular: vaultopsrequest
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.type
+      name: Type
+      type: string
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: VaultOpsRequestSpec is the spec for VaultOpsRequest
+            properties:
+              restart:
+                description: Specifies information necessary for restarting VaultServer
+                type: object
+              timeout:
+                description: Timeout for each step of the ops request in second. If
+                  a step doesn't finish within the specified timeout, the ops request
+                  will result in failure.
+                type: string
+              tls:
+                description: Specifies information necessary for configuring TLS
+                properties:
+                  certificates:
+                    description: 'Certificate provides server and/or client certificate
+                      options used by application pods. These options are passed to
+                      a cert-manager Certificate object. xref: https://github.com/jetstack/cert-manager/blob/v0.16.0/pkg/apis/certmanager/v1beta1/types_certificate.go#L82-L162'
+                    items:
+                      properties:
+                        alias:
+                          description: Alias represents the identifier of the certificate.
+                          type: string
+                        dnsNames:
+                          description: DNSNames is a list of subject alt names to
+                            be used on the Certificate.
+                          items:
+                            type: string
+                          type: array
+                        duration:
+                          description: Certificate default Duration
+                          type: string
+                        emailAddresses:
+                          description: EmailAddresses is a list of email subjectAltNames
+                            to be set on the Certificate.
+                          items:
+                            type: string
+                          type: array
+                        ipAddresses:
+                          description: IPAddresses is a list of IP addresses to be
+                            used on the Certificate
+                          items:
+                            type: string
+                          type: array
+                        issuerRef:
+                          description: IssuerRef is a reference to a Certificate Issuer.
+                          properties:
+                            apiGroup:
+                              description: APIGroup is the group for the resource
+                                being referenced. If APIGroup is not specified, the
+                                specified Kind must be in the core API group. For
+                                any other third-party types, APIGroup is required.
+                              type: string
+                            kind:
+                              description: Kind is the type of resource being referenced
+                              type: string
+                            name:
+                              description: Name is the name of resource being referenced
+                              type: string
+                          required:
+                          - kind
+                          - name
+                          type: object
+                        privateKey:
+                          description: Options to control private keys used for the
+                            Certificate.
+                          properties:
+                            encoding:
+                              description: 'The private key cryptography standards
+                                (PKCS) encoding for this certificate''s private key
+                                to be encoded in. If provided, allowed values are
+                                "pkcs1" and "pkcs8" standing for PKCS#1 and PKCS#8,
+                                respectively. Defaults to PKCS#1 if not specified.
+                                See here for the difference between the formats: https://stackoverflow.com/a/48960291'
+                              enum:
+                              - PKCS1
+                              - PKCS8
+                              type: string
+                          type: object
+                        renewBefore:
+                          description: Certificate renew before expiration duration
+                          type: string
+                        secretName:
+                          description: Specifies the k8s secret name that holds the
+                            certificates. Default to <resource-name>-<cert-alias>-cert.
+                          type: string
+                        subject:
+                          description: Full X509 name specification (https://golang.org/pkg/crypto/x509/pkix/#Name).
+                          properties:
+                            countries:
+                              description: Countries to be used on the CertificateSpec.
+                              items:
+                                type: string
+                              type: array
+                            localities:
+                              description: Cities to be used on the CertificateSpec.
+                              items:
+                                type: string
+                              type: array
+                            organizationalUnits:
+                              description: Organizational Units to be used on the
+                                CertificateSpec.
+                              items:
+                                type: string
+                              type: array
+                            organizations:
+                              description: Organizations to be used on the Certificate.
+                              items:
+                                type: string
+                              type: array
+                            postalCodes:
+                              description: Postal codes to be used on the CertificateSpec.
+                              items:
+                                type: string
+                              type: array
+                            provinces:
+                              description: State/Provinces to be used on the CertificateSpec.
+                              items:
+                                type: string
+                              type: array
+                            serialNumber:
+                              description: Serial number to be used on the CertificateSpec.
+                              type: string
+                            streetAddresses:
+                              description: Street addresses to be used on the CertificateSpec.
+                              items:
+                                type: string
+                              type: array
+                          type: object
+                        uris:
+                          description: URIs is a list of URI subjectAltNames to be
+                            set on the Certificate.
+                          items:
+                            type: string
+                          type: array
+                      required:
+                      - alias
+                      type: object
+                    type: array
+                  issuerRef:
+                    description: IssuerRef is a reference to a Certificate Issuer.
+                    properties:
+                      apiGroup:
+                        description: APIGroup is the group for the resource being
+                          referenced. If APIGroup is not specified, the specified
+                          Kind must be in the core API group. For any other third-party
+                          types, APIGroup is required.
+                        type: string
+                      kind:
+                        description: Kind is the type of resource being referenced
+                        type: string
+                      name:
+                        description: Name is the name of resource being referenced
+                        type: string
+                    required:
+                    - kind
+                    - name
+                    type: object
+                  remove:
+                    description: Remove tells operator to remove TLS configuration
+                    type: boolean
+                  rotateCertificates:
+                    description: RotateCertificates tells operator to initiate certificate
+                      rotation
+                    type: boolean
+                type: object
+              type:
+                description: 'Specifies the ops request type: ReconfigureTLS, Upgrade,
+                  etc.'
+                enum:
+                - ReconfigureTLS
+                - Restart
+                type: string
+              vaultRef:
+                description: Specifies the Vault reference
+                properties:
+                  name:
+                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                      TODO: Add other useful fields. apiVersion, kind, uid?'
+                    type: string
+                type: object
+            required:
+            - type
+            - vaultRef
+            type: object
+          status:
+            description: VaultOpsRequestStatus is the status for VaultOpsRequest
+            properties:
+              conditions:
+                description: Conditions applied to the request, such as approval or
+                  denial.
+                items:
+                  properties:
+                    lastTransitionTime:
+                      description: Last time the condition transitioned from one status
+                        to another. This should be when the underlying condition changed.  If
+                        that is not known, then using the time when the API field
+                        changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A human readable message indicating details about
+                        the transition. This field may be empty.
+                      type: string
+                    observedGeneration:
+                      description: If set, this represents the .metadata.generation
+                        that the condition was set based upon. For instance, if .metadata.generation
+                        is currently 12, but the .status.condition[x].observedGeneration
+                        is 9, the condition is out of date with respect to the current
+                        state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: The reason for the condition's last transition
+                        in CamelCase. The specific API may choose whether or not this
+                        field is considered a guaranteed API. This field may not be
+                        empty.
+                      type: string
+                    status:
+                      description: Status of the condition, one of True, False, Unknown.
+                      type: string
+                    type:
+                      description: Type of condition in CamelCase or in foo.example.com/CamelCase.
+                        Many .condition.type values are consistent across resources
+                        like Available, but because arbitrary conditions can be useful
+                        (see .node.status.conditions), the ability to deconflict is
+                        important.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                description: observedGeneration is the most recent generation observed
+                  for this resource. It corresponds to the resource's generation,
+                  which is updated on mutation by the API Server.
+                format: int64
+                type: integer
+              phase:
+                description: Specifies the current phase of the ops request
+                enum:
+                - Pending
+                - Progressing
+                - Successful
+                - WaitingForApproval
+                - Failed
+                - Approved
+                - Denied
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
