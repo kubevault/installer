@@ -111,3 +111,8 @@ rules:
   resources:
   - subjectaccessreviews
   verbs: ["create"]
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs: ["get", "list", "create", "delete", "patch", "deletecollection"]
