@@ -26,6 +26,7 @@ rules:
   - engine.kubevault.com
   - policy.kubevault.com
   - appcatalog.appscode.com
+  - ops.kubevault.com
   resources:
   - "*"
   verbs: ["*"]
@@ -85,6 +86,7 @@ rules:
   resources:
   - pods
   - pods/exec
+  - pods/eviction
   verbs: ["get", "create", "list"]
 - apiGroups:
   - rbac.authorization.k8s.io
@@ -109,3 +111,8 @@ rules:
   resources:
   - subjectaccessreviews
   verbs: ["create"]
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs: ["get", "list", "create", "delete", "patch", "deletecollection"]
