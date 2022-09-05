@@ -78,6 +78,8 @@ type KubevaultOperatorSpec struct {
 	License string `json:"license"`
 	// +optional
 	ClusterName string `json:"clusterName"`
+	// +optional
+	RecommendationEngine RecommendationEngineConfig `json:"recommendationEngine"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -88,4 +90,11 @@ type KubevaultOperatorList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 	// Items is a list of KubevaultOperator CRD objects
 	Items []KubevaultOperator `json:"items,omitempty"`
+}
+
+type RecommendationEngineConfig struct {
+	RecommendationResyncPeriod                  metav1.Duration `json:"recommendationResyncPeriod"`
+	GenRotateTLSRecommendationBeforeExpiryYear  int             `json:"genRotateTLSRecommendationBeforeExpiryYear"`
+	GenRotateTLSRecommendationBeforeExpiryMonth int             `json:"genRotateTLSRecommendationBeforeExpiryMonth"`
+	GenRotateTLSRecommendationBeforeExpiryDay   int             `json:"genRotateTLSRecommendationBeforeExpiryDay"`
 }
