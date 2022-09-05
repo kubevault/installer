@@ -76,3 +76,7 @@ crd-importer \
 crd-importer \
     --input=https://github.com/kubernetes-sigs/secrets-store-csi-driver/raw/v1.1.2/config/crd/bases/secrets-store.csi.x-k8s.io_secretproviderclasses.yaml \
     --out=./charts/secrets-store-reader/crds
+
+crd-importer \
+    --input=https://github.com/kubeops/supervisor/raw/v0.0.1/crds/supervisor.appscode.com_recommendations.yaml \
+    --out=./charts/kubevault-operator/crds
