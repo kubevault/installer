@@ -116,3 +116,7 @@ rules:
   resources:
   - poddisruptionbudgets
   verbs: ["get", "list", "create", "delete", "patch", "deletecollection"]
+- apiGroups:
+  - supervisor.appscode.com
+  resources: ["*"]
+  verbs: ["create", "get", "list", "watch", "update", "patch"]

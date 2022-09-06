@@ -1263,6 +1263,22 @@ properties:
                 type: string
             type: object
         type: object
+      recommendationEngine:
+        properties:
+          genRotateTLSRecommendationBeforeExpiryDay:
+            type: integer
+          genRotateTLSRecommendationBeforeExpiryMonth:
+            type: integer
+          genRotateTLSRecommendationBeforeExpiryYear:
+            type: integer
+          recommendationResyncPeriod:
+            type: string
+        required:
+        - genRotateTLSRecommendationBeforeExpiryDay
+        - genRotateTLSRecommendationBeforeExpiryMonth
+        - genRotateTLSRecommendationBeforeExpiryYear
+        - recommendationResyncPeriod
+        type: object
       registryFQDN:
         type: string
       replicaCount:
