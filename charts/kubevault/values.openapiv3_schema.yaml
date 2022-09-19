@@ -11,6 +11,7 @@ properties:
                 TODO: Add other useful fields. apiVersion, kind, uid?'
               type: string
           type: object
+          x-kubernetes-map-type: atomic
         type: array
       license:
         type: string
@@ -166,6 +167,7 @@ properties:
                             type: object
                           type: array
                       type: object
+                      x-kubernetes-map-type: atomic
                     weight:
                       description: Weight associated with matching the corresponding
                         nodeSelectorTerm, in the range 1-100.
@@ -259,10 +261,12 @@ properties:
                             type: object
                           type: array
                       type: object
+                      x-kubernetes-map-type: atomic
                     type: array
                 required:
                 - nodeSelectorTerms
                 type: object
+                x-kubernetes-map-type: atomic
             type: object
           podAffinity:
             description: Describes pod affinity scheduling rules (e.g. co-locate this
@@ -333,6 +337,7 @@ properties:
                                 contains only "value". The requirements are ANDed.
                               type: object
                           type: object
+                          x-kubernetes-map-type: atomic
                         namespaceSelector:
                           description: A label query over the set of namespaces that
                             the term applies to. The term is applied to the union
@@ -383,6 +388,7 @@ properties:
                                 contains only "value". The requirements are ANDed.
                               type: object
                           type: object
+                          x-kubernetes-map-type: atomic
                         namespaces:
                           description: namespaces specifies a static list of namespace
                             names that the term applies to. The term is applied to
@@ -476,6 +482,7 @@ properties:
                             only "value". The requirements are ANDed.
                           type: object
                       type: object
+                      x-kubernetes-map-type: atomic
                     namespaceSelector:
                       description: A label query over the set of namespaces that the
                         term applies to. The term is applied to the union of the namespaces
@@ -525,6 +532,7 @@ properties:
                             only "value". The requirements are ANDed.
                           type: object
                       type: object
+                      x-kubernetes-map-type: atomic
                     namespaces:
                       description: namespaces specifies a static list of namespace
                         names that the term applies to. The term is applied to the
@@ -616,6 +624,7 @@ properties:
                                 contains only "value". The requirements are ANDed.
                               type: object
                           type: object
+                          x-kubernetes-map-type: atomic
                         namespaceSelector:
                           description: A label query over the set of namespaces that
                             the term applies to. The term is applied to the union
@@ -666,6 +675,7 @@ properties:
                                 contains only "value". The requirements are ANDed.
                               type: object
                           type: object
+                          x-kubernetes-map-type: atomic
                         namespaces:
                           description: namespaces specifies a static list of namespace
                             names that the term applies to. The term is applied to
@@ -759,6 +769,7 @@ properties:
                             only "value". The requirements are ANDed.
                           type: object
                       type: object
+                      x-kubernetes-map-type: atomic
                     namespaceSelector:
                       description: A label query over the set of namespaces that the
                         term applies to. The term is applied to the union of the namespaces
@@ -808,6 +819,7 @@ properties:
                             only "value". The requirements are ANDed.
                           type: object
                       type: object
+                      x-kubernetes-map-type: atomic
                     namespaces:
                       description: namespaces specifies a static list of namespace
                         names that the term applies to. The term is applied to the
@@ -872,6 +884,7 @@ properties:
                 TODO: Add other useful fields. apiVersion, kind, uid?'
               type: string
           type: object
+          x-kubernetes-map-type: atomic
         type: array
       license:
         type: string
@@ -1440,6 +1453,7 @@ properties:
                             type: object
                           type: array
                       type: object
+                      x-kubernetes-map-type: atomic
                     weight:
                       description: Weight associated with matching the corresponding
                         nodeSelectorTerm, in the range 1-100.
@@ -1533,10 +1547,12 @@ properties:
                             type: object
                           type: array
                       type: object
+                      x-kubernetes-map-type: atomic
                     type: array
                 required:
                 - nodeSelectorTerms
                 type: object
+                x-kubernetes-map-type: atomic
             type: object
           podAffinity:
             description: Describes pod affinity scheduling rules (e.g. co-locate this
@@ -1607,6 +1623,7 @@ properties:
                                 contains only "value". The requirements are ANDed.
                               type: object
                           type: object
+                          x-kubernetes-map-type: atomic
                         namespaceSelector:
                           description: A label query over the set of namespaces that
                             the term applies to. The term is applied to the union
@@ -1657,6 +1674,7 @@ properties:
                                 contains only "value". The requirements are ANDed.
                               type: object
                           type: object
+                          x-kubernetes-map-type: atomic
                         namespaces:
                           description: namespaces specifies a static list of namespace
                             names that the term applies to. The term is applied to
@@ -1750,6 +1768,7 @@ properties:
                             only "value". The requirements are ANDed.
                           type: object
                       type: object
+                      x-kubernetes-map-type: atomic
                     namespaceSelector:
                       description: A label query over the set of namespaces that the
                         term applies to. The term is applied to the union of the namespaces
@@ -1799,6 +1818,7 @@ properties:
                             only "value". The requirements are ANDed.
                           type: object
                       type: object
+                      x-kubernetes-map-type: atomic
                     namespaces:
                       description: namespaces specifies a static list of namespace
                         names that the term applies to. The term is applied to the
@@ -1890,6 +1910,7 @@ properties:
                                 contains only "value". The requirements are ANDed.
                               type: object
                           type: object
+                          x-kubernetes-map-type: atomic
                         namespaceSelector:
                           description: A label query over the set of namespaces that
                             the term applies to. The term is applied to the union
@@ -1940,6 +1961,7 @@ properties:
                                 contains only "value". The requirements are ANDed.
                               type: object
                           type: object
+                          x-kubernetes-map-type: atomic
                         namespaces:
                           description: namespaces specifies a static list of namespace
                             names that the term applies to. The term is applied to
@@ -2033,6 +2055,7 @@ properties:
                             only "value". The requirements are ANDed.
                           type: object
                       type: object
+                      x-kubernetes-map-type: atomic
                     namespaceSelector:
                       description: A label query over the set of namespaces that the
                         term applies to. The term is applied to the union of the namespaces
@@ -2082,6 +2105,7 @@ properties:
                             only "value". The requirements are ANDed.
                           type: object
                       type: object
+                      x-kubernetes-map-type: atomic
                     namespaces:
                       description: namespaces specifies a static list of namespace
                         names that the term applies to. The term is applied to the
