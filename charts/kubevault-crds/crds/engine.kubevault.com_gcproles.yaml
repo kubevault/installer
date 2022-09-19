@@ -65,6 +65,7 @@ spec:
                       TODO: Add other useful fields. apiVersion, kind, uid?'
                     type: string
                 type: object
+                x-kubernetes-map-type: atomic
               secretType:
                 description: Specifies the type of secret generated for this role
                   set

@@ -68,6 +68,7 @@ spec:
                       TODO: Add other useful fields. apiVersion, kind, uid?'
                     type: string
                 type: object
+                x-kubernetes-map-type: atomic
               ttl:
                 description: Specifies the default TTL for service principals generated
                   using this role. Accepts time suffixed strings ("1h") or an integer
