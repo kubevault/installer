@@ -8,7 +8,7 @@ spec:
   exporter:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubevault") .Values) }}/vault-exporter:v0.1.1'
   unsealer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubevault") .Values) }}/vault-unsealer:v0.9.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubevault") .Values) }}/vault-unsealer:v0.10.0'
   vault:
     image: '{{ include "official.registry" (merge (dict "_bin" "vault") .Values) }}:1.7.2'
   version: 1.7.2
