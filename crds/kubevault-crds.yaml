@@ -68,6 +68,67 @@ spec:
                 required:
                 - image
                 type: object
+              stash:
+                description: Stash defines backup and restore task definitions.
+                properties:
+                  addon:
+                    description: StashTaskSpec is the spec for app
+                    properties:
+                      backupTask:
+                        description: Backup task definition
+                        properties:
+                          name:
+                            type: string
+                          params:
+                            description: Params specifies a list of parameter to pass
+                              to the Task. Stash will use this parameters to resolve
+                              the task.
+                            items:
+                              description: Param declares a value to use for the Param
+                                called Name.
+                              properties:
+                                name:
+                                  type: string
+                                value:
+                                  type: string
+                              required:
+                              - name
+                              - value
+                              type: object
+                            type: array
+                        required:
+                        - name
+                        type: object
+                      restoreTask:
+                        description: Restore task definition
+                        properties:
+                          name:
+                            type: string
+                          params:
+                            description: Params specifies a list of parameter to pass
+                              to the Task. Stash will use this parameters to resolve
+                              the task.
+                            items:
+                              description: Param declares a value to use for the Param
+                                called Name.
+                              properties:
+                                name:
+                                  type: string
+                                value:
+                                  type: string
+                              required:
+                              - name
+                              - value
+                              type: object
+                            type: array
+                        required:
+                        - name
+                        type: object
+                    required:
+                    - backupTask
+                    - restoreTask
+                    type: object
+                type: object
               unsealer:
                 description: Unsealer Image
                 properties:
@@ -12041,11 +12102,17 @@ spec:
                       \n ConsulSpec defines the configuration to set up consul as
                       backend storage in vault"
                     properties:
-                      aclTokenSecretName:
+                      aclTokenSecretRef:
                         description: 'Specifies the secret name that contains ACL
                           token with permission to read and write from the path in
                           Consul''s key-value store. secret data: - aclToken:<value>'
-                        type: string
+                        properties:
+                          name:
+                            description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                              TODO: Add other useful fields. apiVersion, kind, uid?'
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
                       address:
                         description: Specifies the address of the Consul agent to
                           communicate with. This can be an IP address, DNS record,
