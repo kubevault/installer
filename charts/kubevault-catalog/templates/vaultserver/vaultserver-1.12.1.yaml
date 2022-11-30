@@ -1,7 +1,7 @@
 apiVersion: catalog.kubevault.com/v1alpha1
 kind: VaultServerVersion
 metadata:
-  name: '1.5.9'
+  name: '1.12.1'
   labels:
     {{- include "kubevault-catalog.labels" . | nindent 4 }}
 spec:
@@ -16,5 +16,5 @@ spec:
   unsealer:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubevault") .Values) }}/vault-unsealer:v0.10.0'
   vault:
-    image: '{{ include "official.registry" (merge (dict "_bin" "vault") .Values) }}:1.5.9'
-  version: 1.5.9
+    image: '{{ include "official.registry" (merge (dict "_bin" "vault") .Values) }}:1.12.1'
+  version: 1.12.1
