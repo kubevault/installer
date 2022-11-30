@@ -2,8 +2,8 @@ apiVersion: v2
 name: kubevault
 description: KubeVault by AppsCode - HashiCorp Vault operator for Kubernetes
 type: application
-version: v2022.09.22
-appVersion: v2022.09.22
+version: v2022.11.30
+appVersion: v2022.11.30
 home: https://kubevault.com
 icon: https://cdn.appscode.com/images/products/kubevault/kubevault-icon.png
 sources:
@@ -14,17 +14,17 @@ maintainers:
 dependencies:
 - name: kubevault-crds
   repository: file://../kubevault-crds
-  version: v2022.09.22
+  version: v2022.11.30
   condition: kubevault-crds.enabled
 - name: kubevault-catalog
   repository: file://../kubevault-catalog
-  version: v2022.09.22
+  version: v2022.11.30
   condition: kubevault-catalog.enabled
 - name: kubevault-operator
   repository: file://../kubevault-operator
-  version: v0.10.0
+  version: v0.11.0
   condition: kubevault-operator.enabled
 - name: kubevault-webhook-server
   repository: file://../kubevault-webhook-server
-  version: v0.10.0
+  version: v0.11.0
   condition: kubevault-webhook-server.enabled
