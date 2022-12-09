@@ -14,7 +14,7 @@ spec:
       restoreTask:
         name: vault-restore-1.10.3
   unsealer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubevault") .Values) }}/vault-unsealer:v0.11.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubevault") .Values) }}/vault-unsealer:v0.12.0'
   vault:
     image: '{{ include "official.registry" (merge (dict "_bin" "vault") .Values) }}:1.9.2'
   version: 1.9.2
