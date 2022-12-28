@@ -165,6 +165,7 @@ spec:
                       - mongodb
                       - mysql
                       - elasticsearch
+                      - redis
                       type: string
                     type: array
                 type: object
@@ -9281,6 +9282,7 @@ spec:
                       - mysql
                       - mariadb
                       - elasticsearch
+                      - redis
                       type: string
                     type: array
                 type: object

@@ -46,6 +46,7 @@ rules:
   - secretengines
   - mongodbroles
   - mysqlroles
+  - redisroles
   - postgresroles
   - mariadbroles
   - awsroles
@@ -95,6 +96,7 @@ rules:
   resources:
   - secretengines
   - mongodbroles
+  - redisroles
   - mysqlroles
   - postgresroles
   - mariadbroles
