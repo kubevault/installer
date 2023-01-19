@@ -47,7 +47,7 @@ fi
 
 crd-importer \
     --input=${crd_dir} \
-    --input=https://github.com/kmodules/custom-resources/raw/kubernetes-1.21.1/crds/metrics.appscode.com_metricsconfigurations.v1.yaml \
+    --input=https://github.com/kmodules/custom-resources/raw/v0.25.1/crds/metrics.appscode.com_metricsconfigurations.v1.yaml \
     --out=./charts/kubevault-crds/crds
 
 crd-importer \
@@ -70,13 +70,13 @@ crd-importer --v=v1 \
     --group=kubevault.com
 
 crd-importer \
-    --input=https://github.com/kmodules/custom-resources/raw/kubernetes-1.21.1/crds/metrics.appscode.com_metricsconfigurations.yaml \
+    --input=https://github.com/kmodules/custom-resources/raw/v0.25.1/crds/metrics.appscode.com_metricsconfigurations.yaml \
     --out=./charts/kubevault-metrics/crds
 
 crd-importer \
-    --input=https://github.com/kubernetes-sigs/secrets-store-csi-driver/raw/v1.1.2/config/crd/bases/secrets-store.csi.x-k8s.io_secretproviderclasses.yaml \
+    --input=https://github.com/kubernetes-sigs/secrets-store-csi-driver/raw/v1.3.0/config/crd/bases/secrets-store.csi.x-k8s.io_secretproviderclasses.yaml \
     --out=./charts/secrets-store-reader/crds
 
 crd-importer \
-    --input=https://github.com/kubeops/supervisor/raw/v0.0.1/crds/supervisor.appscode.com_recommendations.yaml \
+    --input=https://github.com/kubeops/supervisor/raw/v0.0.2/crds/supervisor.appscode.com_recommendations.yaml \
     --out=./charts/kubevault-operator/crds
