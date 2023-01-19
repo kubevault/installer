@@ -4,7 +4,7 @@ metadata:
   name: 1.6.5
 spec:
   exporter:
-    image: kubevault/vault-exporter:v0.1.1
+    image: ghcr.io/kubevault/vault-exporter:v0.1.1
   stash:
     addon:
       backupTask:
@@ -12,7 +12,7 @@ spec:
       restoreTask:
         name: vault-restore-1.10.3
   unsealer:
-    image: kubevault/vault-unsealer:v0.13.0
+    image: ghcr.io/kubevault/vault-unsealer:v0.13.0
   vault:
     image: vault:1.6.5
   version: 1.6.5
