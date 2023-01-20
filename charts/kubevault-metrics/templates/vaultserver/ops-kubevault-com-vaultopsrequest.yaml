@@ -1,0 +1,59 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: ops-kubevault-com-vaultopsrequest
+spec:
+  targetRef:
+    apiVersion: ops.kubevault.com/v1alpha1
+    kind: VaultOpsRequest
+  commonLabels:
+    - key: app
+      valuePath: .spec.vaultRef.name
+    - key: app_namespace
+      valuePath: .metadata.namespace
+    - key: type
+      valuePath: .spec.type
+  metrics:
+  
+    - name: created
+      help: "Unix creation time stamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: info
+      help: "VaultServer instance information"
+      type: gauge
+      labels:
+        - key: vaultReference
+          valuePath: .spec.vaultRef.name
+      metricValue:
+        value: 1
+
+    - name: status_phase
+      help: "The current phase of Vault OpsRequest."
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Progressing
+            metricValue:
+              valueFromExpression: "int(phase == 'Progressing')"
+          - labelValue: Failed
+            metricValue:
+              valueFromExpression: "int(phase == 'Failed')"
+          - labelValue: Pending
+            metricValue:
+              valueFromExpression: "int(phase == 'Pending')"
+          - labelValue: Successful
+            metricValue:
+              valueFromExpression: "int(phase == 'Successful')"
