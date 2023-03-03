@@ -80,3 +80,7 @@ crd-importer \
 crd-importer \
     --input=https://github.com/kubeops/supervisor/raw/v0.0.2/crds/supervisor.appscode.com_recommendations.yaml \
     --out=./charts/kubevault-operator/crds
+
+crd-importer \
+    --input=https://github.com/open-viz/apimachinery/raw/v0.0.4/crds/openviz.dev_grafanadashboards.yaml \
+    --out=./charts/kubevault-grafana-dashboards/crds

@@ -38,3 +38,4 @@ _testmain.go
 *.tfstate*
 
 /charts/kubevault/charts
+/charts/kubevault-opscenter/charts

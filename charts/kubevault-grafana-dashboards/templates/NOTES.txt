@@ -1,0 +1,3 @@
+To verify that KubeVault Grafana Dashboards have been installed, run:
+
+  kubectl get grafanadashboards --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "kubevault-grafana-dashboards.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
