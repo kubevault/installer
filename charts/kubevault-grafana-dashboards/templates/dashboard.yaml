@@ -1,0 +1,35 @@
+{{- $gkr := .Files.Get "data/resources.yaml" | fromYaml -}}
+{{ range $r := .Values.resources }}
+{{ range $path, $_ :=  $.Files.Glob (printf "dashboards/%s/**.json" $r) }}
+apiVersion: openviz.dev/v1alpha1
+kind: GrafanaDashboard
+metadata:
+  name: {{ prepend ((get ($.Files.Get $path | mustFromJson) "title") | lower | nospace | splitList "/" ) $.Values.grafana.name | compact | join "-" | trunc 63 | trimSuffix "-" }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    k8s.io/group: kubevault.com
+    k8s.io/kind: {{ get (get $gkr $r) "kind" }}
+    k8s.io/resource: {{ get (get $gkr $r) "resource" }}
+    {{- include "kubevault-grafana-dashboards.labels" $ | nindent 4 }}
+spec:
+{{- if or $.Values.grafana.name $.Values.grafana.namespace }}
+  grafanaRef:
+  {{- with $.Values.grafana.name }}
+    name: {{ . }}
+  {{- end }}
+  {{- with $.Values.grafana.namespace }}
+    namespace: {{ . }}
+  {{- end }}
+{{- end }}
+  model:
+    {{- omit ($.Files.Get $path | mustFromJson) "id" "uid" | toYaml | nindent 4 }}
+{{- with $.Values.dashboard.folderID }}
+  folderID: {{ . }}
+{{- end }}
+  overwrite: {{ $.Values.dashboard.overwrite }}
+  templatize:
+    title: {{ $.Values.dashboard.templatize.title }}
+    datasource: {{ $.Values.dashboard.templatize.datasource }}
+---
+{{ end }}
+{{ end }}

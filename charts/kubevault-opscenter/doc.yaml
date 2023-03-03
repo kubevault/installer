@@ -1,0 +1,18 @@
+project:
+  name: KubeVault Opscenter by AppsCode
+  shortName: KubeVault Opscenter
+  url: https://github.com/kubevault
+  description: KubeVault Opscenter
+  app: a KubeVault Opscenter
+repository:
+  url: https://charts.appscode.com/stable/
+  name: appscode
+chart:
+  name: kubevault-opscenter
+  values: -- generate from values file --
+  valuesExample: -- generate from values file --
+prerequisites:
+- Kubernetes 1.16+
+release:
+  name: kubevault-opscenter
+  namespace: kubevault

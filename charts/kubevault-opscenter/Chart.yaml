@@ -1,0 +1,22 @@
+apiVersion: v2
+name: kubevault-opscenter
+description: KubeVault Opscenter by AppsCode
+type: application
+version: v2023.02.28
+appVersion: v2023.02.28
+home: https://kubevault.com
+icon: https://cdn.appscode.com/images/products/kubevault/kubevault-icon.png
+sources:
+- https://github.com/kubevault
+maintainers:
+- name: appscode
+  email: support@appscode.com
+dependencies:
+- name: kubevault-metrics
+  repository: file://../kubevault-metrics
+  condition: kubevault-metrics.enabled
+  version: v2022.12.28
+- name: kubevault-grafana-dashboards
+  repository: file://../kubevault-grafana-dashboards
+  condition: kubevault-grafana-dashboards.enabled
+  version: v2023.02.28
