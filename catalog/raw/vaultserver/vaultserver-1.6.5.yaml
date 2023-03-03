@@ -12,7 +12,7 @@ spec:
       restoreTask:
         name: vault-restore-1.10.3
   unsealer:
-    image: ghcr.io/kubevault/vault-unsealer:v0.13.0
+    image: kubevault/vault-unsealer:v0.14.0
   vault:
     image: vault:1.6.5
   version: 1.6.5
