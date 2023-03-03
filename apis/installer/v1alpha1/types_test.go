@@ -27,11 +27,11 @@ import (
 
 func TestDefaultValues(t *testing.T) {
 	checker := schemachecker.New(os.DirFS("../../.."),
-		v1alpha1.KubevaultCatalogSpec{},
-		v1alpha1.KubevaultOperatorSpec{},
-		v1alpha1.KubevaultWebhookServerSpec{},
-		v1alpha1.KubevaultSpec{},
-		v1alpha1.SecretsStoreReaderSpec{},
+		schemachecker.TestCase{Obj: v1alpha1.KubevaultCatalogSpec{}},
+		schemachecker.TestCase{Obj: v1alpha1.KubevaultOperatorSpec{}},
+		schemachecker.TestCase{Obj: v1alpha1.KubevaultWebhookServerSpec{}},
+		schemachecker.TestCase{Obj: v1alpha1.KubevaultSpec{}},
+		schemachecker.TestCase{Obj: v1alpha1.SecretsStoreReaderSpec{}},
 	)
 	checker.TestAll(t)
 }
