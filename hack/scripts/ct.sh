@@ -21,9 +21,16 @@ for dir in charts/*/; do
     dir=${dir##*/}
     num_files=$(find charts/${dir}/templates -type f | wc -l)
     echo $dir
-    if [ $num_files -le 1 ] || [[ "$dir" = "kubevault" ]] || [[ "$dir" = "secrets-store-reader" ]] || [[ "$dir" =~ "-crds" ]]; then
+    if [ $num_files -le 1 ] ||
+        [[ "$dir" = "kubevault" ]] ||
+        [[ "$dir" = "secrets-store-reader" ]] ||
+        [[ "$dir" =~ "-crds" ]]; then
         make ct CT_COMMAND=lint TEST_CHARTS=charts/$dir
     else
-        make ct TEST_CHARTS=charts/$dir
+        ns=app-$(date +%s | head -c 6)
+        kubectl create ns $ns
+        kubectl label ns $ns pod-security.kubernetes.io/enforce=restricted
+        make ct TEST_CHARTS=charts/$dir KUBE_NAMESPACE=$ns
+        kubectl delete ns $ns || true
     fi
 done
