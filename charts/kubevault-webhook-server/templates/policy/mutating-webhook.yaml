@@ -28,6 +28,6 @@ webhooks:
     resources:
     - vaultpolicybindings
   admissionReviewVersions: ["v1beta1"]
-  failurePolicy: Fail
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}

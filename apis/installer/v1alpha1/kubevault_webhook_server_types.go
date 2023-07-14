@@ -91,6 +91,11 @@ type WebhookAPIServerSpec struct {
 	Healthcheck                UIServerHealthcheckSpec `json:"healthcheck"`
 	Port                       int32                   `json:"port"`
 	ServingCerts               ServingCerts            `json:"servingCerts"`
+	Webhook                    WebhookSpec             `json:"webhook"`
+}
+
+type WebhookSpec struct {
+	FailurePolicy string `json:"failurePolicy"`
 }
 
 type UIServerHealthcheckSpec struct {
