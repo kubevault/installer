@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ include "kubevault-webhook-server.fullname" . }}-license
+  name: {{ include "appscode.licenseSecretName" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "kubevault-webhook-server.labels" . | nindent 4 }}

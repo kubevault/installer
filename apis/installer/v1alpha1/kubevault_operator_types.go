@@ -77,6 +77,8 @@ type KubevaultOperatorSpec struct {
 	// +optional
 	License string `json:"license"`
 	// +optional
+	LicenseSecretName string `json:"licenseSecretName"`
+	// +optional
 	ClusterName string `json:"clusterName"`
 	// +optional
 	RecommendationEngine RecommendationEngineConfig `json:"recommendationEngine"`

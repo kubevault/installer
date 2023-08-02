@@ -69,9 +69,10 @@ type KubevaultWebhookServerValues struct {
 }
 
 type GlobalValues struct {
-	License      string `json:"license"`
-	Registry     string `json:"registry"`
-	RegistryFQDN string `json:"registryFQDN"`
+	License           string `json:"license"`
+	LicenseSecretName string `json:"licenseSecretName"`
+	Registry          string `json:"registry"`
+	RegistryFQDN      string `json:"registryFQDN"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	Monitoring       UIServerMonitoring          `json:"monitoring"`
