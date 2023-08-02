@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ include "kubevault-operator.fullname" . }}-license
+  name: {{ include "appscode.licenseSecretName" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "kubevault-operator.labels" . | nindent 4 }}
