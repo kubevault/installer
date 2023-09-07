@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubevault-catalog --version=v2023.05.05
-$ helm upgrade -i kubevault-catalog appscode/kubevault-catalog -n kubevault --create-namespace --version=v2023.05.05
+$ helm search repo appscode/kubevault-catalog --version=v2023.9.7
+$ helm upgrade -i kubevault-catalog appscode/kubevault-catalog -n kubevault --create-namespace --version=v2023.9.7
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys HashiCorp KubeVault Catalog on a [Kubernetes](http://kubernet
 To install/upgrade the chart with the release name `kubevault-catalog`:
 
 ```bash
-$ helm upgrade -i kubevault-catalog appscode/kubevault-catalog -n kubevault --create-namespace --version=v2023.05.05
+$ helm upgrade -i kubevault-catalog appscode/kubevault-catalog -n kubevault --create-namespace --version=v2023.9.7
 ```
 
 The command deploys HashiCorp KubeVault Catalog on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -58,12 +58,12 @@ The following table lists the configurable parameters of the `kubevault-catalog`
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubevault-catalog appscode/kubevault-catalog -n kubevault --create-namespace --version=v2023.05.05 --set image.registry=kubevault
+$ helm upgrade -i kubevault-catalog appscode/kubevault-catalog -n kubevault --create-namespace --version=v2023.9.7 --set image.registry=kubevault
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubevault-catalog appscode/kubevault-catalog -n kubevault --create-namespace --version=v2023.05.05 --values values.yaml
+$ helm upgrade -i kubevault-catalog appscode/kubevault-catalog -n kubevault --create-namespace --version=v2023.9.7 --values values.yaml
 ```
