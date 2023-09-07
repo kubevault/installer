@@ -281,16 +281,18 @@ spec:
                 description: Represents the latest available observations of a MySQLRole
                   current state.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -303,9 +305,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -313,14 +320,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -439,16 +443,18 @@ spec:
                 description: Represents the latest available observations of a MySQLRole
                   current state.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -461,9 +467,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -471,14 +482,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -601,16 +609,18 @@ spec:
                 description: Represents the latest available observations of a MySQLRole
                   current state.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -623,9 +633,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -633,14 +648,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -767,16 +779,18 @@ spec:
                 description: Represents the latest available observations of a MySQLRole
                   current state.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -789,9 +803,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -799,14 +818,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -929,16 +945,18 @@ spec:
                 description: Represents the latest available observations of a MySQLRole
                   current state.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -951,9 +969,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -961,14 +984,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -1091,16 +1111,18 @@ spec:
                 description: Represents the latest available observations of a MySQLRole
                   current state.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -1113,9 +1135,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -1123,14 +1150,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -1253,16 +1277,18 @@ spec:
                 description: Represents the latest available observations of a MySQLRole
                   current state.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -1275,9 +1301,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -1285,14 +1316,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -1428,16 +1456,18 @@ spec:
                 description: Represents the latest available observations of a MySQLRole
                   current state.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -1450,9 +1480,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -1460,14 +1495,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -1590,16 +1622,18 @@ spec:
                 description: Represents the latest available observations of a MySQLRole
                   current state.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -1612,9 +1646,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -1622,14 +1661,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -1686,6 +1722,9 @@ spec:
   - additionalPrinterColumns:
     - jsonPath: .status.phase
       name: Status
+      type: string
+    - jsonPath: .status.secret.name
+      name: Secret
       type: string
     - jsonPath: .metadata.creationTimestamp
       name: Age
@@ -1746,22 +1785,18 @@ spec:
                 description: Contains vault database role info
                 properties:
                   apiGroup:
-                    description: APIGroup is the group for the resource being referenced.
-                      If APIGroup is not specified, the specified Kind must be in
-                      the core API group. For any other third-party types, APIGroup
-                      is required.
                     type: string
                   kind:
-                    description: Kind is the type of resource being referenced
                     type: string
                   name:
-                    description: Name is the name of resource being referenced
+                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                    type: string
+                  namespace:
+                    description: 'Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/'
                     type: string
                 required:
-                - kind
                 - name
                 type: object
-                x-kubernetes-map-type: atomic
               subjects:
                 items:
                   description: Subject contains a reference to the object or user
@@ -1809,16 +1844,18 @@ spec:
                 description: Conditions applied to the request, such as approval or
                   denial.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -1831,9 +1868,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -1841,14 +1883,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -2397,16 +2436,18 @@ spec:
             properties:
               conditions:
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -2419,9 +2460,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -2429,14 +2475,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -2571,16 +2614,18 @@ spec:
                 description: Conditions applied to the request, such as approval or
                   denial.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -2593,9 +2638,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -2603,14 +2653,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -11803,16 +11850,18 @@ spec:
                 description: Represents the latest available observations of a VaultServer
                   current state.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -11825,9 +11874,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -11835,14 +11889,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -21482,16 +21533,18 @@ spec:
                 description: Represents the latest available observations of a VaultServer
                   current state.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -21504,9 +21557,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -21514,14 +21572,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -21833,16 +21888,18 @@ spec:
                 description: Conditions applied to the request, such as approval or
                   denial.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -21855,9 +21912,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -21865,14 +21927,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -21983,16 +22042,18 @@ spec:
               conditions:
                 description: Represents the latest available observations of a VaultPolicy.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -22005,9 +22066,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -22015,14 +22081,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object
@@ -22578,16 +22641,18 @@ spec:
               conditions:
                 description: Represents the latest available observations of a VaultPolicyBinding.
                 items:
+                  description: Condition defines an observation of a object operational
+                    state.
                   properties:
                     lastTransitionTime:
                       description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.  If
-                        that is not known, then using the time when the API field
+                        to another. This should be when the underlying condition changed.
+                        If that is not known, then using the time when the API field
                         changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
+                      description: A human-readable message indicating details about
                         the transition. This field may be empty.
                       type: string
                     observedGeneration:
@@ -22600,9 +22665,14 @@ spec:
                       type: integer
                     reason:
                       description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                        in CamelCase. The specific API may choose whether this field
+                        is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of
+                        Reason code, so the users or machines can immediately understand
+                        the current situation and act accordingly. The Severity field
+                        MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
@@ -22610,14 +22680,11 @@ spec:
                     type:
                       description: Type of condition in CamelCase or in foo.example.com/CamelCase.
                         Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                        like Available, but because arbitrary util can be useful (see
+                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
-                  - message
-                  - reason
                   - status
                   - type
                   type: object

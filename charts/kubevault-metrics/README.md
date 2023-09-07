@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubevault-metrics --version=v2023.05.05
-$ helm upgrade -i kubevault-metrics appscode/kubevault-metrics -n kubevault --create-namespace --version=v2023.05.05
+$ helm search repo appscode/kubevault-metrics --version=v2023.9.7
+$ helm upgrade -i kubevault-metrics appscode/kubevault-metrics -n kubevault --create-namespace --version=v2023.9.7
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys KubeVault metrics configurations on a [Kubernetes](http://kub
 To install/upgrade the chart with the release name `kubevault-metrics`:
 
 ```bash
-$ helm upgrade -i kubevault-metrics appscode/kubevault-metrics -n kubevault --create-namespace --version=v2023.05.05
+$ helm upgrade -i kubevault-metrics appscode/kubevault-metrics -n kubevault --create-namespace --version=v2023.9.7
 ```
 
 The command deploys KubeVault metrics configurations on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
