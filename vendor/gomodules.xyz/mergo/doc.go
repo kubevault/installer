@@ -18,17 +18,17 @@ Please keep in mind that a problematic PR broke 0.3.9. We reverted it in 0.3.10.
 
 Keep in mind that in 0.3.2, Mergo changed Merge() and Map() signatures to support transformers. We added an optional/variadic argument so that it won't break the existing code.
 
-If you were using Mergo before April 6th, 2015, please check your project works as intended after updating your local copy with go get -u github.com/imdario/mergo. I apologize for any issue caused by its previous behavior and any future bug that Mergo could cause in existing projects after the change (release 0.2.0).
+If you were using Mergo before April 6th, 2015, please check your project works as intended after updating your local copy with go get -u gomodules.xyz/mergo. I apologize for any issue caused by its previous behavior and any future bug that Mergo could cause in existing projects after the change (release 0.2.0).
 
 Install
 
 Do your usual installation procedure:
 
-    go get github.com/imdario/mergo
+    go get gomodules.xyz/mergo
 
     // use in your .go code
     import (
-        "github.com/imdario/mergo"
+        "gomodules.xyz/mergo"
     )
 
 Usage
@@ -59,7 +59,7 @@ Here is a nice example:
 
 	import (
 		"fmt"
-		"github.com/imdario/mergo"
+		"gomodules.xyz/mergo"
 	)
 
 	type Foo struct {
@@ -89,7 +89,7 @@ Transformers allow to merge specific types differently than in the default behav
 
 	import (
 		"fmt"
-		"github.com/imdario/mergo"
+		"gomodules.xyz/mergo"
 			"reflect"
 			"time"
 	)
