@@ -19,18 +19,11 @@ require (
 )
 
 require (
-	github.com/dustin/go-humanize v1.0.1-0.20220316001817-d5090ed65664 // indirect
-	github.com/fatih/structs v1.1.0 // indirect
-	github.com/onsi/gomega v1.24.2 // indirect
-	gomodules.xyz/encoding v0.0.7 // indirect
-	gomodules.xyz/jsonpath v0.0.2 // indirect
-	gomodules.xyz/mergo v0.3.13 // indirect
-)
-
-require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/dustin/go-humanize v1.0.1-0.20220316001817-d5090ed65664 // indirect
+	github.com/fatih/structs v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/gobeam/stringy v0.0.5 // indirect
@@ -45,6 +38,7 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
+	github.com/onsi/gomega v1.24.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/shopspring/decimal v1.2.0 // indirect
@@ -54,6 +48,9 @@ require (
 	golang.org/x/crypto v0.9.0 // indirect
 	golang.org/x/net v0.10.0 // indirect
 	golang.org/x/text v0.9.0 // indirect
+	gomodules.xyz/encoding v0.0.7 // indirect
+	gomodules.xyz/jsonpath v0.0.2 // indirect
+	gomodules.xyz/mergo v0.3.13 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
