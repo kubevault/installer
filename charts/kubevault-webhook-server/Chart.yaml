@@ -2,7 +2,7 @@ apiVersion: v1
 description: KubeVault Webhook Server by AppsCode
 name: kubevault-webhook-server
 version: v0.16.0
-appVersion: v0.16.0
+appVersion: v0.16.2
 home: https://kubevault.com
 icon: https://cdn.appscode.com/images/products/kubevault/kubevault-community-icon.png
 sources:
