@@ -6,7 +6,7 @@ metadata:
     {{- include "kubevault-catalog.labels" . | nindent 4 }}
 spec:
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubevault") .Values) }}/vault-exporter:v0.1.1'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubevault/vault-exporter") $) }}:v0.1.1'
   stash:
     addon:
       backupTask:
@@ -14,7 +14,7 @@ spec:
       restoreTask:
         name: vault-restore-1.10.3
   unsealer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubevault") .Values) }}/vault-unsealer:v0.16.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "kubevault/vault-unsealer") $) }}:v0.16.0'
   vault:
-    image: '{{ include "official.registry" (merge (dict "_bin" "vault") .Values) }}:1.8.2'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "vault") $) }}:1.8.2'
   version: 1.8.2

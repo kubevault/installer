@@ -62,20 +62,22 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{/*
-Returns the registry used for catalog docker images
-*/}}
-{{- define "catalog.registry" -}}
-{{- list (default ._reg .registryFQDN) (default ._repo .image.registry) | compact | join "/" }}
+{{- define "image.dockerHub" -}}
+{{ prepend (list ._repo) (list .Values.proxies.dockerHub .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
-{{/*
-Returns the registry used for official docker images
-*/}}
-{{- define "official.registry" -}}
-{{- if .image.overrideOfficialRegistry -}}
-{{- list .registryFQDN .image.registry ._bin | compact | join "/" }}
-{{- else -}}
-{{- list .registryFQDN ._bin | compact | join "/" }}
+{{- define "image.dockerLibrary" -}}
+{{ prepend (list ._repo) (list .Values.proxies.dockerLibrary .Values.proxies.dockerHub .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
+
+{{- define "image.ghcr" -}}
+{{ prepend (list ._repo) (list .Values.proxies.ghcr .Values.registryFQDN | compact | first) | compact | join "/" }}
+{{- end }}
+
+{{- define "image.kubernetes" -}}
+{{ prepend (list ._repo) (list .Values.proxies.kubernetes .Values.registryFQDN | compact | first) | compact | join "/" }}
+{{- end }}
+
+{{- define "image.appscode" -}}
+{{ prepend (list ._repo) (list .Values.proxies.appscode .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
