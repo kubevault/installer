@@ -45,20 +45,23 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubevault-catalog` chart and their default values.
 
-|           Parameter            |                                                                Description                                                                |        Default         |
-|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|------------------------|
-| nameOverride                   | Overrides name template                                                                                                                   | <code>""</code>        |
-| fullnameOverride               | Overrides fullname template                                                                                                               | <code>""</code>        |
-| registryFQDN                   | Docker registry fqdn used to pull KubeVault related images Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image} | <code>""</code>        |
-| image.registry                 | Docker registry used to pull Vault server image                                                                                           | <code>kubevault</code> |
-| image.overrideOfficialRegistry | If true, uses image registry for pulling official docker images. This can be used to pull images from a private registry                  | <code>false</code>     |
-| skipDeprecated                 | Set true to avoid deploying deprecated versions                                                                                           | <code>true</code>      |
+|       Parameter       |                                                              Description                                                               |           Default            |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------|------------------------------|
+| nameOverride          | Overrides name template                                                                                                                | <code>""</code>              |
+| fullnameOverride      | Overrides fullname template                                                                                                            | <code>""</code>              |
+| registryFQDN          | Docker registry fqdn used to pull KubeDB related images Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image} | <code>""</code>              |
+| proxies.dockerHub     |                                                                                                                                        | <code>""</code>              |
+| proxies.dockerLibrary |                                                                                                                                        | <code>""</code>              |
+| proxies.ghcr          |                                                                                                                                        | <code>ghcr.io</code>         |
+| proxies.kubernetes    |                                                                                                                                        | <code>registry.k8s.io</code> |
+| proxies.appscode      |                                                                                                                                        | <code>r.appscode.com</code>  |
+| skipDeprecated        | Set true to avoid deploying deprecated versions                                                                                        | <code>true</code>            |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubevault-catalog appscode/kubevault-catalog -n kubevault --create-namespace --version=v2023.9.7 --set image.registry=kubevault
+$ helm upgrade -i kubevault-catalog appscode/kubevault-catalog -n kubevault --create-namespace --version=v2023.9.7 --set proxies.ghcr=ghcr.io
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while

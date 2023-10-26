@@ -46,15 +46,30 @@ type KubevaultCatalogSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride string      `json:"fullnameOverride"`
-	RegistryFQDN     string      `json:"registryFQDN"`
-	Image            RegistryRef `json:"image"`
-	SkipDeprecated   bool        `json:"skipDeprecated"`
+	FullnameOverride string `json:"fullnameOverride"`
+	//+optional
+	RegistryFQDN string `json:"registryFQDN"`
+	//+optional
+	Proxies        RegistryProxies `json:"proxies"`
+	SkipDeprecated bool            `json:"skipDeprecated"`
 }
 
-type RegistryRef struct {
-	Registry                 string `json:"registry"`
-	OverrideOfficialRegistry bool   `json:"overrideOfficialRegistry"`
+type RegistryProxies struct {
+	// company/bin:1.23
+	//+optional
+	DockerHub string `json:"dockerHub"`
+	// alpine, nginx etc.
+	//+optional
+	DockerLibrary string `json:"dockerLibrary"`
+	// ghcr.io
+	//+optional
+	GHCR string `json:"ghcr"`
+	// registry.k8s.io
+	//+optional
+	Kubernetes string `json:"kubernetes"`
+	// r.appscode.com
+	//+optional
+	AppsCode string `json:"appscode"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

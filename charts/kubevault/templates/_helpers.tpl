@@ -89,13 +89,6 @@ Returns the registry used for operator docker image
 {{- end }}
 
 {{/*
-Returns the registry used for catalog docker images
-*/}}
-{{- define "catalog.registry" -}}
-{{- list (default .registryFQDN .global.registryFQDN | default ._reg) (default .image.registry .global.registry | default ._repo) | compact | join "/" }}
-{{- end }}
-
-{{/*
 Returns the registry used for cleaner docker image
 */}}
 {{- define "cleaner.registry" -}}
@@ -119,17 +112,6 @@ imagePullSecrets:
 {{- else -}}
 imagePullSecrets:
 {{- toYaml $.Values.imagePullSecrets | nindent 2 }}
-{{- end }}
-{{- end }}
-
-{{/*
-Returns the registry used for official docker images
-*/}}
-{{- define "official.registry" -}}
-{{- if .image.overrideOfficialRegistry -}}
-{{- list (default .registryFQDN .global.registryFQDN) (default .image.registry .global.registry) ._bin | compact | join "/" }}
-{{- else -}}
-{{- list (default .registryFQDN .global.registryFQDN) ._bin | compact | join "/" }}
 {{- end }}
 {{- end }}
 
@@ -158,4 +140,24 @@ Returns the ServiceMonitor labels
 {{ $key }}: {{ $val }}
 {{- end }}
 {{- end }}
+{{- end }}
+
+{{- define "image.dockerHub" -}}
+{{ prepend (list ._repo) (list .Values.proxies.dockerHub .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
+{{- end }}
+
+{{- define "image.dockerLibrary" -}}
+{{ prepend (list ._repo) (list .Values.proxies.dockerLibrary .Values.proxies.dockerHub .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
+{{- end }}
+
+{{- define "image.ghcr" -}}
+{{ prepend (list ._repo) (list .Values.proxies.ghcr .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
+{{- end }}
+
+{{- define "image.kubernetes" -}}
+{{ prepend (list ._repo) (list .Values.proxies.kubernetes .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
+{{- end }}
+
+{{- define "image.appscode" -}}
+{{ prepend (list ._repo) (list .Values.proxies.appscode .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
