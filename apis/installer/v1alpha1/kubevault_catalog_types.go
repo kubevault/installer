@@ -48,8 +48,6 @@ type KubevaultCatalogSpec struct {
 	//+optional
 	FullnameOverride string `json:"fullnameOverride"`
 	//+optional
-	RegistryFQDN string `json:"registryFQDN"`
-	//+optional
 	Proxies        RegistryProxies `json:"proxies"`
 	SkipDeprecated bool            `json:"skipDeprecated"`
 }

@@ -45,17 +45,16 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubevault-catalog` chart and their default values.
 
-|       Parameter       |                                                              Description                                                               |           Default            |
-|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------|------------------------------|
-| nameOverride          | Overrides name template                                                                                                                | <code>""</code>              |
-| fullnameOverride      | Overrides fullname template                                                                                                            | <code>""</code>              |
-| registryFQDN          | Docker registry fqdn used to pull KubeDB related images Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image} | <code>""</code>              |
-| proxies.dockerHub     |                                                                                                                                        | <code>""</code>              |
-| proxies.dockerLibrary |                                                                                                                                        | <code>""</code>              |
-| proxies.ghcr          |                                                                                                                                        | <code>ghcr.io</code>         |
-| proxies.kubernetes    |                                                                                                                                        | <code>registry.k8s.io</code> |
-| proxies.appscode      |                                                                                                                                        | <code>r.appscode.com</code>  |
-| skipDeprecated        | Set true to avoid deploying deprecated versions                                                                                        | <code>true</code>            |
+|       Parameter       |                   Description                   |           Default            |
+|-----------------------|-------------------------------------------------|------------------------------|
+| nameOverride          | Overrides name template                         | <code>""</code>              |
+| fullnameOverride      | Overrides fullname template                     | <code>""</code>              |
+| proxies.dockerHub     |                                                 | <code>""</code>              |
+| proxies.dockerLibrary |                                                 | <code>""</code>              |
+| proxies.ghcr          |                                                 | <code>ghcr.io</code>         |
+| proxies.kubernetes    |                                                 | <code>registry.k8s.io</code> |
+| proxies.appscode      |                                                 | <code>r.appscode.com</code>  |
+| skipDeprecated        | Set true to avoid deploying deprecated versions | <code>true</code>            |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
