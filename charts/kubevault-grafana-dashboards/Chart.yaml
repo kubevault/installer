@@ -2,8 +2,8 @@ apiVersion: v2
 name: kubevault-grafana-dashboards
 description: A Helm chart for kubevault-grafana-dashboards by AppsCode
 type: application
-version: v2023.10.26-rc.0
-appVersion: v2023.10.26-rc.0
+version: v2024.1.26-rc.0
+appVersion: v2024.1.26-rc.0
 home: https://github.com/kubevault
 icon: https://cdn.appscode.com/images/products/kubevault/kubevault-icon.png
 sources:
