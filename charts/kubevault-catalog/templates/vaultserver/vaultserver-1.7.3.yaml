@@ -16,7 +16,7 @@ spec:
         name: vault-restore-1.10.3
   unsealer:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "kubevault/vault-unsealer")
-      $) }}:v0.17.0-rc.1'
+      $) }}:v0.17.0'
   vault:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "vault") $) }}:1.7.3'
   version: 1.7.3

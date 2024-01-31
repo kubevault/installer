@@ -2,8 +2,8 @@ apiVersion: v2
 name: kubevault-metrics
 description: KubeVault State Metrics
 type: application
-version: v2024.1.28-rc.1
-appVersion: v2024.1.28-rc.1
+version: v2024.1.31
+appVersion: v2024.1.31
 home: https://kubevault.com
 icon: https://cdn.appscode.com/images/products/kubevault/kubevault-community-icon.png
 sources:
