@@ -1,9 +1,9 @@
 dependencies:
 - name: kubevault-metrics
   repository: file://../kubevault-metrics
-  version: v2024.1.31
+  version: v2024.3.12
 - name: kubevault-grafana-dashboards
   repository: file://../kubevault-grafana-dashboards
-  version: v2024.1.31
-digest: sha256:2d9db086bc74d6758aa95c7c7449a079efae2433eb6c92631933b6a1ada50395
-generated: "2024-01-31T16:46:33.436305976Z"
+  version: v2024.3.12
+digest: sha256:b0cbc951ea2255fe226cd7287e2aec4f1483e891ef348428874a257cb54ae192
+generated: "2024-03-12T17:24:24.681395561Z"

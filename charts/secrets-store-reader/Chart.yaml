@@ -2,8 +2,8 @@ apiVersion: v2
 name: secrets-store-reader
 description: A Helm chart for secrets-store-reader by AppsCode
 type: application
-version: v2024.1.31
-appVersion: v2024.1.31
+version: v2024.3.12
+appVersion: v2024.3.12
 home: https://github.com/kubevault/secrets-store-reader
 icon: https://cdn.appscode.com/images/products/kubevault/icons/android-icon-192x192.png
 sources:
