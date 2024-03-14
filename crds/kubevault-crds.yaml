@@ -2209,6 +2209,8 @@ spec:
                 required:
                 - credentialSecret
                 type: object
+              defaultLeaseTTL:
+                type: string
               elasticsearch:
                 description: 'ElasticsearchConfiguration defines a Elasticsearch app
                   configuration. https://www.vaultproject.io/api-docs/secret/databases/elasticdb
@@ -2385,6 +2387,8 @@ spec:
                 required:
                 - databaseRef
                 type: object
+              maxLeaseTTL:
+                type: string
               mongodb:
                 description: MongoDBConfiguration defines a MongoDB app configuration.
                   https://www.vaultproject.io/api/secret/databases/index.html https://www.vaultproject.io/api/secret/databases/mongodb.html#configure-connection
