@@ -9,17 +9,6 @@ nameOverride: ""
 fullnameOverride: ""
 # Number of KubeVault webhook server replicas to create (only 1 is supported)
 replicaCount: 1
-# License for the product.
-# Get a license by following the steps from [here](https://kubevault.com/docs/latest/setup/install/enterprise/#get-a-trial-license).
-# Example:
-# helm install appscode/kubevault-ops-manager \
-#   --set-file license=/path/to/license/file
-# or
-# helm install appscode/kubevault-ops-manager \
-#   --set license=<license file content>
-license: ""
-# Name of Secret with the license as key.txt key
-licenseSecretName: ""
 # Docker registry fqdn used to pull docker images
 # Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
 registryFQDN: ghcr.io
