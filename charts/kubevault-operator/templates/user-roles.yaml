@@ -11,12 +11,16 @@ rules:
 - apiGroups:
   - kubevault.com
   - catalog.kubevault.com
-  - policy.kubevault.com
-  - appcatalog.appscode.com
   - engine.kubevault.com
   - ops.kubevault.com
+  - policy.kubevault.com
   resources:
   - "*"
+  verbs: ["*"]
+- apiGroups:
+  - appcatalog.appscode.com
+  resources:
+  - appbindings
   verbs: ["*"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -31,44 +35,17 @@ metadata:
 rules:
 - apiGroups:
   - kubevault.com
-  resources:
-  - vaultservers
-  verbs: ["*"]
-- apiGroups:
+  - engine.kubevault.com
+  - ops.kubevault.com
   - policy.kubevault.com
   resources:
-  - vaultpolicies
-  - vaultpolicybindings
-  verbs: ["*"]
+  - "*"
+  verbs: ["create", "delete", "deletecollection", "patch", "update"]
 - apiGroups:
   - engine.kubevault.com
   resources:
-  - secretengines
-  - mongodbroles
-  - mysqlroles
-  - redisroles
-  - postgresroles
-  - mariadbroles
-  - awsroles
-  - gcproles
-  - azureroles
-  - secretaccessrequests
-  verbs: ["*"]
-- apiGroups:
-  - appcatalog.appscode.com
-  resources:
-  - appbindings
-  verbs: ["*"]
-- apiGroups:
-  - catalog.kubevault.com
-  resources:
-  - vaultserverversions
-  verbs: ["get", "list", "watch"]
-- apiGroups:
-  - ops.kubevault.com
-  resources:
-  - vaultopsrequests
-  verbs: ["*"]
+  - secretaccessrequests/status
+  verbs: ["create", "patch", "update"]
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
@@ -81,42 +58,16 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation
 rules:
 - apiGroups:
+  - catalog.kubevault.com
+  - engine.kubevault.com
   - kubevault.com
-  resources:
-  - vaultservers
-  verbs: ["get", "list", "watch"]
-- apiGroups:
+  - ops.kubevault.com
   - policy.kubevault.com
   resources:
-  - vaultpolicies
-  - vaultpolicybindings
-  verbs: ["get", "list", "watch"]
-- apiGroups:
-  - engine.kubevault.com
-  resources:
-  - secretengines
-  - mongodbroles
-  - redisroles
-  - mysqlroles
-  - postgresroles
-  - mariadbroles
-  - awsroles
-  - gcproles
-  - azureroles
-  - secretaccessrequests
+  - "*"
   verbs: ["get", "list", "watch"]
 - apiGroups:
   - appcatalog.appscode.com
   resources:
   - appbindings
   verbs: ["get", "list", "watch"]
-- apiGroups:
-  - catalog.kubevault.com
-  resources:
-  - vaultserverversions
-  verbs: ["get", "list", "watch"]
-- apiGroups:
-  - ops.kubevault.com
-  resources:
-  - vaultopsrequests
-  verbs: ["*"]
