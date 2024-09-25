@@ -1,12 +1,2 @@
 # https://github.com/helm/charts/blob/master/test/README.md#providing-custom-test-values
 license: ""
-kubevault-operator:
-  operator:
-    securityContext:
-      seccompProfile:
-        type: RuntimeDefault
-kubevault-webhook-server:
-  server:
-    securityContext:
-      seccompProfile:
-        type: RuntimeDefault

@@ -28,8 +28,8 @@ server:
     readOnlyRootFilesystem: true
     runAsNonRoot: true
     runAsUser: 65534
-    # seccompProfile:
-    #   type: RuntimeDefault
+    seccompProfile:
+      type: RuntimeDefault
   # Compute Resources required by the webhook server container
   resources: {}
   # requests:
