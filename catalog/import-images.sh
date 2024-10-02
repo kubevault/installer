@@ -26,21 +26,21 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
-$CMD push images/kubevault-secrets-store-reader-v2024.9.30.tar $IMAGE_REGISTRY/kubevault/secrets-store-reader:v2024.9.30
-$CMD push images/kubevault-vault-exporter-v0.1.1.tar $IMAGE_REGISTRY/kubevault/vault-exporter:v0.1.1
-$CMD push images/kubevault-vault-operator-v0.19.0.tar $IMAGE_REGISTRY/kubevault/vault-operator:v0.19.0
-$CMD push images/kubevault-vault-unsealer-v0.19.0.tar $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.19.0
-$CMD push images/library-vault-0.11.5.tar $IMAGE_REGISTRY/vault:0.11.5
-$CMD push images/library-vault-1.10.3.tar $IMAGE_REGISTRY/vault:1.10.3
-$CMD push images/library-vault-1.11.5.tar $IMAGE_REGISTRY/vault:1.11.5
-$CMD push images/library-vault-1.12.1.tar $IMAGE_REGISTRY/vault:1.12.1
-$CMD push images/library-vault-1.13.3.tar $IMAGE_REGISTRY/vault:1.13.3
-$CMD push images/library-vault-1.2.0.tar $IMAGE_REGISTRY/vault:1.2.0
-$CMD push images/library-vault-1.2.2.tar $IMAGE_REGISTRY/vault:1.2.2
-$CMD push images/library-vault-1.2.3.tar $IMAGE_REGISTRY/vault:1.2.3
-$CMD push images/library-vault-1.5.9.tar $IMAGE_REGISTRY/vault:1.5.9
-$CMD push images/library-vault-1.6.5.tar $IMAGE_REGISTRY/vault:1.6.5
-$CMD push images/library-vault-1.7.2.tar $IMAGE_REGISTRY/vault:1.7.2
-$CMD push images/library-vault-1.7.3.tar $IMAGE_REGISTRY/vault:1.7.3
-$CMD push images/library-vault-1.8.2.tar $IMAGE_REGISTRY/vault:1.8.2
-$CMD push images/library-vault-1.9.2.tar $IMAGE_REGISTRY/vault:1.9.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubevault-secrets-store-reader-v2024.9.30.tar $IMAGE_REGISTRY/kubevault/secrets-store-reader:v2024.9.30
+$CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-exporter-v0.1.1.tar $IMAGE_REGISTRY/kubevault/vault-exporter:v0.1.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-operator-v0.19.0.tar $IMAGE_REGISTRY/kubevault/vault-operator:v0.19.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-unsealer-v0.19.0.tar $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.19.0
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-0.11.5.tar $IMAGE_REGISTRY/vault:0.11.5
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.10.3.tar $IMAGE_REGISTRY/vault:1.10.3
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.11.5.tar $IMAGE_REGISTRY/vault:1.11.5
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.12.1.tar $IMAGE_REGISTRY/vault:1.12.1
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.13.3.tar $IMAGE_REGISTRY/vault:1.13.3
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.2.0.tar $IMAGE_REGISTRY/vault:1.2.0
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.2.2.tar $IMAGE_REGISTRY/vault:1.2.2
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.2.3.tar $IMAGE_REGISTRY/vault:1.2.3
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.5.9.tar $IMAGE_REGISTRY/vault:1.5.9
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.6.5.tar $IMAGE_REGISTRY/vault:1.6.5
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.7.2.tar $IMAGE_REGISTRY/vault:1.7.2
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.7.3.tar $IMAGE_REGISTRY/vault:1.7.3
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.8.2.tar $IMAGE_REGISTRY/vault:1.8.2
+$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.9.2.tar $IMAGE_REGISTRY/vault:1.9.2

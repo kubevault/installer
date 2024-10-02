@@ -32,23 +32,23 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
-$CMD pull ghcr.io/kubevault/secrets-store-reader:v2024.9.30 images/kubevault-secrets-store-reader-v2024.9.30.tar
-$CMD pull ghcr.io/kubevault/vault-exporter:v0.1.1 images/kubevault-vault-exporter-v0.1.1.tar
-$CMD pull ghcr.io/kubevault/vault-operator:v0.19.0 images/kubevault-vault-operator-v0.19.0.tar
-$CMD pull kubevault/vault-unsealer:v0.19.0 images/kubevault-vault-unsealer-v0.19.0.tar
-$CMD pull vault:0.11.5 images/library-vault-0.11.5.tar
-$CMD pull vault:1.10.3 images/library-vault-1.10.3.tar
-$CMD pull vault:1.11.5 images/library-vault-1.11.5.tar
-$CMD pull vault:1.12.1 images/library-vault-1.12.1.tar
-$CMD pull vault:1.13.3 images/library-vault-1.13.3.tar
-$CMD pull vault:1.2.0 images/library-vault-1.2.0.tar
-$CMD pull vault:1.2.2 images/library-vault-1.2.2.tar
-$CMD pull vault:1.2.3 images/library-vault-1.2.3.tar
-$CMD pull vault:1.5.9 images/library-vault-1.5.9.tar
-$CMD pull vault:1.6.5 images/library-vault-1.6.5.tar
-$CMD pull vault:1.7.2 images/library-vault-1.7.2.tar
-$CMD pull vault:1.7.3 images/library-vault-1.7.3.tar
-$CMD pull vault:1.8.2 images/library-vault-1.8.2.tar
-$CMD pull vault:1.9.2 images/library-vault-1.9.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/secrets-store-reader:v2024.9.30 images/kubevault-secrets-store-reader-v2024.9.30.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-exporter:v0.1.1 images/kubevault-vault-exporter-v0.1.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-operator:v0.19.0 images/kubevault-vault-operator-v0.19.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure kubevault/vault-unsealer:v0.19.0 images/kubevault-vault-unsealer-v0.19.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:0.11.5 images/library-vault-0.11.5.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:1.10.3 images/library-vault-1.10.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:1.11.5 images/library-vault-1.11.5.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:1.12.1 images/library-vault-1.12.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:1.13.3 images/library-vault-1.13.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:1.2.0 images/library-vault-1.2.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:1.2.2 images/library-vault-1.2.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:1.2.3 images/library-vault-1.2.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:1.5.9 images/library-vault-1.5.9.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:1.6.5 images/library-vault-1.6.5.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:1.7.2 images/library-vault-1.7.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:1.7.3 images/library-vault-1.7.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:1.8.2 images/library-vault-1.8.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure vault:1.9.2 images/library-vault-1.9.2.tar
 
 tar -czvf images.tar.gz images
