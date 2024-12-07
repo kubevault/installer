@@ -62,8 +62,6 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&KubevaultWebhookServerList{},
 		&KubevaultWebhookServer{},
 		&Kubevault{},
-		&SecretsStoreReaderList{},
-		&SecretsStoreReader{},
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,

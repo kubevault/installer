@@ -1,3 +1,0 @@
-To verify that UI Server has started, run:
-
-  kubectl get deployment --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "secrets-store-reader.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"

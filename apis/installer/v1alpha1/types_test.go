@@ -31,7 +31,6 @@ func TestDefaultValues(t *testing.T) {
 		schemachecker.TestCase{Obj: v1alpha1.KubevaultOperatorSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubevaultWebhookServerSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubevaultSpec{}},
-		schemachecker.TestCase{Obj: v1alpha1.SecretsStoreReaderSpec{}},
 	)
 	checker.TestAll(t)
 }
