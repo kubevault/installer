@@ -32,7 +32,6 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/secrets-store-reader:v2024.9.30 images/kubevault-secrets-store-reader-v2024.9.30.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-exporter:v0.1.1 images/kubevault-vault-exporter-v0.1.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-operator:v0.19.0 images/kubevault-vault-operator-v0.19.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure kubevault/vault-unsealer:v0.19.0 images/kubevault-vault-unsealer-v0.19.0.tar
