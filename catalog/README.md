@@ -1,7 +1,6 @@
 # CVE Report
 |                                                      IMAGE REF                                                      |      OS       | CRITICAL<BR>(OS, OTHER) | HIGH<BR>(OS, OTHER) | MEDIUM<BR>(OS, OTHER) | LOW<BR>(OS, OTHER) | UNKNOWN<BR>(OS, OTHER) |
 |---------------------------------------------------------------------------------------------------------------------|---------------|-------------------------|---------------------|-----------------------|--------------------|------------------------|
-| ghcr.io/kubevault/secrets-store-reader:v2024.9.30                                                                   |               | 0, 0                    | 0, 0                | 0, 0                  | 0, 0               | 0, 0                   |
 | ghcr.io/kubevault/vault-exporter:v0.1.1<br>sha256:d57858e2f6d19f647ea4ac00eea2e776d3fa65551b4e662d3c6791a334ea0e61  | debian 10.10  | 0, 4                    | 0, 47               | 0, 30                 | 0, 1               | 6, 0                   |
 | ghcr.io/kubevault/vault-operator:v0.19.0<br>sha256:5a8582c8f193085ba4889e5fa4cdddd94a7db2b3483a19b53b22f0965330bf2f | debian 12.7   | 0, 0                    | 0, 0                | 1, 1                  | 1, 0               | 0, 0                   |
 | kubevault/vault-unsealer:v0.19.0<br>sha256:5b49515b8950334539e10b10373a71e9ed4b51adb2087fe36fa2d71aaa969f21         | debian 12.7   | 0, 1                    | 0, 2                | 0, 7                  | 0, 1               | 0, 0                   |
