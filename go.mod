@@ -21,6 +21,7 @@ require (
 	kmodules.xyz/go-containerregistry v0.0.12
 	kmodules.xyz/image-packer v0.0.0-20241207204410-7a879392f877
 	kmodules.xyz/schema-checker v0.4.2
+	kubeops.dev/installer v0.0.0-20250131122006-8354eb35b627
 	sigs.k8s.io/yaml v1.4.0
 )
 
@@ -50,7 +51,6 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.17.4 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect

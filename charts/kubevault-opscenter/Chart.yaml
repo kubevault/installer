@@ -20,3 +20,7 @@ dependencies:
   repository: file://../kubevault-grafana-dashboards
   condition: kubevault-grafana-dashboards.enabled
   version: v2024.9.30
+- name: ace-user-roles
+  repository: oci://ghcr.io/appscode-charts
+  condition: ace-user-roles.enabled
+  version: v2024.9.30
