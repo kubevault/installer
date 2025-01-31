@@ -5,6 +5,8 @@ metadata:
 spec:
   exporter:
     image: ghcr.io/kubevault/vault-exporter:v0.1.1
+  initContainer:
+    image: busybox
   stash:
     addon:
       backupTask:
