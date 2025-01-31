@@ -28,3 +28,7 @@ dependencies:
   repository: file://../kubevault-webhook-server
   version: v0.19.0
   condition: kubevault-webhook-server.enabled
+- name: ace-user-roles
+  repository: oci://ghcr.io/appscode-charts
+  condition: ace-user-roles.enabled
+  version: v2024.9.30

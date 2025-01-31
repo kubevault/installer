@@ -44,3 +44,19 @@ kubevault-metrics:
 kubevault-grafana-dashboards:
   # If enabled, installs the kubevault-grafana-dashboards chart
   enabled: true
+ace-user-roles:
+  # If enabled, installs the ace-user-roles chart
+  enabled: true
+  enableClusterRoles:
+    ace: false
+    appcatalog: false
+    catalog: false
+    cert-manager: false
+    kubedb: false
+    kubedb-ui: false
+    kubestash: false
+    kubevault: false
+    license-proxyserver: false
+    metrics: true
+    prometheus: false
+    stash: false

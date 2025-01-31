@@ -50,3 +50,19 @@ kubevault-operator:
 kubevault-webhook-server:
   # If enabled, installs the kubevault-webhook-server chart
   enabled: true
+ace-user-roles:
+  # If enabled, installs the ace-user-roles chart
+  enabled: true
+  enableClusterRoles:
+    ace: false
+    appcatalog: true
+    catalog: false
+    cert-manager: false
+    kubedb: false
+    kubedb-ui: false
+    kubestash: false
+    kubevault: true
+    license-proxyserver: true
+    metrics: false
+    prometheus: false
+    stash: false
