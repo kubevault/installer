@@ -11,5 +11,8 @@ dependencies:
 - name: kubevault-webhook-server
   repository: file://../kubevault-webhook-server
   version: v0.19.0
-digest: sha256:cf9b680910912a20c115a6f71a6b43afdb474a7457d494f843e170ba397fd5fa
-generated: "2024-09-27T03:01:12.12702049Z"
+- name: ace-user-roles
+  repository: oci://ghcr.io/appscode-charts
+  version: v2024.9.30
+digest: sha256:3897b63f14afda551dcfffc14290e42ac52620fda9e93c2bd706a7389cb056fc
+generated: "2025-02-01T00:41:03.176143+06:00"
