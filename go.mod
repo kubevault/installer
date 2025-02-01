@@ -8,7 +8,6 @@ require (
 	github.com/Masterminds/semver/v3 v3.3.0
 	github.com/Masterminds/sprig/v3 v3.2.3
 	github.com/gogo/protobuf v1.3.2
-	github.com/google/go-containerregistry v0.19.1 // indirect
 	github.com/google/gofuzz v1.2.0
 	github.com/spf13/pflag v1.0.5
 	github.com/yudai/gojsondiff v1.0.0
@@ -16,7 +15,7 @@ require (
 	gomodules.xyz/semvers v0.0.0-20220316103017-cfbe8c37b63d
 	k8s.io/api v0.30.2
 	k8s.io/apimachinery v0.30.2
-	k8s.io/klog/v2 v2.130.1 // indirect
+	k8s.io/kube-openapi v0.0.0-20240703190633-0aa61b46e8c2
 	kmodules.xyz/client-go v0.30.44
 	kmodules.xyz/go-containerregistry v0.0.12
 	kmodules.xyz/image-packer v0.0.0-20241207204410-7a879392f877
@@ -44,6 +43,7 @@ require (
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/gnostic-models v0.6.8 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
+	github.com/google/go-containerregistry v0.19.1 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/imdario/mergo v0.3.16 // indirect
@@ -79,7 +79,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/client-go v0.30.2 // indirect
-	k8s.io/kube-openapi v0.0.0-20240703190633-0aa61b46e8c2 // indirect
+	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/utils v0.0.0-20240502163921-fe8a2dddb1d0 // indirect
 	kubeops.dev/scanner v0.0.19 // indirect
 	sigs.k8s.io/controller-runtime v0.18.4 // indirect
