@@ -1,6 +1,6 @@
 - ghcr.io/kubevault/vault-exporter:v0.1.1
-- ghcr.io/kubevault/vault-operator:v0.19.0
-- kubevault/vault-unsealer:v0.19.0
+- ghcr.io/kubevault/vault-operator:v0.20.0-rc.0
+- kubevault/vault-unsealer:v0.20.0-rc.0
 - vault:0.11.5
 - vault:1.10.3
 - vault:1.11.5

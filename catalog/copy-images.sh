@@ -36,8 +36,8 @@ mv /tmp/crane .
 CMD="./crane"
 
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-exporter:v0.1.1 $IMAGE_REGISTRY/kubevault/vault-exporter:v0.1.1
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-operator:v0.19.0 $IMAGE_REGISTRY/kubevault/vault-operator:v0.19.0
-$CMD cp --allow-nondistributable-artifacts --insecure kubevault/vault-unsealer:v0.19.0 $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.19.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-operator:v0.20.0-rc.0 $IMAGE_REGISTRY/kubevault/vault-operator:v0.20.0-rc.0
+$CMD cp --allow-nondistributable-artifacts --insecure kubevault/vault-unsealer:v0.20.0-rc.0 $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.20.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure vault:0.11.5 $IMAGE_REGISTRY/vault:0.11.5
 $CMD cp --allow-nondistributable-artifacts --insecure vault:1.10.3 $IMAGE_REGISTRY/vault:1.10.3
 $CMD cp --allow-nondistributable-artifacts --insecure vault:1.11.5 $IMAGE_REGISTRY/vault:1.11.5
