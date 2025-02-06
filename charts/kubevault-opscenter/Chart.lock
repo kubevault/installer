@@ -1,12 +1,12 @@
 dependencies:
 - name: kubevault-metrics
   repository: file://../kubevault-metrics
-  version: v2024.9.30
+  version: v2025.2.6-rc.0
 - name: kubevault-grafana-dashboards
   repository: file://../kubevault-grafana-dashboards
-  version: v2024.9.30
+  version: v2025.2.6-rc.0
 - name: ace-user-roles
   repository: oci://ghcr.io/appscode-charts
   version: v2024.9.30
-digest: sha256:398c9fdad7eb30aba5703473cbdf1d2d301a38482f22ac7fba945270e4158d47
-generated: "2025-02-01T00:41:07.819835+06:00"
+digest: sha256:b018a8bbe929ddc6a7b720ee35c2f80df33d8b14c57efcf349592bee2d8c3db3
+generated: "2025-02-06T22:52:11.603157522Z"

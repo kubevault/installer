@@ -27,8 +27,8 @@ tar -zxvf $TARBALL
 CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-exporter-v0.1.1.tar $IMAGE_REGISTRY/kubevault/vault-exporter:v0.1.1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-operator-v0.19.0.tar $IMAGE_REGISTRY/kubevault/vault-operator:v0.19.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-unsealer-v0.19.0.tar $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.19.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-operator-v0.20.0-rc.0.tar $IMAGE_REGISTRY/kubevault/vault-operator:v0.20.0-rc.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-unsealer-v0.20.0-rc.0.tar $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.20.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/library-vault-0.11.5.tar $IMAGE_REGISTRY/vault:0.11.5
 $CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.10.3.tar $IMAGE_REGISTRY/vault:1.10.3
 $CMD push --allow-nondistributable-artifacts --insecure images/library-vault-1.11.5.tar $IMAGE_REGISTRY/vault:1.11.5
