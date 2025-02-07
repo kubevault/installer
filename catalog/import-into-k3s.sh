@@ -25,8 +25,8 @@ TARBALL=${1:-}
 tar -zxvf $TARBALL
 
 k3s ctr images import images/kubevault-vault-exporter-v0.1.1.tar
-k3s ctr images import images/kubevault-vault-operator-v0.20.0-rc.0.tar
-k3s ctr images import images/kubevault-vault-unsealer-v0.20.0-rc.0.tar
+k3s ctr images import images/kubevault-vault-operator-v0.20.0.tar
+k3s ctr images import images/kubevault-vault-unsealer-v0.20.0.tar
 k3s ctr images import images/library-vault-0.11.5.tar
 k3s ctr images import images/library-vault-1.10.3.tar
 k3s ctr images import images/library-vault-1.11.5.tar
