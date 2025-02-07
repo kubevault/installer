@@ -14,7 +14,7 @@ spec:
       restoreTask:
         name: vault-restore-1.10.3
   unsealer:
-    image: kubevault/vault-unsealer:v0.20.0-rc.0
+    image: kubevault/vault-unsealer:v0.20.0
   vault:
     image: vault:1.12.1
   version: 1.12.1
