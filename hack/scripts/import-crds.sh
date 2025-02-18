@@ -45,38 +45,50 @@ if [ "$#" -ne 1 ]; then
     crd_dir=${tmp_dir}/${repo_dir}/crds
 fi
 
+KMODULES_CUSTOM_RESOURCES_TAG=${KMODULES_CUSTOM_RESOURCES_TAG:-v0.30.1}
+KUBEOPS_SUPERVISOR_TAG=${KUBEOPS_SUPERVISOR_TAG:-v0.0.7}
+OPEN_VIZ_APIMACHINERY_TAG=${OPEN_VIZ_APIMACHINERY_TAG:-v0.0.8}
+
 crd-importer \
+    --no-description \
     --input=${crd_dir} \
     --input=https://github.com/kmodules/custom-resources/raw/v0.25.1/crds/metrics.appscode.com_metricsconfigurations.v1.yaml \
     --out=./charts/kubevault-crds/crds
 
 crd-importer \
+    --no-description \
     --input=${crd_dir} \
     --out=. --output-yaml=./crds/kubevault-crds.yaml
 
 crd-importer --v=v1 \
+    --no-description \
     --input=${crd_dir} \
     --out=./charts/kubevault-catalog/crds \
     --group=catalog.kubevault.com
 
 crd-importer --v=v1 \
+    --no-description \
     --input=${crd_dir} \
     --out=. --output-yaml=./crds/kubevault-catalog-crds.yaml \
     --group=catalog.kubevault.com
 
 crd-importer --v=v1 \
+    --no-description \
     --input=${crd_dir} \
     --out=./charts/kubevault-operator/crds \
     --group=kubevault.com
 
 crd-importer \
-    --input=https://github.com/kmodules/custom-resources/raw/v0.25.1/crds/metrics.appscode.com_metricsconfigurations.yaml \
+    --no-description \
+    --input=https://github.com/kmodules/custom-resources/raw/${KMODULES_CUSTOM_RESOURCES_TAG}/crds/metrics.appscode.com_metricsconfigurations.yaml \
     --out=./charts/kubevault-metrics/crds
 
 crd-importer \
-    --input=https://github.com/kubeops/supervisor/raw/v0.0.2/crds/supervisor.appscode.com_recommendations.yaml \
+    --no-description \
+    --input=https://github.com/kubeops/supervisor/raw/${KUBEOPS_SUPERVISOR_TAG}/crds/supervisor.appscode.com_recommendations.yaml \
     --out=./charts/kubevault-operator/crds
 
 crd-importer \
-    --input=https://github.com/open-viz/apimachinery/raw/v0.0.4/crds/openviz.dev_grafanadashboards.yaml \
+    --no-description \
+    --input=https://github.com/open-viz/apimachinery/raw/${OPEN_VIZ_APIMACHINERY_TAG}/crds/openviz.dev_grafanadashboards.yaml \
     --out=./charts/kubevault-grafana-dashboards/crds
