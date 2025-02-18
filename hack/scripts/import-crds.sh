@@ -52,8 +52,22 @@ OPEN_VIZ_APIMACHINERY_TAG=${OPEN_VIZ_APIMACHINERY_TAG:-v0.0.8}
 crd-importer \
     --no-description \
     --input=${crd_dir} \
-    --input=https://github.com/kmodules/custom-resources/raw/v0.25.1/crds/metrics.appscode.com_metricsconfigurations.v1.yaml \
+    --input=https://github.com/kmodules/custom-resources/raw/${KMODULES_CUSTOM_RESOURCES_TAG}/crds/metrics.appscode.com_metricsconfigurations.v1.yaml \
     --out=./charts/kubevault-crds/crds
+
+crd-importer --v=v1 \
+    --no-description \
+    --annotations 'config.kubernetes.io/local-config=true' \
+    --input=${crd_dir} \
+    --out=./charts/kubevault-crds/crds \
+    --group=catalog.kubevault.com
+
+crd-importer --v=v1 \
+    --no-description \
+    --annotations 'config.kubernetes.io/local-config=true' \
+    --input=${crd_dir} \
+    --out=./charts/kubevault-crds/crds \
+    --group=kubevault.com
 
 crd-importer \
     --no-description \
