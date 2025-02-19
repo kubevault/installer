@@ -18,5 +18,5 @@ spec:
   unsealer:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "kubevault/vault-unsealer") $) }}:v0.20.0'
   vault:
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "vault") $) }}:1.2.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/vault") $) }}:1.2.0'
   version: 1.2.0
