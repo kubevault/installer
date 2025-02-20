@@ -16,5 +16,5 @@ spec:
   unsealer:
     image: kubevault/vault-unsealer:v0.20.0
   vault:
-    image: vault:1.12.1
+    image: ghcr.io/appscode-images/vault:1.12.1
   version: 1.12.1

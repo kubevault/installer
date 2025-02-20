@@ -1,7 +1,7 @@
 apiVersion: catalog.kubevault.com/v1alpha1
 kind: VaultServerVersion
 metadata:
-  name: 1.5.9
+  name: 1.14.10
 spec:
   exporter:
     image: ghcr.io/kubevault/vault-exporter:v0.1.1
@@ -16,5 +16,5 @@ spec:
   unsealer:
     image: kubevault/vault-unsealer:v0.20.0
   vault:
-    image: ghcr.io/appscode-images/vault:1.5.9
-  version: 1.5.9
+    image: ghcr.io/appscode-images/vault:1.14.10
+  version: 1.14.10
