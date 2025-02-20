@@ -51,6 +51,11 @@ rules:
   - serviceaccounts
   verbs: ["create", "get", "patch"]
 - apiGroups:
+    - ""
+  resources:
+    - serviceaccounts/finalizers
+  verbs: ["update"]
+- apiGroups:
   - ""
   resources:
   - secrets
