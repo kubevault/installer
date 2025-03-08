@@ -16,11 +16,11 @@ require (
 	k8s.io/api v0.30.2
 	k8s.io/apimachinery v0.30.2
 	k8s.io/kube-openapi v0.0.0-20240703190633-0aa61b46e8c2
-	kmodules.xyz/client-go v0.30.44
+	kmodules.xyz/client-go v0.30.46
 	kmodules.xyz/go-containerregistry v0.0.12
-	kmodules.xyz/image-packer v0.0.0-20241207204410-7a879392f877
+	kmodules.xyz/image-packer v0.0.0-20250302004653-f7cd2db94159
 	kmodules.xyz/schema-checker v0.4.2
-	kubeops.dev/installer v0.0.0-20250131122006-8354eb35b627
+	kubeops.dev/installer v0.0.0-20250308094117-b6235d8d47ff
 	sigs.k8s.io/yaml v1.4.0
 )
 

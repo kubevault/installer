@@ -13,6 +13,6 @@ dependencies:
   version: v0.20.0
 - name: ace-user-roles
   repository: oci://ghcr.io/appscode-charts
-  version: v2024.9.30
-digest: sha256:6b98d473292c93f7431c3f3f23f13ff8c06cdbbba73f615829fc080786df54fc
-generated: "2025-02-07T21:59:29.051668354Z"
+  version: v2025.3.14
+digest: sha256:d1e5622ffefee80ad1f47ed55d253b5f8b5e60e5eb6a02f21d7b0b102e3002d5
+generated: "2025-03-08T01:48:48.909616-08:00"
