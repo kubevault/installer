@@ -59,6 +59,8 @@ imagePullSecrets: []
 imagePullPolicy: IfNotPresent
 # If true, installs KubeVault operator as critical addon
 criticalAddon: false
+# PriorityClassName for the operator
+priorityClassName: ""
 # Log level for operator
 logLevel: 3
 # Annotations applied to operator deployment
