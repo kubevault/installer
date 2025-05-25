@@ -2,8 +2,8 @@ apiVersion: v2
 name: kubevault-crds
 description: KubeVault Custom Resource Definitions
 type: application
-version: v2025.2.10
-appVersion: v2025.2.10
+version: v2025.5.26
+appVersion: v2025.5.26
 home: https://kubevault.com
 icon: https://cdn.appscode.com/images/products/kubevault/icons/android-icon-192x192.png
 sources:

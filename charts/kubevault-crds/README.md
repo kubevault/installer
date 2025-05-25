@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubevault-crds --version=v2025.2.10
-$ helm upgrade -i kubevault-crds appscode/kubevault-crds -n kubevault --create-namespace --version=v2025.2.10
+$ helm search repo appscode/kubevault-crds --version=v2025.5.26
+$ helm upgrade -i kubevault-crds appscode/kubevault-crds -n kubevault --create-namespace --version=v2025.5.26
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys KubeVault crds on a [Kubernetes](http://kubernetes.io) cluste
 To install/upgrade the chart with the release name `kubevault-crds`:
 
 ```bash
-$ helm upgrade -i kubevault-crds appscode/kubevault-crds -n kubevault --create-namespace --version=v2025.2.10
+$ helm upgrade -i kubevault-crds appscode/kubevault-crds -n kubevault --create-namespace --version=v2025.5.26
 ```
 
 The command deploys KubeVault crds on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
