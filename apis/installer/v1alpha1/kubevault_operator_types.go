@@ -54,6 +54,8 @@ type KubevaultOperatorSpec struct {
 	// +optional
 	CriticalAddon bool `json:"criticalAddon"`
 	// +optional
+	PriorityClassName string `json:"priorityClassName"`
+	// +optional
 	LogLevel int32 `json:"logLevel"`
 	// +optional
 	Annotations map[string]string `json:"annotations"`

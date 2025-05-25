@@ -1402,6 +1402,8 @@ properties:
             type: string
         type: object
     type: object
+  priorityClassName:
+    type: string
   recommendationEngine:
     properties:
       genRotateTLSRecommendationBeforeExpiryDay:
