@@ -54,6 +54,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/va
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.8.2 $IMAGE_REGISTRY/appscode-images/vault:1.8.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.9.2 $IMAGE_REGISTRY/appscode-images/vault:1.9.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-exporter:v0.1.1 $IMAGE_REGISTRY/kubevault/vault-exporter:v0.1.1
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-operator:v0.21.0 $IMAGE_REGISTRY/kubevault/vault-operator:v0.21.0
-$CMD cp --allow-nondistributable-artifacts --insecure kubevault/vault-unsealer:v0.21.0 $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.21.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-operator:v0.22.0 $IMAGE_REGISTRY/kubevault/vault-operator:v0.22.0
+$CMD cp --allow-nondistributable-artifacts --insecure kubevault/vault-unsealer:v0.22.0 $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.22.0
 $CMD cp --allow-nondistributable-artifacts --insecure vault:0.11.5 $IMAGE_REGISTRY/vault:0.11.5

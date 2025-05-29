@@ -17,6 +17,6 @@
 - ghcr.io/appscode-images/vault:1.8.2
 - ghcr.io/appscode-images/vault:1.9.2
 - ghcr.io/kubevault/vault-exporter:v0.1.1
-- ghcr.io/kubevault/vault-operator:v0.21.0
-- kubevault/vault-unsealer:v0.21.0
+- ghcr.io/kubevault/vault-operator:v0.22.0
+- kubevault/vault-unsealer:v0.22.0
 - vault:0.11.5

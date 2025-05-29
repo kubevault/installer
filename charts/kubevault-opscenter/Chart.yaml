@@ -2,8 +2,8 @@ apiVersion: v2
 name: kubevault-opscenter
 description: KubeVault Opscenter by AppsCode
 type: application
-version: v2025.5.26
-appVersion: v2025.5.26
+version: v2025.5.30
+appVersion: v2025.5.30
 home: https://kubevault.com
 icon: https://cdn.appscode.com/images/products/kubevault/kubevault-icon.png
 sources:
@@ -15,11 +15,11 @@ dependencies:
 - name: kubevault-metrics
   repository: file://../kubevault-metrics
   condition: kubevault-metrics.enabled
-  version: v2025.5.26
+  version: v2025.5.30
 - name: kubevault-grafana-dashboards
   repository: file://../kubevault-grafana-dashboards
   condition: kubevault-grafana-dashboards.enabled
-  version: v2025.5.26
+  version: v2025.5.30
 - name: ace-user-roles
   repository: oci://ghcr.io/appscode-charts
   condition: ace-user-roles.enabled

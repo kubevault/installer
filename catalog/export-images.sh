@@ -51,8 +51,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.8.2 images/appscode-images-vault-1.8.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.9.2 images/appscode-images-vault-1.9.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-exporter:v0.1.1 images/kubevault-vault-exporter-v0.1.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-operator:v0.21.0 images/kubevault-vault-operator-v0.21.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure kubevault/vault-unsealer:v0.21.0 images/kubevault-vault-unsealer-v0.21.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-operator:v0.22.0 images/kubevault-vault-operator-v0.22.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure kubevault/vault-unsealer:v0.22.0 images/kubevault-vault-unsealer-v0.22.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure vault:0.11.5 images/library-vault-0.11.5.tar
 
 tar -czvf images.tar.gz images
