@@ -1541,21 +1541,12 @@ spec:
                   insecure:
                     default: false
                     type: boolean
-                  password:
-                    type: string
                   pluginName:
                     type: string
                   tlsServerName:
                     type: string
-                  url:
-                    type: string
-                  username:
-                    type: string
                 required:
                 - databaseRef
-                - password
-                - url
-                - username
                 type: object
               gcp:
                 properties:
