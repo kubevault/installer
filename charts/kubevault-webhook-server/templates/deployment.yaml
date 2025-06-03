@@ -111,6 +111,8 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- if $criticalAddon }}
+    {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+    {{- else if $criticalAddon }}
       priorityClassName: system-cluster-critical
     {{- end -}}

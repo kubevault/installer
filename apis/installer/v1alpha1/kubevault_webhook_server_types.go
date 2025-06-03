@@ -54,8 +54,10 @@ type KubevaultWebhookServerSpec struct {
 	ImagePullPolicy  string    `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []string `json:"imagePullSecrets"`
-	//+optional
+	// +optional
 	CriticalAddon bool `json:"criticalAddon"`
+	// +optional
+	PriorityClassName string `json:"priorityClassName"`
 	//+optional
 	LogLevel int32 `json:"logLevel"`
 	//+optional
