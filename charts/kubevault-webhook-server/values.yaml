@@ -46,8 +46,10 @@ server:
 imagePullSecrets: []
 # Container image pull policy
 imagePullPolicy: IfNotPresent
-# If true, installs KubeVault webhook server as critical addon
+# If true, installs KubeVault operator as critical addon
 criticalAddon: false
+# PriorityClassName for the operator
+priorityClassName: ""
 # Log level for webhook server
 logLevel: 3
 # Annotations applied to webhook server deployment
