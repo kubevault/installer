@@ -45,6 +45,11 @@ spec:
             properties:
               deprecated:
                 type: boolean
+              distribution:
+                enum:
+                - Vault
+                - OpenBao
+                type: string
               exporter:
                 properties:
                   image:

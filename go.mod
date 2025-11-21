@@ -1,6 +1,6 @@
 module kubevault.dev/installer
 
-go 1.23.3
+go 1.24.0
 
 toolchain go1.24.3
 
@@ -12,15 +12,15 @@ require (
 	github.com/spf13/pflag v1.0.6
 	github.com/yudai/gojsondiff v1.0.0
 	gomodules.xyz/go-sh v0.1.0
-	gomodules.xyz/semvers v0.0.0-20220316103017-cfbe8c37b63d
+	gomodules.xyz/semvers v0.0.3
 	k8s.io/api v0.32.3
 	k8s.io/apimachinery v0.32.3
 	k8s.io/kube-openapi v0.0.0-20250318172550-b98be4ee1595
-	kmodules.xyz/client-go v0.32.4
+	kmodules.xyz/client-go v0.32.7
 	kmodules.xyz/go-containerregistry v0.0.14
-	kmodules.xyz/image-packer v0.0.0-20250502223312-8ace1603db39
+	kmodules.xyz/image-packer v0.0.0-20251031165437-ee37158457af
 	kmodules.xyz/schema-checker v0.4.2
-	kubeops.dev/installer v0.0.0-20250519123249-dd1130e92450
+	kubeops.dev/installer v0.0.0-20251103134842-6d48c630f087
 	sigs.k8s.io/yaml v1.4.0
 )
 
@@ -68,13 +68,13 @@ require (
 	github.com/vbatts/tar-split v0.11.6 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
-	golang.org/x/crypto v0.36.0 // indirect
-	golang.org/x/net v0.38.0 // indirect
+	golang.org/x/crypto v0.45.0 // indirect
+	golang.org/x/net v0.47.0 // indirect
 	golang.org/x/oauth2 v0.27.0 // indirect
-	golang.org/x/sync v0.13.0 // indirect
-	golang.org/x/sys v0.32.0 // indirect
-	golang.org/x/term v0.30.0 // indirect
-	golang.org/x/text v0.24.0 // indirect
+	golang.org/x/sync v0.18.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/term v0.37.0 // indirect
+	golang.org/x/text v0.31.0 // indirect
 	golang.org/x/time v0.10.0 // indirect
 	google.golang.org/protobuf v1.36.3 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect

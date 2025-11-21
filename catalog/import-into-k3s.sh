@@ -45,4 +45,5 @@ k3s ctr images import images/appscode-images-vault-1.9.2.tar
 k3s ctr images import images/kubevault-vault-exporter-v0.1.1.tar
 k3s ctr images import images/kubevault-vault-operator-v0.22.0.tar
 k3s ctr images import images/kubevault-vault-unsealer-v0.22.0.tar
+k3s ctr images import images/openbao-openbao-2.4.3.tar
 k3s ctr images import images/library-vault-0.11.5.tar

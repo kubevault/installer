@@ -203,14 +203,14 @@ github.com/yudai/gojsondiff/formatter
 # github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82
 ## explicit
 github.com/yudai/golcs
-# golang.org/x/crypto v0.36.0
-## explicit; go 1.23.0
+# golang.org/x/crypto v0.45.0
+## explicit; go 1.24.0
 golang.org/x/crypto/bcrypt
 golang.org/x/crypto/blowfish
 golang.org/x/crypto/pbkdf2
 golang.org/x/crypto/scrypt
-# golang.org/x/net v0.38.0
-## explicit; go 1.23.0
+# golang.org/x/net v0.47.0
+## explicit; go 1.24.0
 golang.org/x/net/http/httpguts
 golang.org/x/net/http2
 golang.org/x/net/http2/hpack
@@ -220,19 +220,19 @@ golang.org/x/net/internal/httpcommon
 ## explicit; go 1.23.0
 golang.org/x/oauth2
 golang.org/x/oauth2/internal
-# golang.org/x/sync v0.13.0
-## explicit; go 1.23.0
+# golang.org/x/sync v0.18.0
+## explicit; go 1.24.0
 golang.org/x/sync/errgroup
-# golang.org/x/sys v0.32.0
-## explicit; go 1.23.0
+# golang.org/x/sys v0.38.0
+## explicit; go 1.24.0
 golang.org/x/sys/plan9
 golang.org/x/sys/unix
 golang.org/x/sys/windows
-# golang.org/x/term v0.30.0
-## explicit; go 1.23.0
+# golang.org/x/term v0.37.0
+## explicit; go 1.24.0
 golang.org/x/term
-# golang.org/x/text v0.24.0
-## explicit; go 1.23.0
+# golang.org/x/text v0.31.0
+## explicit; go 1.24.0
 golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
@@ -243,8 +243,8 @@ golang.org/x/time/rate
 # gomodules.xyz/go-sh v0.1.0
 ## explicit; go 1.15
 gomodules.xyz/go-sh
-# gomodules.xyz/semvers v0.0.0-20220316103017-cfbe8c37b63d
-## explicit; go 1.16
+# gomodules.xyz/semvers v0.0.3
+## explicit; go 1.21
 gomodules.xyz/semvers
 # google.golang.org/protobuf v1.36.3
 ## explicit; go 1.21
@@ -455,20 +455,20 @@ k8s.io/utils/clock/testing
 k8s.io/utils/internal/third_party/forked/golang/net
 k8s.io/utils/net
 k8s.io/utils/ptr
-# kmodules.xyz/client-go v0.32.4
+# kmodules.xyz/client-go v0.32.7
 ## explicit; go 1.23.0
 kmodules.xyz/client-go/api/v1
 kmodules.xyz/client-go/tools/parser
 # kmodules.xyz/go-containerregistry v0.0.14
 ## explicit; go 1.23.0
 kmodules.xyz/go-containerregistry/name
-# kmodules.xyz/image-packer v0.0.0-20250502223312-8ace1603db39
+# kmodules.xyz/image-packer v0.0.0-20251031165437-ee37158457af
 ## explicit; go 1.23.0
 kmodules.xyz/image-packer/pkg/lib
 # kmodules.xyz/schema-checker v0.4.2
 ## explicit; go 1.22.0
 kmodules.xyz/schema-checker
-# kubeops.dev/installer v0.0.0-20250519123249-dd1130e92450
+# kubeops.dev/installer v0.0.0-20251103134842-6d48c630f087
 ## explicit; go 1.23.3
 kubeops.dev/installer/apis/installer
 kubeops.dev/installer/apis/installer/v1alpha1

@@ -47,4 +47,5 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-v
 $CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-exporter-v0.1.1.tar $IMAGE_REGISTRY/kubevault/vault-exporter:v0.1.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-operator-v0.22.0.tar $IMAGE_REGISTRY/kubevault/vault-operator:v0.22.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-unsealer-v0.22.0.tar $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.22.0
+$CMD push --allow-nondistributable-artifacts --insecure images/openbao-openbao-2.4.3.tar $IMAGE_REGISTRY/openbao/openbao:2.4.3
 $CMD push --allow-nondistributable-artifacts --insecure images/library-vault-0.11.5.tar $IMAGE_REGISTRY/vault:0.11.5
