@@ -2,6 +2,167 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   labels:
+    app.kubernetes.io/name: catalog
+  name: appbindings.appcatalog.appscode.com
+spec:
+  group: appcatalog.appscode.com
+  names:
+    categories:
+    - catalog
+    - appscode
+    - all
+    kind: AppBinding
+    listKind: AppBindingList
+    plural: appbindings
+    singular: appbinding
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.type
+      name: Type
+      type: string
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              appRef:
+                properties:
+                  apiGroup:
+                    type: string
+                  kind:
+                    type: string
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+              clientConfig:
+                properties:
+                  caBundle:
+                    format: byte
+                    type: string
+                  insecureSkipTLSVerify:
+                    type: boolean
+                  serverName:
+                    type: string
+                  service:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      path:
+                        type: string
+                      port:
+                        format: int32
+                        type: integer
+                      query:
+                        type: string
+                      scheme:
+                        type: string
+                    required:
+                    - name
+                    - port
+                    - scheme
+                    type: object
+                  url:
+                    type: string
+                type: object
+              parameters:
+                type: object
+                x-kubernetes-embedded-resource: true
+                x-kubernetes-preserve-unknown-fields: true
+              secret:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+              secretTransforms:
+                items:
+                  properties:
+                    addKey:
+                      properties:
+                        key:
+                          type: string
+                        stringValue:
+                          type: string
+                        value:
+                          format: byte
+                          type: string
+                      required:
+                      - key
+                      type: object
+                    addKeysFrom:
+                      properties:
+                        secretRef:
+                          properties:
+                            name:
+                              default: ""
+                              type: string
+                          type: object
+                          x-kubernetes-map-type: atomic
+                      type: object
+                    removeKey:
+                      properties:
+                        key:
+                          type: string
+                      required:
+                      - key
+                      type: object
+                    renameKey:
+                      properties:
+                        from:
+                          type: string
+                        to:
+                          type: string
+                      required:
+                      - from
+                      - to
+                      type: object
+                  type: object
+                type: array
+              tlsSecret:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+              type:
+                type: string
+              version:
+                type: string
+            required:
+            - clientConfig
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
     app.kubernetes.io/name: kubevault
   name: vaultserverversions.catalog.kubevault.com
 spec:
@@ -45,6 +206,11 @@ spec:
             properties:
               deprecated:
                 type: boolean
+              distribution:
+                enum:
+                - Vault
+                - Openbao
+                type: string
               exporter:
                 properties:
                   image:
@@ -139,6 +305,325 @@ spec:
     served: true
     storage: true
     subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: chartpresets.charts.x-helm.dev
+spec:
+  group: charts.x-helm.dev
+  names:
+    kind: ChartPreset
+    listKind: ChartPresetList
+    plural: chartpresets
+    singular: chartpreset
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              values:
+                type: object
+                x-kubernetes-preserve-unknown-fields: true
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: clusterchartpresets.charts.x-helm.dev
+spec:
+  group: charts.x-helm.dev
+  names:
+    kind: ClusterChartPreset
+    listKind: ClusterChartPresetList
+    plural: clusterchartpresets
+    singular: clusterchartpreset
+  scope: Cluster
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              values:
+                type: object
+                x-kubernetes-preserve-unknown-fields: true
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: appreleases.drivers.x-helm.dev
+spec:
+  group: drivers.x-helm.dev
+  names:
+    kind: AppRelease
+    listKind: AppReleaseList
+    plural: appreleases
+    singular: apprelease
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The type of the appRelease
+      jsonPath: .spec.descriptor.type
+      name: Type
+      type: string
+    - description: The creation date
+      jsonPath: .spec.descriptor.version
+      name: Version
+      type: string
+    - description: The creation date
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              components:
+                items:
+                  properties:
+                    group:
+                      type: string
+                    kind:
+                      type: string
+                    version:
+                      type: string
+                  required:
+                  - group
+                  - kind
+                  - version
+                  type: object
+                type: array
+              descriptor:
+                properties:
+                  description:
+                    type: string
+                  icons:
+                    items:
+                      properties:
+                        size:
+                          type: string
+                        src:
+                          type: string
+                        type:
+                          type: string
+                      required:
+                      - src
+                      type: object
+                    type: array
+                  keywords:
+                    items:
+                      type: string
+                    type: array
+                  links:
+                    items:
+                      properties:
+                        description:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    type: array
+                  maintainers:
+                    items:
+                      properties:
+                        email:
+                          type: string
+                        name:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    type: array
+                  notes:
+                    type: string
+                  owners:
+                    items:
+                      properties:
+                        email:
+                          type: string
+                        name:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    type: array
+                  type:
+                    type: string
+                  version:
+                    type: string
+                type: object
+              editor:
+                properties:
+                  group:
+                    type: string
+                  resource:
+                    type: string
+                  version:
+                    type: string
+                required:
+                - group
+                - resource
+                - version
+                type: object
+              formKeys:
+                items:
+                  type: string
+                type: array
+              release:
+                properties:
+                  firstDeployed:
+                    format: date-time
+                    type: string
+                  form:
+                    type: object
+                    x-kubernetes-preserve-unknown-fields: true
+                  lastDeployed:
+                    format: date-time
+                    type: string
+                  modified-at:
+                    format: date-time
+                    type: string
+                  name:
+                    type: string
+                  status:
+                    type: string
+                  version:
+                    type: string
+                required:
+                - name
+                type: object
+              resourceKeys:
+                items:
+                  type: string
+                type: array
+              selector:
+                properties:
+                  matchExpressions:
+                    items:
+                      properties:
+                        key:
+                          type: string
+                        operator:
+                          type: string
+                        values:
+                          items:
+                            type: string
+                          type: array
+                      required:
+                      - key
+                      - operator
+                      type: object
+                    type: array
+                  matchLabels:
+                    additionalProperties:
+                      type: string
+                    type: object
+                type: object
+                x-kubernetes-map-type: atomic
+            type: object
+          status:
+            properties:
+              components:
+                items:
+                  properties:
+                    group:
+                      type: string
+                    kind:
+                      type: string
+                    link:
+                      type: string
+                    name:
+                      type: string
+                    status:
+                      type: string
+                  type: object
+                type: array
+              componentsReady:
+                type: string
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
 
 ---
 apiVersion: apiextensions.k8s.io/v1
@@ -11630,6 +12115,176 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   labels:
+    app.kubernetes.io/name: metrics
+  name: metricsconfigurations.metrics.appscode.com
+spec:
+  group: metrics.appscode.com
+  names:
+    categories:
+    - metrics
+    - appscode
+    - all
+    kind: MetricsConfiguration
+    listKind: MetricsConfigurationList
+    plural: metricsconfigurations
+    singular: metricsconfiguration
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.targetRef.apiVersion
+      name: APIVersion
+      type: string
+    - jsonPath: .spec.targetRef.kind
+      name: Kind
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              commonLabels:
+                items:
+                  properties:
+                    key:
+                      type: string
+                    value:
+                      type: string
+                    valuePath:
+                      type: string
+                  required:
+                  - key
+                  type: object
+                type: array
+              metrics:
+                items:
+                  properties:
+                    field:
+                      properties:
+                        path:
+                          type: string
+                        type:
+                          enum:
+                          - Integer
+                          - DateTime
+                          - Array
+                          - String
+                          type: string
+                      required:
+                      - path
+                      - type
+                      type: object
+                    help:
+                      type: string
+                    labels:
+                      items:
+                        properties:
+                          key:
+                            type: string
+                          value:
+                            type: string
+                          valuePath:
+                            type: string
+                        required:
+                        - key
+                        type: object
+                      type: array
+                    metricValue:
+                      properties:
+                        value:
+                          format: double
+                          type: number
+                        valueFromExpression:
+                          type: string
+                        valueFromPath:
+                          type: string
+                      type: object
+                    name:
+                      type: string
+                    params:
+                      items:
+                        properties:
+                          key:
+                            type: string
+                          value:
+                            type: string
+                          valuePath:
+                            type: string
+                        required:
+                        - key
+                        type: object
+                      type: array
+                    states:
+                      properties:
+                        labelKey:
+                          type: string
+                        values:
+                          items:
+                            properties:
+                              labelValue:
+                                type: string
+                              metricValue:
+                                properties:
+                                  value:
+                                    format: double
+                                    type: number
+                                  valueFromExpression:
+                                    type: string
+                                  valueFromPath:
+                                    type: string
+                                type: object
+                            required:
+                            - labelValue
+                            - metricValue
+                            type: object
+                          type: array
+                      required:
+                      - labelKey
+                      - values
+                      type: object
+                    type:
+                      enum:
+                      - gauge
+                      type: string
+                  required:
+                  - help
+                  - name
+                  - type
+                  type: object
+                type: array
+              targetRef:
+                properties:
+                  apiVersion:
+                    type: string
+                  kind:
+                    type: string
+                required:
+                - apiVersion
+                - kind
+                type: object
+            required:
+            - metrics
+            - targetRef
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
     app.kubernetes.io/name: kubevault
   name: vaultopsrequests.ops.kubevault.com
 spec:
@@ -12286,6 +12941,800 @@ spec:
                 - Success
                 - Failed
                 type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: plans.products.x-helm.dev
+spec:
+  group: products.x-helm.dev
+  names:
+    kind: Plan
+    listKind: PlanList
+    plural: plans
+    singular: plan
+  scope: Cluster
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              aggregateUsage:
+                type: string
+              amount:
+                format: int64
+                type: integer
+              amountDecimal:
+                format: double
+                type: number
+              billingScheme:
+                type: string
+              bundle:
+                properties:
+                  name:
+                    type: string
+                  sourceRef:
+                    properties:
+                      apiGroup:
+                        type: string
+                      kind:
+                        type: string
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                    required:
+                    - name
+                    type: object
+                required:
+                - name
+                - sourceRef
+                type: object
+              currency:
+                type: string
+              description:
+                type: string
+              displayName:
+                type: string
+              id:
+                type: string
+              includedPlans:
+                items:
+                  type: string
+                type: array
+              interval:
+                type: string
+              intervalCount:
+                format: int64
+                type: integer
+              name:
+                type: string
+              phase:
+                type: string
+              pricingPattern:
+                additionalProperties:
+                  properties:
+                    expression:
+                      type: string
+                    sizedPrices:
+                      items:
+                        properties:
+                          cpu:
+                            type: string
+                          memory:
+                            type: string
+                          price:
+                            format: double
+                            type: number
+                        required:
+                        - cpu
+                        - memory
+                        - price
+                        type: object
+                      type: array
+                  type: object
+                type: object
+              productID:
+                type: string
+              tiers:
+                items:
+                  properties:
+                    flatAmount:
+                      format: int64
+                      type: integer
+                    flatAmountDecimal:
+                      format: double
+                      type: number
+                    unitAmount:
+                      format: int64
+                      type: integer
+                    unitAmountDecimal:
+                      format: double
+                      type: number
+                    upTo:
+                      format: int64
+                      type: integer
+                  type: object
+                type: array
+              tiersMode:
+                type: string
+              transformUsage:
+                properties:
+                  divideBy:
+                    format: int64
+                    type: integer
+                  round:
+                    type: string
+                type: object
+              trialPeriodDays:
+                format: int64
+                type: integer
+              usageType:
+                type: string
+              weight:
+                format: int32
+                type: integer
+            required:
+            - description
+            - displayName
+            - id
+            - name
+            - phase
+            - productID
+            - weight
+            type: object
+          status:
+            properties:
+              observedGeneration:
+                format: int64
+                type: integer
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: products.products.x-helm.dev
+spec:
+  group: products.x-helm.dev
+  names:
+    kind: Product
+    listKind: ProductList
+    plural: products
+    singular: product
+  scope: Cluster
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              badges:
+                items:
+                  properties:
+                    alt:
+                      type: string
+                    logo:
+                      type: string
+                    url:
+                      type: string
+                  required:
+                  - alt
+                  - logo
+                  - url
+                  type: object
+                type: array
+              description:
+                type: string
+              icons:
+                items:
+                  properties:
+                    description:
+                      type: string
+                    size:
+                      type: string
+                    src:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - src
+                  type: object
+                type: array
+              id:
+                type: string
+              key:
+                type: string
+              keywords:
+                items:
+                  type: string
+                type: array
+              latestVersion:
+                type: string
+              links:
+                items:
+                  properties:
+                    description:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+                type: array
+              maintainers:
+                items:
+                  properties:
+                    email:
+                      type: string
+                    name:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+                type: array
+              name:
+                type: string
+              owner:
+                format: int64
+                type: integer
+              ownerName:
+                type: string
+              phase:
+                type: string
+              shortName:
+                type: string
+              summary:
+                type: string
+              tagline:
+                type: string
+              unitLabel:
+                type: string
+              versions:
+                items:
+                  properties:
+                    releaseDate:
+                      format: date-time
+                      type: string
+                    version:
+                      type: string
+                  required:
+                  - version
+                  type: object
+                type: array
+            required:
+            - id
+            - key
+            - name
+            - owner
+            - phase
+            - shortName
+            - tagline
+            type: object
+          status:
+            properties:
+              observedGeneration:
+                format: int64
+                type: integer
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: bundles.releases.x-helm.dev
+spec:
+  group: releases.x-helm.dev
+  names:
+    kind: Bundle
+    listKind: BundleList
+    plural: bundles
+    singular: bundle
+  scope: Cluster
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              description:
+                type: string
+              displayName:
+                type: string
+              features:
+                items:
+                  properties:
+                    trait:
+                      type: string
+                    value:
+                      type: string
+                  required:
+                  - trait
+                  - value
+                  type: object
+                type: array
+              icons:
+                items:
+                  properties:
+                    size:
+                      type: string
+                    src:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - src
+                  type: object
+                type: array
+              keywords:
+                items:
+                  type: string
+                type: array
+              links:
+                items:
+                  properties:
+                    description:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+                type: array
+              maintainers:
+                items:
+                  properties:
+                    email:
+                      type: string
+                    name:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+                type: array
+              namespace:
+                type: string
+              notes:
+                type: string
+              packages:
+                items:
+                  properties:
+                    bundle:
+                      properties:
+                        name:
+                          type: string
+                        sourceRef:
+                          properties:
+                            apiGroup:
+                              type: string
+                            kind:
+                              type: string
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+                          required:
+                          - name
+                          type: object
+                        version:
+                          type: string
+                      required:
+                      - name
+                      - sourceRef
+                      - version
+                      type: object
+                    chart:
+                      properties:
+                        features:
+                          items:
+                            type: string
+                          type: array
+                        multiSelect:
+                          type: boolean
+                        name:
+                          type: string
+                        namespace:
+                          type: string
+                        required:
+                          type: boolean
+                        sourceRef:
+                          properties:
+                            apiGroup:
+                              type: string
+                            kind:
+                              type: string
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+                          required:
+                          - name
+                          type: object
+                        versions:
+                          items:
+                            properties:
+                              licenseKeyPath:
+                                type: string
+                              resources:
+                                properties:
+                                  owned:
+                                    items:
+                                      properties:
+                                        group:
+                                          type: string
+                                        resource:
+                                          type: string
+                                        version:
+                                          type: string
+                                      required:
+                                      - group
+                                      - resource
+                                      - version
+                                      type: object
+                                    type: array
+                                  required:
+                                    items:
+                                      properties:
+                                        group:
+                                          type: string
+                                        resource:
+                                          type: string
+                                        version:
+                                          type: string
+                                      required:
+                                      - group
+                                      - resource
+                                      - version
+                                      type: object
+                                    type: array
+                                required:
+                                - owned
+                                - required
+                                type: object
+                              selected:
+                                type: boolean
+                              valuesFile:
+                                type: string
+                              valuesPatch:
+                                type: object
+                                x-kubernetes-preserve-unknown-fields: true
+                              version:
+                                type: string
+                              waitFors:
+                                items:
+                                  properties:
+                                    all:
+                                      type: boolean
+                                    for:
+                                      type: string
+                                    labels:
+                                      properties:
+                                        matchExpressions:
+                                          items:
+                                            properties:
+                                              key:
+                                                type: string
+                                              operator:
+                                                type: string
+                                              values:
+                                                items:
+                                                  type: string
+                                                type: array
+                                            required:
+                                            - key
+                                            - operator
+                                            type: object
+                                          type: array
+                                        matchLabels:
+                                          additionalProperties:
+                                            type: string
+                                          type: object
+                                      type: object
+                                      x-kubernetes-map-type: atomic
+                                    resource:
+                                      properties:
+                                        group:
+                                          type: string
+                                        resource:
+                                          type: string
+                                      required:
+                                      - group
+                                      - resource
+                                      type: object
+                                    timeout:
+                                      type: string
+                                  required:
+                                  - all
+                                  - for
+                                  - labels
+                                  - resource
+                                  - timeout
+                                  type: object
+                                type: array
+                            required:
+                            - version
+                            type: object
+                          type: array
+                      required:
+                      - name
+                      - sourceRef
+                      - versions
+                      type: object
+                    oneOf:
+                      properties:
+                        bundles:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              sourceRef:
+                                properties:
+                                  apiGroup:
+                                    type: string
+                                  kind:
+                                    type: string
+                                  name:
+                                    type: string
+                                  namespace:
+                                    type: string
+                                required:
+                                - name
+                                type: object
+                              version:
+                                type: string
+                            required:
+                            - name
+                            - sourceRef
+                            - version
+                            type: object
+                          type: array
+                        description:
+                          type: string
+                      required:
+                      - description
+                      type: object
+                  type: object
+                type: array
+              type:
+                type: string
+            required:
+            - namespace
+            - packages
+            type: object
+          status:
+            properties:
+              observedGeneration:
+                format: int64
+                type: integer
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: orders.releases.x-helm.dev
+spec:
+  group: releases.x-helm.dev
+  names:
+    kind: Order
+    listKind: OrderList
+    plural: orders
+    singular: order
+  scope: Cluster
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              items:
+                items:
+                  properties:
+                    chart:
+                      properties:
+                        bundle:
+                          properties:
+                            name:
+                              type: string
+                            sourceRef:
+                              properties:
+                                apiGroup:
+                                  type: string
+                                kind:
+                                  type: string
+                                name:
+                                  type: string
+                                namespace:
+                                  type: string
+                              required:
+                              - name
+                              type: object
+                            version:
+                              type: string
+                          required:
+                          - name
+                          - sourceRef
+                          - version
+                          type: object
+                        name:
+                          type: string
+                        namespace:
+                          type: string
+                        releaseName:
+                          type: string
+                        resources:
+                          properties:
+                            owned:
+                              items:
+                                properties:
+                                  group:
+                                    type: string
+                                  resource:
+                                    type: string
+                                  version:
+                                    type: string
+                                required:
+                                - group
+                                - resource
+                                - version
+                                type: object
+                              type: array
+                            required:
+                              items:
+                                properties:
+                                  group:
+                                    type: string
+                                  resource:
+                                    type: string
+                                  version:
+                                    type: string
+                                required:
+                                - group
+                                - resource
+                                - version
+                                type: object
+                              type: array
+                          required:
+                          - owned
+                          - required
+                          type: object
+                        sourceRef:
+                          properties:
+                            apiGroup:
+                              type: string
+                            kind:
+                              type: string
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+                          required:
+                          - name
+                          type: object
+                        valuesFile:
+                          type: string
+                        valuesPatch:
+                          type: object
+                          x-kubernetes-preserve-unknown-fields: true
+                        version:
+                          type: string
+                        waitFors:
+                          items:
+                            properties:
+                              all:
+                                type: boolean
+                              for:
+                                type: string
+                              labels:
+                                properties:
+                                  matchExpressions:
+                                    items:
+                                      properties:
+                                        key:
+                                          type: string
+                                        operator:
+                                          type: string
+                                        values:
+                                          items:
+                                            type: string
+                                          type: array
+                                      required:
+                                      - key
+                                      - operator
+                                      type: object
+                                    type: array
+                                  matchLabels:
+                                    additionalProperties:
+                                      type: string
+                                    type: object
+                                type: object
+                                x-kubernetes-map-type: atomic
+                              resource:
+                                properties:
+                                  group:
+                                    type: string
+                                  resource:
+                                    type: string
+                                required:
+                                - group
+                                - resource
+                                type: object
+                              timeout:
+                                type: string
+                            required:
+                            - all
+                            - for
+                            - labels
+                            - resource
+                            - timeout
+                            type: object
+                          type: array
+                      required:
+                      - name
+                      - namespace
+                      - releaseName
+                      - sourceRef
+                      - version
+                      type: object
+                  type: object
+                type: array
+              kubeVersion:
+                type: string
+            required:
+            - items
+            type: object
+          status:
+            properties:
+              observedGeneration:
+                format: int64
+                type: integer
             type: object
         type: object
     served: true
