@@ -16,5 +16,5 @@ spec:
   unsealer:
     image: kubevault/vault-unsealer:v0.22.0
   vault:
-    image: openbao:2.4.3
+    image: openbao/openbao:2.4.3
   version: bao-2.4.3
