@@ -85,7 +85,7 @@ type PanopticonSpec struct {
 	LicenseSecretName string `json:"licenseSecretName"`
 
 	// +optional
-	NetworkPolicy NetworkPolicy `json:"networkPolicy"`
+	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
 
 	//+optional
 	AceUserRoles AceUserRolesValues `json:"ace-user-roles"`

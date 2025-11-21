@@ -3,7 +3,7 @@ kind: VaultServerVersion
 metadata:
   name: 2.4.3
 spec:
-  distribution: Openbao
+  distribution: OpenBao
   exporter:
     image: ghcr.io/kubevault/vault-exporter:v0.1.1
   initContainer:

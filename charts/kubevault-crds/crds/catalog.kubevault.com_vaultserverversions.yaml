@@ -50,7 +50,7 @@ spec:
               distribution:
                 enum:
                 - Vault
-                - Openbao
+                - OpenBao
                 type: string
               exporter:
                 properties:

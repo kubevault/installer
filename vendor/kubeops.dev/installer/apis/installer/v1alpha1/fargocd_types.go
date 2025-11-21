@@ -81,7 +81,7 @@ type FargocdSpec struct {
 	Monitoring     Monitoring          `json:"monitoring"`
 
 	// +optional
-	NetworkPolicy NetworkPolicy `json:"networkPolicy"`
+	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

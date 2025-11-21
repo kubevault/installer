@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "kubevault-catalog.labels" . | nindent 4 }}
 spec:
-  distribution: Openbao
+  distribution: OpenBao
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubevault/vault-exporter") $) }}:v0.1.1'
   initContainer:
