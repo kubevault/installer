@@ -1,7 +1,7 @@
 apiVersion: catalog.kubevault.com/v1alpha1
 kind: VaultServerVersion
 metadata:
-  name: 'bao-2.4.3'
+  name: '2.4.3'
   labels:
     {{- include "kubevault-catalog.labels" . | nindent 4 }}
 spec:
@@ -19,4 +19,4 @@ spec:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "kubevault/vault-unsealer") $) }}:v0.22.0'
   vault:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "openbao/openbao") $) }}:2.4.3'
-  version: bao-2.4.3
+  version: 2.4.3
