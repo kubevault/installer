@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubevault-opscenter --version=v2025.5.30
-$ helm upgrade -i kubevault-opscenter appscode/kubevault-opscenter -n kubevault --create-namespace --version=v2025.5.30
+$ helm search repo appscode/kubevault-opscenter --version=v2025.11.21
+$ helm upgrade -i kubevault-opscenter appscode/kubevault-opscenter -n kubevault --create-namespace --version=v2025.11.21
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeVault Opscenter on a [Kubernetes](http://kubernetes.io)
 To install/upgrade the chart with the release name `kubevault-opscenter`:
 
 ```bash
-$ helm upgrade -i kubevault-opscenter appscode/kubevault-opscenter -n kubevault --create-namespace --version=v2025.5.30
+$ helm upgrade -i kubevault-opscenter appscode/kubevault-opscenter -n kubevault --create-namespace --version=v2025.11.21
 ```
 
 The command deploys a KubeVault Opscenter on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -73,12 +73,12 @@ The following table lists the configurable parameters of the `kubevault-opscente
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubevault-opscenter appscode/kubevault-opscenter -n kubevault --create-namespace --version=v2025.5.30 --set global.registryFQDN=ghcr.io
+$ helm upgrade -i kubevault-opscenter appscode/kubevault-opscenter -n kubevault --create-namespace --version=v2025.11.21 --set global.registryFQDN=ghcr.io
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubevault-opscenter appscode/kubevault-opscenter -n kubevault --create-namespace --version=v2025.5.30 --values values.yaml
+$ helm upgrade -i kubevault-opscenter appscode/kubevault-opscenter -n kubevault --create-namespace --version=v2025.11.21 --values values.yaml
 ```
