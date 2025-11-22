@@ -47,7 +47,7 @@ func Test_CheckImageArchitectures(t *testing.T) {
 		"vault:1.7.3",
 		"vault:1.8.2",
 		"vault:1.9.2",
-	}); err != nil {
+	}, nil); err != nil {
 		t.Errorf("CheckImageArchitectures() error = %v", err)
 	}
 }
