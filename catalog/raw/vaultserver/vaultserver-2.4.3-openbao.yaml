@@ -1,7 +1,7 @@
 apiVersion: catalog.kubevault.com/v1alpha1
 kind: VaultServerVersion
 metadata:
-  name: 2.4.3
+  name: openbao-2.4.3
 spec:
   distribution: OpenBao
   exporter:
