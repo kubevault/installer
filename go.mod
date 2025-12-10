@@ -2,8 +2,6 @@ module kubevault.dev/installer
 
 go 1.24.0
 
-toolchain go1.24.3
-
 require (
 	github.com/Masterminds/semver/v3 v3.3.1
 	github.com/Masterminds/sprig/v3 v3.3.0
@@ -16,7 +14,7 @@ require (
 	k8s.io/api v0.32.3
 	k8s.io/apimachinery v0.32.3
 	k8s.io/kube-openapi v0.0.0-20250318172550-b98be4ee1595
-	kmodules.xyz/client-go v0.32.7
+	kmodules.xyz/client-go v0.32.11
 	kmodules.xyz/go-containerregistry v0.0.14
 	kmodules.xyz/image-packer v0.0.0-20251031165437-ee37158457af
 	kmodules.xyz/schema-checker v0.4.2

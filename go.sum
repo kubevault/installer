@@ -242,8 +242,8 @@ k8s.io/kube-openapi v0.0.0-20250318172550-b98be4ee1595 h1:oj2YLpdiU3TRGr10fBjJ5G
 k8s.io/kube-openapi v0.0.0-20250318172550-b98be4ee1595/go.mod h1:5jIi+8yX4RIb8wk3XwBo5Pq2ccx4FP10ohkbSKCZoK8=
 k8s.io/utils v0.0.0-20241210054802-24370beab758 h1:sdbE21q2nlQtFh65saZY+rRM6x6aJJI8IUa1AmH/qa0=
 k8s.io/utils v0.0.0-20241210054802-24370beab758/go.mod h1:OLgZIPagt7ERELqWJFomSt595RzquPNLL48iOWgYOg0=
-kmodules.xyz/client-go v0.32.7 h1:vBAbp8vs4coYRhY4wqm1Hw/eBEDiVU238AyMLSoRJ1c=
-kmodules.xyz/client-go v0.32.7/go.mod h1:ZwLnc7UqEXUNSe43n/SnER6+7YAQCu38L2te6YefoHU=
+kmodules.xyz/client-go v0.32.11 h1:AbvsutYyCfCGgreMOx5ghdZto0ltKfhS/6n98TkXTGc=
+kmodules.xyz/client-go v0.32.11/go.mod h1:4k+da95l/Idg7k0+qc5qZCJJoAF6IQK5x0Fa+hBVD+Q=
 kmodules.xyz/go-containerregistry v0.0.14 h1:8MgLFa74HymAJEyjH7fyQJn5u2Ok6qPPFQX8ARfcXp0=
 kmodules.xyz/go-containerregistry v0.0.14/go.mod h1:xz0iGC3noyMi5NNAzXWTH6KqfiIgFWZAomw+U2zVOXs=
 kmodules.xyz/image-packer v0.0.0-20251031165437-ee37158457af h1:hwclRPUHjmRPBzJFnJwesTfGIr/eN3hU+pr8IhQK9Io=
