@@ -11,8 +11,15 @@ proxies:
   dockerHub: ""
   dockerLibrary: ""
   ghcr: ghcr.io
+  quay: quay.io
   kubernetes: registry.k8s.io
+  microsoft: mcr.microsoft.com
   appscode: r.appscode.com
+  weaviate: cr.weaviate.io
 
 # Set true to avoid deploying deprecated versions
 skipDeprecated: true
+
+distro:
+  openshift: false
+  ubi: ""

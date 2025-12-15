@@ -41,6 +41,10 @@ global:
       # Only usable when monitoring agent is `prometheus.io/operator`.
       labels: {}
 
+  distro:
+    openshift: false
+    ubi: ""
+
 kubevault-catalog:
   # If enabled, installs the kubevault-catalog chart
   enabled: true

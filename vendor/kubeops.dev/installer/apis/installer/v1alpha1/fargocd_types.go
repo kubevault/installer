@@ -19,6 +19,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"kmodules.xyz/resource-metadata/apis/shared"
 )
 
 const (
@@ -79,9 +80,10 @@ type FargocdSpec struct {
 	ServiceAccount ServiceAccountSpec  `json:"serviceAccount"`
 	Apiserver      SupervisorApiserver `json:"apiserver"`
 	Monitoring     Monitoring          `json:"monitoring"`
-
 	// +optional
 	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
+	// +optional
+	Distro shared.DistroSpec `json:"distro"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
