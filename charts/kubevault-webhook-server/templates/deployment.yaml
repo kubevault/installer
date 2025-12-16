@@ -34,9 +34,14 @@ spec:
       serviceAccountName: {{ include "kubevault-webhook-server.serviceAccountName" . }}
       containers:
       - name: operator
+        {{- if eq "true" ( include "distro.openshift" . ) }}
+        securityContext:
+          {{- toYaml (omit .Values.server.securityContext "runAsUser" "runAsGroup" "fsGroup" "supplementalGroups") | nindent 10 }}
+        {{- else }}
         securityContext:
           {{- toYaml .Values.server.securityContext | nindent 10 }}
-        image: {{ include "server.registry" . }}/{{ .Values.server.repository }}:{{ .Values.server.tag | default .Chart.AppVersion }}
+        {{- end }}
+        image: {{ include "server.registry" . }}/{{ .Values.server.repository }}:{{ .Values.server.tag | default .Chart.AppVersion }}{{ include "operator.ubi" . }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
         args:
         - run
@@ -91,8 +96,13 @@ spec:
         secret:
           defaultMode: 420
           secretName: {{ include "kubevault-webhook-server.fullname" . }}-apiserver-cert
+      {{- if eq "true" ( include "distro.openshift" . ) }}
+      securityContext:
+        {{- toYaml (omit .Values.podSecurityContext "runAsUser" "runAsGroup" "fsGroup" "supplementalGroups") | nindent 8 }}
+      {{- else }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- end }}
     {{- if or .Values.tolerations $criticalAddon }}
       tolerations:
       {{- with .Values.tolerations }}

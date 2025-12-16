@@ -81,3 +81,17 @@ Create the name of the service account to use
 {{- define "image.appscode" -}}
 {{ list .Values.proxies.appscode ._repo | compact | join "/" }}
 {{- end }}
+
+{{/*
+Returns whether the OpenShift distribution is used
+*/}}
+{{- define "distro.openshift" -}}
+{{- or (.Capabilities.APIVersions.Has "project.openshift.io/v1/Project") .Values.distro.openshift -}}
+{{- end }}
+
+{{/*
+Returns if ubi images are to be used
+*/}}
+{{- define "catalog.ubi" -}}
+{{ ternary "-ubi" "" (list "catalog" "all" | has .Values.distro.ubi) }}
+{{- end }}

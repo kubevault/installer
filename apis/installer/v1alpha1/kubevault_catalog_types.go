@@ -18,6 +18,7 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"kmodules.xyz/resource-metadata/apis/shared"
 )
 
 const (
@@ -48,26 +49,10 @@ type KubevaultCatalogSpec struct {
 	//+optional
 	FullnameOverride string `json:"fullnameOverride"`
 	//+optional
-	Proxies        RegistryProxies `json:"proxies"`
-	SkipDeprecated bool            `json:"skipDeprecated"`
-}
-
-type RegistryProxies struct {
-	// company/bin:1.23
-	//+optional
-	DockerHub string `json:"dockerHub"`
-	// alpine, nginx etc.
-	//+optional
-	DockerLibrary string `json:"dockerLibrary"`
-	// ghcr.io
-	//+optional
-	GHCR string `json:"ghcr"`
-	// registry.k8s.io
-	//+optional
-	Kubernetes string `json:"kubernetes"`
-	// r.appscode.com
-	//+optional
-	AppsCode string `json:"appscode"`
+	Proxies        shared.RegistryProxies `json:"proxies"`
+	SkipDeprecated bool                   `json:"skipDeprecated"`
+	// +optional
+	Distro shared.DistroSpec `json:"distro"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

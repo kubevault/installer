@@ -18,6 +18,6 @@
 - ghcr.io/appscode-images/vault:1.9.2
 - ghcr.io/kubevault/vault-exporter:v0.1.1
 - ghcr.io/kubevault/vault-operator:v0.23.0
-- kubevault/vault-unsealer:v0.23.0
+- ghcr.io/kubevault/vault-unsealer:v0.23.0
 - openbao/openbao:2.4.3
 - vault:0.11.5
