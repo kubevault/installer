@@ -39,9 +39,15 @@ import (
 	core "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/util/sets"
 	"kmodules.xyz/client-go/tools/parser"
 	"kmodules.xyz/go-containerregistry/name"
 	"sigs.k8s.io/yaml"
+)
+
+var ubiImageList = sets.NewString(
+	// "ghcr.io/kubevault/vault-exporter",
+	"ghcr.io/kubevault/vault-unsealer",
 )
 
 type AppVersion struct {
@@ -292,6 +298,10 @@ func main() {
 							}
 							if ref.Tag != "" && ref.Tag != "latest" {
 								newimg += ":" + ref.Tag
+								i2 := fmt.Sprintf("%s/%s", ref.Registry, ref.Repository)
+								if ubiImageList.Has(i2) {
+									newimg += `{{ include "catalog.ubi" $ }}`
+								}
 							}
 							err = unstructured.SetNestedField(obj.Object, newimg, "spec", prop, field)
 							if err != nil {

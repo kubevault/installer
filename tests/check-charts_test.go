@@ -25,6 +25,22 @@ import (
 	"kmodules.xyz/image-packer/pkg/lib"
 )
 
+var archSkipList = []string{
+	"vault:1.10.3",
+	"vault:1.11.5",
+	"vault:1.12.1",
+	"vault:1.13.3",
+	"vault:1.2.0",
+	"vault:1.2.2",
+	"vault:1.2.3",
+	"vault:1.5.9",
+	"vault:1.6.5",
+	"vault:1.7.2",
+	"vault:1.7.3",
+	"vault:1.8.2",
+	"vault:1.9.2",
+}
+
 func Test_CheckImageArchitectures(t *testing.T) {
 	dir, err := rootDir()
 	if err != nil {
@@ -33,22 +49,34 @@ func Test_CheckImageArchitectures(t *testing.T) {
 
 	if err := lib.CheckImageArchitectures([]string{
 		filepath.Join(dir, "catalog", "imagelist.yaml"),
-	}, []string{
-		"vault:1.10.3",
-		"vault:1.11.5",
-		"vault:1.12.1",
-		"vault:1.13.3",
-		"vault:1.2.0",
-		"vault:1.2.2",
-		"vault:1.2.3",
-		"vault:1.5.9",
-		"vault:1.6.5",
-		"vault:1.7.2",
-		"vault:1.7.3",
-		"vault:1.8.2",
-		"vault:1.9.2",
-	}, nil); err != nil {
+	}, archSkipList, nil); err != nil {
 		t.Errorf("CheckImageArchitectures() error = %v", err)
+	}
+}
+
+func Test_CheckUBIImageArchitectures(t *testing.T) {
+	dir, err := rootDir()
+	if err != nil {
+		t.Error(err)
+	}
+
+	const (
+		ubiAll = `global:
+  distro:
+   ubi: all`
+		ubiOperator = `distro:
+  ubi: operator`
+		ubiCatalog = `distro:
+  ubi: catalog`
+	)
+	values := map[string]string{
+		"kubevault":                ubiAll,
+		"kubevault-catalog":        ubiCatalog,
+		"kubevault-operator":       ubiOperator,
+		"kubevault-webhook-server": ubiOperator,
+	}
+	if err := lib.CheckHelmChartImageArchitectures(filepath.Join(dir, "charts"), values, archSkipList, nil); err != nil {
+		t.Errorf("CheckUBIImageArchitectures() error = %v", err)
 	}
 }
 
