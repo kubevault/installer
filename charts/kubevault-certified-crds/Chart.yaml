@@ -1,0 +1,12 @@
+apiVersion: v2
+appVersion: v2025.11.21
+description: Chart containing only CRDs from kubevault chart
+home: https://kubevault.com
+icon: https://cdn.appscode.com/images/products/kubevault/kubevault-icon.png
+maintainers:
+- email: support@appscode.com
+  name: appscode
+name: kubevault-certified-crds
+sources:
+- https://github.com/kubevault
+version: v2025.11.21
