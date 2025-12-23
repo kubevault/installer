@@ -1,0 +1,348 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: vaultpolicybindings.policy.kubevault.com
+spec:
+  group: policy.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: VaultPolicyBinding
+    listKind: VaultPolicyBindingList
+    plural: vaultpolicybindings
+    shortNames:
+    - vpb
+    singular: vaultpolicybinding
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              policies:
+                items:
+                  properties:
+                    name:
+                      type: string
+                    ref:
+                      type: string
+                  type: object
+                type: array
+              subjectRef:
+                properties:
+                  appRole:
+                    properties:
+                      bindSecretID:
+                        type: boolean
+                      enableLocalSecretIds:
+                        type: boolean
+                      path:
+                        type: string
+                      roleName:
+                        type: string
+                      secretIdBoundCidrs:
+                        items:
+                          type: string
+                        type: array
+                      secretIdNumUses:
+                        format: int64
+                        type: integer
+                      secretIdTTL:
+                        type: string
+                      tokenBoundCidrs:
+                        items:
+                          type: string
+                        type: array
+                      tokenExplicitMaxTTL:
+                        format: int64
+                        type: integer
+                      tokenMaxTTL:
+                        format: int64
+                        type: integer
+                      tokenNoDefaultPolicy:
+                        type: boolean
+                      tokenNumUses:
+                        format: int64
+                        type: integer
+                      tokenPeriod:
+                        format: int64
+                        type: integer
+                      tokenPolicies:
+                        items:
+                          type: string
+                        type: array
+                      tokenTTL:
+                        format: int64
+                        type: integer
+                      tokenType:
+                        type: string
+                    required:
+                    - bindSecretID
+                    type: object
+                  jwt:
+                    properties:
+                      allowedRedirectUris:
+                        items:
+                          type: string
+                        type: array
+                      boundAudiences:
+                        items:
+                          type: string
+                        type: array
+                      boundClaims:
+                        additionalProperties:
+                          type: string
+                        type: object
+                      boundClaimsType:
+                        type: string
+                      boundSubject:
+                        type: string
+                      claimMappings:
+                        additionalProperties:
+                          type: string
+                        type: object
+                      groupClaim:
+                        type: string
+                      name:
+                        type: string
+                      oidcScopes:
+                        items:
+                          type: string
+                        type: array
+                      path:
+                        type: string
+                      tokenBoundCidrs:
+                        items:
+                          type: string
+                        type: array
+                      tokenExplicitMaxTTL:
+                        format: int64
+                        type: integer
+                      tokenMaxTTL:
+                        format: int64
+                        type: integer
+                      tokenNoDefaultPolicy:
+                        type: boolean
+                      tokenNumUses:
+                        format: int64
+                        type: integer
+                      tokenPeriod:
+                        format: int64
+                        type: integer
+                      tokenPolicies:
+                        items:
+                          type: string
+                        type: array
+                      tokenTTL:
+                        format: int64
+                        type: integer
+                      tokenType:
+                        type: string
+                      userClaim:
+                        type: string
+                      verboseOidcLogging:
+                        type: boolean
+                    required:
+                    - allowedRedirectUris
+                    - path
+                    - userClaim
+                    type: object
+                  kubernetes:
+                    properties:
+                      audience:
+                        type: string
+                      maxTTL:
+                        type: string
+                      name:
+                        type: string
+                      path:
+                        type: string
+                      period:
+                        type: string
+                      serviceAccountNames:
+                        items:
+                          type: string
+                        type: array
+                      serviceAccountNamespaces:
+                        items:
+                          type: string
+                        type: array
+                      ttl:
+                        type: string
+                    required:
+                    - serviceAccountNames
+                    - serviceAccountNamespaces
+                    type: object
+                  ldapGroup:
+                    properties:
+                      name:
+                        type: string
+                      path:
+                        type: string
+                      policies:
+                        items:
+                          type: string
+                        type: array
+                    required:
+                    - name
+                    type: object
+                  ldapUser:
+                    properties:
+                      groups:
+                        items:
+                          type: string
+                        type: array
+                      path:
+                        type: string
+                      policies:
+                        items:
+                          type: string
+                        type: array
+                      username:
+                        type: string
+                    required:
+                    - username
+                    type: object
+                  oidc:
+                    properties:
+                      allowedRedirectUris:
+                        items:
+                          type: string
+                        type: array
+                      boundAudiences:
+                        items:
+                          type: string
+                        type: array
+                      boundClaims:
+                        additionalProperties:
+                          type: string
+                        type: object
+                      boundClaimsType:
+                        type: string
+                      boundSubject:
+                        type: string
+                      claimMappings:
+                        additionalProperties:
+                          type: string
+                        type: object
+                      groupClaim:
+                        type: string
+                      name:
+                        type: string
+                      oidcScopes:
+                        items:
+                          type: string
+                        type: array
+                      path:
+                        type: string
+                      tokenBoundCidrs:
+                        items:
+                          type: string
+                        type: array
+                      tokenExplicitMaxTTL:
+                        format: int64
+                        type: integer
+                      tokenMaxTTL:
+                        format: int64
+                        type: integer
+                      tokenNoDefaultPolicy:
+                        type: boolean
+                      tokenNumUses:
+                        format: int64
+                        type: integer
+                      tokenPeriod:
+                        format: int64
+                        type: integer
+                      tokenPolicies:
+                        items:
+                          type: string
+                        type: array
+                      tokenTTL:
+                        format: int64
+                        type: integer
+                      tokenType:
+                        type: string
+                      userClaim:
+                        type: string
+                      verboseOidcLogging:
+                        type: boolean
+                    required:
+                    - allowedRedirectUris
+                    - path
+                    - userClaim
+                    type: object
+                type: object
+              vaultRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+              vaultRoleName:
+                type: string
+            required:
+            - policies
+            - subjectRef
+            - vaultRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                enum:
+                - Success
+                - Failed
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
