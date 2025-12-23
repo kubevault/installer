@@ -1,6 +1,6 @@
-# KubeVault
+# kubevault-certified
 
-[KubeVault by AppsCode](https://github.com/kubevault) - HashiCorp Vault operator for Kubernetes
+[kubevault-certified](https://github.com/kubevault) - HashiCorp Vault operator for Kubernetes
 
 ## TL;DR;
 
@@ -8,7 +8,7 @@
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
 $ helm search repo appscode/kubevault-certified --version=v2025.11.21
-$ helm upgrade -i kubevault appscode/kubevault-certified -n kubevault --create-namespace --version=v2025.11.21
+$ helm upgrade -i kubevault-certified appscode/kubevault-certified -n kubevault --create-namespace --version=v2025.11.21
 ```
 
 ## Introduction
@@ -21,10 +21,10 @@ This chart deploys a KubeVault operator on a [Kubernetes](http://kubernetes.io) 
 
 ## Installing the Chart
 
-To install/upgrade the chart with the release name `kubevault`:
+To install/upgrade the chart with the release name `kubevault-certified`:
 
 ```bash
-$ helm upgrade -i kubevault appscode/kubevault-certified -n kubevault --create-namespace --version=v2025.11.21
+$ helm upgrade -i kubevault-certified appscode/kubevault-certified -n kubevault --create-namespace --version=v2025.11.21
 ```
 
 The command deploys a KubeVault operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -33,10 +33,10 @@ The command deploys a KubeVault operator on the Kubernetes cluster in the defaul
 
 ## Uninstalling the Chart
 
-To uninstall the `kubevault`:
+To uninstall the `kubevault-certified`:
 
 ```bash
-$ helm uninstall kubevault -n kubevault
+$ helm uninstall kubevault-certified -n kubevault
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -79,12 +79,12 @@ The following table lists the configurable parameters of the `kubevault-certifie
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubevault appscode/kubevault-certified -n kubevault --create-namespace --version=v2025.11.21 --set global.registry=kubevault
+$ helm upgrade -i kubevault-certified appscode/kubevault-certified -n kubevault --create-namespace --version=v2025.11.21 --set global.registry=kubevault
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubevault appscode/kubevault-certified -n kubevault --create-namespace --version=v2025.11.21 --values values.yaml
+$ helm upgrade -i kubevault-certified appscode/kubevault-certified -n kubevault --create-namespace --version=v2025.11.21 --values values.yaml
 ```

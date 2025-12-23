@@ -1,18 +1,18 @@
-project:
-  name: KubeVault by AppsCode
-  shortName: KubeVault
-  url: https://github.com/kubevault
-  description: HashiCorp Vault operator for Kubernetes
-  app: a KubeVault operator
-repository:
-  url: https://charts.appscode.com/stable/
-  name: appscode
 chart:
-  name: kubevault
+  name: kubevault-certified
   values: -- generate from values file --
   valuesExample: global.registry=kubevault
 prerequisites:
 - Kubernetes 1.16+
+project:
+  app: a KubeVault operator
+  description: HashiCorp Vault operator for Kubernetes
+  name: kubevault-certified
+  shortName: kubevault-certified
+  url: https://github.com/kubevault
 release:
-  name: kubevault
+  name: kubevault-certified
   namespace: kubevault
+repository:
+  name: appscode
+  url: https://charts.appscode.com/stable/
