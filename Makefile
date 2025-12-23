@@ -355,6 +355,7 @@ unit-tests: $(BUILD_DIRS)
 CT_COMMAND     ?= lint-and-install
 TEST_CHARTS    ?=
 KUBE_NAMESPACE ?=
+CT_CLEANUP     ?= true
 
 ifeq ($(CT_COMMAND),lint-and-install)
 	ct_namespace = --namespace=$(KUBE_NAMESPACE)
@@ -386,8 +387,10 @@ ct: $(BUILD_DIRS)
 	    --env KUBECONFIG=$(subst $(HOME),,$(KUBECONFIG))        \
 	    $(CHART_TEST_IMAGE)                                     \
 	    /bin/sh -c "                                            \
-	        kubectl delete crds --selector=app.kubernetes.io/name=kubevault; \
-	        ct $(CT_COMMAND) --debug --validate-maintainers=false $(CT_ARGS) \
+	      set -x; \
+	      [ $(CT_CLEANUP) = true ] && kubectl delete crds --selector=app.kubernetes.io/name=kubevault; \
+	      ./hack/scripts/update-chart-dependencies.sh; \
+	      ct $(CT_COMMAND) --debug --validate-maintainers=false $(CT_ARGS) \
 	    "
 
 ADDTL_LINTERS   := gofmt,goimports,unparam

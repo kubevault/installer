@@ -1,0 +1,245 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: appreleases.drivers.x-helm.dev
+spec:
+  group: drivers.x-helm.dev
+  names:
+    kind: AppRelease
+    listKind: AppReleaseList
+    plural: appreleases
+    singular: apprelease
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The type of the appRelease
+      jsonPath: .spec.descriptor.type
+      name: Type
+      type: string
+    - description: The creation date
+      jsonPath: .spec.descriptor.version
+      name: Version
+      type: string
+    - description: The creation date
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              components:
+                items:
+                  properties:
+                    group:
+                      type: string
+                    kind:
+                      type: string
+                    version:
+                      type: string
+                  required:
+                  - group
+                  - kind
+                  - version
+                  type: object
+                type: array
+              descriptor:
+                properties:
+                  description:
+                    type: string
+                  icons:
+                    items:
+                      properties:
+                        size:
+                          type: string
+                        src:
+                          type: string
+                        type:
+                          type: string
+                      required:
+                      - src
+                      type: object
+                    type: array
+                  keywords:
+                    items:
+                      type: string
+                    type: array
+                  links:
+                    items:
+                      properties:
+                        description:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    type: array
+                  maintainers:
+                    items:
+                      properties:
+                        email:
+                          type: string
+                        name:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    type: array
+                  notes:
+                    type: string
+                  owners:
+                    items:
+                      properties:
+                        email:
+                          type: string
+                        name:
+                          type: string
+                        url:
+                          type: string
+                      type: object
+                    type: array
+                  type:
+                    type: string
+                  version:
+                    type: string
+                type: object
+              editor:
+                properties:
+                  group:
+                    type: string
+                  resource:
+                    type: string
+                  version:
+                    type: string
+                required:
+                - group
+                - resource
+                - version
+                type: object
+              formKeys:
+                items:
+                  type: string
+                type: array
+              release:
+                properties:
+                  firstDeployed:
+                    format: date-time
+                    type: string
+                  form:
+                    type: object
+                    x-kubernetes-preserve-unknown-fields: true
+                  lastDeployed:
+                    format: date-time
+                    type: string
+                  modified-at:
+                    format: date-time
+                    type: string
+                  name:
+                    type: string
+                  status:
+                    type: string
+                  version:
+                    type: string
+                required:
+                - name
+                type: object
+              resourceKeys:
+                items:
+                  type: string
+                type: array
+              selector:
+                properties:
+                  matchExpressions:
+                    items:
+                      properties:
+                        key:
+                          type: string
+                        operator:
+                          type: string
+                        values:
+                          items:
+                            type: string
+                          type: array
+                      required:
+                      - key
+                      - operator
+                      type: object
+                    type: array
+                  matchLabels:
+                    additionalProperties:
+                      type: string
+                    type: object
+                type: object
+                x-kubernetes-map-type: atomic
+            type: object
+          status:
+            properties:
+              components:
+                items:
+                  properties:
+                    group:
+                      type: string
+                    kind:
+                      type: string
+                    link:
+                      type: string
+                    name:
+                      type: string
+                    status:
+                      type: string
+                  type: object
+                type: array
+              componentsReady:
+                type: string
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

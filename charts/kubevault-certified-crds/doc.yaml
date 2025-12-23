@@ -1,0 +1,18 @@
+chart:
+  name: kubevault-certified-crds
+  values: -- generate from values file --
+  valuesExample: global.registry=kubevault
+prerequisites:
+- Kubernetes 1.16+
+project:
+  app: a KubeVault operator
+  description: HashiCorp Vault operator for Kubernetes
+  name: kubevault-certified-crds
+  shortName: kubevault-certified-crds
+  url: https://github.com/kubevault
+release:
+  name: kubevault-certified-crds
+  namespace: kubevault
+repository:
+  name: appscode
+  url: https://charts.appscode.com/stable/

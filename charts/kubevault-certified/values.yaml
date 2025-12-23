@@ -1,0 +1,74 @@
+# Default values for kubevault.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  # License for the product.
+  # Get a license by following the steps from [here](https://kubevault.com/docs/latest/setup/install/enterprise#get-a-trial-license).
+  # Example:
+  # helm install appscode/kubevault \
+  #   --set-file global.license=/path/to/license/file
+  # or
+  # helm install appscode/kubevault \
+  #   --set global.license=<license file content>
+  license: ""
+
+  # Name of Secret with the license as key.txt key
+  licenseSecretName: ""
+
+  # Docker registry used to pull KubeVault related images
+  registry: ""
+
+  # Docker registry fqdn used to pull KubeVault related images.
+  # Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
+  registryFQDN: ""
+
+  # Specify an array of imagePullSecrets.
+  # Secrets must be manually created in the namespace.
+  #
+  # Example:
+  # helm template charts/kubevault \
+  #   --set global.imagePullSecrets[0].name=sec0 \
+  #   --set global.imagePullSecrets[1].name=sec1
+  imagePullSecrets: []
+
+  monitoring:
+    # Name of monitoring agent (one of "prometheus.io", "prometheus.io/operator", "prometheus.io/builtin")
+    agent: ""
+    serviceMonitor:
+      # Specify the labels for ServiceMonitor.
+      # Prometheus crd will select ServiceMonitor using these labels.
+      # Only usable when monitoring agent is `prometheus.io/operator`.
+      labels: {}
+
+  distro:
+    openshift: false
+    ubi: ""
+
+kubevault-catalog:
+  # If enabled, installs the kubevault-catalog chart
+  enabled: true
+kubevault-operator:
+  # If enabled, installs the kubevault-operator chart
+  enabled: true
+kubevault-webhook-server:
+  # If enabled, installs the kubevault-webhook-server chart
+  enabled: true
+ace-user-roles:
+  # If enabled, installs the ace-user-roles chart
+  enabled: true
+  enableClusterRoles:
+    ace: false
+    appcatalog: true
+    catalog: false
+    cert-manager: false
+    kubedb-ui: false
+    kubedb: false
+    kubestash: false
+    kubevault: true
+    license-proxyserver: true
+    metrics: false
+    prometheus: false
+    secrets-store: false
+    stash: false
+    virtual-secrets: false
