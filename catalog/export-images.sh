@@ -50,9 +50,10 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.7.3 images/appscode-images-vault-1.7.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.8.2 images/appscode-images-vault-1.8.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.9.2 images/appscode-images-vault-1.9.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 images/appscode-kubectl-nonroot-1.31.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-exporter:v0.1.1 images/kubevault-vault-exporter-v0.1.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-operator:v0.23.0 images/kubevault-vault-operator-v0.23.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-unsealer:v0.23.0 images/kubevault-vault-unsealer-v0.23.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-operator:v0.24.0-rc.0 images/kubevault-vault-operator-v0.24.0-rc.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure kubevault/vault-unsealer:v0.24.0-rc.0 images/kubevault-vault-unsealer-v0.24.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure openbao/openbao:2.4.3 images/openbao-openbao-2.4.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure vault:0.11.5 images/library-vault-0.11.5.tar
 

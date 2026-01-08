@@ -15,7 +15,7 @@ spec:
       restoreTask:
         name: vault-restore-1.10.3
   unsealer:
-    image: ghcr.io/kubevault/vault-unsealer:v0.23.0
+    image: ghcr.io/kubevault/vault-unsealer:v0.24.0-rc.0
   vault:
     image: openbao/openbao:2.4.3
   version: 2.4.3
