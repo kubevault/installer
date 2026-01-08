@@ -1,3 +1,9 @@
+{{ "{{ $ubi := .Values.distro.ubi }}" }}
+{{ "{{- if .Values.global }}" }}
+{{ "  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}" }}
+{{ "{{- end }}" }}
+
+{{"{{ if (not (eq $ubi \"operator\")) }}"}}
 {{ if .object.spec.deprecated }}
 {{- "{{ if (not .Values.skipDeprecated) }}" -}}
 {{ end -}}
@@ -11,4 +17,5 @@ spec:
   {{- .object.spec | toYaml | nindent 2 }}
 {{ if .object.spec.deprecated }}
 {{"{{ end }}"}}
-{{ end }}
+{{ end -}}
+{{"{{ end }}"}}
