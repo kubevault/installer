@@ -16,6 +16,7 @@ spec:
   ports:
   - name: operator
     port: 443
+    protocol: TCP
     targetPort: operator
   selector:
     {{- include "kubevault-webhook-server.selectorLabels" . | nindent 4 }}

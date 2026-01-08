@@ -96,6 +96,13 @@ Returns the registry used for webhook server docker image
 {{- end }}
 
 {{/*
+Returns the registry used for tester docker image
+*/}}
+{{- define "tester.registry" -}}
+{{- list (default .Values.registryFQDN .Values.global.registryFQDN) (default .Values.tester.registry .Values.global.registry) | compact | join "/" }}
+{{- end }}
+
+{{/*
 Returns the registry used for cleaner docker image
 */}}
 {{- define "cleaner.registry" -}}
@@ -168,4 +175,20 @@ Returns if ubi images are to be used for catalog
 */}}
 {{- define "catalog.ubi" -}}
 {{ ternary "-ubi" "" (list "catalog" "all" | has (default (dig "ubi" "" (default dict .Values.distro)) .Values.global.distro.ubi)) }}
+{{- end }}
+
+{{/*
+Returns kubevault webhook server service name
+*/}}
+{{- define "kubevault.webhook-server-svc" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default "kubevault-webhook-server" .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
 {{- end }}
