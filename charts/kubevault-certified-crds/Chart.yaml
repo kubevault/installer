@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: v2025.11.21
+appVersion: v2026.1.8-rc.0
 description: Chart containing only CRDs from kubevault chart
 home: https://kubevault.com
 icon: https://cdn.appscode.com/images/products/kubevault/kubevault-icon.png
@@ -9,4 +9,4 @@ maintainers:
 name: kubevault-certified-crds
 sources:
 - https://github.com/kubevault
-version: v2025.11.21
+version: v2026.1.8-rc.0
