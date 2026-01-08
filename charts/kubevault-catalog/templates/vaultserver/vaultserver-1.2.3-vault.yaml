@@ -1,3 +1,9 @@
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if (not (eq $ubi "operator")) }}
 apiVersion: catalog.kubevault.com/v1alpha1
 kind: VaultServerVersion
 metadata:
@@ -21,3 +27,4 @@ spec:
   vault:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/vault") $) }}:1.2.3'
   version: 1.2.3
+{{ end }}
