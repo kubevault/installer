@@ -15,4 +15,4 @@ dependencies:
   repository: oci://ghcr.io/appscode-charts
   version: v2025.3.14
 digest: sha256:8120f0165bed1656e7f268a182919bfda1a81a2a3311ddd38477b2956019a8bb
-generated: "2026-01-08T10:56:56.632928687Z"
+generated: "2026-01-14T21:40:24.47218+06:00"
