@@ -1,12 +1,15 @@
+annotations:
+  charts.openshift.io/name: kubevault-certified-crds
 apiVersion: v2
 appVersion: v2026.1.8-rc.0
 description: Chart containing only CRDs from kubevault chart
 home: https://kubevault.com
 icon: https://cdn.appscode.com/images/products/kubevault/kubevault-icon.png
+kubeVersion: '>=1.28.0'
 maintainers:
 - email: support@appscode.com
   name: appscode
 name: kubevault-certified-crds
 sources:
 - https://github.com/kubevault
-version: v2026.1.8-rc.0
+version: 2026.1.8-rc.0
