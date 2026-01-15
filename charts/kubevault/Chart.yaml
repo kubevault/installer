@@ -4,6 +4,9 @@ description: KubeVault by AppsCode - HashiCorp Vault operator for Kubernetes
 type: application
 version: v2026.1.8-rc.0
 appVersion: v2026.1.8-rc.0
+kubeVersion: '>=1.28.0'
+annotations:
+  charts.openshift.io/name: kubevault
 home: https://kubevault.com
 icon: https://cdn.appscode.com/images/products/kubevault/kubevault-icon.png
 sources:
