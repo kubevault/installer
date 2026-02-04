@@ -57,14 +57,12 @@ crd-importer \
 
 crd-importer --v=v1 \
     --no-description \
-    --annotations 'config.kubernetes.io/local-config=true' \
     --input=${crd_dir} \
     --out=./charts/kubevault-crds/crds \
     --group=catalog.kubevault.com
 
 crd-importer --v=v1 \
     --no-description \
-    --annotations 'config.kubernetes.io/local-config=true' \
     --input=${crd_dir} \
     --out=./charts/kubevault-crds/crds \
     --group=kubevault.com
