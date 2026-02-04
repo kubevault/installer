@@ -26,7 +26,7 @@ dependencies:
 description: KubeVault by AppsCode - HashiCorp Vault operator for Kubernetes
 home: https://kubevault.com
 icon: https://cdn.appscode.com/images/products/kubevault/kubevault-icon.png
-kubeVersion: '>=1.28.0'
+kubeVersion: '>=1.28.0-0'
 maintainers:
 - email: support@appscode.com
   name: appscode
