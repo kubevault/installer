@@ -130,3 +130,8 @@ rules:
   - supervisor.appscode.com
   resources: ["*"]
   verbs: ["create", "get", "list", "watch", "update", "patch"]
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  verbs: ["get", "list", "watch"]
