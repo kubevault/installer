@@ -1,18 +1,18 @@
 dependencies:
 - name: kubevault-crds
   repository: file://../kubevault-crds
-  version: v2026.1.8-rc.0
+  version: v2026.2.27
 - name: kubevault-catalog
   repository: file://../kubevault-catalog
-  version: v2026.1.8-rc.0
+  version: v2026.2.27
 - name: kubevault-operator
   repository: file://../kubevault-operator
-  version: v0.24.0-rc.0
+  version: v0.24.0
 - name: kubevault-webhook-server
   repository: file://../kubevault-webhook-server
-  version: v0.24.0-rc.0
+  version: v0.24.0
 - name: ace-user-roles
   repository: oci://ghcr.io/appscode-charts
   version: v2025.3.14
-digest: sha256:8120f0165bed1656e7f268a182919bfda1a81a2a3311ddd38477b2956019a8bb
-generated: "2026-01-08T10:56:51.71197772Z"
+digest: sha256:20f5772e2b7180f1b5bda1de53fbecb1d2392bc99e73d075cb3069b429c9709e
+generated: "2026-02-25T20:11:25.458363675Z"
