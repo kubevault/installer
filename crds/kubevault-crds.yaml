@@ -1672,6 +1672,8 @@ spec:
                 required:
                 - databaseRef
                 type: object
+              namespace:
+                type: string
               pki:
                 properties:
                   additionalPayload:
