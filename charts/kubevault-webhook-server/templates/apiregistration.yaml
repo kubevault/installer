@@ -1,7 +1,11 @@
 {{- $caCrt := "" }}
 {{- $serverCrt := "" }}
 {{- $serverKey := "" }}
-{{- if .Values.apiserver.servingCerts.generate }}
+{{- if .Values.apiserver.servingCerts.certManager.enabled }}
+{{- $caCrt = "" }}
+{{- $serverCrt = "" }}
+{{- $serverKey = "" }}
+{{- else if .Values.apiserver.servingCerts.generate }}
 {{- $ca := genCA "ca" 3650 }}
 {{- $cn := include "kubevault-webhook-server.fullname" . -}}
 {{- $altName1 := printf "%s.%s" $cn .Release.Namespace }}
@@ -16,6 +20,7 @@
 {{- $serverKey = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.serverKey }}
 {{- end }}
 
+{{- if not .Values.apiserver.servingCerts.certManager.enabled }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -29,20 +34,28 @@ data:
   tls.crt: {{ $serverCrt }}
   tls.key: {{ $serverKey }}
 ---
+{{- end }}
 apiVersion: apiregistration.k8s.io/v1
 kind: APIService
 metadata:
   name: v1alpha1.validators.kubevault.com
+  {{- $caInject := include "kubevault-webhook-server.apiservice-ca-inject-annotations" . }}
   labels:
     app.kubernetes.io/component: kubevault-core
     {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  {{- if $caInject }}
+  annotations:
+    {{- $caInject | nindent 4 }}
+  {{- end }}
 spec:
   group: validators.kubevault.com
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubevault-webhook-server.fullname" . }}
+  {{- if not .Values.apiserver.servingCerts.certManager.enabled }}
   caBundle: {{ $caCrt }}
+  {{- end }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -53,13 +66,19 @@ metadata:
   labels:
     app.kubernetes.io/component: kubevault-core
     {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  {{- if $caInject }}
+  annotations:
+    {{- $caInject | nindent 4 }}
+  {{- end }}
 spec:
   group: mutators.kubevault.com
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubevault-webhook-server.fullname" . }}
+  {{- if not .Values.apiserver.servingCerts.certManager.enabled }}
   caBundle: {{ $caCrt }}
+  {{- end }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -70,13 +89,19 @@ metadata:
   labels:
     app.kubernetes.io/component: kubevault-engine
     {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  {{- if $caInject }}
+  annotations:
+    {{- $caInject | nindent 4 }}
+  {{- end }}
 spec:
   group: validators.engine.kubevault.com
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubevault-webhook-server.fullname" . }}
+  {{- if not .Values.apiserver.servingCerts.certManager.enabled }}
   caBundle: {{ $caCrt }}
+  {{- end }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -87,13 +112,19 @@ metadata:
   labels:
     app.kubernetes.io/component: kubevault-engine
     {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  {{- if $caInject }}
+  annotations:
+    {{- $caInject | nindent 4 }}
+  {{- end }}
 spec:
   group: mutators.engine.kubevault.com
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubevault-webhook-server.fullname" . }}
+  {{- if not .Values.apiserver.servingCerts.certManager.enabled }}
   caBundle: {{ $caCrt }}
+  {{- end }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -104,12 +135,18 @@ metadata:
   labels:
     app.kubernetes.io/component: kubevault-policy
     {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  {{- if $caInject }}
+  annotations:
+    {{- $caInject | nindent 4 }}
+  {{- end }}
 spec:
   group: mutators.policy.kubevault.com
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubevault-webhook-server.fullname" . }}
+  {{- if not .Values.apiserver.servingCerts.certManager.enabled }}
   caBundle: {{ $caCrt }}
+  {{- end }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}

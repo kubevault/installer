@@ -112,3 +112,12 @@ Returns if ubi images are to be used
 {{- define "operator.ubi" -}}
 {{ ternary "-ubi" "" (list "operator" "all" | has .Values.distro.ubi) }}
 {{- end }}
+
+{{/*
+APIService CA injection annotations
+*/}}
+{{- define "kubevault-webhook-server.apiservice-ca-inject-annotations" -}}
+{{- if .Values.apiserver.servingCerts.certManager.enabled }}
+cert-manager.io/inject-ca-from-secret: {{ printf "%s/%s-apiserver-cert" .Release.Namespace (include "kubevault-webhook-server.fullname" .) }}
+{{- end }}
+{{- end }}

@@ -48,6 +48,7 @@ fi
 KMODULES_CUSTOM_RESOURCES_TAG=${KMODULES_CUSTOM_RESOURCES_TAG:-v0.34.0}
 KUBEOPS_SUPERVISOR_TAG=${KUBEOPS_SUPERVISOR_TAG:-v0.0.12}
 OPEN_VIZ_APIMACHINERY_TAG=${OPEN_VIZ_APIMACHINERY_TAG:-v0.0.10}
+CERT_MANAGER_CERT_MANAGER_TAG=${CERT_MANAGER_CERT_MANAGER_TAG:-v1.19.3}
 
 crd-importer \
     --no-description \
@@ -89,6 +90,12 @@ crd-importer --v=v1 \
     --input=${crd_dir} \
     --out=./charts/kubevault-operator/crds \
     --group=kubevault.com
+
+crd-importer \
+    --no-description \
+    --input=https://github.com/cert-manager/cert-manager/raw/${CERT_MANAGER_CERT_MANAGER_TAG}/deploy/crds/cert-manager.io_certificates.yaml \
+    --input=https://github.com/cert-manager/cert-manager/raw/${CERT_MANAGER_CERT_MANAGER_TAG}/deploy/crds/cert-manager.io_issuers.yaml \
+    --out=./charts/kubevault-webhook-server/crds
 
 crd-importer \
     --no-description \
