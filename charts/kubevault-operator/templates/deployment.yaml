@@ -21,9 +21,8 @@ spec:
     metadata:
       labels:
         {{- include "kubevault-operator.selectorLabels" . | nindent 8 }}
-      annotations:
-        reload: {{ randAlpha 8 }}
       {{- with .Values.podAnnotations }}
+      annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
