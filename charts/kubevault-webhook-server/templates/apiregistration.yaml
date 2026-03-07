@@ -19,7 +19,6 @@
 {{- $serverCrt = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.serverCrt }}
 {{- $serverKey = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.serverKey }}
 {{- end }}
-{{- $_ := set $ "_caCrt" $caCrt }}
 
 {{- if not .Values.apiserver.servingCerts.certManager.enabled }}
 apiVersion: v1
@@ -54,7 +53,9 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubevault-webhook-server.fullname" . }}
-  {{- include "kubevault-webhook-server.apiservice-ca-bundle" $ | nindent 2 }}
+  {{- if not .Values.apiserver.servingCerts.certManager.enabled }}
+  caBundle: {{ $caCrt }}
+  {{- end }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -75,7 +76,9 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubevault-webhook-server.fullname" . }}
-  {{- include "kubevault-webhook-server.apiservice-ca-bundle" $ | nindent 2 }}
+  {{- if not .Values.apiserver.servingCerts.certManager.enabled }}
+  caBundle: {{ $caCrt }}
+  {{- end }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -96,7 +99,9 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubevault-webhook-server.fullname" . }}
-  {{- include "kubevault-webhook-server.apiservice-ca-bundle" $ | nindent 2 }}
+  {{- if not .Values.apiserver.servingCerts.certManager.enabled }}
+  caBundle: {{ $caCrt }}
+  {{- end }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -117,7 +122,9 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubevault-webhook-server.fullname" . }}
-  {{- include "kubevault-webhook-server.apiservice-ca-bundle" $ | nindent 2 }}
+  {{- if not .Values.apiserver.servingCerts.certManager.enabled }}
+  caBundle: {{ $caCrt }}
+  {{- end }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -138,6 +145,8 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubevault-webhook-server.fullname" . }}
-  {{- include "kubevault-webhook-server.apiservice-ca-bundle" $ | nindent 2 }}
+  {{- if not .Values.apiserver.servingCerts.certManager.enabled }}
+  caBundle: {{ $caCrt }}
+  {{- end }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}

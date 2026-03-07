@@ -114,15 +114,6 @@ Returns if ubi images are to be used
 {{- end }}
 
 {{/*
-APIService CA bundle helper
-*/}}
-{{- define "kubevault-webhook-server.apiservice-ca-bundle" -}}
-{{- if not .Values.apiserver.servingCerts.certManager.enabled }}
-caBundle: {{ $._caCrt }}
-{{- end }}
-{{- end }}
-
-{{/*
 APIService CA injection annotations
 */}}
 {{- define "kubevault-webhook-server.apiservice-ca-inject-annotations" -}}
