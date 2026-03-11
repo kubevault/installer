@@ -103,7 +103,7 @@ Returns the ServiceMonitor labels
 Returns the ServiceMonitor bearer token secret name
 */}}
 {{- define "monitoring.servicemonitor-bearer-token-secret-name" -}}
-{{- printf "%s-prometheus-token" (include "kubevault-webhook-server.fullname" .) -}}
+{{- printf "%s-token" (include "kubevault-webhook-server.fullname" .) -}}
 {{- end }}
 
 {{/*
