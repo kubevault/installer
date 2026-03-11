@@ -100,20 +100,6 @@ Returns the ServiceMonitor labels
 {{- end }}
 
 {{/*
-Returns the ServiceMonitor bearer token secret name
-*/}}
-{{- define "monitoring.servicemonitor-bearer-token-secret-name" -}}
-{{- printf "%s-token" (include "kubevault-webhook-server.fullname" .) -}}
-{{- end }}
-
-{{/*
-Returns the ServiceAccount name used to mint a long-lived ServiceMonitor bearer token
-*/}}
-{{- define "monitoring.servicemonitor-bearer-token-serviceaccount-name" -}}
-{{- include "kubevault-webhook-server.serviceAccountName" . -}}
-{{- end }}
-
-{{/*
 Returns whether the OpenShift distribution is used
 */}}
 {{- define "distro.openshift" -}}

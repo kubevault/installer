@@ -22,7 +22,7 @@ spec:
     authorization:
       type: Bearer
       credentials:
-        name: {{ include "monitoring.servicemonitor-bearer-token-secret-name" . }}
+        name: {{ printf "%s-token" (include "kubevault-webhook-server.fullname" .) }}
         key: token
     scheme: https
     tlsConfig:
