@@ -19,7 +19,9 @@ spec:
       {{- include "kubevault-webhook-server.selectorLabels" . | nindent 6 }}
   endpoints:
   - port: operator
-    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    bearerTokenSecret:
+      name: {{ include "monitoring.servicemonitor-bearer-token-secret-name" . }}
+      key: token
     scheme: https
     tlsConfig:
       ca:

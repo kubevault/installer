@@ -100,6 +100,20 @@ Returns the ServiceMonitor labels
 {{- end }}
 
 {{/*
+Returns the ServiceMonitor bearer token secret name
+*/}}
+{{- define "monitoring.servicemonitor-bearer-token-secret-name" -}}
+{{- default (printf "%s-prometheus-token" (include "kubevault-webhook-server.fullname" .)) .Values.monitoring.serviceMonitor.bearerToken.secretName -}}
+{{- end }}
+
+{{/*
+Returns the ServiceAccount name used to mint a long-lived ServiceMonitor bearer token
+*/}}
+{{- define "monitoring.servicemonitor-bearer-token-serviceaccount-name" -}}
+{{- default (include "kubevault-webhook-server.serviceAccountName" .) .Values.monitoring.serviceMonitor.bearerToken.serviceAccountName -}}
+{{- end }}
+
+{{/*
 Returns whether the OpenShift distribution is used
 */}}
 {{- define "distro.openshift" -}}

@@ -124,6 +124,20 @@ monitoring:
     # Prometheus crd will select ServiceMonitor using these labels.
     # Only usable when monitoring agent is `prometheus.io/webhook server`.
     labels: {}
+    bearerToken:
+      # If true, create a Secret of type kubernetes.io/service-account-token and
+      # use it from ServiceMonitor as bearerTokenSecret. This follows the
+      # Kubernetes long-lived ServiceAccount token pattern:
+      # https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+      create: true
+      # ServiceAccount name used to mint the token in the Secret annotation.
+      # If empty, uses the chart ServiceAccount name.
+      serviceAccountName: ""
+      # Secret name to create/use from ServiceMonitor.
+      # If empty, defaults to <release-fullname>-prometheus-token.
+      secretName: ""
+      # Extra annotations for the token Secret.
+      annotations: {}
 
 distro:
   openshift: false
