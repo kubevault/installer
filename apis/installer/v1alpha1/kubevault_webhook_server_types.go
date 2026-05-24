@@ -79,28 +79,29 @@ type KubevaultWebhookServerSpec struct {
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	Apiserver          WebhookAPIServerSpec     `json:"apiserver"`
-	Monitoring         UIServerMonitoring       `json:"monitoring"`
+	Monitoring         Monitoring               `json:"monitoring"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
 }
 
 type WebhookAPIServerSpec struct {
-	GroupPriorityMinimum       int32                   `json:"groupPriorityMinimum"`
-	VersionPriority            int32                   `json:"versionPriority"`
-	EnableMutatingWebhook      bool                    `json:"enableMutatingWebhook"`
-	EnableValidatingWebhook    bool                    `json:"enableValidatingWebhook"`
-	CA                         string                  `json:"ca"`
-	UseKubeapiserverFqdnForAks bool                    `json:"useKubeapiserverFqdnForAks"`
-	Healthcheck                UIServerHealthcheckSpec `json:"healthcheck"`
-	Port                       int32                   `json:"port"`
-	ServingCerts               ServingCerts            `json:"servingCerts"`
-	Webhook                    WebhookSpec             `json:"webhook"`
+	EnableMutatingWebhook   bool            `json:"enableMutatingWebhook"`
+	EnableValidatingWebhook bool            `json:"enableValidatingWebhook"`
+	CA                      string          `json:"ca"`
+	Healthcheck             HealthcheckSpec `json:"healthcheck"`
+	Port                    int32           `json:"port"`
+	ServingCerts            ServingCerts    `json:"servingCerts"`
+	Webhook                 WebhookSpec     `json:"webhook"`
 }
 
 type WebhookSpec struct {
 	FailurePolicy string `json:"failurePolicy"`
 }
 
+// Deprecated: UIServerHealthcheckSpec is retained only so the project's
+// codegen artifacts (zz_generated.deepcopy.go, openapi_generated.go) keep
+// compiling between Phase 7 chart updates and the next `make codegen` pass.
+// New code uses HealthcheckSpec (which carries ProbePort) — see types.go.
 type UIServerHealthcheckSpec struct {
 	// +optional
 	Enabled bool `json:"enabled"`

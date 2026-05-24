@@ -9,14 +9,18 @@ metadata:
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/path: "/metrics"
-    prometheus.io/port: {{ .Values.apiserver.port | quote }}
-    prometheus.io/scheme: "https"
+    prometheus.io/port: {{ .Values.monitoring.bindPort | quote }}
+    prometheus.io/scheme: "http"
   {{- end }}
 spec:
   ports:
-  - name: operator
+  - name: webhook
     port: 443
     protocol: TCP
-    targetPort: operator
+    targetPort: webhook
+  - name: metrics
+    port: {{ .Values.monitoring.bindPort }}
+    protocol: TCP
+    targetPort: metrics
   selector:
     {{- include "kubevault-webhook-server.selectorLabels" . | nindent 4 }}
