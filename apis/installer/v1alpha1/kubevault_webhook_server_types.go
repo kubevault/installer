@@ -98,15 +98,6 @@ type WebhookSpec struct {
 	FailurePolicy string `json:"failurePolicy"`
 }
 
-// Deprecated: UIServerHealthcheckSpec is retained only so the project's
-// codegen artifacts (zz_generated.deepcopy.go, openapi_generated.go) keep
-// compiling between Phase 7 chart updates and the next `make codegen` pass.
-// New code uses HealthcheckSpec (which carries ProbePort) — see types.go.
-type UIServerHealthcheckSpec struct {
-	// +optional
-	Enabled bool `json:"enabled"`
-}
-
 type UIServerMonitoring struct {
 	Agent          MonitoringAgent       `json:"agent"`
 	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
