@@ -123,3 +123,12 @@ monitoring:
 distro:
   openshift: false
   ubi: ""
+
+# Settings for the post-install/post-upgrade Job that patches the VaultServer
+# CRD's spec.conversion to point at this webhook server. The Job runs once
+# per helm install / upgrade and is then garbage-collected.
+kubectl:
+  # kubectl image used by the conversion-patch Job
+  registry: docker.io/bitnami
+  repository: kubectl
+  tag: "1.31.4"

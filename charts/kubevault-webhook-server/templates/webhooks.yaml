@@ -255,3 +255,92 @@ webhooks:
   sideEffects: None
   timeoutSeconds: 10
 {{- end }}
+
+{{- /* ---- VaultServer CRD conversion (v1alpha1 <-> v1alpha2) ---- */ -}}
+{{- /*
+The vaultservers.kubevault.com CRD ships in the kubevault-crds chart
+without a conversion strategy, so we patch spec.conversion at install /
+upgrade time. The patch is rendered here so it shares the $caCrt
+computed at the top of this file; it then gets applied by a kubectl
+Job (post-install,post-upgrade hook). In cert-manager mode the caBundle
+is left out and cert-manager's ca-injector populates it via the
+metadata annotation. The webhook-server ServiceAccount already has
+"customresourcedefinitions: *" via cluster-role.yaml so no extra RBAC
+is needed.
+*/ -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullname }}-vaultservers-conversion
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+data:
+  patch.yaml: |
+    {{- if $useCertManager }}
+    metadata:
+      annotations:
+        cert-manager.io/inject-ca-from-secret: {{ printf "%s/%s-apiserver-cert" $svcNamespace $fullname }}
+    {{- end }}
+    spec:
+      conversion:
+        strategy: Webhook
+        webhook:
+          conversionReviewVersions: ["v1"]
+          clientConfig:
+            service:
+              namespace: {{ $svcNamespace }}
+              name: {{ $fullname }}
+              path: /convert
+              port: 443
+            {{- if not $useCertManager }}
+            caBundle: {{ $caCrt }}
+            {{- end }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ $fullname }}-vaultservers-conversion-patch
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  ttlSecondsAfterFinished: 60
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        {{- include "kubevault-webhook-server.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- include "appscode.imagePullSecrets" . | nindent 6 }}
+      serviceAccountName: {{ include "kubevault-webhook-server.serviceAccountName" . }}
+      restartPolicy: Never
+      containers:
+      - name: kubectl
+        image: {{ .Values.kubectl.registry }}/{{ .Values.kubectl.repository }}:{{ .Values.kubectl.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        command:
+        - /bin/sh
+        - -c
+        - |
+          set -eu
+          kubectl patch crd vaultservers.kubevault.com \
+            --type=merge \
+            --patch-file=/patch/patch.yaml
+        volumeMounts:
+        - name: patch
+          mountPath: /patch
+          readOnly: true
+      volumes:
+      - name: patch
+        configMap:
+          name: {{ $fullname }}-vaultservers-conversion

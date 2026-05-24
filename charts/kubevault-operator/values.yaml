@@ -46,6 +46,11 @@ operator:
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+  # If true, the operator applies its CustomResourceDefinitions at
+  # startup. Defaults to false because the kubevault-crds subchart
+  # (or its standalone equivalent) installs the CRDs; only enable
+  # this for single-chart installs where kubevault-crds is absent.
+  registerCRDs: false
 
 # Specify an array of imagePullSecrets.
 # Secrets must be manually created in the namespace.
