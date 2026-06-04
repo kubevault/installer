@@ -50,6 +50,11 @@ var ubiImageList = sets.NewString(
 	"ghcr.io/kubevault/vault-unsealer",
 )
 
+var imagePathList = [][]string{
+	{"image"},
+	{"initContainer", "image"},
+}
+
 type AppVersion struct {
 	Group   string
 	Kind    string
@@ -200,7 +205,44 @@ func main() {
 		}
 	}
 
+	// FORMAT CATALOG, INJECT docker.io prefix
 	for k, v := range appStore {
+		for _, obj := range v {
+			spec, _, err := unstructured.NestedMap(obj.Object, "spec")
+			if err != nil {
+				panic(err)
+			}
+			for prop := range spec {
+				updateDockerHubPrefix := func(fields ...string) {
+					fieldList := append([]string{"spec", prop}, fields...)
+					img, ok, _ := unstructured.NestedString(obj.Object, fieldList...)
+					if img != "" && ok {
+						ref, err := name.ParseReference(img)
+						if err != nil {
+							panic(err)
+						}
+
+						if ref.Registry == "index.docker.io" && !strings.HasPrefix(img, "docker.io/") {
+							if _, digest, found := strings.Cut(img, "@"); found {
+								img = fmt.Sprintf("docker.io/%s@%s", ref.Repository, digest)
+							} else if _, tag, found := strings.Cut(img, ":"); found {
+								img = fmt.Sprintf("docker.io/%s:%s", ref.Repository, tag)
+							} else {
+								img = fmt.Sprintf("docker.io/%s", ref.Repository)
+							}
+						}
+						err = unstructured.SetNestedField(obj.Object, img, fieldList...)
+						if err != nil {
+							panic(err)
+						}
+					}
+				}
+				for _, path := range imagePathList {
+					updateDockerHubPrefix(path...)
+				}
+			}
+		}
+
 		sort.Slice(v, func(i, j int) bool {
 			di, _, _ := unstructured.NestedBool(v[i].Object, "spec", "deprecated")
 			dj, _, _ := unstructured.NestedBool(v[j].Object, "spec", "deprecated")
@@ -273,8 +315,9 @@ func main() {
 					panic(err)
 				}
 				for prop := range spec {
-					templatizeRegistry := func(field string) {
-						img, ok, _ := unstructured.NestedString(obj.Object, "spec", prop, field)
+					templatizeRegistry := func(fields ...string) {
+						fieldList := append([]string{"spec", prop}, fields...)
+						img, ok, _ := unstructured.NestedString(obj.Object, fieldList...)
 						if ok {
 							ref, err := name.ParseReference(img)
 							if err != nil {
@@ -303,14 +346,15 @@ func main() {
 									newimg += `{{ include "catalog.ubi" $ }}`
 								}
 							}
-							err = unstructured.SetNestedField(obj.Object, newimg, "spec", prop, field)
+							err = unstructured.SetNestedField(obj.Object, newimg, fieldList...)
 							if err != nil {
 								panic(err)
 							}
 						}
 					}
-					templatizeRegistry("image")
-					templatizeRegistry("yqImage")
+					for _, path := range imagePathList {
+						templatizeRegistry(path...)
+					}
 				}
 
 				if i > 0 {
