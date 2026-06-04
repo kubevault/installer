@@ -22,7 +22,7 @@ dependencies:
 - condition: ace-user-roles.enabled
   name: ace-user-roles
   repository: oci://ghcr.io/appscode-charts
-  version: v2025.3.14
+  version: v2026.6.12
 description: KubeVault by AppsCode - HashiCorp Vault operator for Kubernetes
 home: https://kubevault.com
 icon: https://cdn.appscode.com/images/products/kubevault/kubevault-icon.png

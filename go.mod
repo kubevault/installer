@@ -14,12 +14,12 @@ require (
 	k8s.io/api v0.34.3
 	k8s.io/apimachinery v0.34.3
 	k8s.io/kube-openapi v0.0.0-20250910181357-589584f1c912
-	kmodules.xyz/client-go v0.34.2
+	kmodules.xyz/client-go v0.34.3
 	kmodules.xyz/go-containerregistry v0.0.15
-	kmodules.xyz/image-packer v0.0.0-20251214190145-a9cf080f45e8
-	kmodules.xyz/resource-metadata v0.40.2
+	kmodules.xyz/image-packer v0.0.0-20260603060232-aba754904b6a
+	kmodules.xyz/resource-metadata v0.46.0
 	kmodules.xyz/schema-checker v0.4.2
-	kubeops.dev/installer v0.0.0-20251215120607-2679d0cb5864
+	kubeops.dev/installer v0.0.0-20260604074414-f8eed8b7cc8b
 	sigs.k8s.io/yaml v1.6.0
 )
 
@@ -36,7 +36,6 @@ require (
 	github.com/go-openapi/swag/stringutils v0.25.1 // indirect
 	github.com/go-openapi/swag/typeutils v0.25.1 // indirect
 	github.com/go-openapi/swag/yamlutils v0.25.1 // indirect
-	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
