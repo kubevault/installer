@@ -105,7 +105,7 @@ rules:
   - clusterrolebindings
   - roles
   - rolebindings
-  verbs: ["get", "update", "create", "patch", "delete"]
+  verbs: ["watch", "list", "get", "update", "create", "patch", "delete"]
 - apiGroups:
   - cert-manager.io
   resources:
