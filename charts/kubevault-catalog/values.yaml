@@ -8,8 +8,8 @@ nameOverride: ""
 fullnameOverride: ""
 
 proxies:
-  dockerHub: ""
-  dockerLibrary: ""
+  dockerHub: docker.io
+  dockerLibrary: docker.io/library
   ghcr: ghcr.io
   quay: quay.io
   kubernetes: registry.k8s.io

@@ -49,8 +49,8 @@ The following table lists the configurable parameters of the `kubevault-catalog`
 |-----------------------|-------------------------------------------------|--------------------------------|
 | nameOverride          | Overrides name template                         | <code>""</code>                |
 | fullnameOverride      | Overrides fullname template                     | <code>""</code>                |
-| proxies.dockerHub     |                                                 | <code>""</code>                |
-| proxies.dockerLibrary |                                                 | <code>""</code>                |
+| proxies.dockerHub     |                                                 | <code>docker.io</code>         |
+| proxies.dockerLibrary |                                                 | <code>docker.io/library</code> |
 | proxies.ghcr          |                                                 | <code>ghcr.io</code>           |
 | proxies.quay          |                                                 | <code>quay.io</code>           |
 | proxies.kubernetes    |                                                 | <code>registry.k8s.io</code>   |
@@ -65,7 +65,7 @@ The following table lists the configurable parameters of the `kubevault-catalog`
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubevault-catalog appscode/kubevault-catalog -n kubevault --create-namespace --version=v2026.5.18-rc.1 --set proxies.ghcr=ghcr.io
+$ helm upgrade -i kubevault-catalog appscode/kubevault-catalog -n kubevault --create-namespace --version=v2026.5.18-rc.1 --set proxies.dockerHub=docker.io
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
