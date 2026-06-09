@@ -53,20 +53,7 @@ CERT_MANAGER_CERT_MANAGER_TAG=${CERT_MANAGER_CERT_MANAGER_TAG:-v1.19.3}
 crd-importer \
     --no-description \
     --input=${crd_dir} \
-    --input=https://github.com/kmodules/custom-resources/raw/${KMODULES_CUSTOM_RESOURCES_TAG}/crds/metrics.appscode.com_metricsconfigurations.v1.yaml \
     --out=./charts/kubevault-crds/crds
-
-crd-importer --v=v1 \
-    --no-description \
-    --input=${crd_dir} \
-    --out=./charts/kubevault-crds/crds \
-    --group=catalog.kubevault.com
-
-crd-importer --v=v1 \
-    --no-description \
-    --input=${crd_dir} \
-    --out=./charts/kubevault-crds/crds \
-    --group=kubevault.com
 
 crd-importer \
     --no-description \
@@ -93,6 +80,7 @@ crd-importer --v=v1 \
 
 crd-importer \
     --no-description \
+    --input=${crd_dir}/kubevault.com_vaultservers.yaml \
     --input=https://github.com/cert-manager/cert-manager/raw/${CERT_MANAGER_CERT_MANAGER_TAG}/deploy/crds/cert-manager.io_certificates.yaml \
     --input=https://github.com/cert-manager/cert-manager/raw/${CERT_MANAGER_CERT_MANAGER_TAG}/deploy/crds/cert-manager.io_issuers.yaml \
     --out=./charts/kubevault-webhook-server/crds

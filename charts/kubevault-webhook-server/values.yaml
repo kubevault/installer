@@ -128,7 +128,24 @@ distro:
 # CRD's spec.conversion to point at this webhook server. The Job runs once
 # per helm install / upgrade and is then garbage-collected.
 kubectl:
-  # kubectl image used by the conversion-patch Job
-  registry: docker.io/bitnami
-  repository: kubectl
-  tag: "1.31.4"
+  # Docker registry used to pull KubeDB enterprise kubectl-nonroot image
+  registry: appscode
+  # KubeDB enterprise kubectl-nonroot container image
+  repository: kubectl-nonroot
+  # KubeDB enterprise kubectl-nonroot container image tag
+  tag: "1.34"
+  # Security options this container should run with
+  securityContext:  # +doc-gen:break
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
+  # Compute Resources required by the operator container
+  resources: {}
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi

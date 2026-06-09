@@ -45,21 +45,22 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubevault-catalog` chart and their default values.
 
-|       Parameter       |                   Description                   |            Default             |
-|-----------------------|-------------------------------------------------|--------------------------------|
-| nameOverride          | Overrides name template                         | <code>""</code>                |
-| fullnameOverride      | Overrides fullname template                     | <code>""</code>                |
-| proxies.dockerHub     |                                                 | <code>docker.io</code>         |
-| proxies.dockerLibrary |                                                 | <code>docker.io/library</code> |
-| proxies.ghcr          |                                                 | <code>ghcr.io</code>           |
-| proxies.quay          |                                                 | <code>quay.io</code>           |
-| proxies.kubernetes    |                                                 | <code>registry.k8s.io</code>   |
-| proxies.microsoft     |                                                 | <code>mcr.microsoft.com</code> |
-| proxies.appscode      |                                                 | <code>r.appscode.com</code>    |
-| proxies.weaviate      |                                                 | <code>cr.weaviate.io</code>    |
-| skipDeprecated        | Set true to avoid deploying deprecated versions | <code>true</code>              |
-| distro.openshift      |                                                 | <code>false</code>             |
-| distro.ubi            |                                                 | <code>""</code>                |
+|       Parameter       |                   Description                   |                  Default                   |
+|-----------------------|-------------------------------------------------|--------------------------------------------|
+| nameOverride          | Overrides name template                         | <code>""</code>                            |
+| fullnameOverride      | Overrides fullname template                     | <code>""</code>                            |
+| proxies.dockerHub     |                                                 | <code>docker.io</code>                     |
+| proxies.dockerLibrary |                                                 | <code>docker.io/library</code>             |
+| proxies.ghcr          |                                                 | <code>ghcr.io</code>                       |
+| proxies.quay          |                                                 | <code>quay.io</code>                       |
+| proxies.kubernetes    |                                                 | <code>registry.k8s.io</code>               |
+| proxies.microsoft     |                                                 | <code>mcr.microsoft.com</code>             |
+| proxies.appscode      |                                                 | <code>r.appscode.com</code>                |
+| proxies.oracle        |                                                 | <code>container-registry.oracle.com</code> |
+| proxies.weaviate      |                                                 | <code>cr.weaviate.io</code>                |
+| skipDeprecated        | Set true to avoid deploying deprecated versions | <code>true</code>                          |
+| distro.openshift      |                                                 | <code>false</code>                         |
+| distro.ubi            |                                                 | <code>""</code>                            |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:

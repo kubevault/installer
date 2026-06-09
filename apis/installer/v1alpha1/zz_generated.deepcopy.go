@@ -688,6 +688,7 @@ func (in *KubevaultWebhookServerSpec) DeepCopyInto(out *KubevaultWebhookServerSp
 	out.Apiserver = in.Apiserver
 	in.Monitoring.DeepCopyInto(&out.Monitoring)
 	out.Distro = in.Distro
+	in.Kubectl.DeepCopyInto(&out.Kubectl)
 	return
 }
 

@@ -81,7 +81,8 @@ type KubevaultWebhookServerSpec struct {
 	Apiserver          WebhookAPIServerSpec     `json:"apiserver"`
 	Monitoring         Monitoring               `json:"monitoring"`
 	// +optional
-	Distro shared.DistroSpec `json:"distro"`
+	Distro  shared.DistroSpec `json:"distro"`
+	Kubectl Container         `json:"kubectl"`
 }
 
 type WebhookAPIServerSpec struct {
