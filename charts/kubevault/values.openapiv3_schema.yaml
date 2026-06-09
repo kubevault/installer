@@ -4972,13 +4972,14 @@ properties:
             type: boolean
           enableValidatingWebhook:
             type: boolean
-          groupPriorityMinimum:
-            format: int32
-            type: integer
           healthcheck:
             properties:
               enabled:
                 type: boolean
+              probePort:
+                type: integer
+            required:
+            - probePort
             type: object
           port:
             format: int32
@@ -5012,11 +5013,6 @@ properties:
             required:
             - generate
             type: object
-          useKubeapiserverFqdnForAks:
-            type: boolean
-          versionPriority:
-            format: int32
-            type: integer
           webhook:
             properties:
               failurePolicy:
@@ -5028,12 +5024,9 @@ properties:
         - ca
         - enableMutatingWebhook
         - enableValidatingWebhook
-        - groupPriorityMinimum
         - healthcheck
         - port
         - servingCerts
-        - useKubeapiserverFqdnForAks
-        - versionPriority
         - webhook
         type: object
       criticalAddon:
@@ -5073,6 +5066,8 @@ properties:
             - prometheus.io/operator
             - prometheus.io/builtin
             type: string
+          bindPort:
+            type: integer
           serviceMonitor:
             properties:
               labels:
@@ -5082,6 +5077,7 @@ properties:
             type: object
         required:
         - agent
+        - bindPort
         - serviceMonitor
         type: object
       nameOverride:

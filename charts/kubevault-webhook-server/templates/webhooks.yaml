@@ -1,0 +1,346 @@
+{{- /*
+Single template that renders, in one consistent pass:
+  1. the serving-cert Secret (in apiserver.servingCerts.generate mode),
+  2. every MutatingWebhookConfiguration / ValidatingWebhookConfiguration that
+     points at the kubevault-webhook-server Service.
+
+Why one file? helm's `genCA` / `genSignedCert` are non-deterministic across
+template renders, so the CA can only be guaranteed identical when computed
+once per `helm template` invocation. Keeping the Secret and every webhook
+configuration in the same file means the same `$caCrt` flows everywhere.
+
+cert-manager mode: the Secret is owned by cert-manager (see templates/cert-manager.yaml)
+and each webhook configuration carries the cert-manager.io/inject-ca-from-secret
+annotation; the controller patches the caBundle field at runtime.
+*/ -}}
+{{- $fullname := include "kubevault-webhook-server.fullname" . -}}
+{{- $svcNamespace := .Release.Namespace -}}
+{{- $useCertManager := .Values.apiserver.servingCerts.certManager.enabled -}}
+{{- $failurePolicy := .Values.apiserver.webhook.failurePolicy -}}
+
+{{- $caCrt := "" -}}
+{{- $serverCrt := "" -}}
+{{- $serverKey := "" -}}
+{{- if not $useCertManager -}}
+{{-   if .Values.apiserver.servingCerts.generate -}}
+{{-     $ca := genCA "ca" 3650 -}}
+{{-     $altName1 := printf "%s.%s" $fullname .Release.Namespace -}}
+{{-     $altName2 := printf "%s.%s.svc" $fullname .Release.Namespace -}}
+{{-     $server := genSignedCert $fullname nil (list $altName1 $altName2) 3650 $ca -}}
+{{-     $caCrt = b64enc $ca.Cert -}}
+{{-     $serverCrt = b64enc $server.Cert -}}
+{{-     $serverKey = b64enc $server.Key -}}
+{{-   else -}}
+{{-     $caCrt = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.caCrt -}}
+{{-     $serverCrt = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.serverCrt -}}
+{{-     $serverKey = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.serverKey -}}
+{{-   end }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $fullname }}-apiserver-cert
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+type: kubernetes.io/tls
+data:
+  ca.crt: {{ $caCrt }}
+  tls.crt: {{ $serverCrt }}
+  tls.key: {{ $serverKey }}
+---
+{{- end }}
+
+{{- /* clientConfig.service block used by every webhook */ -}}
+{{- $clientConfigService := dict "namespace" $svcNamespace "name" $fullname -}}
+
+{{- /*
+caBundleField returns the YAML snippet for a webhook's caBundle / annotation.
+In cert-manager mode we leave caBundle unset and rely on the inject-ca-from-secret
+annotation (added at the metadata level below). Otherwise we inline the CA we
+just generated.
+*/ -}}
+
+{{- /* ---- VaultServer (kubevault.com/v1alpha2) ---- */ -}}
+{{- if .Values.apiserver.enableMutatingWebhook }}
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutators.kubevault.com
+  labels:
+    app.kubernetes.io/component: kubevault-core
+    {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  {{- if $useCertManager }}
+  annotations:
+    cert-manager.io/inject-ca-from-secret: {{ printf "%s/%s-apiserver-cert" $svcNamespace $fullname }}
+  {{- end }}
+webhooks:
+- name: vaultserver.mutators.kubevault.com
+  clientConfig:
+    service:
+      namespace: {{ $svcNamespace }}
+      name: {{ $fullname }}
+      path: /mutate-kubevault-com-v1alpha2-vaultserver
+      port: 443
+    {{- if not $useCertManager }}
+    caBundle: {{ $caCrt }}
+    {{- end }}
+  rules:
+  - operations: ["CREATE", "UPDATE"]
+    apiGroups: ["kubevault.com"]
+    apiVersions: ["v1alpha2"]
+    resources: ["vaultservers"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ $failurePolicy }}
+  sideEffects: None
+  timeoutSeconds: 10
+---
+{{- end }}
+
+{{- if .Values.apiserver.enableValidatingWebhook }}
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: validators.kubevault.com
+  labels:
+    app.kubernetes.io/component: kubevault-core
+    {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  {{- if $useCertManager }}
+  annotations:
+    cert-manager.io/inject-ca-from-secret: {{ printf "%s/%s-apiserver-cert" $svcNamespace $fullname }}
+  {{- end }}
+webhooks:
+- name: vaultserver.validators.kubevault.com
+  clientConfig:
+    service:
+      namespace: {{ $svcNamespace }}
+      name: {{ $fullname }}
+      path: /validate-kubevault-com-v1alpha2-vaultserver
+      port: 443
+    {{- if not $useCertManager }}
+    caBundle: {{ $caCrt }}
+    {{- end }}
+  rules:
+  - operations: ["CREATE", "UPDATE", "DELETE"]
+    apiGroups: ["kubevault.com"]
+    apiVersions: ["v1alpha2"]
+    resources: ["vaultservers"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ $failurePolicy }}
+  sideEffects: None
+  timeoutSeconds: 10
+---
+{{- end }}
+
+{{- /* ---- VaultPolicyBinding (policy.kubevault.com/v1alpha1) ---- */ -}}
+{{- if .Values.apiserver.enableMutatingWebhook }}
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutators.policy.kubevault.com
+  labels:
+    app.kubernetes.io/component: kubevault-policy
+    {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  {{- if $useCertManager }}
+  annotations:
+    cert-manager.io/inject-ca-from-secret: {{ printf "%s/%s-apiserver-cert" $svcNamespace $fullname }}
+  {{- end }}
+webhooks:
+- name: vaultpolicybinding.mutators.policy.kubevault.com
+  clientConfig:
+    service:
+      namespace: {{ $svcNamespace }}
+      name: {{ $fullname }}
+      path: /mutate-policy-kubevault-com-v1alpha1-vaultpolicybinding
+      port: 443
+    {{- if not $useCertManager }}
+    caBundle: {{ $caCrt }}
+    {{- end }}
+  rules:
+  - operations: ["CREATE", "UPDATE"]
+    apiGroups: ["policy.kubevault.com"]
+    apiVersions: ["v1alpha1"]
+    resources: ["vaultpolicybindings"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ $failurePolicy }}
+  sideEffects: None
+  timeoutSeconds: 10
+---
+{{- end }}
+
+{{- /* ---- SecretEngine + SecretAccessRequest (engine.kubevault.com/v1alpha1) ---- */ -}}
+{{- if .Values.apiserver.enableMutatingWebhook }}
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutators.engine.kubevault.com
+  labels:
+    app.kubernetes.io/component: kubevault-engine
+    {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  {{- if $useCertManager }}
+  annotations:
+    cert-manager.io/inject-ca-from-secret: {{ printf "%s/%s-apiserver-cert" $svcNamespace $fullname }}
+  {{- end }}
+webhooks:
+- name: secretaccessrequest.mutators.engine.kubevault.com
+  clientConfig:
+    service:
+      namespace: {{ $svcNamespace }}
+      name: {{ $fullname }}
+      path: /mutate-engine-kubevault-com-v1alpha1-secretaccessrequest
+      port: 443
+    {{- if not $useCertManager }}
+    caBundle: {{ $caCrt }}
+    {{- end }}
+  rules:
+  - operations: ["CREATE", "UPDATE"]
+    apiGroups: ["engine.kubevault.com"]
+    apiVersions: ["v1alpha1"]
+    resources: ["secretaccessrequests"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ $failurePolicy }}
+  sideEffects: None
+  timeoutSeconds: 10
+---
+{{- end }}
+
+{{- if .Values.apiserver.enableValidatingWebhook }}
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: validators.engine.kubevault.com
+  labels:
+    app.kubernetes.io/component: kubevault-engine
+    {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  {{- if $useCertManager }}
+  annotations:
+    cert-manager.io/inject-ca-from-secret: {{ printf "%s/%s-apiserver-cert" $svcNamespace $fullname }}
+  {{- end }}
+webhooks:
+- name: secretengine.validators.engine.kubevault.com
+  clientConfig:
+    service:
+      namespace: {{ $svcNamespace }}
+      name: {{ $fullname }}
+      path: /validate-engine-kubevault-com-v1alpha1-secretengine
+      port: 443
+    {{- if not $useCertManager }}
+    caBundle: {{ $caCrt }}
+    {{- end }}
+  rules:
+  - operations: ["CREATE", "UPDATE"]
+    apiGroups: ["engine.kubevault.com"]
+    apiVersions: ["v1alpha1"]
+    resources: ["secretengines"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ $failurePolicy }}
+  sideEffects: None
+  timeoutSeconds: 10
+- name: secretaccessrequest.validators.engine.kubevault.com
+  clientConfig:
+    service:
+      namespace: {{ $svcNamespace }}
+      name: {{ $fullname }}
+      path: /validate-engine-kubevault-com-v1alpha1-secretaccessrequest
+      port: 443
+    {{- if not $useCertManager }}
+    caBundle: {{ $caCrt }}
+    {{- end }}
+  rules:
+  - operations: ["UPDATE"]
+    apiGroups: ["engine.kubevault.com"]
+    apiVersions: ["v1alpha1"]
+    resources: ["secretaccessrequests"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ $failurePolicy }}
+  sideEffects: None
+  timeoutSeconds: 10
+{{- end }}
+
+{{- /* ---- VaultServer CRD conversion (v1alpha1 <-> v1alpha2) ---- */ -}}
+{{- /*
+The vaultservers.kubevault.com CRD ships in the kubevault-crds chart
+without a conversion strategy, so we patch spec.conversion at install /
+upgrade time. The patch is rendered here so it shares the $caCrt
+computed at the top of this file; it then gets applied by a kubectl
+Job (post-install,post-upgrade hook). In cert-manager mode the caBundle
+is left out and cert-manager's ca-injector populates it via the
+metadata annotation. The webhook-server ServiceAccount already has
+"customresourcedefinitions: *" via cluster-role.yaml so no extra RBAC
+is needed.
+*/ -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullname }}-vaultservers-conversion
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+data:
+  patch.yaml: |
+    {{- if $useCertManager }}
+    metadata:
+      annotations:
+        cert-manager.io/inject-ca-from-secret: {{ printf "%s/%s-apiserver-cert" $svcNamespace $fullname }}
+    {{- end }}
+    spec:
+      conversion:
+        strategy: Webhook
+        webhook:
+          conversionReviewVersions: ["v1"]
+          clientConfig:
+            service:
+              namespace: {{ $svcNamespace }}
+              name: {{ $fullname }}
+              path: /convert
+              port: 443
+            {{- if not $useCertManager }}
+            caBundle: {{ $caCrt }}
+            {{- end }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ $fullname }}-vaultservers-conversion-patch
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  ttlSecondsAfterFinished: 60
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        {{- include "kubevault-webhook-server.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- include "appscode.imagePullSecrets" . | nindent 6 }}
+      serviceAccountName: {{ include "kubevault-webhook-server.serviceAccountName" . }}
+      restartPolicy: Never
+      containers:
+      - name: kubectl
+        image: {{ .Values.kubectl.registry }}/{{ .Values.kubectl.repository }}:{{ .Values.kubectl.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        command:
+        - /bin/sh
+        - -c
+        - |
+          set -eu
+          kubectl patch crd vaultservers.kubevault.com \
+            --type=merge \
+            --patch-file=/patch/patch.yaml
+        volumeMounts:
+        - name: patch
+          mountPath: /patch
+          readOnly: true
+      volumes:
+      - name: patch
+        configMap:
+          name: {{ $fullname }}-vaultservers-conversion

@@ -74,27 +74,20 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 apiserver:
-  # The minimum priority the webhook api group should have at least. Please see
-  # https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L58-L64
-  # for more information on proper values of this field.
-  groupPriorityMinimum: 10000
-  # The ordering of the webhook api inside of the group. Please see
-  # https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L66-L70
-  # for more information on proper values of this field
-  versionPriority: 15
-  # If true, mutating webhook is configured for KubeVault CRDss
+  # If true, mutating webhooks are registered for KubeVault CRDs.
   enableMutatingWebhook: true
-  # If true, validating webhook is configured for KubeVault CRDss
+  # If true, validating webhooks are registered for KubeVault CRDs.
   enableValidatingWebhook: true
   # CA certificate used by the Kubernetes api server. This field is automatically assigned by the webhook server.
   ca: not-ca-cert
-  # If true, uses kube-apiserver FQDN for AKS cluster to workaround https://github.com/Azure/AKS/issues/522 (default true)
-  useKubeapiserverFqdnForAks: true
   healthcheck:
-    # healthcheck configures the readiness and liveliness probes for the webhook server pod.
+    # healthcheck configures the readiness and liveness probes for the webhook server pod.
     enabled: false
-  # Port used to expose the webhook server apiserver
-  port: 8443
+    # Probe port served by the controller-runtime manager (HTTP, plain).
+    probePort: 8081
+  # Port exposed by the controller-runtime webhook server (HTTPS).
+  # Matches the default port used by sigs.k8s.io/controller-runtime/pkg/webhook.
+  port: 9443
   servingCerts:
     # If true, generates on install/upgrade the certs that allow the kube-apiserver (and potentially ServiceMonitor)
     # to authenticate webhook servers pods. Otherwise specify certs in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.
@@ -119,6 +112,8 @@ apiserver:
 monitoring:
   # Name of monitoring agent (one of "prometheus.io", "prometheus.io/operator", "prometheus.io/builtin")
   agent: ""
+  # Port the controller-runtime metrics endpoint binds to (plain HTTP).
+  bindPort: 8080
   serviceMonitor:
     # Specify the labels for ServiceMonitor.
     # Prometheus crd will select ServiceMonitor using these labels.
@@ -128,3 +123,12 @@ monitoring:
 distro:
   openshift: false
   ubi: ""
+
+# Settings for the post-install/post-upgrade Job that patches the VaultServer
+# CRD's spec.conversion to point at this webhook server. The Job runs once
+# per helm install / upgrade and is then garbage-collected.
+kubectl:
+  # kubectl image used by the conversion-patch Job
+  registry: docker.io/bitnami
+  repository: kubectl
+  tag: "1.31.4"

@@ -22,7 +22,7 @@ spec:
       labels:
         {{- include "kubevault-webhook-server.selectorLabels" . | nindent 8 }}
       annotations:
-        checksum/serving-cert: {{ include (print $.Template.BasePath "/apiregistration.yaml") . | sha256sum }}
+        checksum/serving-cert: {{ include (print $.Template.BasePath "/webhooks.yaml") . | sha256sum }}
       {{- if $criticalAddon }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
       {{- end }}
@@ -46,15 +46,12 @@ spec:
         args:
         - run
         - --v={{ .Values.logLevel }}
-        - --secure-port={{ .Values.apiserver.port }}
-        - --audit-log-path=-
         - --cluster-name={{ .Values.clusterName }}
-        - --tls-cert-file=/var/serving-cert/tls.crt
-        - --tls-private-key-file=/var/serving-cert/tls.key
-        - --authorization-always-allow-paths=/healthz,/readyz,/livez,/convert
+        - --cert-dir=/var/serving-cert
+        - --metrics-bind-address=:{{ .Values.monitoring.bindPort }}
+        - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
         - --enable-mutating-webhook={{ .Values.apiserver.enableMutatingWebhook }}
         - --enable-validating-webhook={{ .Values.apiserver.enableValidatingWebhook }}
-        - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         env:
         - name: POD_NAME
           valueFrom:
@@ -65,8 +62,12 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         ports:
-        - name: operator
+        - name: webhook
           containerPort: {{ .Values.apiserver.port }}
+        - name: metrics
+          containerPort: {{ .Values.monitoring.bindPort }}
+        - name: probes
+          containerPort: {{ .Values.apiserver.healthcheck.probePort }}
         volumeMounts:
         - mountPath: /tmp
           name: tmpdir
@@ -75,17 +76,16 @@ spec:
       {{- if .Values.apiserver.healthcheck.enabled }}
         readinessProbe:
           httpGet:
-            path: /healthz
-            port: operator
-            scheme: HTTPS
+            path: /readyz
+            port: probes
           initialDelaySeconds: 5
+          periodSeconds: 10
         livenessProbe:
           httpGet:
             path: /healthz
-            port: operator
-            scheme: HTTPS
+            port: probes
           initialDelaySeconds: 15
-          timeoutSeconds: 15
+          periodSeconds: 20
       {{- end }}
         resources:
           {{- toYaml .Values.server.resources | nindent 10 }}
