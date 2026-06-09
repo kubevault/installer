@@ -49,7 +49,7 @@ rules:
   - ""
   resources:
   - serviceaccounts
-  verbs: ["create", "get", "patch"]
+  verbs: ["create", "get", "list", "watch", "patch", "delete"]
 - apiGroups:
     - ""
   resources:
@@ -97,7 +97,7 @@ rules:
   - pods
   - pods/exec
   - pods/eviction
-  verbs: ["get", "create", "list"]
+  verbs: ["get", "create", "list", "watch", "delete"]
 - apiGroups:
   - rbac.authorization.k8s.io
   resources:
@@ -141,3 +141,19 @@ rules:
   - clusterclaims
   verbs: ["get"]
   resourceNames: ["features.ace.info"]
+# OCM hub-driven spoke agent placement (VaultServer spec.agentPlacementRef):
+# resolve Placements through PlacementDecisions and maintain one ManifestWork
+# per selected managed cluster. The operator also creates ServiceAccounts and
+# Secrets in the managed cluster namespaces on the hub (covered by the core
+# rules above).
+- apiGroups:
+  - cluster.open-cluster-management.io
+  resources:
+  - placements
+  - placementdecisions
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - work.open-cluster-management.io
+  resources:
+  - manifestworks
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
