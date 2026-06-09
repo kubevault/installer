@@ -69,6 +69,13 @@ Returns the registry used for operator docker image
 {{- list .Values.registryFQDN .Values.server.registry | compact | join "/" }}
 {{- end }}
 
+{{/*
+Returns the registry used for kubectl docker image
+*/}}
+{{- define "kubectl.registry" -}}
+{{- list .Values.registryFQDN .Values.kubectl.registry | compact | join "/" }}
+{{- end }}
+
 {{- define "appscode.imagePullSecrets" -}}
 {{- with .Values.imagePullSecrets -}}
 imagePullSecrets:

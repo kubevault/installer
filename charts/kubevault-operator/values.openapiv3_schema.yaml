@@ -2060,6 +2060,8 @@ properties:
     - genRotateTLSRecommendationBeforeExpiryYear
     - recommendationResyncPeriod
     type: object
+  registerCRDs:
+    type: boolean
   registryFQDN:
     type: string
   replicaCount:
@@ -2134,6 +2136,7 @@ required:
 - imagePullPolicy
 - monitoring
 - operator
+- registerCRDs
 - registryFQDN
 - replicaCount
 - serviceAccount

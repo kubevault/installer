@@ -49,6 +49,7 @@ type KubevaultOperatorSpec struct {
 	ReplicaCount     int32     `json:"replicaCount"`
 	RegistryFQDN     string    `json:"registryFQDN"`
 	Operator         Container `json:"operator"`
+	RegisterCRDs     bool      `json:"registerCRDs"`
 	ImagePullPolicy  string    `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`

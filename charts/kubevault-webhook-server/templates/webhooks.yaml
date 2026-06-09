@@ -256,7 +256,7 @@ webhooks:
   timeoutSeconds: 10
 {{- end }}
 
-{{- /* ---- VaultServer CRD conversion (v1alpha1 <-> v1alpha2) ---- */ -}}
+{{/* ---- VaultServer CRD conversion (v1alpha1 <-> v1alpha2) ---- */ -}}
 {{- /*
 The vaultservers.kubevault.com CRD ships in the kubevault-crds chart
 without a conversion strategy, so we patch spec.conversion at install /
@@ -324,18 +324,28 @@ spec:
       {{- include "appscode.imagePullSecrets" . | nindent 6 }}
       serviceAccountName: {{ include "kubevault-webhook-server.serviceAccountName" . }}
       restartPolicy: Never
+      {{- if eq "true" ( include "distro.openshift" . ) }}
+      securityContext:
+        {{- toYaml (omit .Values.podSecurityContext "runAsUser" "runAsGroup" "fsGroup" "supplementalGroups") | nindent 8 }}
+      {{- else }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- end }}
       containers:
       - name: kubectl
-        image: {{ .Values.kubectl.registry }}/{{ .Values.kubectl.repository }}:{{ .Values.kubectl.tag }}
+        {{- if eq "true" ( include "distro.openshift" . ) }}
+        securityContext:
+          {{- toYaml (omit .Values.kubectl.securityContext "runAsUser" "runAsGroup" "fsGroup" "supplementalGroups") | nindent 10 }}
+        {{- else }}
+        securityContext:
+          {{- toYaml .Values.kubectl.securityContext | nindent 10 }}
+        {{- end }}
+        image: {{ include "kubectl.registry" . }}/{{ .Values.kubectl.repository }}:{{ .Values.kubectl.tag }}{{ include "operator.ubi" . }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        command:
-        - /bin/sh
-        - -c
-        - |
-          set -eu
-          kubectl patch crd vaultservers.kubevault.com \
-            --type=merge \
-            --patch-file=/patch/patch.yaml
+        command: ['kubectl']
+        args: ['patch', 'crd', 'vaultservers.kubevault.com', '--type=merge', '--patch-file=/patch/patch.yaml']
+        resources:
+          {{- toYaml .Values.kubectl.resources | nindent 10 }}
         volumeMounts:
         - name: patch
           mountPath: /patch

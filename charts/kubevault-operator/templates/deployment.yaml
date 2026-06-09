@@ -46,7 +46,7 @@ spec:
         - --cluster-name={{ .Values.clusterName }}
         - --metrics-bind-address=:{{ .Values.monitoring.bindPort }}
         - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
-        {{- if .Values.operator.registerCRDs }}
+        {{- if .Values.registerCRDs }}
         - --register-crds=true
         {{- end }}
         {{- with .Values.recommendationEngine }}
