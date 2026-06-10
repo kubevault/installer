@@ -9602,6 +9602,34 @@ spec:
             type: object
           status:
             properties:
+              agentPlacement:
+                properties:
+                  applied:
+                    format: int32
+                    type: integer
+                  clusters:
+                    items:
+                      properties:
+                        clusterName:
+                          type: string
+                        phase:
+                          type: string
+                        tokenExpiry:
+                          format: date-time
+                          type: string
+                      required:
+                      - clusterName
+                      type: object
+                    type: array
+                  placement:
+                    type: string
+                  ready:
+                    format: int32
+                    type: integer
+                  selected:
+                    format: int32
+                    type: integer
+                type: object
               authMethodStatus:
                 items:
                   properties:
