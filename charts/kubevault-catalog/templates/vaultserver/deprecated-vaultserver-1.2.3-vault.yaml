@@ -4,13 +4,14 @@
 {{- end }}
 
 {{ if (not (eq $ubi "operator")) }}
-apiVersion: catalog.kubevault.com/v1alpha1
+{{ if (not .Values.skipDeprecated) }}apiVersion: catalog.kubevault.com/v1alpha1
 kind: VaultServerVersion
 metadata:
   name: '1.2.3'
   labels:
     {{- include "kubevault-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   distribution: Vault
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubevault/vault-exporter") $) }}:v0.1.1'
@@ -27,4 +28,6 @@ spec:
   vault:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/vault") $) }}:1.2.3'
   version: 1.2.3
+
+{{ end }}
 {{ end }}

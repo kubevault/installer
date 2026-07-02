@@ -26,6 +26,7 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
+$CMD push --allow-nondistributable-artifacts --insecure images/openbao-openbao-2.4.3.tar $IMAGE_REGISTRY/openbao/openbao:2.4.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.10.3.tar $IMAGE_REGISTRY/appscode-images/vault:1.10.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.11.5.tar $IMAGE_REGISTRY/appscode-images/vault:1.11.5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.12.1.tar $IMAGE_REGISTRY/appscode-images/vault:1.12.1
@@ -35,18 +36,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-v
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.16.3.tar $IMAGE_REGISTRY/appscode-images/vault:1.16.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.17.6.tar $IMAGE_REGISTRY/appscode-images/vault:1.17.6
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.18.4.tar $IMAGE_REGISTRY/appscode-images/vault:1.18.4
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.2.0.tar $IMAGE_REGISTRY/appscode-images/vault:1.2.0
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.2.2.tar $IMAGE_REGISTRY/appscode-images/vault:1.2.2
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.2.3.tar $IMAGE_REGISTRY/appscode-images/vault:1.2.3
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.5.9.tar $IMAGE_REGISTRY/appscode-images/vault:1.5.9
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.6.5.tar $IMAGE_REGISTRY/appscode-images/vault:1.6.5
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.7.2.tar $IMAGE_REGISTRY/appscode-images/vault:1.7.2
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.7.3.tar $IMAGE_REGISTRY/appscode-images/vault:1.7.3
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.8.2.tar $IMAGE_REGISTRY/appscode-images/vault:1.8.2
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.9.2.tar $IMAGE_REGISTRY/appscode-images/vault:1.9.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.34.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-exporter-v0.1.1.tar $IMAGE_REGISTRY/kubevault/vault-exporter:v0.1.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-operator-v0.25.0-rc.1.tar $IMAGE_REGISTRY/kubevault/vault-operator:v0.25.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-unsealer-v0.25.0-rc.1.tar $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.25.0-rc.1
-$CMD push --allow-nondistributable-artifacts --insecure images/openbao-openbao-2.4.3.tar $IMAGE_REGISTRY/openbao/openbao:2.4.3
-$CMD push --allow-nondistributable-artifacts --insecure images/library-vault-0.11.5.tar $IMAGE_REGISTRY/vault:0.11.5

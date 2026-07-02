@@ -3,8 +3,8 @@ kind: VaultServerVersion
 metadata:
   name: 1.8.2
 spec:
-  distribution: Vault
   deprecated: true
+  distribution: Vault
   exporter:
     image: ghcr.io/kubevault/vault-exporter:v0.1.1
   initContainer:
