@@ -4719,6 +4719,9 @@ spec:
                   clusters:
                     items:
                       properties:
+                        certExpiry:
+                          format: date-time
+                          type: string
                         clusterName:
                           type: string
                         phase:
@@ -12562,6 +12565,9 @@ spec:
                   clusters:
                     items:
                       properties:
+                        certExpiry:
+                          format: date-time
+                          type: string
                         clusterName:
                           type: string
                         phase:
