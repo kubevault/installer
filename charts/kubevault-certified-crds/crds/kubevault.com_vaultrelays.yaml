@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubevault
-  name: vaultagents.kubevault.com
+  name: vaultrelays.kubevault.com
 spec:
   group: kubevault.com
   names:
@@ -11,12 +11,12 @@ spec:
     - vault
     - appscode
     - all
-    kind: VaultAgent
-    listKind: VaultAgentList
-    plural: vaultagents
+    kind: VaultRelay
+    listKind: VaultRelayList
+    plural: vaultrelays
     shortNames:
     - va
-    singular: vaultagent
+    singular: vaultrelay
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
