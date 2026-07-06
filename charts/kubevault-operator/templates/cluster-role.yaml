@@ -141,7 +141,7 @@ rules:
   - clusterclaims
   verbs: ["get"]
   resourceNames: ["features.ace.info"]
-# OCM hub-driven spoke agent placement (VaultServer spec.agentPlacementRef):
+# OCM hub-driven spoke relay placement (VaultServer spec.relayPlacementRef):
 # resolve Placements through PlacementDecisions and maintain one ManifestWork
 # per selected managed cluster. The operator also creates ServiceAccounts and
 # Secrets in the managed cluster namespaces on the hub (covered by the core

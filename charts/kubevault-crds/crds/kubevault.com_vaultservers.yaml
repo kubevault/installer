@@ -4711,7 +4711,7 @@ spec:
             type: object
           status:
             properties:
-              agentPlacement:
+              relayPlacement:
                 properties:
                   applied:
                     format: int32
@@ -4860,14 +4860,14 @@ spec:
             type: object
           spec:
             properties:
-              agentPlacementRef:
+              relayPlacementRef:
                 properties:
                   name:
                     default: ""
                     type: string
                 type: object
                 x-kubernetes-map-type: atomic
-              agentTemplate:
+              relayTemplate:
                 properties:
                   bootstrapTokenTTL:
                     type: string
@@ -12557,7 +12557,7 @@ spec:
             type: object
           status:
             properties:
-              agentPlacement:
+              relayPlacement:
                 properties:
                   applied:
                     format: int32

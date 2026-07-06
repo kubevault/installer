@@ -1973,7 +1973,7 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubevault
-  name: vaultagents.kubevault.com
+  name: vaultrelays.kubevault.com
 spec:
   group: kubevault.com
   names:
@@ -1981,12 +1981,12 @@ spec:
     - vault
     - appscode
     - all
-    kind: VaultAgent
-    listKind: VaultAgentList
-    plural: vaultagents
+    kind: VaultRelay
+    listKind: VaultRelayList
+    plural: vaultrelays
     shortNames:
     - va
-    singular: vaultagent
+    singular: vaultrelay
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -9602,7 +9602,7 @@ spec:
             type: object
           status:
             properties:
-              agentPlacement:
+              relayPlacement:
                 properties:
                   applied:
                     format: int32
@@ -9751,14 +9751,14 @@ spec:
             type: object
           spec:
             properties:
-              agentPlacementRef:
+              relayPlacementRef:
                 properties:
                   name:
                     default: ""
                     type: string
                 type: object
                 x-kubernetes-map-type: atomic
-              agentTemplate:
+              relayTemplate:
                 properties:
                   bootstrapTokenTTL:
                     type: string
@@ -17448,7 +17448,7 @@ spec:
             type: object
           status:
             properties:
-              agentPlacement:
+              relayPlacement:
                 properties:
                   applied:
                     format: int32
