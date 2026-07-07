@@ -15,7 +15,7 @@ spec:
     listKind: VaultRelayList
     plural: vaultrelays
     shortNames:
-    - va
+    - vr
     singular: vaultrelay
   scope: Namespaced
   versions:
