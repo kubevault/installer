@@ -38,10 +38,12 @@ jobs:
           curl -LO https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl
           chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
+          # install image-packer
+          make install-image-packer
 
       - name: Run checks
         run: |
-          ./hack/scripts/update-chart-dependencies.sh
+          make update-chart-dependencies
           make ci
 
   kubernetes:
@@ -105,7 +107,7 @@ jobs:
       - name: Test charts
         run: |
           export KUBECONFIG="${HOME}/.kube/config"
-          ./hack/scripts/update-chart-dependencies.sh
+          make update-chart-dependencies
           ./hack/scripts/ct.sh
 
       - name: Test Monitoring

@@ -256,6 +256,50 @@ manifests: gen-crds gen-values-schema gen-chart-doc
 .PHONY: gen
 gen: clientset manifests
 
+BIN_DIR ?= $(CURDIR)/bin/$(OS)_$(ARCH)
+
+.PHONY: install-image-packer
+install-image-packer:
+	@mkdir -p $(BIN_DIR)
+	curl -fsSL -o $(BIN_DIR)/image-packer.tar.gz https://github.com/kmodules/image-packer/releases/latest/download/image-packer-$(OS)-$(ARCH).tar.gz
+	tar -xzf $(BIN_DIR)/image-packer.tar.gz -C $(BIN_DIR)
+	chmod +x $(BIN_DIR)/image-packer-$(OS)-$(ARCH)
+	mv $(BIN_DIR)/image-packer-$(OS)-$(ARCH) $(BIN_DIR)/image-packer
+	rm -f $(BIN_DIR)/image-packer.tar.gz
+
+.PHONY: install-chart-packer
+install-chart-packer:
+	@mkdir -p $(BIN_DIR)
+	curl -fsSL -o $(BIN_DIR)/chart-packer.tar.gz https://github.com/kmodules/chart-packer/releases/latest/download/chart-packer-$(OS)-$(ARCH).tar.gz
+	tar -xzf $(BIN_DIR)/chart-packer.tar.gz -C $(BIN_DIR)
+	chmod +x $(BIN_DIR)/chart-packer-$(OS)-$(ARCH)
+	mv $(BIN_DIR)/chart-packer-$(OS)-$(ARCH) $(BIN_DIR)/chart-packer
+	rm -f $(BIN_DIR)/chart-packer.tar.gz
+
+.PHONY: update-chart-dependencies
+update-chart-dependencies:
+	./hack/scripts/update-chart-dependencies.sh
+
+.PHONY: update-certified-charts
+update-certified-charts: update-chart-dependencies install-chart-packer
+	rm -rf charts/kubevault-certified charts/kubevault-certified-crds
+	PATH="$(BIN_DIR):$$PATH" chart-packer crd-less --input charts/kubevault --output charts
+	PATH="$(BIN_DIR):$$PATH" chart-packer crd-only --input charts/kubevault --output charts
+	@$(MAKE) gen-chart-doc --no-print-directory
+	helm dependency update charts/kubevault-certified
+	@# Revert Chart.lock if the only change is the `generated:` timestamp line
+	@if ! git diff --quiet -- charts/kubevault-certified/Chart.lock; then \
+		changed=$$(git diff -U0 -- charts/kubevault-certified/Chart.lock | grep -E '^[+-]' | grep -vE '^(\+\+\+|---)' | grep -vE '^[+-]generated:'); \
+		if [ -z "$$changed" ]; then \
+			echo "Reverting charts/kubevault-certified/Chart.lock (only generated: timestamp changed)"; \
+			git checkout -- charts/kubevault-certified/Chart.lock; \
+		fi; \
+	fi
+
+.PHONY: update-catalog
+update-catalog: update-certified-charts install-image-packer
+	PATH="$(BIN_DIR):$$PATH" ./hack/scripts/update-catalog.sh
+
 CHART_REGISTRY     ?= appscode
 CHART_REGISTRY_URL ?= https://charts.appscode.com/stable/
 CHART_VERSION      ?=
@@ -421,7 +465,7 @@ $(BUILD_DIRS):
 dev: gen fmt
 
 .PHONY: verify
-verify: verify-modules
+verify: verify-modules verify-catalog
 
 .PHONY: verify-modules
 verify-modules: gen fmt
@@ -435,6 +479,12 @@ verify-modules: gen fmt
 verify-gen: gen fmt
 	@if !(git diff --exit-code HEAD); then \
 		echo "generated files are out of date, run make gen"; exit 1; \
+	fi
+
+.PHONY: verify-catalog
+verify-catalog: update-catalog
+	@if !(git diff --exit-code HEAD); then \
+		echo "catalog image lists are out of date, run ./hack/scripts/update-catalog.sh"; exit 1; \
 	fi
 
 .PHONY: add-license
