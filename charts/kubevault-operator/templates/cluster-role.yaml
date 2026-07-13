@@ -97,7 +97,11 @@ rules:
   - pods
   - pods/exec
   - pods/eviction
-  verbs: ["get", "create", "list", "watch", "delete"]
+  # patch: the operator grants `pods: get, patch` to each vault
+  # ServiceAccount (the unsealer sidecar labels its own pod with
+  # kubevault.com/role); RBAC escalation prevention requires the
+  # grantor to hold the permission itself.
+  verbs: ["get", "create", "list", "watch", "patch", "delete"]
 - apiGroups:
   - rbac.authorization.k8s.io
   resources:
