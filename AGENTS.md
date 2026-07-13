@@ -40,6 +40,7 @@ All Make targets run inside `ghcr.io/appscode/golang-dev` — Docker must be run
 - `make gen-values-schema` — regenerate `values.openapiv3_schema.yaml` from the Go types.
 - `make gen-chart-doc` — regenerate per-chart `README.md`.
 - `make update-charts` — refresh chart-level metadata.
+- `make refresh` — `gen update-catalog fmt`. **ALWAYS run this before opening a PR** so generated files are current.
 - `make fmt`, `make lint`, `make unit-tests` / `make test` — standard.
 - `make ct` — chart-testing lint+test.
 - `make verify` — `verify-modules`; `go mod tidy && go mod vendor` must leave the tree clean.
