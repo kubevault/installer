@@ -97,10 +97,12 @@ rules:
   - pods
   - pods/exec
   - pods/eviction
-  # patch: the operator grants `pods: get, patch` to each vault
-  # ServiceAccount (the unsealer sidecar labels its own pod with
-  # kubevault.com/role); RBAC escalation prevention requires the
-  # grantor to hold the permission itself.
+  # patch: under spec.clientTrafficPolicy: PrimaryOnly the operator grants
+  # `pods: get, patch` to each vault ServiceAccount, so the vault process can
+  # run OpenBao's native service_registration "kubernetes" and label its own
+  # pod with openbao-active. RBAC escalation prevention requires the grantor to
+  # hold the permission itself. See design/primary-service-routing.md in
+  # kubevault/operator.
   verbs: ["get", "create", "list", "watch", "patch", "delete"]
 - apiGroups:
   - rbac.authorization.k8s.io
