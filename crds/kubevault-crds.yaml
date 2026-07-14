@@ -5573,12 +5573,6 @@ spec:
                     - credentialSecret
                     type: object
                 type: object
-              clientTrafficPolicy:
-                default: AllNodes
-                enum:
-                - AllNodes
-                - PrimaryOnly
-                type: string
               configSecret:
                 properties:
                   name:
@@ -6399,6 +6393,8 @@ spec:
                       type: object
                   type: object
                 type: array
+              exposePrimary:
+                type: boolean
               halted:
                 type: boolean
               monitor:
@@ -10636,12 +10632,6 @@ spec:
                     - container
                     type: object
                 type: object
-              clientTrafficPolicy:
-                default: AllNodes
-                enum:
-                - AllNodes
-                - PrimaryOnly
-                type: string
               configSecret:
                 properties:
                   name:
@@ -11462,6 +11452,8 @@ spec:
                       type: object
                   type: object
                 type: array
+              exposePrimary:
+                type: boolean
               halted:
                 type: boolean
               healthChecker:

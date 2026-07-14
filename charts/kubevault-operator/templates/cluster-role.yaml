@@ -97,7 +97,7 @@ rules:
   - pods
   - pods/exec
   - pods/eviction
-  # patch: under spec.clientTrafficPolicy: PrimaryOnly the operator grants
+  # patch: when spec.exposePrimary is true the operator grants
   # `pods: get, patch` to each vault ServiceAccount, so the vault process can
   # run OpenBao's native service_registration "kubernetes" and label its own
   # pod with openbao-active. RBAC escalation prevention requires the grantor to
