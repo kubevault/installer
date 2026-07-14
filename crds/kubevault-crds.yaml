@@ -9365,6 +9365,7 @@ spec:
                       - internal
                       - vault
                       - stats
+                      - primary
                       type: string
                     metadata:
                       properties:
@@ -17197,6 +17198,7 @@ spec:
                       - internal
                       - vault
                       - stats
+                      - primary
                       type: string
                     metadata:
                       properties:
