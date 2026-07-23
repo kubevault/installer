@@ -6393,6 +6393,8 @@ spec:
                       type: object
                   type: object
                 type: array
+              exposePrimary:
+                type: boolean
               halted:
                 type: boolean
               monitor:
@@ -9359,6 +9361,7 @@ spec:
                       - internal
                       - vault
                       - stats
+                      - primary
                       type: string
                     metadata:
                       properties:
@@ -11449,6 +11452,8 @@ spec:
                       type: object
                   type: object
                 type: array
+              exposePrimary:
+                type: boolean
               halted:
                 type: boolean
               healthChecker:
@@ -17185,6 +17190,7 @@ spec:
                       - internal
                       - vault
                       - stats
+                      - primary
                       type: string
                     metadata:
                       properties:

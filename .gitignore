@@ -34,6 +34,9 @@ _testmain.go
 /test/e2e/junit.xml
 /test/e2e/report.xml
 
+# macOS
+.DS_Store
+
 .terraform
 *.tfstate*
 
