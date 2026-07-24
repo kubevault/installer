@@ -88,6 +88,8 @@ type KubevaultOperatorSpec struct {
 	RecommendationEngine RecommendationEngineConfig `json:"recommendationEngine"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
+	// +optional
+	TenantIsolation TenantIsolationConfig `json:"tenantIsolation"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -105,4 +107,15 @@ type RecommendationEngineConfig struct {
 	GenRotateTLSRecommendationBeforeExpiryYear  int             `json:"genRotateTLSRecommendationBeforeExpiryYear"`
 	GenRotateTLSRecommendationBeforeExpiryMonth int             `json:"genRotateTLSRecommendationBeforeExpiryMonth"`
 	GenRotateTLSRecommendationBeforeExpiryDay   int             `json:"genRotateTLSRecommendationBeforeExpiryDay"`
+}
+
+// TenantIsolationConfig bounds the NamespaceSlice sharding used by the tenant-isolation
+// feature (design/tenant-namespace-design.md §7.2, §11.4 in kubevault.dev/operator).
+type TenantIsolationConfig struct {
+	// MaxSpokeNamespaces is how many OpenBao namespace entries a single NamespaceSlice
+	// shard holds before a spoke rolls over into the next shard.
+	MaxSpokeNamespaces int `json:"maxSpokeNamespaces"`
+	// MaxNamespaceSliceShards is how many NamespaceSlice shards the hub will ever track
+	// for one spoke.
+	MaxNamespaceSliceShards int `json:"maxNamespaceSliceShards"`
 }

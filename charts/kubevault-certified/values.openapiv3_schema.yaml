@@ -3612,6 +3612,28 @@ properties:
         required:
         - create
         type: object
+      tenantIsolation:
+        description: 'TenantIsolationConfig bounds the NamespaceSlice sharding used
+          by the tenant-isolation
+
+          feature (design/tenant-namespace-design.md §7.2, §11.4 in kubevault.dev/operator).'
+        properties:
+          maxNamespaceSliceShards:
+            description: 'MaxNamespaceSliceShards is how many NamespaceSlice shards
+              the hub will ever track
+
+              for one spoke.'
+            type: integer
+          maxSpokeNamespaces:
+            description: 'MaxSpokeNamespaces is how many OpenBao namespace entries
+              a single NamespaceSlice
+
+              shard holds before a spoke rolls over into the next shard.'
+            type: integer
+        required:
+        - maxNamespaceSliceShards
+        - maxSpokeNamespaces
+        type: object
       tolerations:
         description: If specified, the pod's tolerations.
         items:

@@ -129,6 +129,13 @@ recommendationEngine:
   # By default it is set as 0(zero).
   genRotateTLSRecommendationBeforeExpiryDay: 0
 
+tenantIsolation:
+  # How many OpenBao namespace entries a single NamespaceSlice shard holds before a
+  # spoke rolls over into the next shard.
+  maxSpokeNamespaces: 256
+  # How many NamespaceSlice shards the hub will ever track for one spoke.
+  maxNamespaceSliceShards: 32
+
 distro:
   openshift: false
   ubi: ""
