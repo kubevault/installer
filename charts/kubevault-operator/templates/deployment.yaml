@@ -55,6 +55,10 @@ spec:
         - --gen-rotate-tls-recommendation-before-expiry-month={{ .genRotateTLSRecommendationBeforeExpiryMonth }}
         - --gen-rotate-tls-recommendation-before-expiry-day={{ .genRotateTLSRecommendationBeforeExpiryDay }}
         {{- end }}
+        {{- with .Values.tenantIsolation }}
+        - --max-spoke-namespaces={{ .maxSpokeNamespaces }}
+        - --max-namespace-slice-shards={{ .maxNamespaceSliceShards }}
+        {{- end }}
         {{- if include "appscode.licenseSecretName" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
