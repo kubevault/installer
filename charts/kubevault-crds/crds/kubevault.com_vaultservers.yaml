@@ -6571,6 +6571,8 @@ spec:
                     format: int32
                     type: integer
                 type: object
+              isolateTenants:
+                type: boolean
               monitor:
                 properties:
                   agent:
