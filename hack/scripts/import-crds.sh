@@ -75,8 +75,7 @@ crd-importer --v=v1 \
 crd-importer --v=v1 \
     --no-description \
     --input=${crd_dir} \
-    --out=./charts/kubevault-operator/crds \
-    --group=kubevault.com
+    --out=./charts/kubevault-operator/crds
 
 crd-importer \
     --no-description \

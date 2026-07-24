@@ -36,5 +36,5 @@ k3s ctr images import images/appscode-images-vault-1.17.6.tar
 k3s ctr images import images/appscode-images-vault-1.18.4.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.34.tar
 k3s ctr images import images/kubevault-vault-exporter-v0.1.1.tar
-k3s ctr images import images/kubevault-vault-operator-v0.25.0-rc.1.tar
-k3s ctr images import images/kubevault-vault-unsealer-v0.25.0-rc.1.tar
+k3s ctr images import images/kubevault-vault-operator-v0.25.0-rc.2.tar
+k3s ctr images import images/kubevault-vault-unsealer-v0.25.0-rc.2.tar

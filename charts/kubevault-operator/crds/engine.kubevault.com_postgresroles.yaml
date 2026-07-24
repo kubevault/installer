@@ -1,0 +1,116 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: postgresroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: PostgresRole
+    listKind: PostgresRoleList
+    plural: postgresroles
+    singular: postgresrole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              creationStatements:
+                items:
+                  type: string
+                type: array
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              renewStatements:
+                items:
+                  type: string
+                type: array
+              revocationStatements:
+                items:
+                  type: string
+                type: array
+              rollbackStatements:
+                items:
+                  type: string
+                type: array
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - creationStatements
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

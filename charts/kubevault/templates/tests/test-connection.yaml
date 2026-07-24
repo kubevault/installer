@@ -13,6 +13,8 @@
   {{ $affinity = default .Values.affinity .Values.global.affinity }}
 {{- end }}
 
+{{- $probePort := dig "kubevault-webhook-server" "apiserver" "healthcheck" "probePort" 8081 (.Values | toJson | fromJson) }}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -40,7 +42,7 @@ spec:
       imagePullPolicy: {{ .Values.imagePullPolicy  }}
       {{- if dig "kubevault-webhook-server" "enabled" false (.Values | toJson | fromJson) }}
       command: ['curl']
-      args: ['--silent', '--fail', '-k', 'https://{{ include "kubevault.webhook-server-svc" . }}/healthz']
+      args: ['--silent', '--fail', 'http://{{ include "kubevault.webhook-server-svc" . }}:{{ $probePort }}/healthz']
       {{- else }}
       command: ["true"]
       {{- end }}
