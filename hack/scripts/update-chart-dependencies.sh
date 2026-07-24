@@ -17,5 +17,4 @@
 set -e
 
 helm dependency update charts/kubevault
-helm dependency update charts/kubevault-certified
 helm dependency update charts/kubevault-opscenter
