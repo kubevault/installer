@@ -14,6 +14,8 @@ and each webhook configuration carries the cert-manager.io/inject-ca-from-secret
 annotation; the controller patches the caBundle field at runtime.
 */ -}}
 {{- $fullname := include "kubevault-webhook-server.fullname" . -}}
+{{- $conversionCmName := printf "%s-vaultservers-conversion" $fullname | trunc 63 | trimSuffix "-" -}}
+{{- $conversionJobName := printf "%s-vaultservers-conversion-patch" $fullname | trunc 63 | trimSuffix "-" -}}
 {{- $svcNamespace := .Release.Namespace -}}
 {{- $useCertManager := .Values.apiserver.servingCerts.certManager.enabled -}}
 {{- $failurePolicy := .Values.apiserver.webhook.failurePolicy -}}
@@ -272,7 +274,7 @@ is needed.
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ $fullname }}-vaultservers-conversion
+  name: {{ $conversionCmName }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
@@ -305,7 +307,7 @@ data:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ $fullname }}-vaultservers-conversion-patch
+  name: {{ $conversionJobName }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "kubevault-webhook-server.labels" . | nindent 4 }}
@@ -353,4 +355,4 @@ spec:
       volumes:
       - name: patch
         configMap:
-          name: {{ $fullname }}-vaultservers-conversion
+          name: {{ $conversionCmName }}
