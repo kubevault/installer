@@ -22,5 +22,9 @@ spec:
     port: {{ .Values.monitoring.bindPort }}
     protocol: TCP
     targetPort: metrics
+  - name: probes
+    port: {{ .Values.apiserver.healthcheck.probePort }}
+    protocol: TCP
+    targetPort: probes
   selector:
     {{- include "kubevault-webhook-server.selectorLabels" . | nindent 4 }}
