@@ -38,3 +38,4 @@ k3s ctr images import images/appscode-kubectl-nonroot-1.34.tar
 k3s ctr images import images/kubevault-vault-exporter-v0.1.1.tar
 k3s ctr images import images/kubevault-vault-operator-v0.25.0-rc.2.tar
 k3s ctr images import images/kubevault-vault-unsealer-v0.25.0-rc.2.tar
+k3s ctr images import images/sigilr-openbao-2.6.0-sigilr.2.tar

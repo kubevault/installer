@@ -12,3 +12,4 @@
 - ghcr.io/kubevault/vault-exporter:v0.1.1
 - ghcr.io/kubevault/vault-operator:v0.25.0-rc.2
 - ghcr.io/kubevault/vault-unsealer:v0.25.0-rc.2
+- ghcr.io/sigilr/openbao:2.6.0-sigilr.2

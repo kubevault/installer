@@ -1,5 +1,6 @@
 {
   "VaultServer": [
+    "openbao-2.6.0",
     "openbao-2.4.3",
     "1.18.4",
     "1.17.6",
