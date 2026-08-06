@@ -1,7 +1,7 @@
 apiVersion: catalog.kubevault.com/v1alpha1
 kind: VaultServerVersion
 metadata:
-  name: openbao-2.6.0
+  name: openbao-2.6.1
 spec:
   distribution: OpenBao
   exporter:
@@ -17,5 +17,5 @@ spec:
   unsealer:
     image: ghcr.io/kubevault/vault-unsealer:v0.25.0-rc.2
   vault:
-    image: ghcr.io/sigilr/openbao:2.6.0-sigilr.2
-  version: 2.6.0
+    image: docker.io/openbao/openbao:2.6.1
+  version: 2.6.1

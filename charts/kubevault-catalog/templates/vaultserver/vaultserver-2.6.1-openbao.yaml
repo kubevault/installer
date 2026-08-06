@@ -7,7 +7,7 @@
 apiVersion: catalog.kubevault.com/v1alpha1
 kind: VaultServerVersion
 metadata:
-  name: 'openbao-2.6.0'
+  name: 'openbao-2.6.1'
   labels:
     {{- include "kubevault-catalog.labels" . | nindent 4 }}
 spec:
@@ -25,6 +25,6 @@ spec:
   unsealer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubevault/vault-unsealer") $) }}:v0.25.0-rc.2{{ include "catalog.ubi" $ }}'
   vault:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "sigilr/openbao") $) }}:2.6.0-sigilr.2'
-  version: 2.6.0
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "openbao/openbao") $) }}:2.6.1'
+  version: 2.6.1
 {{ end }}
