@@ -1,4 +1,5 @@
 - docker.io/openbao/openbao:2.4.3
+- docker.io/openbao/openbao:2.6.1
 - ghcr.io/appscode-images/vault:1.10.3
 - ghcr.io/appscode-images/vault:1.11.5
 - ghcr.io/appscode-images/vault:1.12.1
@@ -12,3 +13,4 @@
 - ghcr.io/kubevault/vault-exporter:v0.1.1
 - ghcr.io/kubevault/vault-operator:v0.25.0-rc.2
 - ghcr.io/kubevault/vault-unsealer:v0.25.0-rc.2
+- ghcr.io/sigilr/openbao:2.6.1-sigilr.1

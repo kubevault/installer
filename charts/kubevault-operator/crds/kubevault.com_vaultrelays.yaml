@@ -73,8 +73,6 @@ spec:
                 - name
                 - namespace
                 type: object
-              image:
-                type: string
               isolateTenants:
                 type: boolean
               podTemplate:
