@@ -48,6 +48,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/va
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.18.4 $IMAGE_REGISTRY/appscode-images/vault:1.18.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.34 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-exporter:v0.1.1 $IMAGE_REGISTRY/kubevault/vault-exporter:v0.1.1
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-operator:v0.25.0-rc.2 $IMAGE_REGISTRY/kubevault/vault-operator:v0.25.0-rc.2
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-unsealer:v0.25.0-rc.2 $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.25.0-rc.2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-operator:v0.25.0 $IMAGE_REGISTRY/kubevault/vault-operator:v0.25.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-unsealer:v0.25.0 $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.25.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/sigilr/openbao:2.6.1-sigilr.1 $IMAGE_REGISTRY/sigilr/openbao:2.6.1-sigilr.1
