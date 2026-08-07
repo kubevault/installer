@@ -9537,8 +9537,6 @@ spec:
                 properties:
                   bootstrapTokenTTL:
                     type: string
-                  image:
-                    type: string
                   namespace:
                     type: string
                   podTemplate:

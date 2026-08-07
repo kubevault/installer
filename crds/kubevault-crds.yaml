@@ -49,6 +49,7 @@ spec:
                 enum:
                 - Vault
                 - OpenBao
+                - Sigilr
                 type: string
               exporter:
                 properties:
@@ -2144,8 +2145,6 @@ spec:
                 - name
                 - namespace
                 type: object
-              image:
-                type: string
               isolateTenants:
                 type: boolean
               podTemplate:
@@ -14531,8 +14530,6 @@ spec:
               relayTemplate:
                 properties:
                   bootstrapTokenTTL:
-                    type: string
-                  image:
                     type: string
                   namespace:
                     type: string

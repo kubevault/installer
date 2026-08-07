@@ -1,5 +1,7 @@
 {
   "VaultServer": [
+    "sigilr-2.6.1.1",
+    "openbao-2.6.1",
     "openbao-2.4.3",
     "1.18.4",
     "1.17.6",

@@ -1,10 +1,9 @@
 apiVersion: catalog.kubevault.com/v1alpha1
 kind: VaultServerVersion
 metadata:
-  name: 1.6.5
+  name: sigilr-2.6.1.1
 spec:
-  deprecated: true
-  distribution: Vault
+  distribution: Sigilr
   exporter:
     image: ghcr.io/kubevault/vault-exporter:v0.1.1
   initContainer:
@@ -18,5 +17,5 @@ spec:
   unsealer:
     image: ghcr.io/kubevault/vault-unsealer:v0.25.0
   vault:
-    image: ghcr.io/appscode-images/vault:1.6.5
-  version: 1.6.5
+    image: ghcr.io/sigilr/openbao:2.6.1-sigilr.1
+  version: 2.6.1

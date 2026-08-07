@@ -7,11 +7,11 @@
 apiVersion: catalog.kubevault.com/v1alpha1
 kind: VaultServerVersion
 metadata:
-  name: '1.11.5'
+  name: 'sigilr-2.6.1.1'
   labels:
     {{- include "kubevault-catalog.labels" . | nindent 4 }}
 spec:
-  distribution: Vault
+  distribution: Sigilr
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubevault/vault-exporter") $) }}:v0.1.1'
   initContainer:
@@ -25,6 +25,6 @@ spec:
   unsealer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubevault/vault-unsealer") $) }}:v0.25.0{{ include "catalog.ubi" $ }}'
   vault:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/vault") $) }}:1.11.5'
-  version: 1.11.5
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "sigilr/openbao") $) }}:2.6.1-sigilr.1'
+  version: 2.6.1
 {{ end }}
