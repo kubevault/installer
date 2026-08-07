@@ -39,6 +39,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-v
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.18.4.tar $IMAGE_REGISTRY/appscode-images/vault:1.18.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.34.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-exporter-v0.1.1.tar $IMAGE_REGISTRY/kubevault/vault-exporter:v0.1.1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-operator-v0.25.0-rc.2.tar $IMAGE_REGISTRY/kubevault/vault-operator:v0.25.0-rc.2
-$CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-unsealer-v0.25.0-rc.2.tar $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.25.0-rc.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-operator-v0.25.0.tar $IMAGE_REGISTRY/kubevault/vault-operator:v0.25.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-unsealer-v0.25.0.tar $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.25.0
 $CMD push --allow-nondistributable-artifacts --insecure images/sigilr-openbao-2.6.1-sigilr.1.tar $IMAGE_REGISTRY/sigilr/openbao:2.6.1-sigilr.1
