@@ -7,7 +7,7 @@
 apiVersion: catalog.kubevault.com/v1alpha1
 kind: VaultServerVersion
 metadata:
-  name: 'sigilr-2.6.1'
+  name: 'sigilr-2.6.1.1'
   labels:
     {{- include "kubevault-catalog.labels" . | nindent 4 }}
 spec:
