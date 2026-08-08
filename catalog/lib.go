@@ -19,22 +19,41 @@ package catalog
 import (
 	"embed"
 	"encoding/json"
+	"flag"
+	iofs "io/fs"
+	"os"
+
+	"github.com/spf13/pflag"
 )
 
-//go:embed raw
+//go:embed raw *.json
 var raw embed.FS
 
-//go:embed active_versions.json
-var activeVersions []byte
+var dirCatalog = ""
 
-func FS() embed.FS {
-	return raw
+func AddFlags(fs *pflag.FlagSet) {
+	fs.StringVar(&dirCatalog, "kubevault-catalog-dir", dirCatalog, "Path to kubevault-catalog directory")
+}
+
+func AddGoFlags(fs *flag.FlagSet) {
+	fs.StringVar(&dirCatalog, "kubevault-catalog-dir", dirCatalog, "Path to kubevault-catalog directory")
+}
+
+func FS() iofs.FS {
+	if dirCatalog == "" {
+		return raw
+	}
+	return os.DirFS(dirCatalog)
 }
 
 func ActiveVersions() map[string][]string {
-	out := map[string][]string{}
+	activeVersions, err := iofs.ReadFile(FS(), "active_versions.json")
+	if err != nil {
+		panic(err)
+	}
 
-	err := json.Unmarshal(activeVersions, &out)
+	out := map[string][]string{}
+	err = json.Unmarshal(activeVersions, &out)
 	if err != nil {
 		panic(err)
 	}
