@@ -379,6 +379,213 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubevault
+  name: db2roles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: DB2Role
+    listKind: DB2RoleList
+    plural: db2roles
+    singular: db2role
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: druidroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: DruidRole
+    listKind: DruidRoleList
+    plural: druidroles
+    singular: druidrole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              creationStatements:
+                items:
+                  type: string
+                type: array
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - creationStatements
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
   name: elasticsearchroles.engine.kubevault.com
 spec:
   group: engine.kubevault.com
@@ -604,6 +811,559 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubevault
+  name: hanadbroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: HanaDBRole
+    listKind: HanaDBRoleList
+    plural: hanadbroles
+    singular: hanadbrole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              creationStatements:
+                items:
+                  type: string
+                type: array
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              renewStatements:
+                items:
+                  type: string
+                type: array
+              revocationStatements:
+                items:
+                  type: string
+                type: array
+              rollbackStatements:
+                items:
+                  type: string
+                type: array
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - creationStatements
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: hazelcastroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: HazelcastRole
+    listKind: HazelcastRoleList
+    plural: hazelcastroles
+    singular: hazelcastrole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: igniteroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: IgniteRole
+    listKind: IgniteRoleList
+    plural: igniteroles
+    singular: igniterole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              creationStatements:
+                items:
+                  type: string
+                type: array
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              revocationStatements:
+                items:
+                  type: string
+                type: array
+              rollbackStatements:
+                items:
+                  type: string
+                type: array
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - creationStatements
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: kafkaroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: KafkaRole
+    listKind: KafkaRoleList
+    plural: kafkaroles
+    singular: kafkarole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              creationStatements:
+                items:
+                  type: string
+                type: array
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - creationStatements
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: mssqlserverroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: MSSQLServerRole
+    listKind: MSSQLServerRoleList
+    plural: mssqlserverroles
+    singular: mssqlserverrole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              creationStatements:
+                items:
+                  type: string
+                type: array
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              revocationStatements:
+                items:
+                  type: string
+                type: array
+              rollbackStatements:
+                items:
+                  type: string
+                type: array
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - creationStatements
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
   name: mariadbroles.engine.kubevault.com
 spec:
   group: engine.kubevault.com
@@ -649,6 +1409,213 @@ spec:
                 items:
                   type: string
                 type: array
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - creationStatements
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: memcachedroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: MemcachedRole
+    listKind: MemcachedRoleList
+    plural: memcachedroles
+    singular: memcachedrole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: milvusroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: MilvusRole
+    listKind: MilvusRoleList
+    plural: milvusroles
+    singular: milvusrole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              creationStatements:
+                items:
+                  type: string
+                type: array
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
               secretEngineRef:
                 properties:
                   name:
@@ -934,6 +1901,226 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubevault
+  name: neo4jroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: Neo4jRole
+    listKind: Neo4jRoleList
+    plural: neo4jroles
+    singular: neo4jrole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              creationStatements:
+                items:
+                  type: string
+                type: array
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - creationStatements
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: oracleroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: OracleRole
+    listKind: OracleRoleList
+    plural: oracleroles
+    singular: oraclerole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              creationStatements:
+                items:
+                  type: string
+                type: array
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              revocationStatements:
+                items:
+                  type: string
+                type: array
+              rollbackStatements:
+                items:
+                  type: string
+                type: array
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - creationStatements
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
   name: pkiroles.engine.kubevault.com
 spec:
   group: engine.kubevault.com
@@ -1106,6 +2293,213 @@ spec:
                 items:
                   type: string
                 type: array
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - creationStatements
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: qdrantroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: QdrantRole
+    listKind: QdrantRoleList
+    plural: qdrantroles
+    singular: qdrantrole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: rabbitmqroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: RabbitMQRole
+    listKind: RabbitMQRoleList
+    plural: rabbitmqroles
+    singular: rabbitmqrole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              creationStatements:
+                items:
+                  type: string
+                type: array
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
               secretEngineRef:
                 properties:
                   name:
@@ -1514,8 +2908,68 @@ spec:
                 required:
                 - credentialSecret
                 type: object
+              db2:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  insecure:
+                    default: false
+                    type: boolean
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
+                type: object
               defaultLeaseTTL:
                 type: string
+              druid:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  authenticator:
+                    type: string
+                  authorizer:
+                    type: string
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  insecure:
+                    default: false
+                    type: boolean
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
+                type: object
               elasticsearch:
                 properties:
                   allowedRoles:
@@ -1565,6 +3019,127 @@ spec:
                 required:
                 - credentialSecret
                 type: object
+              hanadb:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  maxConnectionLifetime:
+                    type: string
+                  maxIdleConnections:
+                    format: int64
+                    type: integer
+                  maxOpenConnections:
+                    format: int64
+                    type: integer
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
+                type: object
+              hazelcast:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  insecure:
+                    default: false
+                    type: boolean
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
+                type: object
+              ignite:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  insecure:
+                    default: false
+                    type: boolean
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
+                type: object
+              kafka:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  insecure:
+                    default: false
+                    type: boolean
+                  mechanism:
+                    type: string
+                  pluginName:
+                    type: string
+                  useTLS:
+                    type: boolean
+                required:
+                - databaseRef
+                type: object
               kv:
                 properties:
                   casRequired:
@@ -1613,6 +3188,64 @@ spec:
                 type: object
               maxLeaseTTL:
                 type: string
+              memcached:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  insecure:
+                    default: false
+                    type: boolean
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
+                type: object
+              milvus:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  dbName:
+                    type: string
+                  insecure:
+                    default: false
+                    type: boolean
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
+                type: object
               mongodb:
                 properties:
                   allowedRoles:
@@ -1636,6 +3269,41 @@ spec:
                   pluginName:
                     type: string
                   writeConcern:
+                    type: string
+                required:
+                - databaseRef
+                type: object
+              mssqlserver:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  containedDB:
+                    type: boolean
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  maxConnectionLifetime:
+                    type: string
+                  maxIdleConnections:
+                    format: int64
+                    type: integer
+                  maxOpenConnections:
+                    format: int64
+                    type: integer
+                  pluginName:
                     type: string
                 required:
                 - databaseRef
@@ -1675,6 +3343,67 @@ spec:
                 type: object
               namespace:
                 type: string
+              neo4j:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  insecure:
+                    default: false
+                    type: boolean
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
+                type: object
+              oracle:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  maxConnectionLifetime:
+                    type: string
+                  maxIdleConnections:
+                    format: int64
+                    type: integer
+                  maxOpenConnections:
+                    format: int64
+                    type: integer
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
+                type: object
               pki:
                 properties:
                   additionalPayload:
@@ -1763,6 +3492,64 @@ spec:
                 required:
                 - databaseRef
                 type: object
+              qdrant:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  insecure:
+                    default: false
+                    type: boolean
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
+                type: object
+              rabbitmq:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  insecure:
+                    default: false
+                    type: boolean
+                  passwordPolicy:
+                    type: string
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
+                type: object
               redis:
                 properties:
                   allowedRoles:
@@ -1788,6 +3575,34 @@ spec:
                 required:
                 - databaseRef
                 type: object
+              solr:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  insecure:
+                    default: false
+                    type: boolean
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
+                type: object
               vaultRef:
                 properties:
                   name:
@@ -1796,6 +3611,62 @@ spec:
                     type: string
                 required:
                 - name
+                type: object
+              weaviate:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  insecure:
+                    default: false
+                    type: boolean
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
+                type: object
+              zookeeper:
+                properties:
+                  allowedRoles:
+                    items:
+                      type: string
+                    type: array
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  insecure:
+                    default: false
+                    type: boolean
+                  pluginName:
+                    type: string
+                required:
+                - databaseRef
                 type: object
             required:
             - vaultRef
@@ -1968,6 +3839,314 @@ spec:
                 required:
                 - name
                 type: object
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: solrroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: SolrRole
+    listKind: SolrRoleList
+    plural: solrroles
+    singular: solrrole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              creationStatements:
+                items:
+                  type: string
+                type: array
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - creationStatements
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: weaviateroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: WeaviateRole
+    listKind: WeaviateRoleList
+    plural: weaviateroles
+    singular: weaviaterole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
+              policyRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubevault
+  name: zookeeperroles.engine.kubevault.com
+spec:
+  group: engine.kubevault.com
+  names:
+    categories:
+    - vault
+    - appscode
+    - all
+    kind: ZooKeeperRole
+    listKind: ZooKeeperRoleList
+    plural: zookeeperroles
+    singular: zookeeperrole
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              defaultTTL:
+                type: string
+              maxTTL:
+                type: string
+              secretEngineRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+            required:
+            - secretEngineRef
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                type: string
               policyRef:
                 properties:
                   name:
@@ -9914,6 +12093,22 @@ spec:
                       - mariadb
                       - elasticsearch
                       - redis
+                      - db2
+                      - druid
+                      - hanadb
+                      - hazelcast
+                      - ignite
+                      - kafka
+                      - memcached
+                      - milvus
+                      - mssqlserver
+                      - neo4j
+                      - oracle
+                      - qdrant
+                      - rabbitmq
+                      - solr
+                      - weaviate
+                      - zookeeper
                       type: string
                     type: array
                 type: object
