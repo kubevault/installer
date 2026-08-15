@@ -2,6 +2,9 @@ dependencies:
 - name: kubevault-crds
   repository: file://../kubevault-crds
   version: v2026.8.7
+- name: kubevault-crd-manager
+  repository: file://../kubevault-crd-manager
+  version: v0.25.0
 - name: kubevault-catalog
   repository: file://../kubevault-catalog
   version: v2026.8.7
@@ -14,5 +17,5 @@ dependencies:
 - name: ace-user-roles
   repository: oci://ghcr.io/appscode-charts
   version: v2026.6.12
-digest: sha256:426d916a1dcd5afc76bffdab2752b2c60d8bc89d0e555c7d0fae437deffb2d2d
-generated: "2026-08-07T12:03:45.905739522Z"
+digest: sha256:ca84b4f2d3a9baadf395c082b6639d6ac1c3d99725f5ceb4ff990c00dd092e27
+generated: "2026-08-15T18:04:01.859052+06:00"
