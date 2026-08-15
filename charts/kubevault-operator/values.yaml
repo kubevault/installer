@@ -53,6 +53,36 @@ operator:
 # this for single-chart installs where kubevault-crds is absent.
 registerCRDs: false
 
+# featureGates controls which database secret engine Role controllers
+# the operator runs. Must match the featureGates set on the
+# kubevault-crd-manager chart (or its global.featureGates on the
+# umbrella chart) so a disabled engine gets neither its Role CRD nor a
+# reconciler. AWS, Azure, GCP, and PKI are not database plugins and are
+# always active regardless of these settings.
+featureGates:
+  DB2: false
+  Druid: false
+  Elasticsearch: false
+  HanaDB: false
+  Hazelcast: false
+  Ignite: false
+  Kafka: false
+  MariaDB: false
+  Memcached: false
+  Milvus: false
+  MongoDB: false
+  MSSQLServer: false
+  MySQL: true
+  Neo4j: false
+  Oracle: false
+  Postgres: true
+  Qdrant: false
+  RabbitMQ: false
+  Redis: false
+  Solr: false
+  Weaviate: false
+  ZooKeeper: false
+
 # Specify an array of imagePullSecrets.
 # Secrets must be manually created in the namespace.
 #

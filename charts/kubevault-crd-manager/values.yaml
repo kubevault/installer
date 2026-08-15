@@ -86,10 +86,10 @@ featureGates:
   Milvus: false
   MongoDB: false
   MSSQLServer: false
-  MySQL: false
+  MySQL: true
   Neo4j: false
   Oracle: false
-  Postgres: false
+  Postgres: true
   Qdrant: false
   RabbitMQ: false
   Redis: false
