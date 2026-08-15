@@ -5084,6 +5084,17 @@ properties:
         type: object
       enabled:
         type: boolean
+      featureGates:
+        additionalProperties:
+          type: boolean
+        description: 'FeatureGates controls which database secret engine the SecretEngine
+
+          admission validator accepts. AWS, Azure, GCP, and PKI are not
+
+          database plugins and are always active regardless of these
+
+          settings.'
+        type: object
       fullnameOverride:
         type: string
       imagePullPolicy:
@@ -6252,6 +6263,7 @@ properties:
     required:
     - apiserver
     - enabled
+    - featureGates
     - imagePullPolicy
     - kubectl
     - monitoring

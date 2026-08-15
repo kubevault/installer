@@ -61,6 +61,11 @@ type KubevaultWebhookServerSpec struct {
 	PriorityClassName string `json:"priorityClassName"`
 	//+optional
 	LogLevel int32 `json:"logLevel"`
+	// FeatureGates controls which database secret engine the SecretEngine
+	// admission validator accepts. AWS, Azure, GCP, and PKI are not
+	// database plugins and are always active regardless of these
+	// settings.
+	FeatureGates map[string]bool `json:"featureGates"`
 	//+optional
 	Annotations map[string]string `json:"annotations"`
 	//+optional

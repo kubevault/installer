@@ -52,6 +52,36 @@ criticalAddon: false
 priorityClassName: ""
 # Log level for webhook server
 logLevel: 3
+# featureGates controls which database secret engine the SecretEngine
+# admission validator accepts. Must match the featureGates set on the
+# kubevault-operator and kubevault-crd-manager charts (or their
+# global.featureGates on the umbrella chart) so a disabled engine is
+# rejected at admission instead of being silently accepted and never
+# reconciled. AWS, Azure, GCP, and PKI are not database plugins and are
+# always active regardless of these settings.
+featureGates:
+  DB2: false
+  Druid: false
+  Elasticsearch: false
+  HanaDB: false
+  Hazelcast: false
+  Ignite: false
+  Kafka: false
+  MariaDB: false
+  Memcached: false
+  Milvus: false
+  MongoDB: false
+  MSSQLServer: false
+  MySQL: true
+  Neo4j: false
+  Oracle: false
+  Postgres: true
+  Qdrant: false
+  RabbitMQ: false
+  Redis: false
+  Solr: false
+  Weaviate: false
+  ZooKeeper: false
 # Annotations applied to webhook server deployment
 annotations: {}
 # Annotations passed to webhook server pod(s).

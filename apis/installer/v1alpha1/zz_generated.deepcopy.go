@@ -782,6 +782,13 @@ func (in *KubevaultWebhookServerSpec) DeepCopyInto(out *KubevaultWebhookServerSp
 		*out = make([]string, len(*in))
 		copy(*out, *in)
 	}
+	if in.FeatureGates != nil {
+		in, out := &in.FeatureGates, &out.FeatureGates
+		*out = make(map[string]bool, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
+	}
 	if in.Annotations != nil {
 		in, out := &in.Annotations, &out.Annotations
 		*out = make(map[string]string, len(*in))
