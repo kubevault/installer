@@ -57,6 +57,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		SchemeGroupVersion,
 		&KubevaultCatalogList{},
 		&KubevaultCatalog{},
+		&KubevaultCrdManagerList{},
+		&KubevaultCrdManager{},
 		&KubevaultList{},
 		&KubevaultOperatorList{},
 		&KubevaultOperator{},

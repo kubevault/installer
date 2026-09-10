@@ -72,10 +72,31 @@ crd-importer --v=v1 \
     --out=. --output-yaml=./crds/kubevault-catalog-crds.yaml \
     --group=catalog.kubevault.com
 
+# kubevault-operator only ships the CRDs that are not gated behind
+# kubevault-crd-manager's feature gates: VaultServer and friends, plus the
+# cloud-IAM/PKI secret engines (AWS, Azure, GCP, PKI), which are not
+# database plugins. Every database engine's Role CRD (Postgres, MySQL,
+# Oracle, RabbitMQ, ...) is installed by kubevault-crd-manager instead, so
+# a new database engine's CRD must NOT be added to this list — see
+# kubevault.dev/crd-manager.
 crd-importer --v=v1 \
     --no-description \
     --input=${crd_dir} \
-    --out=./charts/kubevault-operator/crds
+    --out=./charts/kubevault-operator/crds \
+    --gk=VaultServerVersion.catalog.kubevault.com \
+    --gk=AWSRole.engine.kubevault.com \
+    --gk=AzureRole.engine.kubevault.com \
+    --gk=GCPRole.engine.kubevault.com \
+    --gk=PKIRole.engine.kubevault.com \
+    --gk=SecretAccessRequest.engine.kubevault.com \
+    --gk=SecretEngine.engine.kubevault.com \
+    --gk=SecretRoleBinding.engine.kubevault.com \
+    --gk=NamespaceSlice.kubevault.com \
+    --gk=VaultRelay.kubevault.com \
+    --gk=VaultServer.kubevault.com \
+    --gk=VaultOpsRequest.ops.kubevault.com \
+    --gk=VaultPolicy.policy.kubevault.com \
+    --gk=VaultPolicyBinding.policy.kubevault.com
 
 crd-importer \
     --no-description \

@@ -1,0 +1,23 @@
+featureGates:
+  DB2: false
+  Druid: false
+  Elasticsearch: true
+  HanaDB: false
+  Hazelcast: false
+  Ignite: false
+  Kafka: false
+  MariaDB: true
+  Memcached: false
+  Milvus: false
+  MongoDB: true
+  MSSQLServer: true
+  MySQL: true
+  Neo4j: false
+  Oracle: false
+  Postgres: true
+  Qdrant: false
+  RabbitMQ: false
+  Redis: true
+  Solr: false
+  Weaviate: false
+  ZooKeeper: false

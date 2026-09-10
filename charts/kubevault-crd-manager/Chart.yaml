@@ -1,0 +1,15 @@
+apiVersion: v2
+description: KubeVault CRD Manager by AppsCode
+name: kubevault-crd-manager
+version: v0.25.0
+appVersion: v0.25.0
+kubeVersion: '>=1.26.0-0'
+annotations:
+  charts.openshift.io/name: kubevault-crd-manager
+home: https://kubevault.com
+icon: https://cdn.appscode.com/images/products/kubevault/icons/android-icon-192x192.png
+sources:
+- https://github.com/kubevault
+maintainers:
+- name: appscode
+  email: support@appscode.com

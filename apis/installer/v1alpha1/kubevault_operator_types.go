@@ -50,7 +50,12 @@ type KubevaultOperatorSpec struct {
 	RegistryFQDN     string    `json:"registryFQDN"`
 	Operator         Container `json:"operator"`
 	RegisterCRDs     bool      `json:"registerCRDs"`
-	ImagePullPolicy  string    `json:"imagePullPolicy"`
+	// FeatureGates controls which database secret engine Role
+	// controllers the operator runs. AWS, Azure, GCP, and PKI are not
+	// database plugins and are always active regardless of these
+	// settings.
+	FeatureGates    map[string]bool `json:"featureGates"`
+	ImagePullPolicy string          `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	// +optional
