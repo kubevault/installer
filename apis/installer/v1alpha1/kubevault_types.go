@@ -46,6 +46,9 @@ type KubevaultSpec struct {
 	Global GlobalValues `json:"global"`
 
 	//+optional
+	CrdManager KubevaultCrdManagerValues `json:"kubevault-crd-manager"`
+
+	//+optional
 	Catalog KubevaultCatalogValues `json:"kubevault-catalog"`
 
 	//+optional
@@ -82,6 +85,11 @@ type KubevaultSpec struct {
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 }
 
+type KubevaultCrdManagerValues struct {
+	Enabled                  bool `json:"enabled"`
+	*KubevaultCrdManagerSpec `json:",inline"`
+}
+
 type KubevaultCatalogValues struct {
 	Enabled               bool `json:"enabled"`
 	*KubevaultCatalogSpec `json:",inline"`
@@ -112,6 +120,11 @@ type GlobalValues struct {
 	Monitoring       UIServerMonitoring          `json:"monitoring"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
+	// FeatureGates controls which database secret engine Role CRDs are
+	// installed by kubevault-crd-manager. AWS, Azure, GCP, and PKI are not
+	// database plugins and are always installed regardless of these settings.
+	// +optional
+	FeatureGates map[string]bool `json:"featureGates"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
