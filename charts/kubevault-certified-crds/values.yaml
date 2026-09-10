@@ -56,6 +56,7 @@ global:
     DB2: false
     Druid: false
     Elasticsearch: false
+    Etcd: false
     HanaDB: false
     Hazelcast: false
     Ignite: false
