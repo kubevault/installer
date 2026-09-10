@@ -21,7 +21,7 @@ BIN      := installer
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
 CRD_OPTIONS          ?= "crd:generateEmbeddedObjectMeta=true,allowDangerousTypes=true"
 # https://github.com/appscodelabs/gengo-builder
-CODE_GENERATOR_IMAGE ?= ghcr.io/appscode/gengo:release-1.32
+CODE_GENERATOR_IMAGE ?= ghcr.io/appscode/gengo:release-1.34
 API_GROUPS           ?= installer:v1alpha1
 
 # This version-strategy uses git tags to set the version string
@@ -105,22 +105,28 @@ version:
 	@echo commit_hash=$(commit_hash)
 	@echo commit_timestamp=$(commit_timestamp)
 
-.PHONY: clientset
-clientset:
-	@docker run --rm 	                                          \
-		-u $$(id -u):$$(id -g)                                    \
-		-v /tmp:/.cache                                           \
-		-v $$(pwd):$(DOCKER_REPO_ROOT)                            \
-		-w $(DOCKER_REPO_ROOT)                                    \
-		--env HTTP_PROXY=$(HTTP_PROXY)                            \
-		--env HTTPS_PROXY=$(HTTPS_PROXY)                          \
-		$(CODE_GENERATOR_IMAGE)                                   \
-		/go/src/k8s.io/code-generator/generate-groups.sh          \
-			"deepcopy"                                            \
-			$(GO_PKG)/$(REPO)/client                              \
-			$(GO_PKG)/$(REPO)/apis                                \
-			"$(API_GROUPS)"                                       \
-			--go-header-file "./hack/license/go.txt"
+# Generate code for Kubernetes types, using update-codegen.sh -- a generic
+# script bundled into $(CODE_GENERATOR_IMAGE) (see
+# https://github.com/appscodelabs/gengo-builder/blob/master/scripts/update-codegen.sh
+# for the full env-var interface) driving k8s.io/code-generator's
+# kube_codegen.sh toolchain. GENERATORS is scoped to deepcopy only (no
+# typed client), matching what the old generate-groups.sh call here
+# actually generated -- there is no client/ directory in this repo.
+GENERATORS ?= deepcopy
+
+.PHONY: update-codegen
+update-codegen:
+	@docker run --rm	                                 \
+		-u $$(id -u):$$(id -g)                           \
+		-v /tmp:/.cache                                  \
+		-v $$(pwd):$(DOCKER_REPO_ROOT)                   \
+		-w $(DOCKER_REPO_ROOT)                           \
+		--env HTTP_PROXY=$(HTTP_PROXY)                   \
+		--env HTTPS_PROXY=$(HTTPS_PROXY)                 \
+		--env API_GROUPS="$(API_GROUPS)"                 \
+		--env GENERATORS="$(GENERATORS)"                 \
+		$(CODE_GENERATOR_IMAGE)                          \
+		update-codegen.sh
 
 # Generate openapi schema
 .PHONY: openapi
@@ -150,10 +156,20 @@ openapi-%:
 		$(CODE_GENERATOR_IMAGE)                          \
 		openapi-gen                                      \
 			--v 1 --logtostderr                          \
-			--go-header-file "./hack/license/go.txt" \
-			--input-dirs "$(GO_PKG)/$(REPO)/apis/$(subst _,/,$*),k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/apimachinery/pkg/api/resource,k8s.io/apimachinery/pkg/runtime,k8s.io/apimachinery/pkg/util/intstr,k8s.io/apimachinery/pkg/version,k8s.io/api/core/v1,k8s.io/api/apps/v1,k8s.io/api/rbac/v1" \
-			--output-package "$(GO_PKG)/$(REPO)/apis/$(subst _,/,$*)" \
-			--report-filename /tmp/violation_exceptions.list
+			--go-header-file "./hack/license/go.txt"     \
+			--output-dir "$(DOCKER_REPO_ROOT)/apis/$(subst _,/,$*)" \
+			--output-pkg "$(GO_PKG)/$(REPO)/apis/$(subst _,/,$*)" \
+			--output-file "openapi_generated.go"         \
+			--report-filename /tmp/violation_exceptions.list \
+			$(GO_PKG)/$(REPO)/apis/$(subst _,/,$*) \
+			k8s.io/apimachinery/pkg/apis/meta/v1 \
+			k8s.io/apimachinery/pkg/api/resource \
+			k8s.io/apimachinery/pkg/runtime \
+			k8s.io/apimachinery/pkg/util/intstr \
+			k8s.io/apimachinery/pkg/version \
+			k8s.io/api/core/v1 \
+			k8s.io/api/apps/v1 \
+			k8s.io/api/rbac/v1
 
 # Generate CRD manifests
 .PHONY: gen-crds
@@ -254,7 +270,7 @@ gen-chart-doc-%:
 manifests: gen-crds gen-values-schema gen-chart-doc
 
 .PHONY: gen
-gen: clientset manifests
+gen: update-codegen manifests
 
 .PHONY: refresh
 refresh: gen update-catalog fmt
