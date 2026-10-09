@@ -1,13 +1,10 @@
 featureGates:
-  DB2: false
   Druid: false
   Elasticsearch: true
   HanaDB: false
-  Hazelcast: false
   Ignite: false
   Kafka: false
   MariaDB: true
-  Memcached: false
   Milvus: false
   MongoDB: true
   MSSQLServer: true
@@ -20,4 +17,3 @@ featureGates:
   Redis: true
   Solr: false
   Weaviate: false
-  ZooKeeper: false
