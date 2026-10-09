@@ -53,16 +53,13 @@ global:
   # installed by kubevault-crd-manager. AWS, Azure, GCP, and PKI are not
   # database plugins and are always installed regardless of these settings.
   featureGates:
-    DB2: false
     Druid: false
     Elasticsearch: false
     Etcd: false
     HanaDB: false
-    Hazelcast: false
     Ignite: false
     Kafka: false
     MariaDB: false
-    Memcached: false
     Milvus: false
     MongoDB: false
     MSSQLServer: false
@@ -75,7 +72,6 @@ global:
     Redis: false
     Solr: false
     Weaviate: false
-    ZooKeeper: false
 
 kubevault-crd-manager:
   # If enabled, installs the kubevault-crd-manager chart

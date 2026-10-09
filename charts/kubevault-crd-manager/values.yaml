@@ -74,16 +74,13 @@ serviceAccount:
 # installed. AWS, Azure, GCP, and PKI are not database plugins and are
 # always installed regardless of these settings.
 featureGates:
-  DB2: false
   Druid: false
   Elasticsearch: false
   Etcd: false
   HanaDB: false
-  Hazelcast: false
   Ignite: false
   Kafka: false
   MariaDB: false
-  Memcached: false
   Milvus: false
   MongoDB: false
   MSSQLServer: false
@@ -96,7 +93,6 @@ featureGates:
   Redis: false
   Solr: false
   Weaviate: false
-  ZooKeeper: false
 
 # If true, removes the Role CRD of any database engine whose feature gate
 # above is false, as long as no live objects of that kind remain.

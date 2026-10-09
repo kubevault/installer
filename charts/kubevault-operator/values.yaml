@@ -60,16 +60,13 @@ registerCRDs: false
 # reconciler. AWS, Azure, GCP, and PKI are not database plugins and are
 # always active regardless of these settings.
 featureGates:
-  DB2: false
   Druid: false
   Elasticsearch: false
   Etcd: false
   HanaDB: false
-  Hazelcast: false
   Ignite: false
   Kafka: false
   MariaDB: false
-  Memcached: false
   Milvus: false
   MongoDB: false
   MSSQLServer: false
@@ -82,7 +79,6 @@ featureGates:
   Redis: false
   Solr: false
   Weaviate: false
-  ZooKeeper: false
 
 # Specify an array of imagePullSecrets.
 # Secrets must be manually created in the namespace.
