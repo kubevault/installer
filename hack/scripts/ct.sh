@@ -36,9 +36,11 @@ for dir in charts/*/; do
             ct_cleanup=false
         fi
         if [[ "$dir" = "kubevault-operator" ]] || [[ "$dir" = "kubevault-webhook-server" ]]; then
-            # make ct deletes all kubevault CRDs after every chart test, and the
-            # Role CRDs are not part of these charts, so install them up front
+            # make ct deletes all kubevault CRDs before every chart test unless
+            # CT_CLEANUP=false, and the Role CRDs are not part of these charts,
+            # so install them up front and skip that cleanup
             kubectl apply --server-side --force-conflicts -f crds/kubevault-crds.yaml
+            ct_cleanup=false
         fi
         make ct TEST_CHARTS=charts/$dir KUBE_NAMESPACE=$ns CT_CLEANUP=$ct_cleanup
         kubectl delete ns $ns || true
