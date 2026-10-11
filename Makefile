@@ -248,7 +248,7 @@ gen-values-schema: $(BUILD_DIRS)
 		if [ ! -f $${crd_file} ]; then \
 			continue; \
 		fi; \
-		yq -y --indentless '.spec.versions[0].schema.openAPIV3Schema.properties.spec | del(.description)' $${crd_file} > charts/$${dir}/values.openapiv3_schema.yaml; \
+		yq -y --indentless '.spec.versions[0].schema.openAPIV3Schema.properties.spec | del(.description)' $${crd_file} | sed '1{/^---$$/d}' > charts/$${dir}/values.openapiv3_schema.yaml; \
 	done
 
 .PHONY: gen-chart-doc
