@@ -36,6 +36,10 @@ spec:
             type: object
           spec:
             properties:
+              creationStatements:
+                items:
+                  type: string
+                type: array
               defaultTTL:
                 type: string
               maxTTL:

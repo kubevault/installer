@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubevault-crd-manager --version=v0.25.0
-$ helm upgrade -i kubevault-crd-manager appscode/kubevault-crd-manager -n kubevault --create-namespace --version=v0.25.0
+$ helm search repo appscode/kubevault-crd-manager --version=v2026.10.12
+$ helm upgrade -i kubevault-crd-manager appscode/kubevault-crd-manager -n kubevault --create-namespace --version=v2026.10.12
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeVault CRD Manager operator on a [Kubernetes](http://kub
 To install/upgrade the chart with the release name `kubevault-crd-manager`:
 
 ```bash
-$ helm upgrade -i kubevault-crd-manager appscode/kubevault-crd-manager -n kubevault --create-namespace --version=v0.25.0
+$ helm upgrade -i kubevault-crd-manager appscode/kubevault-crd-manager -n kubevault --create-namespace --version=v2026.10.12
 ```
 
 The command deploys a KubeVault CRD Manager operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -93,12 +93,12 @@ The following table lists the configurable parameters of the `kubevault-crd-mana
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubevault-crd-manager appscode/kubevault-crd-manager -n kubevault --create-namespace --version=v0.25.0 --set registryFQDN=ghcr.io
+$ helm upgrade -i kubevault-crd-manager appscode/kubevault-crd-manager -n kubevault --create-namespace --version=v2026.10.12 --set registryFQDN=ghcr.io
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubevault-crd-manager appscode/kubevault-crd-manager -n kubevault --create-namespace --version=v0.25.0 --values values.yaml
+$ helm upgrade -i kubevault-crd-manager appscode/kubevault-crd-manager -n kubevault --create-namespace --version=v2026.10.12 --values values.yaml
 ```
