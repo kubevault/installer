@@ -44,3 +44,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-e
 $CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-operator-v0.26.0.tar $IMAGE_REGISTRY/kubevault/vault-operator:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubevault-vault-unsealer-v0.26.0.tar $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/sigilr-openbao-2.6.1-sigilr.1.tar $IMAGE_REGISTRY/sigilr/openbao:2.6.1-sigilr.1
+$CMD push --allow-nondistributable-artifacts --insecure images/sigilr-openbao-2.6.1-sigilr.2.tar $IMAGE_REGISTRY/sigilr/openbao:2.6.1-sigilr.2
