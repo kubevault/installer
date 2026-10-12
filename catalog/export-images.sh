@@ -34,6 +34,7 @@ CMD="./images/crane"
 
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/openbao/openbao:2.4.3 images/openbao-openbao-2.4.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/openbao/openbao:2.6.1 images/openbao-openbao-2.6.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/openbao/openbao:2.7.1 images/openbao-openbao-2.7.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.10.3 images/appscode-images-vault-1.10.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.11.5 images/appscode-images-vault-1.11.5.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.12.1 images/appscode-images-vault-1.12.1.tar

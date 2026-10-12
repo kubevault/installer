@@ -26,6 +26,7 @@ tar -zxvf $TARBALL
 
 k3s ctr images import images/openbao-openbao-2.4.3.tar
 k3s ctr images import images/openbao-openbao-2.6.1.tar
+k3s ctr images import images/openbao-openbao-2.7.1.tar
 k3s ctr images import images/appscode-images-vault-1.10.3.tar
 k3s ctr images import images/appscode-images-vault-1.11.5.tar
 k3s ctr images import images/appscode-images-vault-1.12.1.tar

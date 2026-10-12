@@ -1,5 +1,6 @@
 - docker.io/openbao/openbao:2.4.3
 - docker.io/openbao/openbao:2.6.1
+- docker.io/openbao/openbao:2.7.1
 - ghcr.io/appscode-images/vault:1.10.3
 - ghcr.io/appscode-images/vault:1.11.5
 - ghcr.io/appscode-images/vault:1.12.1
