@@ -37,6 +37,7 @@ CMD="./crane"
 
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/openbao/openbao:2.4.3 $IMAGE_REGISTRY/openbao/openbao:2.4.3
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/openbao/openbao:2.6.1 $IMAGE_REGISTRY/openbao/openbao:2.6.1
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/openbao/openbao:2.7.1 $IMAGE_REGISTRY/openbao/openbao:2.7.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.10.3 $IMAGE_REGISTRY/appscode-images/vault:1.10.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.11.5 $IMAGE_REGISTRY/appscode-images/vault:1.11.5
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/vault:1.12.1 $IMAGE_REGISTRY/appscode-images/vault:1.12.1

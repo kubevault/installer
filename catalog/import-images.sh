@@ -28,6 +28,7 @@ CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/openbao-openbao-2.4.3.tar $IMAGE_REGISTRY/openbao/openbao:2.4.3
 $CMD push --allow-nondistributable-artifacts --insecure images/openbao-openbao-2.6.1.tar $IMAGE_REGISTRY/openbao/openbao:2.6.1
+$CMD push --allow-nondistributable-artifacts --insecure images/openbao-openbao-2.7.1.tar $IMAGE_REGISTRY/openbao/openbao:2.7.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.10.3.tar $IMAGE_REGISTRY/appscode-images/vault:1.10.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.11.5.tar $IMAGE_REGISTRY/appscode-images/vault:1.11.5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-vault-1.12.1.tar $IMAGE_REGISTRY/appscode-images/vault:1.12.1
