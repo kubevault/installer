@@ -39,11 +39,13 @@ rules:
   - apps
   resources:
   - statefulsets
+  - deployments
   verbs: ["create", "get", "list", "watch", "patch", "delete"]
 - apiGroups:
   - apps
   resources:
   - statefulsets/finalizers
+  - deployments/finalizers
   verbs: ["update"]
 - apiGroups:
   - ""
