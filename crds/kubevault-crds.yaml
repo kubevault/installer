@@ -11863,6 +11863,75 @@ spec:
                 type: array
               backend:
                 properties:
+                  aerospike:
+                    properties:
+                      authMode:
+                        default: INTERNAL
+                        type: string
+                      clusterName:
+                        type: string
+                      credentialSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      databaseRef:
+                        properties:
+                          name:
+                            type: string
+                          namespace:
+                            type: string
+                          parameters:
+                            type: object
+                            x-kubernetes-embedded-resource: true
+                            x-kubernetes-preserve-unknown-fields: true
+                        required:
+                        - name
+                        - namespace
+                        type: object
+                      hostList:
+                        type: string
+                      hostname:
+                        default: 127.0.0.1
+                        type: string
+                      idleTimeout:
+                        format: int64
+                        type: integer
+                      namespace:
+                        default: test
+                        type: string
+                      port:
+                        default: "3000"
+                        type: string
+                      set:
+                        type: string
+                      timeout:
+                        format: int64
+                        type: integer
+                    type: object
+                  alicloudoss:
+                    properties:
+                      bucket:
+                        type: string
+                      credentialSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      endpoint:
+                        type: string
+                      maxParallel:
+                        format: int64
+                        type: integer
+                    required:
+                    - bucket
+                    - credentialSecretRef
+                    - endpoint
+                    type: object
                   azure:
                     properties:
                       accountName:
@@ -11882,6 +11951,122 @@ spec:
                     required:
                     - accountName
                     - container
+                    type: object
+                  cassandra:
+                    properties:
+                      connectionTimeout:
+                        type: string
+                      consistency:
+                        type: string
+                      credentialSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      databaseRef:
+                        properties:
+                          name:
+                            type: string
+                          namespace:
+                            type: string
+                          parameters:
+                            type: object
+                            x-kubernetes-embedded-resource: true
+                            x-kubernetes-preserve-unknown-fields: true
+                        required:
+                        - name
+                        - namespace
+                        type: object
+                      hosts:
+                        type: string
+                      initialConnectionTimeout:
+                        type: string
+                      keyspace:
+                        default: vault
+                        type: string
+                      protocolVersion:
+                        type: string
+                      simpleRetryPolicyRetries:
+                        type: string
+                      table:
+                        default: entries
+                        type: string
+                      tlsEnabled:
+                        type: boolean
+                      tlsMinVersion:
+                        type: string
+                      tlsSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      tlsServerName:
+                        type: string
+                      tlsSkipVerify:
+                        type: boolean
+                    type: object
+                  cockroachdb:
+                    properties:
+                      address:
+                        type: string
+                      credentialSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      database:
+                        default: vault
+                        type: string
+                      databaseRef:
+                        properties:
+                          name:
+                            type: string
+                          namespace:
+                            type: string
+                          parameters:
+                            type: object
+                            x-kubernetes-embedded-resource: true
+                            x-kubernetes-preserve-unknown-fields: true
+                        required:
+                        - name
+                        - namespace
+                        type: object
+                      haEnabled:
+                        type: boolean
+                      haTable:
+                        default: openbao_ha_locks
+                        type: string
+                      maxParallel:
+                        format: int64
+                        type: integer
+                      skipCreateTable:
+                        type: boolean
+                      sslMode:
+                        enum:
+                        - disable
+                        - require
+                        - verify-ca
+                        - verify-full
+                        type: string
+                      table:
+                        default: openbao_kv_store
+                        type: string
+                      tlsSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      transactionMaxParallel:
+                        format: int64
+                        type: integer
                     type: object
                   consul:
                     properties:
@@ -11928,6 +12113,38 @@ spec:
                       tlsSkipVerify:
                         type: boolean
                     type: object
+                  couchdb:
+                    properties:
+                      credentialSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      database:
+                        default: vault
+                        type: string
+                      databaseRef:
+                        properties:
+                          name:
+                            type: string
+                          namespace:
+                            type: string
+                          parameters:
+                            type: object
+                            x-kubernetes-embedded-resource: true
+                            x-kubernetes-preserve-unknown-fields: true
+                        required:
+                        - name
+                        - namespace
+                        type: object
+                      endpoint:
+                        type: string
+                      maxParallel:
+                        format: int64
+                        type: integer
+                    type: object
                   dynamodb:
                     properties:
                       credentialSecretRef:
@@ -11966,11 +12183,25 @@ spec:
                             type: string
                         type: object
                         x-kubernetes-map-type: atomic
+                      databaseRef:
+                        properties:
+                          name:
+                            type: string
+                          namespace:
+                            type: string
+                          parameters:
+                            type: object
+                            x-kubernetes-embedded-resource: true
+                            x-kubernetes-preserve-unknown-fields: true
+                        required:
+                        - name
+                        - namespace
+                        type: object
                       discoverySrv:
                         type: string
                       etcdApi:
                         type: string
-                      haEnable:
+                      haEnabled:
                         type: boolean
                       path:
                         type: string
@@ -11983,8 +12214,6 @@ spec:
                             type: string
                         type: object
                         x-kubernetes-map-type: atomic
-                    required:
-                    - address
                     type: object
                   file:
                     properties:
@@ -12219,6 +12448,79 @@ spec:
                     type: object
                   inmem:
                     type: object
+                  mssql:
+                    properties:
+                      appName:
+                        default: openbao
+                        type: string
+                      connectionTimeout:
+                        default: "30"
+                        type: string
+                      credentialSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      database:
+                        default: openbao
+                        type: string
+                      databaseRef:
+                        properties:
+                          name:
+                            type: string
+                          namespace:
+                            type: string
+                          parameters:
+                            type: object
+                            x-kubernetes-embedded-resource: true
+                            x-kubernetes-preserve-unknown-fields: true
+                        required:
+                        - name
+                        - namespace
+                        type: object
+                      encrypt:
+                        enum:
+                        - "true"
+                        - "false"
+                        - strict
+                        - disable
+                        type: string
+                      logLevel:
+                        type: string
+                      maxParallel:
+                        format: int64
+                        type: integer
+                      port:
+                        type: string
+                      schema:
+                        default: dbo
+                        type: string
+                      server:
+                        type: string
+                      table:
+                        default: openbao
+                        type: string
+                      tlsMinVersion:
+                        enum:
+                        - tls10
+                        - tls11
+                        - tls12
+                        - tls13
+                        type: string
+                      tlsSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      tlsServerName:
+                        type: string
+                      trustServerCertificate:
+                        type: boolean
+                    type: object
                   mysql:
                     properties:
                       address:
@@ -12275,6 +12577,31 @@ spec:
                         type: object
                         x-kubernetes-map-type: atomic
                     type: object
+                  oci:
+                    properties:
+                      authTypeAPIKey:
+                        type: boolean
+                      bucketName:
+                        type: string
+                      credentialSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      haEnabled:
+                        type: boolean
+                      lockBucketName:
+                        type: string
+                      namespaceName:
+                        type: string
+                      region:
+                        type: string
+                    required:
+                    - bucketName
+                    - namespaceName
+                    type: object
                   postgresql:
                     properties:
                       address:
@@ -12322,6 +12649,13 @@ spec:
                       table:
                         default: vault_kv_store
                         type: string
+                      tlsSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
                     type: object
                   raft:
                     properties:
@@ -12453,6 +12787,30 @@ spec:
                     required:
                     - bucket
                     type: object
+                  spanner:
+                    properties:
+                      credentialSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      database:
+                        type: string
+                      haEnabled:
+                        type: boolean
+                      haTable:
+                        type: string
+                      maxParallel:
+                        format: int64
+                        type: integer
+                      table:
+                        default: Vault
+                        type: string
+                    required:
+                    - database
+                    type: object
                   swift:
                     properties:
                       authURL:
@@ -12486,6 +12844,53 @@ spec:
                     required:
                     - authURL
                     - container
+                    type: object
+                  zookeeper:
+                    properties:
+                      address:
+                        default: localhost:2181
+                        type: string
+                      authInfoSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      databaseRef:
+                        properties:
+                          name:
+                            type: string
+                          namespace:
+                            type: string
+                          parameters:
+                            type: object
+                            x-kubernetes-embedded-resource: true
+                            x-kubernetes-preserve-unknown-fields: true
+                        required:
+                        - name
+                        - namespace
+                        type: object
+                      path:
+                        default: vault/
+                        type: string
+                      tlsEnabled:
+                        type: boolean
+                      tlsMinVersion:
+                        type: string
+                      tlsSecretRef:
+                        properties:
+                          name:
+                            default: ""
+                            type: string
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      tlsSkipVerify:
+                        type: boolean
+                      tlsVerifyIP:
+                        type: boolean
+                      znodeOwner:
+                        type: string
                     type: object
                 type: object
               configSecret:
