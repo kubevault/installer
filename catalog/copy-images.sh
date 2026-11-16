@@ -54,3 +54,4 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-op
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-unsealer:v0.27.0 $IMAGE_REGISTRY/kubevault/vault-unsealer:v0.27.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/sigilr/openbao:2.6.1-sigilr.1 $IMAGE_REGISTRY/sigilr/openbao:2.6.1-sigilr.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/sigilr/openbao:2.6.1-sigilr.2 $IMAGE_REGISTRY/sigilr/openbao:2.6.1-sigilr.2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/sigilr/openbao:2.6.5-sigilr.1 $IMAGE_REGISTRY/sigilr/openbao:2.6.5-sigilr.1

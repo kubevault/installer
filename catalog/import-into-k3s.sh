@@ -43,3 +43,4 @@ k3s ctr images import images/kubevault-vault-operator-v0.27.0.tar
 k3s ctr images import images/kubevault-vault-unsealer-v0.27.0.tar
 k3s ctr images import images/sigilr-openbao-2.6.1-sigilr.1.tar
 k3s ctr images import images/sigilr-openbao-2.6.1-sigilr.2.tar
+k3s ctr images import images/sigilr-openbao-2.6.5-sigilr.1.tar

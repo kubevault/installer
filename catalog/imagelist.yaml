@@ -17,3 +17,4 @@
 - ghcr.io/kubevault/vault-unsealer:v0.27.0
 - ghcr.io/sigilr/openbao:2.6.1-sigilr.1
 - ghcr.io/sigilr/openbao:2.6.1-sigilr.2
+- ghcr.io/sigilr/openbao:2.6.5-sigilr.1
