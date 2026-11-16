@@ -51,5 +51,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubevault/vault-unsealer:v0.27.0 images/kubevault-vault-unsealer-v0.27.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/sigilr/openbao:2.6.1-sigilr.1 images/sigilr-openbao-2.6.1-sigilr.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/sigilr/openbao:2.6.1-sigilr.2 images/sigilr-openbao-2.6.1-sigilr.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/sigilr/openbao:2.6.5-sigilr.1 images/sigilr-openbao-2.6.5-sigilr.1.tar
 
 tar -czvf images.tar.gz images
