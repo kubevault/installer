@@ -163,3 +163,16 @@ rules:
   resources:
   - manifestworks
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+# Distributed (cross data center) VaultServers: the operator runs Vault as a
+# CattleSet placed by a PlacementPolicy. Everything shipped to member clusters
+# goes through the ManifestWorks above.
+- apiGroups:
+  - apps.k8s.appscode.com
+  resources:
+  - cattlesets
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups:
+  - apps.k8s.appscode.com
+  resources:
+  - placementpolicies
+  verbs: ["get", "list", "watch"]

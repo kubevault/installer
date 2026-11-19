@@ -322,6 +322,7 @@ spec:
     metadata:
       labels:
         {{- include "kubevault-webhook-server.selectorLabels" . | nindent 8 }}
+        kubeslice.io/exclude: "true"
     spec:
       {{- include "appscode.imagePullSecrets" . | nindent 6 }}
       serviceAccountName: {{ include "kubevault-webhook-server.serviceAccountName" . }}

@@ -66,6 +66,12 @@ spec:
         - --max-spoke-namespaces={{ .maxSpokeNamespaces }}
         - --max-namespace-slice-shards={{ .maxNamespaceSliceShards }}
         {{- end }}
+        {{- with .Values.dcDR }}
+        - --dc-dr-marker-namespace={{ .markerNamespace }}
+        {{- if .coordKubeconfigSecret }}
+        - --dc-dr-coord-kubeconfig=/etc/dr/coord/kubeconfig
+        {{- end }}
+        {{- end }}
         {{- if include "appscode.licenseSecretName" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
@@ -89,6 +95,11 @@ spec:
         {{- if include "appscode.licenseSecretName" . }}
         - mountPath: /var/run/secrets/appscode/license
           name: license
+        {{- end }}
+        {{- if .Values.dcDR.coordKubeconfigSecret }}
+        - mountPath: /etc/dr/coord
+          name: dc-dr-coord-kubeconfig
+          readOnly: true
         {{- end }}
       {{- if .Values.apiserver.healthcheck.enabled }}
         readinessProbe:
@@ -114,6 +125,12 @@ spec:
         secret:
           defaultMode: 420
           secretName: {{ include "appscode.licenseSecretName" . }}
+      {{- end }}
+      {{- if .Values.dcDR.coordKubeconfigSecret }}
+      - name: dc-dr-coord-kubeconfig
+        secret:
+          defaultMode: 420
+          secretName: {{ .Values.dcDR.coordKubeconfigSecret }}
       {{- end }}
       {{- if eq "true" ( include "distro.openshift" . ) }}
       securityContext:

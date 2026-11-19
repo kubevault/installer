@@ -61,3 +61,10 @@ rules:
   resources:
   - "*"
   verbs: ["*"]
+# The VaultServer validator checks the PlacementPolicy of a distributed VaultServer.
+# It reads through the manager's cached client, whose informer needs list and watch.
+- apiGroups:
+  - apps.k8s.appscode.com
+  resources:
+  - placementpolicies
+  verbs: ["get", "list", "watch"]
