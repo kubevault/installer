@@ -163,6 +163,16 @@ tenantIsolation:
   # How many NamespaceSlice shards the hub will ever track for one spoke.
   maxNamespaceSliceShards: 32
 
+# Distributed (cross data center) VaultServers.
+dcDR:
+  # Namespace of the dr-controlplane primary-DC Leases on the coordination plane and
+  # of the active-DC marker ConfigMaps its agents project into member clusters.
+  markerNamespace: dc-failover
+  # Name of a Secret, in the operator's namespace, with a kubeconfig (key: kubeconfig)
+  # for the dr-controlplane's API server, provided by the dr-controlplane install.
+  # The operator reads the primary-DC Lease with it. Empty: no Lease reads.
+  coordKubeconfigSecret: ""
+
 distro:
   openshift: false
   ubi: ""

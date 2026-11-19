@@ -95,6 +95,8 @@ type KubevaultOperatorSpec struct {
 	Distro shared.DistroSpec `json:"distro"`
 	// +optional
 	TenantIsolation TenantIsolationConfig `json:"tenantIsolation"`
+	// +optional
+	DCDR DCDRConfig `json:"dcDR"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -123,4 +125,15 @@ type TenantIsolationConfig struct {
 	// MaxNamespaceSliceShards is how many NamespaceSlice shards the hub will ever track
 	// for one spoke.
 	MaxNamespaceSliceShards int `json:"maxNamespaceSliceShards"`
+}
+
+// DCDRConfig configures distributed (cross data center) VaultServers.
+type DCDRConfig struct {
+	// MarkerNamespace is the namespace of the dr-controlplane primary-DC Leases and
+	// of the active-DC marker ConfigMaps.
+	MarkerNamespace string `json:"markerNamespace"`
+	// CoordKubeconfigSecret names a Secret, in the operator's namespace, with a
+	// kubeconfig (key: kubeconfig) for the dr-controlplane's API server.
+	// +optional
+	CoordKubeconfigSecret string `json:"coordKubeconfigSecret"`
 }

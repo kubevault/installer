@@ -1290,6 +1290,24 @@ properties:
     type: string
   criticalAddon:
     type: boolean
+  dcDR:
+    description: DCDRConfig configures distributed (cross data center) VaultServers.
+    properties:
+      coordKubeconfigSecret:
+        description: 'CoordKubeconfigSecret names a Secret, in the operator''s namespace,
+          with a
+
+          kubeconfig (key: kubeconfig) for the dr-controlplane''s API server.'
+        type: string
+      markerNamespace:
+        description: 'MarkerNamespace is the namespace of the dr-controlplane primary-DC
+          Leases and
+
+          of the active-DC marker ConfigMaps.'
+        type: string
+    required:
+    - markerNamespace
+    type: object
   distro:
     properties:
       openshift:
