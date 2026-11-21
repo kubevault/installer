@@ -22,7 +22,7 @@ BIN      := installer
 CRD_OPTIONS          ?= "crd:generateEmbeddedObjectMeta=true,allowDangerousTypes=true"
 # https://github.com/appscodelabs/gengo-builder
 CODE_GENERATOR_IMAGE ?= ghcr.io/appscode/gengo:release-1.34
-API_GROUPS           ?= installer:v1alpha1
+API_GROUPS           ?= installer:v1
 
 # This version-strategy uses git tags to set the version string
 git_branch       := $(shell git rev-parse --abbrev-ref HEAD)
@@ -187,6 +187,9 @@ gen-crds:
 			$(CRD_OPTIONS)                  \
 			paths="./apis/..."              \
 			output:crd:artifacts:config=.crds
+	@mkdir -p bundle/manifests config/crd/bases
+	@awk 'BEGIN{s=0} {if(!s && ($$0=="" || $$0=="---")){next} s=1; print}' .crds/installer.kubevault.com_kubevaults.yaml > bundle/manifests/installer.kubevault.com_kubevaults.yaml
+	@awk 'BEGIN{s=0} {if(!s && ($$0=="" || $$0=="---")){next} s=1; print}' .crds/installer.kubevault.com_kubevaults.yaml > config/crd/bases/installer.kubevault.com_kubevaults.yaml
 
 crds_to_patch := installer.kubevault.com_kubevaultoperators.yaml
 
@@ -319,6 +322,8 @@ update-certified-charts: update-chart-dependencies install-chart-packer
 .PHONY: update-catalog
 update-catalog: update-certified-charts install-image-packer
 	PATH="$(BIN_DIR):$$PATH" ./hack/scripts/update-catalog.sh
+
+include olm.mk
 
 CHART_REGISTRY     ?= appscode
 CHART_REGISTRY_URL ?= https://charts.appscode.com/stable/

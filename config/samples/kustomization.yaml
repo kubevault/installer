@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+- installer_v1_kubevault.yaml
+# +kubebuilder:scaffold:manifestskustomizesamples

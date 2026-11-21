@@ -14,12 +14,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package v1alpha1 is the v1alpha1 version of the API.
+package v1_test
 
-// +k8s:deepcopy-gen=package,register
-// +k8s:conversion-gen=kubevault.dev/installer/apis/installer
-// +k8s:openapi-gen=true
-// +k8s:defaulter-gen=TypeMeta
+import (
+	"os"
+	"testing"
 
-// +groupName=installer.kubevault.com
-package v1alpha1
+	v1 "kubevault.dev/installer/apis/installer/v1"
+
+	schemachecker "kmodules.xyz/schema-checker"
+)
+
+func TestDefaultValues(t *testing.T) {
+	checker := schemachecker.New(
+		os.DirFS("../../.."),
+		schemachecker.TestCase{Obj: v1.KubevaultCatalogSpec{}},
+		schemachecker.TestCase{Obj: v1.KubevaultOperatorSpec{}},
+		schemachecker.TestCase{Obj: v1.KubevaultWebhookServerSpec{}},
+		schemachecker.TestCase{Obj: v1.KubevaultSpec{}},
+	)
+	checker.TestAll(t)
+}

@@ -1,0 +1,19 @@
+apiVersion: installer.kubevault.com/v1
+kind: Kubevault
+metadata:
+  name: kubevault-sample
+spec:
+  global:
+    registry: ""
+    registryFQDN: ""
+    imagePullSecrets: []
+  kubevault-crds:
+    enabled: true
+  kubevault-crd-manager:
+    enabled: true
+  kubevault-catalog:
+    enabled: true
+  kubevault-operator:
+    enabled: true
+  kubevault-webhook-server:
+    enabled: true

@@ -1,0 +1,12 @@
+# Use the 'create api' subcommand to add watches to this file.
+- group: installer.kubevault.com
+  version: v1
+  kind: Kubevault
+  chart: helm-charts/kubevault
+  watchDependentResources: false
+  dryRunOption: server
+  overrideValues:
+    global.distro.openshift: true
+    global.distro.ubi: all
+    kubevault-webhook-server.apiserver.servingCerts.certManager.enabled: true
+# +kubebuilder:scaffold:watch

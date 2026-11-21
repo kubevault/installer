@@ -1,0 +1,10 @@
+**
+!LICENSE.md
+!watches.yaml
+!charts/
+charts/*
+!charts/kubevault/
+!charts/kubevault/**
+!bundle/
+!bundle/**
+**/.DS_Store
