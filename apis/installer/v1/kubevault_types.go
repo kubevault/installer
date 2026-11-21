@@ -14,11 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha1
+package v1
 
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 	"kmodules.xyz/resource-metadata/apis/shared"
 	kubeopsinstaller "kubeops.dev/installer/apis/installer/v1alpha1"
 )
@@ -35,10 +36,14 @@ const (
 
 // +kubebuilder:object:root=true
 // +kubebuilder:resource:path=kubevaults,singular=kubevault,categories={kubevault,appscode}
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 type Kubevault struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              KubevaultSpec `json:"spec,omitempty"`
+	// Status is populated by the OLM helm-operator with the Helm release conditions.
+	Status *runtime.RawExtension `json:"status,omitempty"`
 }
 
 // KubevaultSpec is the schema for kubevault chart values file
